@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,15 +13,26 @@ import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ScrollPaneLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.TextField;
+import java.awt.Label;
 
 public class AppWbMainWindow extends JFrame {
 
 	private JPanel contentPane;
+	
+	/* Game Settings */
+	String gameMapLocation = null;
+	Integer gameNumPlayers = null;
 
+	GenFun objGenFun = new GenFun();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -41,7 +53,7 @@ public class AppWbMainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public AppWbMainWindow() {
-		
+		setSize(getMaximumSize());
 		initWindow();
 	}
 	
@@ -51,47 +63,83 @@ public class AppWbMainWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 567, 489);
 		
+		initMenu();
+		initContentPane();
+		/* Content Pane */
+	}
+	
+	private void initContentPane() {
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+	}
+	
+	private void initMenu() {
 		/* Menu */
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		/* Content Pane */
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
 		
-		/* Scroll Pane */
-		ImageIcon bmpMapImage = new ImageIcon("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.jpg");
-		JLabel lblMapImage = new JLabel("", bmpMapImage, JLabel.CENTER);
-		lblMapImage.addMouseListener(new MouseAdapter() {
+		JMenuItem mnFileNewGame = new JMenuItem("New Game");
+		mnFileNewGame.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
+			public void mouseClicked(MouseEvent e) {
+				newGameConfig();
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				newGameConfig();
 			}
 		});
-		JScrollPane scrollPane = new JScrollPane(lblMapImage);
+		mnFile.add(mnFileNewGame);
+	}
+	private void newGameConfig() {
 		
-		/* Tabbed Pane */
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-					.addGap(148))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+		/* Map Path */
+		JLabel lblMapPath = new JLabel("Path to user created map: ");
+		lblMapPath.setBounds(10, 10, 200, 20);
 		
-		contentPane.setLayout(gl_contentPane);
+		JTextField txtMapPath = new JTextField();
+		txtMapPath.setBounds(220, 10, 200, 20);
+		
+		/* Number of Players */
+		JLabel lblNumPlayers = new JLabel("Number of Human Players: ");
+		lblNumPlayers.setBounds(10, 40, 200, 20);
+		
+		JTextField txtNumPlayers = new JTextField();
+		txtNumPlayers.setBounds(220, 40, 200, 20);
+		
+		/* Submit Button */
+		JButton btnSubmitNewGame = new JButton("Start Game");
+		btnSubmitNewGame.setBounds(150, 90, 100, 30);
+		btnSubmitNewGame.addMouseListener(new MouseAdapter() {
+	        @Override
+	        public void mousePressed(MouseEvent e) {
+	    	    gameMapLocation = new String(txtMapPath.getText());
+	    	    gameNumPlayers = new Integer(objGenFun.genStrToInt(txtNumPlayers.getText()));
+	    	    // vj TBD validation
+
+				contentPane.remove(txtMapPath);
+				contentPane.remove(lblMapPath);
+				contentPane.remove(lblNumPlayers);
+				contentPane.remove(txtNumPlayers);
+				contentPane.remove(btnSubmitNewGame);
+				contentPane.repaint();
+				mainStartGame();
+	      }
+	    });
+		
+		contentPane.add(txtMapPath);
+		contentPane.add(lblMapPath);
+		contentPane.add(lblNumPlayers);
+		contentPane.add(txtNumPlayers);
+		contentPane.add(btnSubmitNewGame);
+		contentPane.repaint();
+	}
+	private void mainStartGame() {
 		
 	}
 }
