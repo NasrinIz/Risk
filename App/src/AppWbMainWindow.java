@@ -42,6 +42,7 @@ public class AppWbMainWindow extends JFrame {
 	String tmpLoctwo = new String("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.jpg");
 	Maps objMap = new Maps(tmpLoc);
 	Vector<JButton> btnTerritories= new Vector<JButton>(2, 2);
+	JScrollPane mapImagePane = null;
 	
 	GenFun objGenFun = new GenFun();
 	
@@ -186,9 +187,9 @@ public class AppWbMainWindow extends JFrame {
 			 x = (objMap.dictTerritory).get(territoryName).X;
 			 y = (objMap.dictTerritory).get(territoryName).Y;
 			 JButton btnTemp = new JButton("1");
-			 btnTemp.setBounds(x-5, y-5, 10, 10);
-			 contentPane.add(btnTemp);
-			 contentPane.setComponentZOrder(btnTemp, 0);
+			 btnTemp.setBounds(x-4, y-4, 10, 10);
+			 mapImagePane.add(btnTemp);
+			 mapImagePane.setComponentZOrder(btnTemp, 0);
 			 btnTerritories.add(btnTemp);
 		}
 		
@@ -205,9 +206,9 @@ public class AppWbMainWindow extends JFrame {
 			mapLabel.setIcon(mapImage);
 			mapLabel.setBounds(0, 0, mapImage.getIconWidth(), mapImage.getIconHeight());
 			//JScrollPane mapImagePane = new JScrollPane(new JLabel(mapImage));
-			JScrollPane mapImagePane = new JScrollPane(mapLabel);
+			mapImagePane = new JScrollPane(mapLabel);
 			mapImagePane.setBounds(0, 0, getWidth() - 500, getHeight() - 300);
-			//contentPane.setComponentZOrder(mapImagePane, 0);
+			//mapImagePane.setComponentZOrder(mapLabel, 1);
 			//mapImagePane.setBounds(100, 100, 800, 700);
 			contentPane.add(mapImagePane);
 			contentPane.repaint();
