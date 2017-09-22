@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 
 import javax.swing.ImageIcon;
@@ -37,6 +38,7 @@ public class AppWbMainWindow extends JFrame {
 	
 	Integer gameMapStartX = new Integer(0);
 	Integer gameMapStartY = new Integer(0);
+	ImageIcon mapImage = null;
 
 	String tmpLoc = new String("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.map");
 	String tmpLoctwo = new String("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.jpg");
@@ -179,7 +181,6 @@ public class AppWbMainWindow extends JFrame {
 	}
 	
 	private void loadArmies() {
-		Integer i = new Integer(0);
 		Integer x = new Integer(0);
 		Integer y = new Integer(0);
 		
@@ -198,7 +199,7 @@ public class AppWbMainWindow extends JFrame {
 	private void loadMapImage() {
 		try {
 			//Image mapImage = ImageIO.read(new FileInputStream(tmpLoctwo));
-			ImageIcon mapImage = new ImageIcon(tmpLoctwo);
+			mapImage = new ImageIcon(tmpLoctwo);
 			
 			JLabel mapLabel = new JLabel();
 			mapLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -208,6 +209,7 @@ public class AppWbMainWindow extends JFrame {
 			//JScrollPane mapImagePane = new JScrollPane(new JLabel(mapImage));
 			mapImagePane = new JScrollPane(mapLabel);
 			mapImagePane.setBounds(0, 0, getWidth() - 500, getHeight() - 300);
+			checkForImageSize(mapImage);
 			//mapImagePane.setComponentZOrder(mapLabel, 1);
 			//mapImagePane.setBounds(100, 100, 800, 700);
 			contentPane.add(mapImagePane);
@@ -219,6 +221,14 @@ public class AppWbMainWindow extends JFrame {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-
+	}
+	
+	private void checkForImageSize(ImageIcon inMapImage) {
+		if(((inMapImage.getIconWidth() * 2) < mapImagePane.getWidth()) ||
+				((inMapImage.getIconHeight() * 2) < mapImagePane.getHeight())){
+			Image imgTemp = inMapImage.getImage();
+			imgTemp = imgTemp.getScaledInstance(inMapImage.getIconWidth() * 2, inMapImage.getIconHeight() * 2, java.awt.Image.SCALE_SMOOTH);
+			mapImage = new ImageIcon(imgTemp);
+		}
 	}
 }
