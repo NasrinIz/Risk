@@ -34,7 +34,7 @@ public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
 	
-	/* Game Settings */
+	/*   Game Settings   */
 	String gameMapLocation = null;
 	Integer gameNumPlayers = null;
 	
