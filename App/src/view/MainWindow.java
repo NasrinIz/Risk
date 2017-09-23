@@ -51,7 +51,7 @@ public class MainWindow extends JFrame {
 	ImageIcon mapImage = null;
 
 
-	String tmpLoc = new String("World.map");
+	String tmpLoc = new String("Resources//Maps//World.map");
 	String tmpLoctwo = new String("Resources//Maps//World.bmp");
 	Maps objMap = new Maps(tmpLoc);
 	Vector<JButton> btnTerritories= new Vector<JButton>(2, 2);
