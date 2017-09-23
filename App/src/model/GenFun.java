@@ -1,8 +1,13 @@
 package model;
-import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Vector;
+
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
 import java.io.*;
+
+import Resources.Maps.*;
 
 public class GenFun {
 	public Integer genStrToInt(String inVal) {

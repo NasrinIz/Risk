@@ -1,4 +1,5 @@
 package view;
+import Resources.Maps.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -7,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +25,9 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Map;
 import java.util.Vector;
 
@@ -47,7 +52,7 @@ public class MainWindow extends JFrame {
 
 
 	String tmpLoc = new String("World.map");
-	String tmpLoctwo = new String("World.map");
+	String tmpLoctwo = new String("Resources//Maps//World.bmp");
 	Maps objMap = new Maps(tmpLoc);
 	Vector<JButton> btnTerritories= new Vector<JButton>(2, 2);
 	JScrollPane mapImagePane = null;
@@ -88,21 +93,6 @@ public class MainWindow extends JFrame {
 		initMenu();
 		initContentPane();
 		/* Content Pane */
-		
-		/*
-		String tmpLoctwo = new String("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.jpg");
-		ImageIcon mapImage = new ImageIcon(tmpLoctwo);
-		JLabel mapLabel = new JLabel();
-		mapLabel.setVerticalAlignment(SwingConstants.TOP);
-		mapLabel.setIcon(new ImageIcon("D:\\APP_Project\\conquest maps\\Battlestar Galactica\\Battlestar Galactica.jpg"));
-		mapLabel.setBounds(0, 0, mapImage.getIconWidth(), mapImage.getIconHeight());
-		//JScrollPane mapImagePane = new JScrollPane(new JLabel(mapImage));
-		JScrollPane mapImagePane = new JScrollPane(mapLabel);
-		mapImagePane.setBounds(0, 0, getWidth() - 200, getHeight() - 100);
-		//mapImagePane.setBounds(100, 100, 800, 700);
-		contentPane.add(mapImagePane);
-		contentPane.repaint();
-		*/
 	}
 	
 	private void initContentPane() {
@@ -202,10 +192,33 @@ public class MainWindow extends JFrame {
 		
 	}
 	
+	private BufferedImage convertBmpToJpg(String inMapName) {
+		FileInputStream inStream = null;
+		BufferedImage mapJpg = null;
+		try {
+			ClassLoader classLoader = this.getClass().getClassLoader();
+		    //File tmpFile=new File(classLoader.getResource(inMapName).getFile());
+			File tmpFile=new File(inMapName);
+		    inStream = new FileInputStream(tmpFile);
+		    mapJpg = ImageIO.read(inStream);
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return mapJpg;
+	}
+	
 	private void loadMapImage() {
 		try {
 			//Image mapImage = ImageIO.read(new FileInputStream(tmpLoctwo));
-			mapImage = new ImageIcon(tmpLoctwo);
+			//File mapBmp = new File(tmpLoctwo);
+			BufferedImage tmpImageJpg = convertBmpToJpg(tmpLoctwo);
+			if(tmpImageJpg == null) {
+				// vj TBD error
+				return;
+			}
+			mapImage = new ImageIcon(tmpImageJpg);
 			
 			JLabel mapLabel = new JLabel();
 			mapLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -214,7 +227,7 @@ public class MainWindow extends JFrame {
 			mapLabel.setBounds(0, 0, mapImage.getIconWidth(), mapImage.getIconHeight());
 			//JScrollPane mapImagePane = new JScrollPane(new JLabel(mapImage));
 			mapImagePane = new JScrollPane(mapLabel);
-			mapImagePane.setBounds(0, 0, getWidth() - 500, getHeight() - 300);
+			mapImagePane.setBounds(0, 0, 1024, 768);
 			checkForImageSize(mapImage);
 			//mapImagePane.setComponentZOrder(mapLabel, 1);
 			//mapImagePane.setBounds(100, 100, 800, 700);
