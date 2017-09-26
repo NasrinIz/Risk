@@ -278,16 +278,14 @@ public class MainWindow extends JFrame {
 
 			JLabel mapLabel = new JLabel();
 			mapLabel.setVerticalAlignment(SwingConstants.TOP);
-			// mapLabel.setIcon(new ImageIcon("D:\\APP_Project\\conquest
-			// maps\\Battlestar Galactica\\Battlestar Galactica.jpg"));
+			
 			mapLabel.setIcon(mapImage);
 			mapLabel.setBounds(0, 0, mapImage.getIconWidth(), mapImage.getIconHeight());
-			// JScrollPane mapImagePane = new JScrollPane(new JLabel(mapImage));
+			
 			mapImagePane = new JScrollPane(mapLabel);
 			mapImagePane.setBounds(0, 0, 1024, 768);
 			checkForImageSize(mapImage);
-			// mapImagePane.setComponentZOrder(mapLabel, 1);
-			// mapImagePane.setBounds(100, 100, 800, 700);
+			
 			contentPane.add(mapImagePane);
 			contentPane.repaint();
 			mapImagePane.repaint();
