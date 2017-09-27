@@ -4,14 +4,14 @@ import java.util.Vector;
 
 public class Territory {
 	/***************************/
-	Integer TERRITORYINITSIZE = 2;
-	Integer TERRITORYCAPACITYINCREMENT = 2;
+	private Integer TERRITORYINITSIZE = 2;
+	private Integer TERRITORYCAPACITYINCREMENT = 2;
 	/***************************/
-	String Name = "";
+	public String Name = "";
 	public Integer X = 0;
 	public Integer Y = 0;
-	String Continent = "";
-	Vector<String> adjacentCountries = new Vector<String>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
+	private String Continent = "";
+	private Vector<String> adjacentCountries = new Vector<String>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
 	
 	GenFun genFunObj = new GenFun();
 	

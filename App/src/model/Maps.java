@@ -6,35 +6,35 @@ import java.util.*;
 
 public class Maps {
 	/*************************/
-	Integer MAPINITSIZE = 2;
-	Integer MAPCAPACITYINCREMENT = 2;
+	private Integer MAPINITSIZE = 2;
+	private Integer MAPCAPACITYINCREMENT = 2;
 	
-	Integer TERRITORYINITSIZE = 2;
-	Integer TERRITORYCAPACITYINCREMENT = 2;
+	private Integer TERRITORYINITSIZE = 2;
+	private Integer TERRITORYCAPACITYINCREMENT = 2;
 	/*************************/
 	
-	String mapLocation = "";
+	private String mapLocation = "";
 
 	/* Basic Map Properties */
-	String mapImage = "";			// with extension
-	String mapWrap = "";			// yes or no
-	String mapScroll = "";			// horizontal, vertical, none
-	String mapAuthor = "";				// first and last name
-	String mapWarning = "";			// yes or no
+	private String mapImage = "";			// with extension
+	private String mapWrap = "";			// yes or no
+	private String mapScroll = "";			// horizontal, vertical, none
+	private String mapAuthor = "";				// first and last name
+	private String mapWarning = "";			// yes or no
 	
 	/* Map Continents and Army Bonuses for each */
 	Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAPINITSIZE, MAPCAPACITYINCREMENT);
 	
-	/* Map Territories */
-	//Vector<Territory> territories = new Vector<Territory>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
 	public Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
 	
 	GenFun genFunObj = new GenFun();
+	
 	public Maps(String inMapLocation) {
 		mapLocation = inMapLocation;
 		readMap();
 	}
-	Integer checkPropertyMap(String inVal) {
+	
+	private Integer checkPropertyMap(String inVal) {
 		Integer rtVal = 0;		// 0 = Success, -1 = Fail
 
 		if(inVal.contains("author=")) {
@@ -61,7 +61,7 @@ public class Maps {
 		return rtVal;
 	}
 	
-	void readMap() {
+	public void readMap() {
 		 BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapLocation);
 		 String line;
 		 String[] tmpArr;
