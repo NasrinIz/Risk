@@ -131,7 +131,7 @@ public class MainWindow extends JFrame {
 		JRadioButton radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 40, 200, 30);
 
-		JRadioButton radioSelectMap = new JRadioButton("Select map");
+		JRadioButton radioSelectMap = new JRadioButton("Click to select a map");
 		radioSelectMap.setBounds(220, 40, 200, 30);
 
 		JLabel lblMapPath = new JLabel("Path to user created map: ");
