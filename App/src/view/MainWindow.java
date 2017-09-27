@@ -58,22 +58,6 @@ public class MainWindow extends JFrame {
 
 	GenFun objGenFun = new GenFun();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public MainWindow() {
 		setSize(getMaximumSize());
 		initWindow();
@@ -131,7 +115,7 @@ public class MainWindow extends JFrame {
 		JRadioButton radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 40, 200, 30);
 
-		JRadioButton radioSelectMap = new JRadioButton("Click to select a map");
+		JRadioButton radioSelectMap = new JRadioButton("Select map");
 		radioSelectMap.setBounds(220, 40, 200, 30);
 
 		JLabel lblMapPath = new JLabel("Path to user created map: ");
