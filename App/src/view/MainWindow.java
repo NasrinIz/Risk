@@ -1,7 +1,5 @@
 package view;
 
-//import java.awt.BorderLayout;
-//import java.awt.Color;
 import java.awt.EventQueue;
 //import java.awt.Graphics;
 //import java.awt.Graphics2D;
@@ -42,29 +40,21 @@ import javax.swing.SwingConstants;
 
 public class MainWindow extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
+	private String gameMapLocation = null;
+	private Integer gameNumPlayers = null;
 
-	/* Game Settings */
-	String gameMapLocation = null;
-	Integer gameNumPlayers = null;
+	private Integer gameMapStartX = new Integer(0);
+	private Integer gameMapStartY = new Integer(0);
+	private ImageIcon mapImage = null;
 
-	// private BufferedImage graphicsContext;
-	// private RenderingHints antialiasing;
-
-	Integer gameMapStartX = new Integer(0);
-	Integer gameMapStartY = new Integer(0);
-	ImageIcon mapImage = null;
-
-	String mapImgLoc = new String("Resources//Maps//World.map");
-	String maptxtLoc = new String("Resources//Maps//World.bmp");
-	Maps objMap = new Maps(mapImgLoc);
-	Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
-	JScrollPane mapImagePane = null;
+	public String mapImgLoc = "";
+	public String maptxtLoc = "";
+	public Maps objMap = null;
+	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
+	private JScrollPane mapImagePane = null;
 
 	GenFun objGenFun = new GenFun();
 
@@ -84,15 +74,11 @@ public class MainWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public MainWindow() {
 		setSize(getMaximumSize());
 		initWindow();
 	}
 
-	/* */
 	private void initWindow() {
 		setTitle("Risk");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -176,23 +162,28 @@ public class MainWindow extends JFrame {
 		radioSelectMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(e);
 				radioLoadMap.setSelected(false);
 				contentPane.add(lblMapSelect);
 				contentPane.add(mapList);
 				contentPane.remove(lblMapPath);
 				contentPane.remove(txtMapPath);
 				contentPane.repaint();
-				if (e.getSource() == mapList) {
-					System.out.println(e.getSource());
-				}
+
+				mapList.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String selectedMap = String.valueOf(mapList.getSelectedItem());
+						mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
+						maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
+						objMap = new Maps(mapImgLoc);
+					}
+				});
+
 			}
 		});
 
 		radioLoadMap.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(e);
 				radioSelectMap.setSelected(false);
 				contentPane.add(lblMapPath);
 				contentPane.add(txtMapPath);
@@ -278,14 +269,14 @@ public class MainWindow extends JFrame {
 
 			JLabel mapLabel = new JLabel();
 			mapLabel.setVerticalAlignment(SwingConstants.TOP);
-			
+
 			mapLabel.setIcon(mapImage);
 			mapLabel.setBounds(0, 0, mapImage.getIconWidth(), mapImage.getIconHeight());
-			
+
 			mapImagePane = new JScrollPane(mapLabel);
 			mapImagePane.setBounds(0, 0, 1024, 768);
 			checkForImageSize(mapImage);
-			
+
 			contentPane.add(mapImagePane);
 			contentPane.repaint();
 			mapImagePane.repaint();
