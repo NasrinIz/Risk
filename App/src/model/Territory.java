@@ -2,6 +2,8 @@ package model;
 
 import java.util.Vector;
 
+import javax.swing.JButton;
+
 public class Territory {
 	/***************************/
 	private Integer TERRITORYINITSIZE = 2;
@@ -12,6 +14,7 @@ public class Territory {
 	public Integer Y = 0;
 	private String Continent = "";
 	private Vector<String> adjacentCountries = new Vector<String>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
+	public Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 	
 	GenFun genFunObj = new GenFun();
 	

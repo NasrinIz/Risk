@@ -53,7 +53,7 @@ public class MainWindow extends JFrame {
 	public String mapImgLoc = "";
 	public String maptxtLoc = "";
 	public Maps objMap = null;
-	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
+	
 	private JScrollPane mapImagePane = null;
 
 	GenFun objGenFun = new GenFun();
@@ -219,7 +219,7 @@ public class MainWindow extends JFrame {
 			btnTemp.setBounds(x - 4, y - 4, 10, 10);
 			mapImagePane.add(btnTemp);
 			mapImagePane.setComponentZOrder(btnTemp, 0);
-			btnTerritories.add(btnTemp);
+			(objMap.dictTerritory).get(territoryName).btnTerritories.add(btnTemp);
 		}
 
 	}
