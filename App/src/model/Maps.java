@@ -133,7 +133,7 @@ public class Maps {
 						 continue;
 					 }
 					 Territory obj = new Territory(line);
-					 dictTerritory.put(obj.Name, obj);
+					 dictTerritory.put(obj.getName(), obj);
 				 }				
 			 }
 			 
