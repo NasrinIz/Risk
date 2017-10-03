@@ -5,26 +5,25 @@ import java.util.Vector;
 public class Continent {
 
 	private String name;
-	private Vector<Integer> territories;
-	private int value;
-	Territory territory;
+	private Territory territories[];
+	private int armyReward;
 
-	Continent(String name, Vector<Integer> territories, int value) {
-		this.name = name;
-		this.value = value;
-		this.territories = territories;
+	Continent(String inName, Territory inTerritories[], int inArmyReward) {
+		this.name = inName;
+		this.armyReward = inArmyReward;
+		this.territories = inTerritories;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public Vector<Integer> getTerritories() {
+	public Territory[] getTerritories() {
 		return territories;
 	}
 
-	public int getValue() {
-		return value;
+	public int getArmyReward() {
+		return armyReward;
 	}
 
 	public boolean isContinentCaptured(Player p) {

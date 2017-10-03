@@ -2,9 +2,10 @@ package model;
 
 public class MapEditor {
 	Maps mapObj = null;
+	Integer editChoice = null;
 	
 	public MapEditor(String inMapLocation) {
-		createMap(inMapLocation)
+	
 	}
 	
 	private void createMap(String inMapLocation)

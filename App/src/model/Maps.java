@@ -16,22 +16,32 @@ public class Maps {
 	private String mapLocation = "";
 	private String mapName = "";
 	/* Basic Map Properties */
+	/* Remove */
 	private String mapImage = "";			// with extension
 	private String mapWrap = "";			// yes or no
 	private String mapScroll = "";			// horizontal, vertical, none
-	private String mapAuthor = "";				// first and last name
-	private String mapWarning = "";			// yes or no
+	/* */
+	
+	private String mapAuthor = null;				// first and last name
+	private String mapWarning = null;			// yes or no
 	
 	/* Map Continents and Army Bonuses for each */
-	Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAPINITSIZE, MAPCAPACITYINCREMENT);
-	
+	// Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAPINITSIZE, MAPCAPACITYINCREMENT);
+	Map<String, Continent> dictContinents = new HashMap<String, Continent>(MAPINITSIZE, MAPCAPACITYINCREMENT);
 	public Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
 	
 	GenFun genFunObj = new GenFun();
 	
 	public Maps(String inMapLocation) {
 		mapLocation = inMapLocation;
-		readMap();
+		if(readMap() != 0)
+		{
+			// TBD error
+		}
+		if(validateMap() != 0)
+		{
+			// TBD error
+		}
 	}
 	
 	public void setMapName(String inMapName)
@@ -81,7 +91,7 @@ public class Maps {
 		return rtVal;
 	}
 	
-	public void readMap() {
+	private Integer readMap() {
 		 BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapLocation);
 		 String line;
 		 String[] tmpArr;
@@ -145,7 +155,8 @@ public class Maps {
 					 if(tmpArr.length < 2) {
 						 continue;
 					 }
-					 dictContinents.put(tmpArr[0], genFunObj.genStrToInt(tmpArr[1]));
+					 Continent tmpContinentObj = new Continent(tmpArr[0], null, genFunObj.genStrToInt(tmpArr[1]));
+					 dictContinents.put(tmpArr[0], tmpContinentObj);
 				 }
 				 
 				 if(territoriesProperty == 1) {
@@ -153,7 +164,7 @@ public class Maps {
 						 continue;
 					 }
 					 Territory obj = new Territory(line);
-					 dictTerritory.put(obj.Name, obj);
+					 dictTerritory.put(obj.name, obj);
 				 }				
 			 }
 			 
@@ -164,12 +175,41 @@ public class Maps {
 				 continentsProperty = 2;
 			 }
 			 
-			 if((mapProperty != 2) || (continentsProperty != 2) || (territoriesProperty != 2)) {
-				 System.out.println("Please check map");
+			 if(mapProperty != 2)
+			 {
+				 System.out.println("Map is missing [MAP] section");
+				 return -1;
+			 }
+			 if(continentsProperty != 2)
+			 {
+				 System.out.println("Map is missing [Continents] section");
+				 return -1;
+			 }
+			 if(territoriesProperty != 2)
+			 {
+				 System.out.println("Map is missing [Territories] section");
+				 return -1;
 			 }
 		 }
 		 catch (IOException e) {
 			 e.printStackTrace();
 		 }
+		 
+		 return 0;
+	}
+	
+	private Integer validateMap()
+	{
+		if((mapAuthor == null) && (mapWarning == null))
+		{
+			return -1;
+		}
+		
+		for (String territory : this.dictTerritory.keySet())
+		{
+
+		}
+		
+		return 0;
 	}
 }
