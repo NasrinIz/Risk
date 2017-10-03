@@ -14,7 +14,7 @@ public class Maps {
 	/*************************/
 	
 	private String mapLocation = "";
-
+	private String mapName = "";
 	/* Basic Map Properties */
 	private String mapImage = "";			// with extension
 	private String mapWrap = "";			// yes or no
@@ -32,6 +32,26 @@ public class Maps {
 	public Maps(String inMapLocation) {
 		mapLocation = inMapLocation;
 		readMap();
+	}
+	
+	public void setMapName(String inMapName)
+	{
+		mapName = inMapName;
+	}
+	
+	public String getMapName()
+	{
+		return mapName;
+	}
+	
+	public Integer getNumContinents()
+	{
+		return dictContinents.size();
+	}
+	
+	public Integer getNumTerritories()
+	{
+		return dictTerritory.size();
 	}
 	
 	private Integer checkPropertyMap(String inVal) {
