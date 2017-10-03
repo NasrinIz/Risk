@@ -190,6 +190,7 @@ public class MainWindow extends JFrame {
 				mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
 				maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
 				objMap = gameConfigObj.createMap(mapImgLoc);
+				objMap.setMapName(selectedMap);
 				
 				try
 				{
