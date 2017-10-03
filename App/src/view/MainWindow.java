@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import model.GameConfig;
 import model.GenFun;
 import model.Maps;
+import model.Territory;
 
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
@@ -54,7 +55,7 @@ public class MainWindow extends JFrame {
 	public String mapImgLoc = "";
 	public String maptxtLoc = "";
 	public Maps objMap = null;
-	
+
 	private JScrollPane mapImagePane = null;
 
 	GenFun objGenFun = new GenFun();
@@ -224,21 +225,31 @@ public class MainWindow extends JFrame {
 
 	private void loadObjects() {
 		loadMapImage();
-		loadArmies();
+		addButtonOnArmies();
 	}
 
-	private void loadArmies() {
+	private void addButtonOnArmies() {
 		Integer x = new Integer(0);
 		Integer y = new Integer(0);
 
 		for (String territoryName : objMap.dictTerritory.keySet()) {
-			x = (objMap.dictTerritory).get(territoryName).X;
-			y = (objMap.dictTerritory).get(territoryName).Y;
+			
+			x = (objMap.dictTerritory).get(territoryName).getX();
+			y = (objMap.dictTerritory).get(territoryName).getY();
 			JButton btnTemp = new JButton("1");
 			btnTemp.setBounds(x - 4, y - 4, 10, 10);
 			mapImagePane.add(btnTemp);
 			mapImagePane.setComponentZOrder(btnTemp, 0);
-			(objMap.dictTerritory).get(territoryName).btnTerritories.add(btnTemp);
+			(objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
+
+			btnTemp.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent e) {
+					String continent =  (objMap.dictTerritory).get(territoryName).getContinent();
+					Vector<String> adjacentCountries =  (objMap.dictTerritory).get(territoryName).getAdjacentCountries();
+					showCountryInfoPanel(territoryName, continent, adjacentCountries);	
+				}
+			});
 		}
 
 	}
@@ -298,5 +309,33 @@ public class MainWindow extends JFrame {
 					java.awt.Image.SCALE_SMOOTH);
 			mapImage = new ImageIcon(imgTemp);
 		}
+	}
+	
+	private void showCountryInfoPanel(String name, String continent, Vector<String> adjacentCountries){
+		System.out.println(name);
+		System.out.println(continent);
+		System.out.println(adjacentCountries);
+		
+		    
+		JPanel territoryInfoPanel = new JPanel();
+		territoryInfoPanel.setBounds(1024, 0, 800, 800);
+		
+		JLabel nameLabel = new JLabel("Country Name: " + name);
+		nameLabel.setBounds(1024, 0, 800, 800);
+		
+		JLabel continentLable = new JLabel("Continent Name: " + continent);
+		continentLable.setBounds(1024, 100, 800, 800);
+		
+		
+		JLabel adjacentCountriesLable = new JLabel("Adjacent Countries: " + adjacentCountries);
+		adjacentCountriesLable.setBounds(1024, 200, 800, 800);
+		
+		territoryInfoPanel.setVisible(true);
+		territoryInfoPanel.add(nameLabel);
+		territoryInfoPanel.add(continentLable);
+		contentPane.add(nameLabel);
+		contentPane.add(continentLable);
+		contentPane.add(adjacentCountriesLable);
+		contentPane.repaint();
 	}
 }

@@ -34,3 +34,4 @@ public class MapEditor {
 		System.out.printf("2) Add a continent");
 	}
 }
+

@@ -164,7 +164,7 @@ public class Maps {
 						 continue;
 					 }
 					 Territory obj = new Territory(line);
-					 dictTerritory.put(obj.name, obj);
+					 dictTerritory.put(obj.getName(), obj);
 				 }				
 			 }
 			 
