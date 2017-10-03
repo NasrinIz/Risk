@@ -5,40 +5,36 @@ import java.util.Vector;
 public class Player {
 
 	private String name;
-	private Vector<Territory> territories;
+	private Territory territories[];
 	private int armies;
+	private Integer numTerritories = new Integer(0);
 
 	Player(String name) {
 		this.name = name;
-		this.setTerritories(new Vector<Territory>());
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public Vector<Territory> getTerritories() {
+	public Territory[] getTerritories() {
 		return territories;
 	}
 
-	public void setTerritories(Vector<Territory> territories) {
+	public void setTerritories(Territory territories[]) {
 		this.territories = territories;
 	}
 	
-	public int getArmies() {
-		return armies;
-	}
-
 	public int numOfTerritories() {
-		return territories.size();
+		return numTerritories;
 	}
 
-	public void occupyTerritory(Territory territory) {
-		territories.add(territory);
+	public void occupyTerritory() {
+		numTerritories++;
 	}
 
 	public void loseTerritory(Territory territory) {
-		territories.remove(territory);
+		//
 	}
 
 	public void addArmy(int a) {
@@ -47,6 +43,14 @@ public class Player {
 
 	public void loseArmy(int a) {
 		armies -= a;
+	}
+	
+	public void setArmies(int inArmies) {
+		armies = inArmies;
+	}
+	
+	public int getArmies() {
+		return armies;
 	}
 
 }

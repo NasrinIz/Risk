@@ -15,6 +15,7 @@ public class Territory {
 	private String Continent = "";
 	private Vector<String> adjacentCountries = new Vector<String>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
 	public Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
+	private Integer ownerPlayerId = null;
 	
 	GenFun genFunObj = new GenFun();
 	
@@ -31,5 +32,15 @@ public class Territory {
 		Continent = inContinent;
 		adjacentCountries = genFunObj.genCommaSepStrToVector(inAdjacent);
 		return;
+	}
+	
+	public void setOwner(Integer inId)
+	{
+		ownerPlayerId = inId;
+	}
+	
+	public Integer getOwner()
+	{
+		return ownerPlayerId;
 	}
 }

@@ -1,5 +1,6 @@
 package model;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -55,5 +56,11 @@ public class GenFun {
 		}
 		
 		return rtTmp;
+	}
+	
+	public Integer genRandomNumber(Integer min, Integer max)
+	{
+		Random rand = new Random();
+		return (rand.nextInt((max - min) + 1) + min);
 	}
 }

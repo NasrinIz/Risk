@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
 
+import model.GameConfig;
 import model.GenFun;
 import model.Maps;
 
@@ -105,13 +106,14 @@ public class MainWindow extends JFrame {
 	}
 
 	private void newGameConfig() {
-
+		GameConfig gameConfigObj = new GameConfig();
+		
+		/* Number of Human Players */
 		JLabel lblNumPlayers = new JLabel("Number of Human Players: ");
 		lblNumPlayers.setBounds(10, 10, 200, 20);
-
 		JTextField txtNumPlayers = new JTextField();
 		txtNumPlayers.setBounds(220, 10, 200, 20);
-
+		
 		JRadioButton radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 40, 200, 30);
 
@@ -155,10 +157,11 @@ public class MainWindow extends JFrame {
 
 				mapList.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						/*
 						String selectedMap = String.valueOf(mapList.getSelectedItem());
 						mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
 						maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
-						objMap = new Maps(mapImgLoc);
+						*/
 					}
 				});
 
@@ -182,6 +185,20 @@ public class MainWindow extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				gameMapLocation = new String(txtMapPath.getText());
 				gameNumPlayers = new Integer(objGenFun.genStrToInt(txtNumPlayers.getText()));
+				
+				String selectedMap = String.valueOf(mapList.getSelectedItem());
+				mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
+				maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
+				objMap = gameConfigObj.createMap(mapImgLoc);
+				
+				try
+				{
+					gameConfigObj.setNumPlayers(Integer.parseInt(txtNumPlayers.getText()));
+				}
+				catch(Exception e1)
+				{
+					e1.printStackTrace();
+				}
 
 				contentPane.remove(txtMapPath);
 				contentPane.remove(lblMapPath);
@@ -193,6 +210,7 @@ public class MainWindow extends JFrame {
 				contentPane.remove(lblMapSelect);
 				contentPane.remove(btnSubmitNewGame);
 				contentPane.repaint();
+				
 				mainStartGame();
 			}
 		});
