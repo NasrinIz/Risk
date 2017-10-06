@@ -138,10 +138,10 @@ public class MainWindow extends JFrame {
 				"USA", "World" };
 
 		JComboBox<String> mapList = new JComboBox<>(mapTitles);
-		mapList.setBounds(10, 80, 200, 20);
+		mapList.setBounds(100, 80, 200, 20);
 
 		JButton btnEditMap = new JButton("Edit Map");
-		btnEditMap.setBounds(250, 80, 100, 20);
+		btnEditMap.setBounds(430, 80, 100, 20);
 
 		JButton btnSubmitNewGame = new JButton("Start Game");
 		btnSubmitNewGame.setBounds(10, 500, 100, 30);
@@ -170,6 +170,7 @@ public class MainWindow extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						contentPane.add(btnEditMap);
 						contentPane.repaint();
+						
 						/*
 						 * String selectedMap =
 						 * String.valueOf(mapList.getSelectedItem()); mapImgLoc
