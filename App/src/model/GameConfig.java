@@ -93,7 +93,6 @@ public class GameConfig {
 		return 0;
 	}
 	
-	/* This function will distribute the initial number of armies to each player */
 	private Integer getInitArmy()
 	{
 		if(numPlayers == 2)

@@ -92,6 +92,7 @@ public class MainWindow extends JFrame {
 		menuBar.add(mnFile);
 
 		JMenuItem mnFileNewGame = new JMenuItem("New Game");
+
 		mnFileNewGame.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -108,18 +109,21 @@ public class MainWindow extends JFrame {
 
 	private void newGameConfig() {
 		GameConfig gameConfigObj = new GameConfig();
-		
+
 		/* Number of Human Players */
 		JLabel lblNumPlayers = new JLabel("Number of Human Players: ");
 		lblNumPlayers.setBounds(10, 10, 200, 20);
 		JTextField txtNumPlayers = new JTextField();
 		txtNumPlayers.setBounds(220, 10, 200, 20);
-		
+
 		JRadioButton radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 40, 200, 30);
 
 		JRadioButton radioSelectMap = new JRadioButton("Select map");
 		radioSelectMap.setBounds(220, 40, 200, 30);
+
+		JRadioButton radioCreateMap = new JRadioButton("Create map");
+		radioCreateMap.setBounds(430, 40, 200, 30);
 
 		JLabel lblMapPath = new JLabel("Path to user created map: ");
 		lblMapPath.setBounds(10, 80, 200, 20);
@@ -127,22 +131,26 @@ public class MainWindow extends JFrame {
 		JTextField txtMapPath = new JTextField();
 		txtMapPath.setBounds(220, 80, 200, 20);
 
+		JLabel lblMapSelect = new JLabel("Select a map: ");
+		lblMapSelect.setBounds(10, 80, 200, 20);
+
 		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
 				"USA", "World" };
 
 		JComboBox<String> mapList = new JComboBox<>(mapTitles);
 		mapList.setBounds(10, 80, 200, 20);
 
-		JLabel lblMapSelect = new JLabel("Select a map: ");
-		lblMapSelect.setBounds(10, 80, 200, 20);
+		JButton btnEditMap = new JButton("Edit Map");
+		btnEditMap.setBounds(250, 80, 100, 20);
 
 		JButton btnSubmitNewGame = new JButton("Start Game");
-		btnSubmitNewGame.setBounds(150, 120, 100, 30);
+		btnSubmitNewGame.setBounds(10, 500, 100, 30);
 
 		contentPane.add(lblNumPlayers);
 		contentPane.add(txtNumPlayers);
 		contentPane.add(radioLoadMap);
 		contentPane.add(radioSelectMap);
+		contentPane.add(radioCreateMap);
 		contentPane.add(btnSubmitNewGame);
 		contentPane.repaint();
 
@@ -150,19 +158,26 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				radioLoadMap.setSelected(false);
+				radioCreateMap.setSelected(false);
 				contentPane.add(lblMapSelect);
 				contentPane.add(mapList);
 				contentPane.remove(lblMapPath);
 				contentPane.remove(txtMapPath);
+				contentPane.remove(btnEditMap);
 				contentPane.repaint();
 
 				mapList.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						contentPane.add(btnEditMap);
+						contentPane.repaint();
 						/*
-						String selectedMap = String.valueOf(mapList.getSelectedItem());
-						mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
-						maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
-						*/
+						 * String selectedMap =
+						 * String.valueOf(mapList.getSelectedItem()); mapImgLoc
+						 * = String.format("Resources//Maps//%s.map",
+						 * selectedMap); maptxtLoc =
+						 * String.format("Resources//Maps//%s.bmp",
+						 * selectedMap);
+						 */
 					}
 				});
 
@@ -173,11 +188,37 @@ public class MainWindow extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				radioSelectMap.setSelected(false);
+				radioCreateMap.setSelected(false);
 				contentPane.add(lblMapPath);
 				contentPane.add(txtMapPath);
 				contentPane.remove(lblMapSelect);
 				contentPane.remove(mapList);
+				contentPane.remove(btnEditMap);
 				contentPane.repaint();
+			}
+		});
+
+		radioCreateMap.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				radioSelectMap.setSelected(false);
+				radioLoadMap.setSelected(false);
+				contentPane.remove(lblMapPath);
+				contentPane.remove(txtMapPath);
+				contentPane.remove(lblMapSelect);
+				contentPane.remove(mapList);
+				contentPane.remove(btnEditMap);
+				contentPane.repaint();
+				showCreateMapForm();
+			}
+		});
+
+		btnEditMap.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				radioSelectMap.setSelected(false);
+				radioLoadMap.setSelected(false);
+				showEditMapForm();
 			}
 		});
 
@@ -186,19 +227,17 @@ public class MainWindow extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				gameMapLocation = new String(txtMapPath.getText());
 				gameNumPlayers = new Integer(objGenFun.genStrToInt(txtNumPlayers.getText()));
-				
+
 				String selectedMap = String.valueOf(mapList.getSelectedItem());
+				
 				mapImgLoc = String.format("Resources//Maps//%s.map", selectedMap);
 				maptxtLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
 				objMap = gameConfigObj.createMap(mapImgLoc);
 				objMap.setMapName(selectedMap);
-				
-				try
-				{
+
+				try {
 					gameConfigObj.setNumPlayers(Integer.parseInt(txtNumPlayers.getText()));
-				}
-				catch(Exception e1)
-				{
+				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 
@@ -211,8 +250,10 @@ public class MainWindow extends JFrame {
 				contentPane.remove(mapList);
 				contentPane.remove(lblMapSelect);
 				contentPane.remove(btnSubmitNewGame);
+				contentPane.remove(radioCreateMap);
+				contentPane.remove(btnEditMap);
 				contentPane.repaint();
-				
+
 				mainStartGame();
 			}
 		});
@@ -233,7 +274,7 @@ public class MainWindow extends JFrame {
 		Integer y = new Integer(0);
 
 		for (String territoryName : objMap.dictTerritory.keySet()) {
-			
+
 			x = (objMap.dictTerritory).get(territoryName).getX();
 			y = (objMap.dictTerritory).get(territoryName).getY();
 			JButton btnTemp = new JButton("1");
@@ -245,9 +286,11 @@ public class MainWindow extends JFrame {
 			btnTemp.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					String continent =  (objMap.dictTerritory).get(territoryName).getContinent();
-					Vector<String> adjacentCountries =  (objMap.dictTerritory).get(territoryName).getAdjacentCountries();
-					showCountryInfoPanel(territoryName, continent, adjacentCountries);	
+					String continent = (objMap.dictTerritory).get(territoryName).getContinent();
+					Vector<String> adjacentCountries = (objMap.dictTerritory).get(territoryName).getAdjacentCountries();
+					contentPane.repaint();
+					
+					showCountryInfoPanel(territoryName, continent, adjacentCountries);
 				}
 			});
 		}
@@ -310,32 +353,33 @@ public class MainWindow extends JFrame {
 			mapImage = new ImageIcon(imgTemp);
 		}
 	}
-	
-	private void showCountryInfoPanel(String name, String continent, Vector<String> adjacentCountries){
-		System.out.println(name);
-		System.out.println(continent);
-		System.out.println(adjacentCountries);
-		
-		    
-		JPanel territoryInfoPanel = new JPanel();
-		territoryInfoPanel.setBounds(1024, 0, 800, 800);
-		
+
+	private void showCountryInfoPanel(String name, String continent, Vector<String> adjacentCountries) {
+		// JPanel territoryInfoPanel = new JPanel();
+		// territoryInfoPanel.setBounds(1024, 0, 800, 800);
+
 		JLabel nameLabel = new JLabel("Country Name: " + name);
 		nameLabel.setBounds(1024, 0, 800, 800);
-		
+
 		JLabel continentLable = new JLabel("Continent Name: " + continent);
 		continentLable.setBounds(1024, 100, 800, 800);
-		
-		
+
 		JLabel adjacentCountriesLable = new JLabel("Adjacent Countries: " + adjacentCountries);
 		adjacentCountriesLable.setBounds(1024, 200, 800, 800);
-		
-		territoryInfoPanel.setVisible(true);
-		territoryInfoPanel.add(nameLabel);
-		territoryInfoPanel.add(continentLable);
+		// territoryInfoPanel.setVisible(true);
+		// territoryInfoPanel.add(nameLabel);
+		// territoryInfoPanel.add(continentLable);
 		contentPane.add(nameLabel);
 		contentPane.add(continentLable);
 		contentPane.add(adjacentCountriesLable);
 		contentPane.repaint();
+	}
+
+	public void showCreateMapForm() {
+
+	}
+
+	public void showEditMapForm() {
+
 	}
 }
