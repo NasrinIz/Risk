@@ -115,5 +115,11 @@ public class GameConfig {
 		{
 			return 20;
 		}
+// 		if(numPlayers >= 2 && numPlayers <=6 ) {
+// 			return 5*(10-this.numPlayers);
+// 		} else {
+// 			return 0;		// should throw an exception
+// 		}
+
 	}
 }
