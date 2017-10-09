@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Vector;
-
 public class Player {
 
 	private String name;

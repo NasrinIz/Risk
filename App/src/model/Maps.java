@@ -29,7 +29,6 @@ public class Maps {
 	// Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
 	private Map<String, Continent> dictContinents = new HashMap<String, Continent>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
 	private Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORY_INIT_SIZE, TERRITORY_CAPACITY_INCREMENT);
-	private ArrayList<String> terrNames = new ArrayList<String>();
 	
 	GenFun genFunObj = new GenFun();
 	
@@ -167,7 +166,6 @@ public class Maps {
 					 Territory obj = new Territory(line);
 					 String terrName = obj.getName();
 					 dictTerritory.put(terrName, obj);
-					 terrNames.add(terrName);
 				 }				
 			 }
 			 
@@ -245,14 +243,6 @@ public class Maps {
 	public void setMapAuthor(String mapAuthor) {
 		this.mapAuthor = mapAuthor;
 	}
-
-	/**
-	 * @return the terrNames
-	 */
-	public ArrayList<String> getTerrNames() {
-		return terrNames;
-	}
-	
 	
 	
 }

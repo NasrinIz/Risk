@@ -73,10 +73,10 @@ public class MainController {
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
 			
-			// To Do debug error ??!!!
-//			gameConfig = new GameConfig();   //To Do ... GameConfig needs a fields constructor
-//			gameConfig.generateCards();
-//			System.out.println(gameConfig.getGameCards());
+			gameConfig = new GameConfig();   //To Do ... GameConfig needs a fields constructor
+			gameConfig.setMapObj(objMap);	// move later to constructor
+			gameConfig.generateCards();
+			System.out.println(gameConfig.getGameCards());
 		}
 	}
 	

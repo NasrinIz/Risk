@@ -1,6 +1,7 @@
 package test_model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,6 +76,8 @@ public class TestMaps {
 		Maps map = new Maps(mapLocation);
 		map.readMap();
 		
+		assertNotNull(dictContinents);
+		assertNotNull(dictTerritory);
 		assertEquals(map.getDictContinents().keySet(), dictContinents.keySet());
 		assertEquals(map.getDictTerritory().keySet(), dictTerritory.keySet());
 		assertEquals(map.getNumContinents(), new Integer(2));

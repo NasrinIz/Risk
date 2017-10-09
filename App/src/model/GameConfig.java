@@ -112,24 +112,23 @@ public class GameConfig {
 	/**
 	 * Generate 2 WILD cards,
 	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
-	 * generated in the ratio 5:2:1 respectively
+	 * generated in a ratio close to 5:2:1 respectively
 	 * 
 	 */
 	public void generateCards() {
-		System.out.println("Inside generateCards");
 		int randomNum = 0;
-		Random rand = null;
+		Random randGenerator = new Random();
 		
 		gameCards = new ArrayList<Card>();		// should be done in constructor
 		
 		// 2 WILD cards with no country names
-		gameCards.add(new Card(RiskCards.WILD, "noCountry"));
-		gameCards.add(new Card(RiskCards.WILD, "noCountry"));
+		gameCards.add(new Card(RiskCards.WILD, ""));
+		gameCards.add(new Card(RiskCards.WILD, ""));
 		Card newCard = null;
 		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
 		{
-			randomNum = rand.nextInt((16 - 1) + 1) + 1;
-			
+			randomNum = randGenerator.nextInt((16 - 1) + 1) + 1;
+//			System.out.println( randomNum );
 			if( randomNum % 8 == 0) {		// 8,16
 				newCard = new Card(RiskCards.ARTILLERY, trName);
 			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
@@ -137,7 +136,7 @@ public class GameConfig {
 			} else {						// 1,2,4,5,7,10,11,13,14,15
 				newCard = new Card(RiskCards.INFANTRY, trName);
 			} 
-			System.out.println( newCard );
+//			System.out.println( newCard );
 			gameCards.add(newCard);
 		}
 
@@ -148,6 +147,20 @@ public class GameConfig {
 	 */
 	public ArrayList<Card> getGameCards() {
 		return gameCards;
+	}
+
+	/**
+	 * @return the mapObj
+	 */
+	public Maps getMapObj() {
+		return mapObj;
+	}
+
+	/**
+	 * @param mapObj the mapObj to set
+	 */
+	public void setMapObj(Maps mapObj) {
+		this.mapObj = mapObj;
 	}
 	
 	
