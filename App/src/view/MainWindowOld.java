@@ -289,21 +289,21 @@ public class MainWindowOld extends JFrame {
 		Integer x = new Integer(0);
 		Integer y = new Integer(0);
 
-		for (String territoryName : objMap.dictTerritory.keySet()) {
+		for (String territoryName : objMap.getDictTerritory().keySet()) {
 
-			x = (objMap.dictTerritory).get(territoryName).getX();
-			y = (objMap.dictTerritory).get(territoryName).getY();
+			x = (objMap.getDictTerritory()).get(territoryName).getX();
+			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			JButton btnTemp = new JButton("1");
 			btnTemp.setBounds(x - 4, y - 4, 10, 10);
 			mapImagePane.add(btnTemp);
 			mapImagePane.setComponentZOrder(btnTemp, 0);
-			(objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
+//			(objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
 
 			btnTemp.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
-					String continent = (objMap.dictTerritory).get(territoryName).getContinent();
-					Vector<String> adjacentCountries = (objMap.dictTerritory).get(territoryName).getAdjacentCountries();
+					String continent = (objMap.getDictTerritory()).get(territoryName).getContinent();
+					Vector<String> adjacentCountries = (objMap.getDictTerritory()).get(territoryName).getAdjacentCountries();
 					contentPane.repaint();
 
 					showCountryInfoPanel(territoryName, continent, adjacentCountries);

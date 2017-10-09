@@ -6,15 +6,15 @@ import java.util.*;
 
 public class Maps {
 	/*************************/
-	private Integer MAPINITSIZE = 2;
-	private Integer MAPCAPACITYINCREMENT = 2;
+	private Integer MAP_INIT_SIZE = 2;
+	private Integer MAP_CAPACITY_INCREMENT = 2;
 	
-	private Integer TERRITORYINITSIZE = 2;
-	private Integer TERRITORYCAPACITYINCREMENT = 2;
+	private Integer TERRITORY_INIT_SIZE = 2;
+	private Integer TERRITORY_CAPACITY_INCREMENT = 2;
 	/*************************/
 	
-	private String mapLocation = "";
-	private String mapName = "";
+	private String mapLocation;
+	private String mapName;
 	/* Basic Map Properties */
 	/* Remove */
 	private String mapImage = "";			// with extension
@@ -22,13 +22,14 @@ public class Maps {
 	private String mapScroll = "";			// horizontal, vertical, none
 	/* */
 	
-	private String mapAuthor = null;				// first and last name
+	private String mapAuthor = null;			// first and last name
 	private String mapWarning = null;			// yes or no
 	
 	/* Map Continents and Army Bonuses for each */
-	// Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAPINITSIZE, MAPCAPACITYINCREMENT);
-	Map<String, Continent> dictContinents = new HashMap<String, Continent>(MAPINITSIZE, MAPCAPACITYINCREMENT);
-	public Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
+	// Map<String, Integer> dictContinents = new HashMap<String, Integer>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
+	private Map<String, Continent> dictContinents = new HashMap<String, Continent>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
+	private Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORY_INIT_SIZE, TERRITORY_CAPACITY_INCREMENT);
+	private ArrayList<String> terrNames = new ArrayList<String>();
 	
 	GenFun genFunObj = new GenFun();
 	
@@ -91,7 +92,7 @@ public class Maps {
 		return rtVal;
 	}
 	
-	private Integer readMap() {
+	public Integer readMap() {
 		 BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapLocation);
 		 String line;
 		 String[] tmpArr;
@@ -164,7 +165,9 @@ public class Maps {
 						 continue;
 					 }
 					 Territory obj = new Territory(line);
-					 dictTerritory.put(obj.getName(), obj);
+					 String terrName = obj.getName();
+					 dictTerritory.put(terrName, obj);
+					 terrNames.add(terrName);
 				 }				
 			 }
 			 
@@ -212,4 +215,44 @@ public class Maps {
 		
 		return 0;
 	}
+
+	/**
+	 * @return the dictContinents
+	 */
+	public Map<String, Continent> getDictContinents() {
+		return dictContinents;
+	}
+
+
+
+	/**
+	 * @return the dictTerritory
+	 */
+	public Map<String, Territory> getDictTerritory() {
+		return dictTerritory;
+	}
+
+	/**
+	 * @return the mapAuthor
+	 */
+	public String getMapAuthor() {
+		return mapAuthor;
+	}
+
+	/**
+	 * @param mapAuthor the mapAuthor to set
+	 */
+	public void setMapAuthor(String mapAuthor) {
+		this.mapAuthor = mapAuthor;
+	}
+
+	/**
+	 * @return the terrNames
+	 */
+	public ArrayList<String> getTerrNames() {
+		return terrNames;
+	}
+	
+	
+	
 }

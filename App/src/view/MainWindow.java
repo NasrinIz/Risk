@@ -1,9 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,17 +36,18 @@ public class MainWindow extends JFrame {
 		Integer y = new Integer(0);
 		mapPane = new JScrollPane();
 		mapPane.setBounds(0, 0, 1024, 768);
-		
-		for (String territoryName : objMap.dictTerritory.keySet()) {
+
+		for (String territoryName : objMap.getDictTerritory().keySet()) {
 			System.out.println();
-			x = (objMap.dictTerritory).get(territoryName).getX();
-			y = (objMap.dictTerritory).get(territoryName).getY();
+			x = (objMap.getDictTerritory()).get(territoryName).getX();
+			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			JButton btnTemp = new JButton(territoryName);
 			btnTemp.setBounds(x - 4, y - 4, 10, 10);
 			mapPane.add(btnTemp);
 			mapPane.setComponentZOrder(btnTemp, 0);
-		//	(objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
+			// (objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
 		}
+
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 

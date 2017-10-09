@@ -87,8 +87,10 @@ public class StarterWindow extends JFrame {
 
 		radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 80, 200, 30);
+		
 		radioSelectMap = new JRadioButton("Select map");
 		radioSelectMap.setBounds(220, 80, 200, 30);
+		
 		radioCreateMap = new JRadioButton("Create map");
 		radioCreateMap.setBounds(430, 80, 200, 30);
 
@@ -122,7 +124,7 @@ public class StarterWindow extends JFrame {
 		lblMapSelect.setBounds(10, 120, 200, 20);
 
 		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-				"USA", "World" };
+				"USA", "World", "valid_1"};
 
 		mapList = new JComboBox<>(mapTitles);
 		mapList.setBounds(120, 120, 200, 20);

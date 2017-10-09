@@ -72,6 +72,11 @@ public class MainController {
 			mainWindow.addCountryButtons(objMap);
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
+			
+			// To Do debug error ??!!!
+//			gameConfig = new GameConfig();   //To Do ... GameConfig needs a fields constructor
+//			gameConfig.generateCards();
+//			System.out.println(gameConfig.getGameCards());
 		}
 	}
 	

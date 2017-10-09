@@ -9,7 +9,6 @@ public class Card {
 	String territoryName;
 
 	public Card(RiskCards cardType, String territoryName) {
-		super();
 		this.cardType = cardType;
 		this.territoryName = territoryName;
 	}
@@ -58,8 +57,6 @@ public class Card {
 
 
 	public int getWorth() {
-//		int n = cardType.ordinal();
-//		return int( ( n*n +7*n + 2 )/2 );
 		
 		switch (cardType) {
 		case WILD:
@@ -72,6 +69,14 @@ public class Card {
 		default:
 			return 1;
 		}
+	}
+	
+	public String toString() {
+		String Info = "Card Type:	" + this.cardType +"\n"
+				+ "Card Territory name:	" + this.getTerritoryName() +"\n"
+				+ "card value:	" + this.getWorth() +"\n";
+		return Info;
+		
 	}
 	
 }

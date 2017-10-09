@@ -1,11 +1,14 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class GameConfig {
 	private Integer numPlayers = null;
 	private Player players[];
 	private Continent []continents;
 	private Maps mapObj;
-	private Card []cards;
+	private ArrayList<Card> gameCards;
 	private GenFun genFunObj = new GenFun();
 	
 	public Integer setNumPlayers(int inNumPlayers)
@@ -15,9 +18,9 @@ public class GameConfig {
 		
 		numPlayers = new Integer(inNumPlayers);
 		setupPlayers();
-		for (String territory : mapObj.dictTerritory.keySet())
+		for (String territory : mapObj.getDictTerritory().keySet())
 		{
-			System.out.println((mapObj.dictTerritory).get(territory).getOwner());
+			System.out.println((mapObj.getDictTerritory()).get(territory).getOwner());
 		}
 		return 0;
 	}
@@ -42,11 +45,11 @@ public class GameConfig {
 	
 	private void initTerritory()
 	{
-		Integer perPlayer = mapObj.dictTerritory.size() / numPlayers;
-		Integer remainingTerritoryDist = mapObj.dictTerritory.size() - perPlayer;
+		Integer perPlayer = mapObj.getDictTerritory().size() / numPlayers;
+		Integer remainingTerritoryDist = mapObj.getDictTerritory().size() - perPlayer;
 		Integer nextOwnerPlayer = new Integer(0);
 		Integer perPlayerDistFlag = -1;
-		for (String territory : mapObj.dictTerritory.keySet())
+		for (String territory : mapObj.getDictTerritory().keySet())
 		{
 			if(perPlayerDistFlag != 0)
 			{
@@ -67,14 +70,14 @@ public class GameConfig {
 			if(perPlayerDistFlag == 0)
 			{
 				nextOwnerPlayer++;
-				(mapObj.dictTerritory).get(territory).setOwner(nextOwnerPlayer);
+				(mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
 				players[nextOwnerPlayer].occupyTerritory();
 			}
 			else 
 			{
 				if(players[nextOwnerPlayer].numOfTerritories() < perPlayer)
 				{
-					(mapObj.dictTerritory).get(territory).setOwner(nextOwnerPlayer);
+					(mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
 					players[nextOwnerPlayer].occupyTerritory();
 				}
 			}
@@ -95,31 +98,57 @@ public class GameConfig {
 	
 	private Integer getInitArmy()
 	{
-		if(numPlayers == 2)
-		{
-			return 40;
-		}
-		else if(numPlayers == 3)
-		{
-			return 35;
-		}
-		else if(numPlayers == 4)
-		{
-			return 30;
-		}
-		else if(numPlayers == 5)
-		{
-			return 25;
-		}
-		else
-		{
-			return 20;
-		}
-// 		if(numPlayers >= 2 && numPlayers <=6 ) {
-// 			return 5*(10-this.numPlayers);
-// 		} else {
-// 			return 0;		// should throw an exception
-// 		}
+
+ 		if(numPlayers >= 2 && numPlayers <=6 ) {
+ 			return 5*(10-this.numPlayers);
+ 		} else {
+ 			return 0;		// should throw an exception
+ 		}
 
 	}
+	
+	// To Do:
+	// change to private then use the method in the constructor
+	/**
+	 * Generate 2 WILD cards,
+	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
+	 * generated in the ratio 5:2:1 respectively
+	 * 
+	 */
+	public void generateCards() {
+		System.out.println("Inside generateCards");
+		int randomNum = 0;
+		Random rand = null;
+		
+		gameCards = new ArrayList<Card>();		// should be done in constructor
+		
+		// 2 WILD cards with no country names
+		gameCards.add(new Card(RiskCards.WILD, "noCountry"));
+		gameCards.add(new Card(RiskCards.WILD, "noCountry"));
+		Card newCard = null;
+		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
+		{
+			randomNum = rand.nextInt((16 - 1) + 1) + 1;
+			
+			if( randomNum % 8 == 0) {		// 8,16
+				newCard = new Card(RiskCards.ARTILLERY, trName);
+			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
+				newCard = new Card(RiskCards.CAVALRY, trName);
+			} else {						// 1,2,4,5,7,10,11,13,14,15
+				newCard = new Card(RiskCards.INFANTRY, trName);
+			} 
+			System.out.println( newCard );
+			gameCards.add(newCard);
+		}
+
+	}
+
+	/**
+	 * @return the gameCards
+	 */
+	public ArrayList<Card> getGameCards() {
+		return gameCards;
+	}
+	
+	
 }
