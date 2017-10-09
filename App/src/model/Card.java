@@ -1,14 +1,10 @@
 package model;
 
-enum RiskCards {
-	INFANTRY, CAVALRY, ARTILLERY, WILD
-}
-
 public class Card {
-	RiskCards cardType;
+	RiskCard cardType;
 	String territoryName;
 
-	public Card(RiskCards cardType, String territoryName) {
+	public Card(RiskCard cardType, String territoryName) {
 		this.cardType = cardType;
 		this.territoryName = territoryName;
 	}
@@ -19,7 +15,7 @@ public class Card {
 	/**
 	 * @return the cardType
 	 */
-	public RiskCards getCardType() {
+	public RiskCard getCardType() {
 		return cardType;
 	}
 
@@ -29,7 +25,7 @@ public class Card {
 	/**
 	 * @param cardType the cardType to set
 	 */
-	public void setCardType(RiskCards cardType) {
+	public void setCardType(RiskCard cardType) {
 		this.cardType = cardType;
 	}
 
@@ -77,6 +73,15 @@ public class Card {
 				+ "card value:	" + this.getWorth() +"\n";
 		return Info;
 		
+	}
+	
+	/**
+	 * compares this.cardType to the passed type
+	 * @param type
+	 * @return 0 if this.cardType == type, 1 if this.cardType > type, -1 if this.cardType < type
+	 */
+	public int compareTypeTo(RiskCard type) {
+		return this.cardType.compareTo(type);
 	}
 	
 }

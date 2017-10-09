@@ -199,7 +199,7 @@ public class Maps {
 		 return 0;
 	}
 	
-	private Integer validateMap()
+	public Integer validateMap()
 	{
 		if((mapAuthor == null) && (mapWarning == null))
 		{

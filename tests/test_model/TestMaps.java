@@ -21,6 +21,7 @@ public class TestMaps {
 	private static String mapLocation;
 	private static Map<String, Continent> dictContinents;
 	private static Map<String, Territory> dictTerritory;
+	private static Maps gameMap;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -57,6 +58,9 @@ public class TestMaps {
 		
 		System.out.println( contA );
 		System.out.println( contB );
+		
+		gameMap = new Maps(mapLocation);
+		gameMap.readMap();
 	}
 
 	@AfterClass
@@ -73,18 +77,21 @@ public class TestMaps {
 
 	@Test
 	public void readMap() {
-		Maps map = new Maps(mapLocation);
-		map.readMap();
 		
 		assertNotNull(dictContinents);
 		assertNotNull(dictTerritory);
-		assertEquals(map.getDictContinents().keySet(), dictContinents.keySet());
-		assertEquals(map.getDictTerritory().keySet(), dictTerritory.keySet());
-		assertEquals(map.getNumContinents(), new Integer(2));
-		assertEquals(map.getNumTerritories(), new Integer(8));
-		assertEquals(map.getMapAuthor(), "Samer Ayoub");
+		assertEquals(gameMap.getDictContinents().keySet(), dictContinents.keySet());
+		assertEquals(gameMap.getDictTerritory().keySet(), dictTerritory.keySet());
+		assertEquals(gameMap.getNumContinents(), new Integer(2));
+		assertEquals(gameMap.getNumTerritories(), new Integer(8));
+		assertEquals(gameMap.getMapAuthor(), "Samer Ayoub");
 		// To Do:
 		// override equals in Territory and Continent and use it to assert equality
+	}
+	
+	@Test
+	public void validateMap() {
+		assertEquals(gameMap.validateMap(), new Integer(0) );
 	}
 
 //	@Test

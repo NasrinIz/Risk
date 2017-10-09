@@ -107,40 +107,6 @@ public class GameConfig {
 
 	}
 	
-	// To Do:
-	// change to private then use the method in the constructor
-	/**
-	 * Generate 2 WILD cards,
-	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
-	 * generated in a ratio close to 5:2:1 respectively
-	 * 
-	 */
-	public void generateCards() {
-		int randomNum = 0;
-		Random randGenerator = new Random();
-		
-		gameCards = new ArrayList<Card>();		// should be done in constructor
-		
-		// 2 WILD cards with no country names
-		gameCards.add(new Card(RiskCards.WILD, ""));
-		gameCards.add(new Card(RiskCards.WILD, ""));
-		Card newCard = null;
-		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
-		{
-			randomNum = randGenerator.nextInt((16 - 1) + 1) + 1;
-//			System.out.println( randomNum );
-			if( randomNum % 8 == 0) {		// 8,16
-				newCard = new Card(RiskCards.ARTILLERY, trName);
-			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
-				newCard = new Card(RiskCards.CAVALRY, trName);
-			} else {						// 1,2,4,5,7,10,11,13,14,15
-				newCard = new Card(RiskCards.INFANTRY, trName);
-			} 
-//			System.out.println( newCard );
-			gameCards.add(newCard);
-		}
-
-	}
 
 	/**
 	 * @return the gameCards
@@ -162,6 +128,52 @@ public class GameConfig {
 	public void setMapObj(Maps mapObj) {
 		this.mapObj = mapObj;
 	}
+
+//// =================================<< Card Methods >>=================================
+	// To Do:
+	// change to private then use the method in the constructor
+	/**
+	 * Generate 2 WILD cards,
+	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
+	 * generated in a ratio close to 5:2:1 respectively
+	 * 
+	 */
+	public void generateCards() {
+		int randomNum = 0;
+		Random randGenerator = new Random();
+		
+		gameCards = new ArrayList<Card>();		// should be done in constructor
+		
+		// 2 WILD cards with no country names
+		gameCards.add(new Card(RiskCard.WILD, ""));
+		gameCards.add(new Card(RiskCard.WILD, ""));
+		Card newCard = null;
+		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
+		{
+			randomNum = randGenerator.nextInt((16 - 1) + 1) + 1;
+//			System.out.println( randomNum );
+			if( randomNum % 8 == 0) {		// 8,16
+				newCard = new Card(RiskCard.ARTILLERY, trName);
+			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
+				newCard = new Card(RiskCard.CAVALRY, trName);
+			} else {						// 1,2,4,5,7,10,11,13,14,15
+				newCard = new Card(RiskCard.INFANTRY, trName);
+			} 
+//			System.out.println( newCard );
+			gameCards.add(newCard);
+		}
+
+	}
 	
+	public ArrayList<Card> getGameCardsOfType(RiskCard type) {
+		ArrayList<Card> categ = new ArrayList<Card>();
+		
+		for(Card card: gameCards) {
+			if(card.compareTypeTo(type) == 0) {
+				categ.add(card);
+			}
+		}
+		return categ;
+	}
 	
 }
