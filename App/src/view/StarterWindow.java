@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
@@ -41,7 +42,12 @@ public class StarterWindow extends JFrame {
 	}
 
 	private void initWindow() {
-		setTitle("Risk");
+		// Size the frame.
+	    setSize( new Dimension(WIDTH, HEIGHT) );
+	    setMinimumSize( new Dimension(WIDTH, HEIGHT) );
+	    setMaximumSize( new Dimension(WIDTH, HEIGHT) );    
+		this.setResizable(false);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 567, 489);
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
@@ -103,7 +109,7 @@ public class StarterWindow extends JFrame {
 		playerNum.setBounds(200, 40, 200, 20);
 
 		submitButton = new JButton("Submit");
-		submitButton.setBounds(10, 500, 100, 30);
+		submitButton.setBounds(400, 150, 100, 30);
 		//submitButton.setEnabled(false);
 		group = new ButtonGroup();
 		group.add(radioLoadMap);
