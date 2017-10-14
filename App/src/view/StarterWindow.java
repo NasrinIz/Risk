@@ -30,7 +30,7 @@ public class StarterWindow extends JFrame {
 	ButtonGroup group = new ButtonGroup();
 
 	private BorderLayout borderLayout;
-
+	
 	public StarterWindow() {
 		menuBar = new JMenuBar();
 		menu = new JMenu("File");
@@ -65,26 +65,44 @@ public class StarterWindow extends JFrame {
 		menu.add(menuItemNewGame);
 	}
 
+	/**
+	 * @param listenForMenuItemNewGame
+	 */
 	public void addMenuItemNewGameActionListener(ActionListener listenForMenuItemNewGame) {
 		menuItemNewGame.addActionListener(listenForMenuItemNewGame);
 	}
 
+	/**
+	 * @param listenForLoadMap
+	 */
 	public void addRadioLoadMapActionListener(ActionListener listenForLoadMap) {
 		radioLoadMap.addActionListener(listenForLoadMap);
 	}
 
+	/**
+	 * @param listenForSelectMap
+	 */
 	public void addRadioSelectMapActionListener(ActionListener listenForSelectMap) {
 		radioSelectMap.addActionListener(listenForSelectMap);
 	}
 
+	/**
+	 * @param listenForCreateMap
+	 */
 	public void addRadioCreateMapActionListener(ActionListener listenForCreateMap) {
 		radioCreateMap.addActionListener(listenForCreateMap);
 	}
 
+	/**
+	 * @param listenForMapList
+	 */
 	public void addMapListActionListener(ActionListener listenForMapList) {
 		mapList.addActionListener(listenForMapList);
 	}
 
+	/**
+	 * @param listenForSubmitButton
+	 */
 	public void addSubmitButtontActionListener(ActionListener listenForSubmitButton) {
 		submitButton.addActionListener(listenForSubmitButton);
 	}
@@ -140,11 +158,17 @@ public class StarterWindow extends JFrame {
 		this.getContentPane().repaint();
 	}
 
+	/**
+	 * @return numPlayers
+	 */
 	public Integer getPlayerNumbers() {
 		Integer numPlayers = (Integer)playerNum.getSelectedItem();
 		return numPlayers;
 	}
 
+	/**
+	 * @return selectedMap
+	 */
 	public String getSelectedMap() {
 		String selectedMap = String.valueOf(mapList.getSelectedItem());
 		return selectedMap;

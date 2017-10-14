@@ -7,6 +7,10 @@ import model.Maps;
 import view.MainWindow;
 import view.StarterWindow;
 
+/**
+ * @author Team20
+ *
+ */
 public class MainController {
 	private StarterWindow starterView;
 	private MainWindow mainWindow;
@@ -17,7 +21,7 @@ public class MainController {
 		this.starterView = starterView;
 		this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
 	}
-	
+
 	private class NewGameListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

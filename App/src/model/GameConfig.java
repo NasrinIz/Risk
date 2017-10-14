@@ -3,6 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * @author Team20
+ *
+ */
 public class GameConfig {
 	private Integer numPlayers = null;
 	private Player players[];
@@ -25,6 +29,10 @@ public class GameConfig {
 		return 0;
 	}
 	
+	/**
+	 * @param mapLocation
+	 * @return mapObj
+	 */
 	public Maps createMap(String mapLocation)
 	{
 		mapObj = new Maps(mapLocation);
@@ -84,6 +92,9 @@ public class GameConfig {
 		}
 	}
 	
+	/**
+	 * @param inPerPlayer
+	 */
 	private Integer checkForDistCompletion(Integer inPerPlayer)
 	{
 		for(int i=0; i<numPlayers; i++)
@@ -165,6 +176,10 @@ public class GameConfig {
 
 	}
 	
+	/**
+	 * @param type
+	 * @return categ 
+	 */
 	public ArrayList<Card> getGameCardsOfType(RiskCard type) {
 		ArrayList<Card> categ = new ArrayList<Card>();
 		
