@@ -73,7 +73,7 @@ public class Maps {
 	}
 	
 	/**
-	 * @return
+	 * @return size of dictContinents
 	 */
 	public Integer getNumTerritories()
 	{
