@@ -3,7 +3,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
 
-
+/**
+ * @author Team20
+ *
+ */
 public class Maps {
 	/*************************/
 	private Integer MAP_INIT_SIZE = 2;
@@ -32,6 +35,9 @@ public class Maps {
 	
 	GenFun genFunObj = new GenFun();
 	
+	/**
+	 * @param inMapLocation
+	 */
 	public Maps(String inMapLocation) {
 		mapLocation = inMapLocation;
 		if(readMap() != 0)
@@ -44,26 +50,40 @@ public class Maps {
 		}
 	}
 	
+
 	public void setMapName(String inMapName)
 	{
 		mapName = inMapName;
 	}
 	
+	/**
+	 * @return mapName
+	 */
 	public String getMapName()
 	{
 		return mapName;
 	}
 	
+	/**
+	 * @return size of dictContinents
+	 */
 	public Integer getNumContinents()
 	{
 		return dictContinents.size();
 	}
 	
+	/**
+	 * @return size of dictContinents
+	 */
 	public Integer getNumTerritories()
 	{
 		return dictTerritory.size();
 	}
 	
+	/**
+	 * @param inVal
+	 * @return rtVal
+	 */
 	private Integer checkPropertyMap(String inVal) {
 		Integer rtVal = 0;		// 0 = Success, -1 = Fail
 

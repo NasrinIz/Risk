@@ -41,6 +41,10 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Team20
+ *
+ */
 public class MainWindowOld extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -69,7 +73,7 @@ public class MainWindowOld extends JFrame {
 		setSize(getMaximumSize());
 		initWindow();
 	}
-
+	
 	private void initWindow() {
 		setTitle("Risk");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,7 +84,6 @@ public class MainWindowOld extends JFrame {
 		initContentPane();
 		/* Content Pane */
 	}
-
 	private void initContentPane() {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

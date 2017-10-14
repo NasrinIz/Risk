@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import model.Maps;
-
+/**
+ * @author Team20
+ */
 public class MainWindow extends JFrame {
 	
 	public static final int WIDTH = 1200;
@@ -45,6 +47,9 @@ public class MainWindow extends JFrame {
 		this.setLayout(borderLayout);
 	}
 
+	/**
+	 * @param objMap
+	 */
 	public void addCountryButtons(Maps objMap) {
 		Integer x = new Integer(0);
 		Integer y = new Integer(0);

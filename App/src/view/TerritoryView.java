@@ -38,6 +38,9 @@ public class TerritoryView extends JPanel{
 	}
 
 
+	/**
+	 * @param aListener
+	 */
 	public void addListener(ActionListener aListener) {
 		this.addListener(aListener);
 		System.out.println("this listener");
