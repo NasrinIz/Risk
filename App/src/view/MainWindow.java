@@ -58,15 +58,15 @@ public class MainWindow extends JFrame {
 			x = (objMap.getDictTerritory()).get(territoryName).getX();
 			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			
-			JButton btnTemp = new JButton(territoryName);
-			btnTemp.setBounds(x - 4, y - 4, 10, 10);
-			mapPane.add(btnTemp);
-			mapPane.setComponentZOrder(btnTemp, 0);
+			//JButton btnTemp = new JButton(territoryName);
+			//btnTemp.setBounds(x - 4, y - 4, 10, 10);
+			//mapPane.add(btnTemp);
+			//mapPane.setComponentZOrder(btnTemp, 0);
 			
 			// comment the previous 4 lines and uncomment the next 3
-//			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
-//			mapPane.add(terrPanel);
-//			mapPane.setComponentZOrder(terrPanel, 0);
+			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
+			mapPane.add(terrPanel);
+			mapPane.setComponentZOrder(terrPanel, 0);
 			
 			// (objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
 		}

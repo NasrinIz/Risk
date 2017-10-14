@@ -4,14 +4,19 @@ import java.awt.event.ActionListener;
 
 import model.GameConfig;
 import model.Maps;
+import model.Territory;
+import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
+import view.TerritoryView;
 
 public class MainController {
 	private StarterWindow starterView;
 	private MainWindow mainWindow;
 	private GameConfig gameConfig;
 	private Maps objMap = null;
+	private TerritoryView territoryView;
+	private InfoView infoView;
 	
 	public MainController(StarterWindow starterView){
 		this.starterView = starterView;
@@ -25,8 +30,8 @@ public class MainController {
 			starterView.showStarterForm();
 			starterView.addRadioLoadMapActionListener(new loadMapListener());
 			starterView.addRadioSelectMapActionListener(new selectMapListener());
-			starterView.addRadioCreateMapActionListener(new CreateMapListener());
-			starterView.addSubmitButtontActionListener(new SubmitButtonListener());
+			starterView.addRadioCreateMapActionListener(new createMapListener());
+			starterView.addSubmitButtontActionListener(new submitButtonListener());
 		}
 	}
 	
@@ -46,7 +51,7 @@ public class MainController {
 		}
 	}
 	
-	private class CreateMapListener implements ActionListener{
+	private class createMapListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -54,7 +59,7 @@ public class MainController {
 		}
 	}
 	
-	private class SubmitButtonListener implements ActionListener{
+	private class submitButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -76,9 +81,17 @@ public class MainController {
 			gameConfig = new GameConfig();   //To Do ... GameConfig needs a fields constructor
 			gameConfig.setMapObj(objMap);	// move later to constructor
 			gameConfig.generateCards();
-			System.out.println(gameConfig.getGameCards());
+			//System.out.println(gameConfig.getGameCards());
+			
 		}
 	}
 	
-	
+	private class territoryListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			infoView = new InfoView();
+			infoView.showTerritoryInfo(null);
+		}
+	}
 }
