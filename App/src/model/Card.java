@@ -4,6 +4,10 @@ public class Card {
 	RiskCard cardType;
 	String territoryName;
 
+	/**
+	 * @param cardType
+	 * @param territoryName
+	 */
 	public Card(RiskCard cardType, String territoryName) {
 		this.cardType = cardType;
 		this.territoryName = territoryName;
@@ -48,8 +52,6 @@ public class Card {
 	public void setTerritoryName(String territoryName) {
 		this.territoryName = territoryName;
 	}
-
-
 
 
 	public int getWorth() {

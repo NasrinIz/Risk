@@ -2,8 +2,13 @@ package model;
 
 import java.util.Vector;
 
-//import javax.swing.JButton;
-
+// import javax.swing.JButton;
+ 
+/**
+ * 
+ * @author Team20
+ *
+ */
 public class Territory {
 	/***************************/
 	private static Integer TERRITORY_INIT_SIZE = 2;
@@ -33,6 +38,7 @@ public class Territory {
 		this.adjacentCountries = adjacentCountries;
 	}
 	
+	
 	private Integer ownerPlayerId = null;
 	GenFun genFunObj = new GenFun();
 	
@@ -42,22 +48,37 @@ public class Territory {
 		SetInfo(tmp[0], tmp[1], tmp[2], tmp[3], tmpAdjacent);
 	}
 	
+	/** 
+	 * @return name
+	 */
 	public String getName() {
 		return name;
 	}
-
+	
+    /**
+     * @return continent
+     */
 	public String getContinent() {
 		return continent;
 	}
-
+	
+    /**
+     * @return X
+     */
 	public Integer getX() {
 		return X;
 	}
 	
+	/**
+	 * @return Y
+	 */
 	public Integer getY() {
 		return Y;
 	}
 	
+	/**
+	 * @return adajacentCountries
+	 */
 	public Vector<String> getAdjacentCountries() {
 		return adjacentCountries;
 	}
@@ -65,7 +86,14 @@ public class Territory {
 //	public Vector<JButton> getBtnTerritories() {
 //		return btnTerritories;
 //	}
-
+	
+    /**
+     * @param inName
+     * @param inX
+     * @param inY
+     * @param inContinent
+     * @param inAdjacent
+     */
 	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) {
 		name = inName;
 		X = genFunObj.genStrToInt(inX);
@@ -75,11 +103,17 @@ public class Territory {
 		return;
 	}
 	
+	/**
+	 * @param inId
+	 */
 	public void setOwner(Integer inId)
 	{
 		ownerPlayerId = inId;
 	}
 	
+	/**
+	 * @return ownerPlayerId
+	 */
 	public Integer getOwner()
 	{
 		return ownerPlayerId;
