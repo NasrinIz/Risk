@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * @author Team20
+ *
+ */
 public class Card {
 	RiskCard cardType;
 	String territoryName;
