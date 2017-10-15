@@ -15,14 +15,12 @@ import model.RiskCard;
 
 public class TestGameConfig {
 
-	private static Maps gameMap;
 	private static GameConfig gameConfig;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		gameMap = new Maps("resources//maps//testing_maps//valid_1.map");
-		gameMap.readMap();
-		gameConfig = new GameConfig();
-		gameConfig.setMapObj(gameMap);
+		String mapName = "valid_1";
+		gameConfig = new GameConfig(3, mapName);
 	}
 
 	@AfterClass
@@ -40,7 +38,7 @@ public class TestGameConfig {
 	@Test
 	public void testGenerateCards() {
 		
-		gameConfig.generateCards();
+		gameConfig.setupCards();
 		assertNotNull(gameConfig.getGameCards());
 		assertEquals( gameConfig.getGameCards().size(), 10 );
 		assertEquals( gameConfig.getGameCardsOfType(RiskCard.WILD).size(), 2);

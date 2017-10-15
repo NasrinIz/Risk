@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * @author Team20
  *
@@ -7,7 +9,7 @@ package model;
 public class Player {
 
 	private String name;
-	private Territory territories[];
+	private ArrayList<Territory> territories;
 	private int armies;
 	private Integer numTerritories = new Integer(0);
 
@@ -28,14 +30,14 @@ public class Player {
 	/**
 	 * @return territories
 	 */
-	public Territory[] getTerritories() {
+	public ArrayList<Territory> getTerritories() {
 		return territories;
 	}
 
 	/**
 	 * @param territories
 	 */
-	public void setTerritories(Territory territories[]) {
+	public void setTerritories(ArrayList<Territory>  territories) {
 		this.territories = territories;
 	}
 	

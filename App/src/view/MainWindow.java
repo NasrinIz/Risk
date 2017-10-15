@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
@@ -20,8 +22,9 @@ public class MainWindow extends JFrame {
 	
 	private JScrollPane mapPane;
 	private BorderLayout borderLayout;
-	public Maps objMap;
-
+	
+	private Map<String, TerritoryView> dictTerrViews = new HashMap<String, TerritoryView>(2,2);
+	
 	public MainWindow() {
 		super("Risky Conquest");		
 		this.initWindow();
@@ -48,7 +51,10 @@ public class MainWindow extends JFrame {
 	}
 
 	/**
-	 * @param objMap
+	 * creates country buttons or territory views
+	 * called by controller
+	 * @param objMap passed by controller who has a reference to GameConfig->maps
+	 * 
 	 */
 	public void addCountryButtons(Maps objMap) {
 		Integer x = new Integer(0);
@@ -63,21 +69,29 @@ public class MainWindow extends JFrame {
 			x = (objMap.getDictTerritory()).get(territoryName).getX();
 			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			
-			JButton btnTemp = new JButton(territoryName);
-			btnTemp.setBounds(x - 4, y - 4, 10, 10);
-			mapPane.add(btnTemp);
-			mapPane.setComponentZOrder(btnTemp, 0);
+//			JButton btnTemp = new JButton(territoryName);
+//			btnTemp.setBounds(x - 4, y - 4, 10, 10);
+//			mapPane.add(btnTemp);
+//			mapPane.setComponentZOrder(btnTemp, 0);
 			
 			// comment the previous 4 lines and uncomment the next 3
-//			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
-//			mapPane.add(terrPanel);
-//			mapPane.setComponentZOrder(terrPanel, 0);
+			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
+			mapPane.add(terrPanel);
+			mapPane.setComponentZOrder(terrPanel, 0);
+			dictTerrViews.put(territoryName, terrPanel);
 			
-			// (objMap.dictTerritory).get(territoryName).getBtnTerritories().add(btnTemp);
 		}
 
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 
 	}
+
+	/**
+	 * @return the dictTerrViews
+	 */
+	public Map<String, TerritoryView> getDictTerrViews() {
+		return dictTerrViews;
+	}
+	
 }

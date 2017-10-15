@@ -10,10 +10,26 @@ import java.util.Random;
 public class GameConfig {
 	private Integer numPlayers = null;
 	private Player players[];
-	private Continent []continents;
 	private Maps mapObj;
 	private ArrayList<Card> gameCards;
+	
+	/**
+	 * @param numPlayers
+	 * @param players
+	 * @param mapObj
+	 * @param gameCards
+	 */
+	public GameConfig(Integer numPlayers, String mapName) {
+		super();
+		
+		this.numPlayers = numPlayers;
+		this.mapObj = new Maps(mapName);
+		setupPlayers();
+		setupCards();
+	}
+
 	private GenFun genFunObj = new GenFun();
+	
 	
 	public Integer setNumPlayers(int inNumPlayers)
 	{
@@ -30,18 +46,18 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @param mapLocation
+	 * @param mapName
 	 * @return mapObj
 	 */
-	public Maps createMap(String mapLocation)
+	public Maps createMap(String mapName)
 	{
-		mapObj = new Maps(mapLocation);
+		mapObj = new Maps(mapName);
 		return mapObj;
 	}
 	
 	private void setupPlayers()
 	{
-		players = new Player[numPlayers];
+		this.players = new Player[numPlayers];
 		for(int i = 0; i < numPlayers; i++)
 		{
 			Player playerObj = new Player("Player" + Integer.toString(i));
@@ -149,12 +165,11 @@ public class GameConfig {
 	 * generated in a ratio close to 5:2:1 respectively
 	 * 
 	 */
-	public void generateCards() {
+	public void setupCards() {
+		
+		this.gameCards = new ArrayList<Card>();
 		int randomNum = 0;
-		Random randGenerator = new Random();
-		
-		gameCards = new ArrayList<Card>();		// should be done in constructor
-		
+		Random randGenerator = new Random();		
 		// 2 WILD cards with no country names
 		gameCards.add(new Card(RiskCard.WILD, ""));
 		gameCards.add(new Card(RiskCard.WILD, ""));
@@ -173,7 +188,6 @@ public class GameConfig {
 //			System.out.println( newCard );
 			gameCards.add(newCard);
 		}
-
 	}
 	
 	/**

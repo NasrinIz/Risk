@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.GameConfig;
-import model.Maps;
+import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
 
@@ -12,10 +12,17 @@ import view.StarterWindow;
  *
  */
 public class MainController {
+	
 	private StarterWindow starterView;
+	private InfoView infoView;
+	/**
+	 * reference to mainView
+	 */
 	private MainWindow mainWindow;
-	private GameConfig gameConfig;
-	private Maps objMap = null;
+	/**
+	 * reference to mainModel
+	 */
+	private GameConfig gameConfig; 
 	
 	public MainController(StarterWindow starterView){
 		this.starterView = starterView;
@@ -66,23 +73,22 @@ public class MainController {
 			Integer playerNum = starterView.getPlayerNumbers();
 			String selectedMap = starterView.getSelectedMap();
 			
-			String mapTxtLoc = String.format("Resources//Maps//%s.map", selectedMap);
-			String mapImgLoc = String.format("Resources//Maps//%s.bmp", selectedMap);
-			
-			objMap = new Maps(mapTxtLoc);
-			objMap.setMapName(selectedMap);
+			gameConfig = new GameConfig(playerNum, selectedMap);
 			
 			mainWindow = new MainWindow();
-			mainWindow.addCountryButtons(objMap);
+			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
-			
-			gameConfig = new GameConfig();   //To Do ... GameConfig needs a fields constructor
-			gameConfig.setMapObj(objMap);	// move later to constructor
-			gameConfig.generateCards();
-			System.out.println(gameConfig.getGameCards());
 		}
 	}
 	
+	private class territoryListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			infoView = new InfoView();
+			infoView.showTerritoryInfo(null);
+		}
+	}
 	
 }
