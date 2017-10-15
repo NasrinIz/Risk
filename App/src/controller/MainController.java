@@ -47,6 +47,7 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			starterView.showLoadMapForm();
 		
 		}
 	}
@@ -56,6 +57,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			starterView.showSelectMapForm();
+			starterView.addEditMapRadioBtnListener(new editMapListener());
 		}
 	}
 	
@@ -63,7 +65,16 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			starterView.showCreateMapForm();
 		
+		}
+	}
+	
+	private class editMapListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			starterView.showEditMapForm();
 		}
 	}
 	
