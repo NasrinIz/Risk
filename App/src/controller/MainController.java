@@ -6,6 +6,7 @@ import model.GameConfig;
 import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
+import view.TerritoryView;
 
 /**
  * @author Team20
@@ -23,6 +24,7 @@ public class MainController {
 	 * reference to mainModel
 	 */
 	private GameConfig gameConfig; 
+	private TerritoryView territoryView;
 	
 	public MainController(StarterWindow starterView){
 		this.starterView = starterView;
@@ -36,8 +38,8 @@ public class MainController {
 			starterView.showStarterForm();
 			starterView.addRadioLoadMapActionListener(new loadMapListener());
 			starterView.addRadioSelectMapActionListener(new selectMapListener());
-			starterView.addRadioCreateMapActionListener(new CreateMapListener());
-			starterView.addSubmitButtontActionListener(new SubmitButtonListener());
+			starterView.addRadioCreateMapActionListener(new createMapListener());
+			starterView.addSubmitButtontActionListener(new submitButtonListener());
 		}
 	}
 	
@@ -57,7 +59,7 @@ public class MainController {
 		}
 	}
 	
-	private class CreateMapListener implements ActionListener{
+	private class createMapListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -65,7 +67,7 @@ public class MainController {
 		}
 	}
 	
-	private class SubmitButtonListener implements ActionListener{
+	private class submitButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -85,9 +87,10 @@ public class MainController {
 	private class territoryListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			System.out.println("hi hi hi");
 			// TODO Auto-generated method stub
 			infoView = new InfoView();
-			infoView.showTerritoryInfo(null);
+			infoView.showTerritoryInfo();
 		}
 	}
 	

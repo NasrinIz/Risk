@@ -24,7 +24,6 @@ public class MainWindow extends JFrame {
 	private BorderLayout borderLayout;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<String, TerritoryView>(2,2);
-	
 	public MainWindow() {
 		super("Risky Conquest");		
 		this.initWindow();
@@ -82,6 +81,8 @@ public class MainWindow extends JFrame {
 			
 		}
 
+		InfoView infoView = new InfoView();
+		this.getContentPane().add(infoView);
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 
