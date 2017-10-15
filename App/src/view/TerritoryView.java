@@ -46,6 +46,9 @@ public class TerritoryView extends JPanel {
 		System.out.println("this listener");
 	}
 
+	/**
+	 * @param territoryBtnListener
+	 */
 	public void addTerritoryBtnListener(ActionListener territoryBtnListener) {
 		terrNameBtn.addActionListener(territoryBtnListener);
 	}
