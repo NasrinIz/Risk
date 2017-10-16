@@ -77,6 +77,42 @@ public class Maps {
 		return dictTerritory.size();
 	}
 
+	public void setDictContinents(Map<String, Continent> dictContinents) {
+		this.dictContinents = dictContinents;
+	}
+
+	public void setDictTerritory(Map<String, Territory> dictTerritory) {
+		this.dictTerritory = dictTerritory;
+	}
+
+	/**
+	 * @return the dictContinents
+	 */
+	public Map<String, Continent> getDictContinents() {
+		return dictContinents;
+	}
+
+	/**
+	 * @return the dictTerritory
+	 */
+	public Map<String, Territory> getDictTerritory() {
+		return dictTerritory;
+	}
+
+	/**
+	 * @return the mapAuthor
+	 */
+	public String getMapAuthor() {
+		return mapAuthor;
+	}
+
+	/**
+	 * @param mapAuthor
+	 *            the mapAuthor to set
+	 */
+	public void setMapAuthor(String mapAuthor) {
+		this.mapAuthor = mapAuthor;
+	}
 	/**
 	 * @param inVal
 	 * @return rtVal
@@ -226,33 +262,5 @@ public class Maps {
 		return 0;
 	}
 
-	/**
-	 * @return the dictContinents
-	 */
-	public Map<String, Continent> getDictContinents() {
-		return dictContinents;
-	}
-
-	/**
-	 * @return the dictTerritory
-	 */
-	public Map<String, Territory> getDictTerritory() {
-		return dictTerritory;
-	}
-
-	/**
-	 * @return the mapAuthor
-	 */
-	public String getMapAuthor() {
-		return mapAuthor;
-	}
-
-	/**
-	 * @param mapAuthor
-	 *            the mapAuthor to set
-	 */
-	public void setMapAuthor(String mapAuthor) {
-		this.mapAuthor = mapAuthor;
-	}
 
 }

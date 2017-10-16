@@ -1,8 +1,12 @@
 package controller;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.GameConfig;
+import model.Maps;
+import model.Territory;
 import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
@@ -25,6 +29,11 @@ public class MainController {
 	 */
 	private GameConfig gameConfig; 
 	private TerritoryView territoryView;
+	private Maps mapObj;
+	private String territoryName;
+	private String continentName;
+	private String[] territories;
+	private String[] continents;
 	
 	public MainController(StarterWindow starterView){
 		this.starterView = starterView;
@@ -74,7 +83,25 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			starterView.showEditMapForm();
+
+			Integer playerNum = starterView.getPlayerNumbers();
+			String selectedMap = starterView.getSelectedMap();
+			
+			gameConfig = new GameConfig(playerNum, selectedMap);
+			
+			mainWindow = new MainWindow();
+			mapObj = gameConfig.getMapObj();
+
+			for (String territoryName : mapObj.getDictTerritory().keySet()) {
+				territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
+				System.out.println(territoryName);
+			}
+			
+
+			String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
+					"USA", "World", "valid_1" };
+			
+			starterView.showEditMapForm(mapTitles,mapTitles);
 		}
 	}
 	

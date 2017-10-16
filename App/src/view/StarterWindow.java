@@ -15,6 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import model.Maps;
+
 public class StarterWindow extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -170,9 +172,11 @@ public class StarterWindow extends JFrame {
 		editMapRadioBtn = new JRadioButton("Edit the selected Map");
 		editMapRadioBtn.setBounds(430, 120, 200, 20);
 
+		if (editMapRadioBtn != null) {
+			editMapRadioBtn.setSelected(false);
+		}
 		this.removeCreateMapForm();
 		this.removeEditMapForm();
-
 		this.removeLoadMapForm();
 
 		this.getContentPane().add(editMapRadioBtn);
@@ -188,10 +192,13 @@ public class StarterWindow extends JFrame {
 		loadMapField = new JTextField();
 		loadMapField.setBounds(220, 120, 200, 20);
 
+		if (editMapRadioBtn != null) {
+			editMapRadioBtn.setSelected(false);
+		}
 		this.removeSelectMapForm();
-
 		this.removeCreateMapForm();
 		this.removeEditMapForm();
+
 		this.getContentPane().add(lblMapLoad);
 		this.getContentPane().add(loadMapField);
 		this.getContentPane().repaint();
@@ -217,6 +224,10 @@ public class StarterWindow extends JFrame {
 		createMapButton = new JButton("Create Map");
 		createMapButton.setBounds(10, 360, 100, 30);
 
+
+		if (editMapRadioBtn != null) {
+			editMapRadioBtn.setSelected(false);
+		}
 		this.removeEditMapForm();
 		this.removeSelectMapForm();
 		this.removeLoadMapForm();
@@ -229,25 +240,24 @@ public class StarterWindow extends JFrame {
 		this.getContentPane().repaint();
 	}
 
-	public void showEditMapForm() {
-		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-				"USA", "World", "valid_1" };
+	public void showEditMapForm(String[] countries, String[] Continents) {
 
 		editCountryLbl = new JLabel("Edit country: ");
 		editCountryLbl.setBounds(10, 200, 200, 20);
 
-		editCountryList = new JComboBox<>(mapTitles);
+		editCountryList = new JComboBox<>(countries);
 		editCountryList.setBounds(220, 200, 200, 20);
 
 		editContinentLbl = new JLabel("Edit continent: ");
 		editContinentLbl.setBounds(10, 280, 200, 20);
 
-		editContinentList = new JComboBox<>(mapTitles);
+		editContinentList = new JComboBox<>(Continents);
 		editContinentList.setBounds(220, 280, 200, 20);
 
 		editMapButton = new JButton("Edit Map");
 		editMapButton.setBounds(10, 360, 100, 30);
 
+		this.removeLoadMapForm();
 		this.removeCreateMapForm();
 
 		this.getContentPane().add(editCountryLbl);

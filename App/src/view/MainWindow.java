@@ -64,7 +64,6 @@ public class MainWindow extends JFrame {
 		mapPane.setWheelScrollingEnabled(true);
 
 		for (String territoryName : objMap.getDictTerritory().keySet()) {
-			System.out.println();
 			x = (objMap.getDictTerritory()).get(territoryName).getX();
 			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			
