@@ -31,10 +31,10 @@ public class TerritoryView extends JPanel {
 		this.setBackground(color);
 		this.setLayout(new FlowLayout());
 		terrNameBtn = new JButton(armiesNum + " " +terrName);
-		terrNameBtn.setPreferredSize(new Dimension(40, 10));
+		terrNameBtn.setPreferredSize(new Dimension(40, 20));
 		this.terrPos = terrPos;
 		this.add(terrNameBtn);
-		this.setBounds(terrPos.x, terrPos.y, 45, 40);
+		this.setBounds(terrPos.x, terrPos.y, 45, 25);
 		this.setVisible(true);
 	}
 
