@@ -263,18 +263,4 @@ public class Maps {
 		return 0;
 	}
 
-	public void getTerritoryList(Maps mapObj) {
-		for (String territoryName : mapObj.getDictTerritory().keySet()) {
-			territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
-			System.out.println(territoryName);
-		}
-	}
-
-	public void getContinentList(Maps mapObj) {
-		for (String continentName : mapObj.getDictTerritory().keySet()) {
-			continentName = (mapObj.getDictTerritory()).get(continentName).getContinent();
-			System.out.println(continentName);
-		}
-	}
-
 }
