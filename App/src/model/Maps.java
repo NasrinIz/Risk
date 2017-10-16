@@ -113,6 +113,7 @@ public class Maps {
 	public void setMapAuthor(String mapAuthor) {
 		this.mapAuthor = mapAuthor;
 	}
+
 	/**
 	 * @param inVal
 	 * @return rtVal
@@ -147,7 +148,7 @@ public class Maps {
 	public Integer readMap() {
 		String mapTxtLoc = String.format("Resources//Maps//%s.map", mapLocation);
 		String mapImgLoc = String.format("Resources//Maps//%s.bmp", mapLocation);
-		
+
 		BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapTxtLoc);
 		String line;
 		String[] tmpArr;
@@ -262,5 +263,18 @@ public class Maps {
 		return 0;
 	}
 
+	public void getTerritoryList(Maps mapObj) {
+		for (String territoryName : mapObj.getDictTerritory().keySet()) {
+			territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
+			System.out.println(territoryName);
+		}
+	}
+
+	public void getContinentList(Maps mapObj) {
+		for (String continentName : mapObj.getDictTerritory().keySet()) {
+			continentName = (mapObj.getDictTerritory()).get(continentName).getContinent();
+			System.out.println(continentName);
+		}
+	}
 
 }

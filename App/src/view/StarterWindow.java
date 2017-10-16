@@ -175,6 +175,7 @@ public class StarterWindow extends JFrame {
 		if (editMapRadioBtn != null) {
 			editMapRadioBtn.setSelected(false);
 		}
+		
 		this.removeCreateMapForm();
 		this.removeEditMapForm();
 		this.removeLoadMapForm();
@@ -195,6 +196,7 @@ public class StarterWindow extends JFrame {
 		if (editMapRadioBtn != null) {
 			editMapRadioBtn.setSelected(false);
 		}
+		
 		this.removeSelectMapForm();
 		this.removeCreateMapForm();
 		this.removeEditMapForm();

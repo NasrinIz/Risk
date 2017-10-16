@@ -32,8 +32,10 @@ public class MainController {
 	private Maps mapObj;
 	private String territoryName;
 	private String continentName;
-	private String[] territories;
-	private String[] continents;
+	private String[] territories = null;
+	private String[] continents = null;
+	private Integer i = 0;
+	private Integer j = 0 ;
 	
 	public MainController(StarterWindow starterView){
 		this.starterView = starterView;
@@ -80,6 +82,7 @@ public class MainController {
 	}
 	
 	private class editMapListener implements ActionListener{
+		@SuppressWarnings("null")
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -91,11 +94,6 @@ public class MainController {
 			
 			mainWindow = new MainWindow();
 			mapObj = gameConfig.getMapObj();
-
-			for (String territoryName : mapObj.getDictTerritory().keySet()) {
-				territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
-				System.out.println(territoryName);
-			}
 			
 
 			String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
