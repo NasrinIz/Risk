@@ -120,15 +120,15 @@ public class Territory {
 	}
 	
 	public String toString() {
-		String info = "Country 	 Name:	" + name + "\n"
-					+ "Continent Name:	" + continent + "\n"
-					+ "Coordinates	 :	" + "(" + X + "," + Y + ")\n"
+		String info = "Country Name: 	" + name + "\n\n"
+					+ "Continent Name: 	" + continent + "\n\n"
+					+ "Coordinates	 : 	" + "(" + X + "," + Y + ")\n\n"
 					+ "Adjacent Countries: \n";
 		
 		for(String adjTerr: adjacentCountries) {
-			info += adjTerr + " , ";
+			info += adjTerr + "\n";
 		}
 		
-		return info.substring(0,-3);
+		return info.substring(0,info.length()-3);
 	}
 }

@@ -16,7 +16,7 @@ public class TerritoryView extends JPanel {
 	Point terrPos;
 	Color color;
 	JButton terrNameBtn;
-
+	String terrName;
 	/**
 	 * fields constructor
 	 * 
@@ -28,6 +28,7 @@ public class TerritoryView extends JPanel {
 	 *            coordinates of the position of the territory
 	 */
 	public TerritoryView(String terrName, String armiesNum, Point terrPos, Color color) {
+		this.terrName = terrName;
 		this.setBackground(color);
 		this.setLayout(new FlowLayout());
 		terrNameBtn = new JButton(armiesNum + " " +terrName);
@@ -39,18 +40,24 @@ public class TerritoryView extends JPanel {
 	}
 
 	/**
-	 * @param aListener
-	 */
-	public void addListener(ActionListener aListener) {
-		this.addListener(aListener);
-		System.out.println("this listener");
-	}
-
-	/**
 	 * @param territoryBtnListener
 	 */
 	public void addTerritoryBtnListener(ActionListener territoryBtnListener) {
 		terrNameBtn.addActionListener(territoryBtnListener);
+	}
+
+	/**
+	 * @return the terrName
+	 */
+	public String getTerrName() {
+		return terrName;
+	}
+
+	/**
+	 * @param terrName the terrName to set
+	 */
+	public void setTerrName(String terrName) {
+		this.terrName = terrName;
 	}
 
 }

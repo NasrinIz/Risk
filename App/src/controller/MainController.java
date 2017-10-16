@@ -1,14 +1,16 @@
 package controller;
 
-import java.awt.Color;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import javax.swing.JButton;
 
 import model.GameConfig;
 import model.Maps;
-import model.Territory;
 import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
@@ -120,16 +122,22 @@ public class MainController {
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
+			addTerritoryListeners();
 		}
 	}
 
 	private class territoryListener implements ActionListener {
+		String countryName;
+		territoryListener(String countryName) {
+			this.countryName = countryName;
+		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("hi hi hi");
 			// TODO Auto-generated method stub
-			infoView = new InfoView();
-			infoView.showTerritoryInfo();
+						
+			String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
+			mainWindow.getInfoView().showTerritoryInfo(info);
 		}
 	}
 
@@ -149,6 +157,17 @@ public class MainController {
 			continents.add(continentName);
 		}
 		return continents;
+	}
+	
+	public void addTerritoryListeners() {
+		Iterator<Entry<String, TerritoryView>> it = mainWindow.getDictTerrViews().entrySet().iterator();
+	    while (it.hasNext()) {
+	        Map.Entry<String, TerritoryView> pair = (Entry<String, TerritoryView>)it.next();
+	        TerritoryView tv = pair.getValue();
+	        tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
+	        it.remove(); // avoids a ConcurrentModificationException
+	    }
+
 	}
 
 }

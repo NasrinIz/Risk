@@ -17,11 +17,12 @@ import model.Maps;
  */
 public class MainWindow extends JFrame {
 	
-	public static final int WIDTH = 1200;
+	public static final int WIDTH = 1400;
 	public static final int HEIGHT = 800;
 	
 	private JScrollPane mapPane;
 	private BorderLayout borderLayout;
+	private InfoView infoView;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<String, TerritoryView>(2,2);
 	public MainWindow() {
@@ -72,7 +73,7 @@ public class MainWindow extends JFrame {
 //			mapPane.add(btnTemp);
 //			mapPane.setComponentZOrder(btnTemp, 0);
 			
-			// comment the previous 4 lines and uncomment the next 3
+			// comment the previous 4 lines and uncomment the next 4
 			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
 			mapPane.add(terrPanel);
 			mapPane.setComponentZOrder(terrPanel, 0);
@@ -80,7 +81,7 @@ public class MainWindow extends JFrame {
 			
 		}
 
-		InfoView infoView = new InfoView();
+		infoView = new InfoView();
 		this.getContentPane().add(infoView);
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
@@ -92,6 +93,13 @@ public class MainWindow extends JFrame {
 	 */
 	public Map<String, TerritoryView> getDictTerrViews() {
 		return dictTerrViews;
+	}
+
+	/**
+	 * @return the infoView
+	 */
+	public InfoView getInfoView() {
+		return infoView;
 	}
 	
 }

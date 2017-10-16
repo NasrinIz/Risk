@@ -1,22 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.swing.JButton;
-//import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
-
-import model.Maps;
 
 /**
  * @author Team20
@@ -25,7 +15,7 @@ public class InfoView extends JPanel {
 	private JLabel terrNameLbl;
 	private JLabel terrNumArmiesLbl;
 	private JLabel terrAdjacentCountriesLbl;
-
+	private JTextArea InfoTextArea;
 	public InfoView() {
 		this.showTerritoryPanel();
 	}
@@ -39,10 +29,14 @@ public class InfoView extends JPanel {
 		terrNameLbl = new JLabel("Territory Name: ");
 		terrNumArmiesLbl = new JLabel("Number of Armies: ");
 		terrAdjacentCountriesLbl = new JLabel("Adjacent countries: ");
-		this.setBounds(1024, 0, 175, 768);
-		this.add(terrNameLbl);
-		this.add(terrNumArmiesLbl);
-		this.add(terrAdjacentCountriesLbl);
+		InfoTextArea = new JTextArea();
+		InfoTextArea.setRows(10);
+		
+		this.setBounds(1024, 0, 350, 768);
+//		this.add(terrNameLbl);
+//		this.add(terrNumArmiesLbl);
+//		this.add(terrAdjacentCountriesLbl);
+		this.add(InfoTextArea);
 		TitledBorder border = new TitledBorder("Information Panel");
 	    border.setTitleJustification(TitledBorder.CENTER);
 	    border.setTitlePosition(TitledBorder.TOP);
@@ -50,8 +44,8 @@ public class InfoView extends JPanel {
 		this.setVisible(true);
 	}
 
-	public void showTerritoryInfo() {
-
+	public void showTerritoryInfo(String info) {
+		InfoTextArea.setText(info);
 	}
 
 }
