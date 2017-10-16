@@ -137,7 +137,6 @@ public class MainController {
 		territories = new ArrayList<String>();
 		for (String territoryName : mapObj.getDictTerritory().keySet()) {
 			territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
-			System.out.println(territoryName);
 			territories.add(territoryName);
 		}
 		return territories;
@@ -147,7 +146,6 @@ public class MainController {
 		continents = new ArrayList<String>();
 		for (String continentName : mapObj.getDictTerritory().keySet()) {
 			continentName = (mapObj.getDictTerritory()).get(continentName).getContinent();
-			System.out.println(continentName);
 			continents.add(continentName);
 		}
 		return continents;
