@@ -10,10 +10,11 @@ public class Territory {
 	private Integer TERRITORYCAPACITYINCREMENT = 2;
 	/***************************/
 	private String continent = null;
-	private String name = null;
+	private String name = "";
 	private Integer X = 0;
 	private Integer Y = 0;
 	private Vector<String> adjacentCountries = new Vector<String>(TERRITORYINITSIZE, TERRITORYCAPACITYINCREMENT);
+
 	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
 
