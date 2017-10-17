@@ -23,7 +23,6 @@ import view.TerritoryView;
 public class MainController {
 
 	private StarterWindow starterView;
-	private InfoView infoView;
 	/**
 	 * reference to mainView
 	 */
@@ -32,10 +31,7 @@ public class MainController {
 	 * reference to mainModel
 	 */
 	private GameConfig gameConfig;
-	private TerritoryView territoryView;
 	private Maps mapObj;
-	private String territoryName;
-	private String continentName;
 	private ArrayList<String> territories = null;
 	private ArrayList<String> continents = null;
 
