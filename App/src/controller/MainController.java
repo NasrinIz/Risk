@@ -49,21 +49,21 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			starterView.showStarterForm();
-			starterView.addRadioLoadMapActionListener(new loadMapListener());
+			//starterView.addRadioLoadMapActionListener(new loadMapListener());
 			starterView.addRadioSelectMapActionListener(new selectMapListener());
 			starterView.addRadioCreateMapActionListener(new createMapListener());
 			starterView.addSubmitButtontActionListener(new submitButtonListener());
 		}
 	}
 
-	private class loadMapListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			starterView.showLoadMapForm();
-
-		}
-	}
+//	private class loadMapListener implements ActionListener {
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			// TODO Auto-generated method stub
+//			starterView.showLoadMapForm();
+//
+//		}
+//	}
 
 	private class selectMapListener implements ActionListener {
 		@Override
