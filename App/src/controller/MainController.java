@@ -68,7 +68,7 @@ public class MainController {
 	private class selectMapListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+			 //TODO Auto-generated method stub
 			starterView.showSelectMapForm();
 			starterView.addEditMapRadioBtnListener(new editMapListener());
 		}
@@ -100,9 +100,9 @@ public class MainController {
 			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
 			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
 
-			// String[] mapTitles = new String[] { "Atlantis", "DiMul",
-			// "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-			// "USA", "World", "valid_1" };
+			 String[] mapTitles = new String[] { "Atlantis", "DiMul",
+			 "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
+			 "USA", "World", "valid_1" };
 
 			starterView.showEditMapForm(territoryList, continentList);
 		}
@@ -134,7 +134,7 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("hi hi hi");
-			// TODO Auto-generated method stub
+			 //TODO Auto-generated method stub
 						
 			String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
 			mainWindow.getInfoView().showTerritoryInfo(info);
