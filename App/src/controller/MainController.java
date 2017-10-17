@@ -100,10 +100,6 @@ public class MainController {
 			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
 			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
 
-			 String[] mapTitles = new String[] { "Atlantis", "DiMul",
-			 "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-			 "USA", "World", "valid_1" };
-
 			starterView.showEditMapForm(territoryList, continentList);
 		}
 	}
@@ -133,9 +129,7 @@ public class MainController {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("hi hi hi");
 			 //TODO Auto-generated method stub
-						
 			String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
 			mainWindow.getInfoView().showTerritoryInfo(info);
 		}

@@ -146,7 +146,7 @@ public class StarterWindow extends JFrame {
 	
 		submitButton = new JButton("Start New Game");
 		submitButton.setBounds(10, 440, 400, 30);
-		submitButton.setEnabled(false);
+		
 		group = new ButtonGroup();
 		group.add(radioLoadMap);
 		group.add(radioSelectMap);
@@ -178,9 +178,9 @@ public class StarterWindow extends JFrame {
 			editMapRadioBtn.setSelected(false);
 		}
 
-		this.removeCreateMapForm();
 		this.removeEditMapForm();
 		this.removeLoadMapForm();
+		this.removeCreateMapForm();
 
 		this.getContentPane().add(editMapRadioBtn);
 		this.getContentPane().add(lblMapSelect);
