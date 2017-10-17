@@ -38,12 +38,16 @@ public class StarterWindow extends JFrame {
 	private JTextField addCountryField;
 	private JLabel addContinentLbl;
 	private JTextField addContinentField;
+	private JButton finishAddingContinentsBtn;
 	private JLabel editCountryLbl;
 	private JComboBox<String> editCountryList;
 	private JLabel editContinentLbl;
 	private JComboBox<String> editContinentList;
-	private JButton createMapButton;
+	private JButton addContinentButton;
+	private JButton addCountryButton;
 	private JButton editMapButton;
+	private JLabel addCountryToContinentLbl;
+	private JComboBox <String> continentList;
 
 	ButtonGroup group = new ButtonGroup();
 
@@ -125,33 +129,40 @@ public class StarterWindow extends JFrame {
 		submitButton.addActionListener(listenForSubmitButton);
 	}
 
+	/**
+	 * @param listenForSubmitButton
+	 */
+	public void finishAddingContinentBtnActionListener(ActionListener listenForContinentBtn) {
+		finishAddingContinentsBtn.addActionListener(listenForContinentBtn);
+	}
+
 	public void showStarterForm() {
-	
+
 		radioLoadMap = new JRadioButton("Load map");
 		radioLoadMap.setBounds(10, 80, 200, 30);
-	
+
 		radioSelectMap = new JRadioButton("Select map");
 		radioSelectMap.setBounds(220, 80, 200, 30);
-	
+
 		radioCreateMap = new JRadioButton("Create map");
 		radioCreateMap.setBounds(430, 80, 200, 30);
-	
+
 		lblNumPlayers = new JLabel("Number of Human Players: ");
 		lblNumPlayers.setBounds(10, 40, 200, 20);
-	
+
 		Integer[] playerNums = new Integer[] { 2, 3, 4, 5, 6 };
-	
+
 		playerNum = new JComboBox<>(playerNums);
 		playerNum.setBounds(220, 40, 200, 20);
-	
+
 		submitButton = new JButton("Start New Game");
-		submitButton.setBounds(10, 440, 400, 30);
-		
+		submitButton.setBounds(10, 500, 400, 30);
+
 		group = new ButtonGroup();
 		group.add(radioLoadMap);
 		group.add(radioSelectMap);
 		group.add(radioCreateMap);
-	
+
 		this.getContentPane().add(lblNumPlayers);
 		this.getContentPane().add(playerNum);
 		this.getContentPane().add(radioLoadMap);
@@ -181,6 +192,7 @@ public class StarterWindow extends JFrame {
 		this.removeEditMapForm();
 		this.removeLoadMapForm();
 		this.removeCreateMapForm();
+		this.removeAddCountryForm();
 
 		this.getContentPane().add(editMapRadioBtn);
 		this.getContentPane().add(lblMapSelect);
@@ -202,6 +214,7 @@ public class StarterWindow extends JFrame {
 		this.removeSelectMapForm();
 		this.removeCreateMapForm();
 		this.removeEditMapForm();
+		this.removeAddCountryForm();
 
 		this.getContentPane().add(lblMapLoad);
 		this.getContentPane().add(loadMapField);
@@ -210,59 +223,84 @@ public class StarterWindow extends JFrame {
 
 	public void showCreateMapForm() {
 
-		addCountryLbl = new JLabel("Add country: ");
+		addContinentLbl = new JLabel("Add Continent: ");
+		addContinentLbl.setBounds(10, 150, 200, 20);
+
+		addContinentField = new JTextField();
+		addContinentField.setBounds(220, 150, 200, 20);
+
+		addContinentButton = new JButton("Add continent");
+		addContinentButton.setBounds(10, 200, 200, 30);
+
+		finishAddingContinentsBtn = new JButton("Finish adding continent");
+		finishAddingContinentsBtn.setBounds(10, 250, 200, 30);
+
+		if (editMapRadioBtn != null) {
+			editMapRadioBtn.setSelected(false);
+		}
+
+		this.removeEditMapForm();
+		this.removeSelectMapForm();
+		this.removeLoadMapForm();
+		this.removeAddCountryForm();
+
+		this.getContentPane().add(addContinentLbl);
+		this.getContentPane().add(addContinentField);
+		this.getContentPane().add(addContinentButton);
+		this.getContentPane().add(finishAddingContinentsBtn);
+		this.getContentPane().repaint();
+	}
+
+	public void showAddCountryForm(String[] continents) {
+
+		addCountryLbl = new JLabel("Add Country: ");
 		addCountryLbl.setBounds(10, 150, 200, 20);
 
 		addCountryField = new JTextField();
 		addCountryField.setBounds(220, 150, 200, 20);
 
-		adjacentCountriesLbl = new JLabel("Adjacent countries: ");
-		adjacentCountriesLbl.setBounds(430, 150, 200, 20);
+		adjacentCountriesLbl = new JLabel("Adjacent Countries: ");
+		adjacentCountriesLbl.setBounds(10, 200, 200, 20);
 
 		adjacentCountriesField = new JTextField();
-		adjacentCountriesField.setBounds(640, 150, 200, 20);
+		adjacentCountriesField.setBounds(220, 200, 200, 20);
 
-		addContinentLbl = new JLabel("Add  country to a continent: ");
-		addContinentLbl.setBounds(10, 200, 200, 20);
+		addCountryToContinentLbl = new JLabel("Add Country to continent: ");
+		addCountryToContinentLbl.setBounds(10, 250, 200, 20);
 
-		addContinentField = new JTextField();
-		addContinentField.setBounds(220, 200, 200, 20);
+		continentList = new JComboBox<String>(continents);
+		continentList.setBounds(220, 250, 200, 20);
 
-		createMapButton = new JButton("Add to map");
-		createMapButton.setBounds(10, 250, 200, 30);
+		addCountryButton = new JButton("Add Country");
+		addCountryButton.setBounds(220, 300, 200, 30);
 
-		if (editMapRadioBtn != null) {
-			editMapRadioBtn.setSelected(false);
-		}
-		this.removeEditMapForm();
-		this.removeSelectMapForm();
-		this.removeLoadMapForm();
+		this.removeCreateMapForm();
 
 		this.getContentPane().add(addCountryLbl);
 		this.getContentPane().add(addCountryField);
 		this.getContentPane().add(adjacentCountriesLbl);
 		this.getContentPane().add(adjacentCountriesField);
-		this.getContentPane().add(addContinentLbl);
-		this.getContentPane().add(addContinentField);
-		this.getContentPane().add(createMapButton);
+		this.getContentPane().add(addCountryButton);
+		this.getContentPane().add(addCountryToContinentLbl);
+		this.getContentPane().add(continentList);
 		this.getContentPane().repaint();
 	}
 
 	public void showEditMapForm(String[] countries, String[] Continents) {
 		editCountryLbl = new JLabel("Edit country: ");
-		editCountryLbl.setBounds(10, 300, 200, 20);
+		editCountryLbl.setBounds(10, 400, 200, 20);
 
 		editCountryList = new JComboBox<>(countries);
-		editCountryList.setBounds(220, 300, 200, 20);
+		editCountryList.setBounds(220, 400, 200, 20);
 
 		editContinentLbl = new JLabel("Edit continent: ");
-		editContinentLbl.setBounds(420, 300, 200, 20);
+		editContinentLbl.setBounds(420, 400, 200, 20);
 
 		editContinentList = new JComboBox<>(Continents);
-		editContinentList.setBounds(620, 300, 200, 20);
+		editContinentList.setBounds(620, 400, 200, 20);
 
 		editMapButton = new JButton("Remove from Map");
-		editMapButton.setBounds(10, 350, 200, 30);
+		editMapButton.setBounds(10, 450, 200, 30);
 
 		this.removeLoadMapForm();
 		this.showCreateMapForm();
@@ -299,15 +337,27 @@ public class StarterWindow extends JFrame {
 	}
 
 	public void removeCreateMapForm() {
-		if (addCountryLbl != null && addCountryField != null && addContinentLbl != null && addContinentField != null
-				&& createMapButton != null && adjacentCountriesLbl != null && adjacentCountriesField != null) {
-			this.getContentPane().remove(addCountryLbl);
-			this.getContentPane().remove(addCountryField);
-			this.getContentPane().remove(adjacentCountriesLbl);
-			this.getContentPane().remove(adjacentCountriesField);
+		if (addContinentLbl != null && addContinentField != null && addContinentButton != null
+				&& finishAddingContinentsBtn != null) {
 			this.getContentPane().remove(addContinentLbl);
 			this.getContentPane().remove(addContinentField);
-			this.getContentPane().remove(createMapButton);
+			this.getContentPane().remove(addContinentButton);
+			this.getContentPane().remove(finishAddingContinentsBtn);
+			this.getContentPane().repaint();
+		}
+	}
+
+	public void removeAddCountryForm() {
+		if (addCountryLbl != null && addCountryField != null && adjacentCountriesLbl != null
+				&& adjacentCountriesField != null &&  addCountryButton != null && addCountryToContinentLbl != null
+				&& continentList != null) {
+			this.getContentPane().add(addCountryLbl);
+			this.getContentPane().add(addCountryField);
+			this.getContentPane().add(adjacentCountriesLbl);
+			this.getContentPane().add(adjacentCountriesField);
+			this.getContentPane().add(addCountryButton);
+			this.getContentPane().add(addCountryToContinentLbl);
+			this.getContentPane().add(continentList);
 			this.getContentPane().repaint();
 		}
 	}

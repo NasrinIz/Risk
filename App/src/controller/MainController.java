@@ -64,7 +64,7 @@ public class MainController {
 	private class selectMapListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			 //TODO Auto-generated method stub
+			// TODO Auto-generated method stub
 			starterView.showSelectMapForm();
 			starterView.addEditMapRadioBtnListener(new editMapListener());
 		}
@@ -75,7 +75,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			starterView.showCreateMapForm();
-
+			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
 		}
 	}
 
@@ -89,14 +89,30 @@ public class MainController {
 			String selectedMap = starterView.getSelectedMap();
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
-
-			mainWindow = new MainWindow();
 			mapObj = gameConfig.getMapObj();
 
 			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
 			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
 
 			starterView.showEditMapForm(territoryList, continentList);
+
+			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
+		}
+	}
+
+	private class finishAddContinentListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+
+			Integer playerNum = starterView.getPlayerNumbers();
+			String selectedMap = starterView.getSelectedMap();
+			
+			gameConfig = new GameConfig(playerNum, selectedMap);
+			mapObj = gameConfig.getMapObj();
+
+			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
+			starterView.showAddCountryForm(continentList);
 		}
 	}
 
@@ -120,12 +136,14 @@ public class MainController {
 
 	private class territoryListener implements ActionListener {
 		String countryName;
+
 		territoryListener(String countryName) {
 			this.countryName = countryName;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			 //TODO Auto-generated method stub
+			// TODO Auto-generated method stub
 			String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
 			mainWindow.getInfoView().showTerritoryInfo(info);
 		}
@@ -148,15 +166,15 @@ public class MainController {
 		}
 		return continents;
 	}
-	
+
 	public void addTerritoryListeners() {
 		Iterator<Entry<String, TerritoryView>> it = mainWindow.getDictTerrViews().entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry<String, TerritoryView> pair = (Entry<String, TerritoryView>)it.next();
-	        TerritoryView tv = pair.getValue();
-	        tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
-	        it.remove(); // avoids a ConcurrentModificationException
-	    }
+		while (it.hasNext()) {
+			Map.Entry<String, TerritoryView> pair = (Entry<String, TerritoryView>) it.next();
+			TerritoryView tv = pair.getValue();
+			tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
+			it.remove(); // avoids a ConcurrentModificationException
+		}
 
 	}
 
