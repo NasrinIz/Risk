@@ -332,7 +332,7 @@ public class Maps {
 			Territory tmpTerritoryObj = this.dictTerritory.get(territory); 
 		    if(tmpTerritoryObj.getName() == null)
 		    {
-		    	
+		    	/* vj*/
 		    }
 		}
 		
@@ -340,3 +340,6 @@ public class Maps {
 	}
 
 }
+
+
+
