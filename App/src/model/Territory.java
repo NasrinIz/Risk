@@ -15,7 +15,7 @@ public class Territory {
 	private static Integer TERRITORY_CAPACITY_INCREMENT = 2;
 	/***************************/
 	private String continent = null;
-	private String name = "";
+	private String name = null;
 	private Integer X = 0;
 	private Integer Y = 0;
 	private Vector<String> adjacentCountries = new Vector<String>(TERRITORY_INIT_SIZE, TERRITORY_CAPACITY_INCREMENT);
