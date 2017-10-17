@@ -200,14 +200,70 @@ public class Maps {
 	
 	private Integer validateMap()
 	{
-		if((mapAuthor == null) && (mapWarning == null))
+		if((mapAuthor == null) || (mapWarning == null))
 		{
+			System.out.print("The map author or map warning property is not valid");
 			return -1;
 		}
 		
 		for (String territory : this.dictTerritory.keySet())
 		{
-
+			Territory tmpTerritoryObj = this.dictTerritory.get(territory);
+			if(tmpTerritoryObj.getName() == null)
+			{
+				System.out.printf("\nThe territory %s does not have a name", territory);
+				return -1;
+			}
+			if(tmpTerritoryObj.getContinent() == null)
+			{
+				System.out.printf("\nThe territory %s does not have a continent", territory);
+				return -1;
+			}
+			if(tmpTerritoryObj.getX() == 0)
+			{
+				System.out.printf("\nThe territory %s does not have defined X Axis", territory);
+				return -1;
+			}
+			else if(tmpTerritoryObj.getY() == 0)
+			{
+				System.out.printf("\nThe territory %s does not have defined Y Axis", territory);
+				return -1;
+			}
+			
+			if(dictContinents.get((tmpTerritoryObj.getContinent())) == null)
+			{
+				System.out.printf("\nThe territory %s is in continent %s. This continent either does not exist or isnt defined properly", territory, tmpTerritoryObj.getContinent());
+				return -1;
+			}
+			
+			Vector<String> adjacent = tmpTerritoryObj.getAdjacentCountries();
+			for(int i = 0; i<adjacent.size(); i++)
+			{
+				Integer matchFlag = 0;
+				String adjacentCountry = adjacent.get(i);
+				if(this.dictTerritory.get(adjacentCountry) != null)
+				{
+					Vector<String> checkList = (this.dictTerritory.get(adjacentCountry)).getAdjacentCountries();
+					for(int j = 0; j<checkList.size(); j++)
+					{
+						if(adjacentCountry.equals(checkList.get(j)))
+						{
+							matchFlag = 1;
+							break;
+						}
+					}
+					if(matchFlag == 0)
+					{
+						System.out.printf("\nPlease check adjacency for territory %s", adjacentCountry);
+						return -1;
+					}
+				}
+				else
+				{
+					System.out.printf("\nPlease mention adjacent territories for %s", adjacentCountry);
+					return -1;
+				}
+			}
 		}
 		
 		return 0;
