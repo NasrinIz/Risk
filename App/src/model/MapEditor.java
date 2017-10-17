@@ -1,13 +1,23 @@
 package model;
 
+/**
+ * @author Team20
+ *
+ */
 public class MapEditor {
 	Maps mapObj = null;
 	Integer editChoice = null;
 	
+	/**
+	 * @param inMapLocation
+	 */
 	public MapEditor(String inMapLocation) {
 	
 	}
 	
+	/**
+	 * @param inMapLocation
+	 */
 	private void createMap(String inMapLocation)
 	{
 		mapObj = new Maps(inMapLocation);
@@ -19,6 +29,9 @@ public class MapEditor {
 		dispEditMenu();
 	}
 	
+	/**
+	 * @param inMapObj
+	 */
 	private void dispMapInfo(Maps inMapObj)
 	{
 		System.out.printf("Current Map Info:");
@@ -26,6 +39,7 @@ public class MapEditor {
 		System.out.printf("Continents = %d", inMapObj.getNumContinents());
 		System.out.printf("Territories = %d", inMapObj.getNumTerritories());
 	}
+	
 	
 	private void dispEditMenu()
 	{

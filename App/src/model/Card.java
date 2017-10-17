@@ -1,15 +1,18 @@
 package model;
 
-enum RiskCards {
-	INFANTRY, CAVALRY, ARTILLERY, WILD
-}
-
+/**
+ * @author Team20
+ *
+ */
 public class Card {
-	RiskCards cardType;
+	RiskCard cardType;
 	String territoryName;
 
-	public Card(RiskCards cardType, String territoryName) {
-		super();
+	/**
+	 * @param cardType
+	 * @param territoryName
+	 */
+	public Card(RiskCard cardType, String territoryName) {
 		this.cardType = cardType;
 		this.territoryName = territoryName;
 	}
@@ -20,7 +23,7 @@ public class Card {
 	/**
 	 * @return the cardType
 	 */
-	public RiskCards getCardType() {
+	public RiskCard getCardType() {
 		return cardType;
 	}
 
@@ -30,7 +33,7 @@ public class Card {
 	/**
 	 * @param cardType the cardType to set
 	 */
-	public void setCardType(RiskCards cardType) {
+	public void setCardType(RiskCard cardType) {
 		this.cardType = cardType;
 	}
 
@@ -55,11 +58,7 @@ public class Card {
 	}
 
 
-
-
 	public int getWorth() {
-//		int n = cardType.ordinal();
-//		return int( ( n*n +7*n + 2 )/2 );
 		
 		switch (cardType) {
 		case WILD:
@@ -72,6 +71,23 @@ public class Card {
 		default:
 			return 1;
 		}
+	}
+	
+	public String toString() {
+		String Info = "Card Type:	" + this.cardType +"\n"
+				+ "Card Territory name:	" + this.getTerritoryName() +"\n"
+				+ "card value:	" + this.getWorth() +"\n";
+		return Info;
+		
+	}
+	
+	/**
+	 * compares this.cardType to the passed type
+	 * @param type
+	 * @return 0 if this.cardType == type, 1 if this.cardType > type, -1 if this.cardType < type
+	 */
+	public int compareTypeTo(RiskCard type) {
+		return this.cardType.compareTo(type);
 	}
 	
 }

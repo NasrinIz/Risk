@@ -1,12 +1,11 @@
 package model;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Vector;
-
-import javax.imageio.ImageIO;
-
-import java.awt.image.BufferedImage;
-import java.io.*;
 
 public class GenFun {
 	public Integer genStrToInt(String inVal) {

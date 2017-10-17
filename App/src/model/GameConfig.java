@@ -1,12 +1,35 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * @author Team20
+ *
+ */
 public class GameConfig {
 	private Integer numPlayers = null;
 	private Player players[];
-	private Continent []continents;
 	private Maps mapObj;
-	private Card []cards;
+	private ArrayList<Card> gameCards;
+	
+	/**
+	 * @param numPlayers
+	 * @param players
+	 * @param mapObj
+	 * @param gameCards
+	 */
+	public GameConfig(Integer numPlayers, String mapName) {
+		super();
+		
+		this.numPlayers = numPlayers;
+		this.mapObj = new Maps(mapName);
+		setupPlayers();
+		setupCards();
+	}
+
 	private GenFun genFunObj = new GenFun();
+	
 	
 	public Integer setNumPlayers(int inNumPlayers)
 	{
@@ -15,22 +38,26 @@ public class GameConfig {
 		
 		numPlayers = new Integer(inNumPlayers);
 		setupPlayers();
-		for (String territory : mapObj.dictTerritory.keySet())
+		for (String territory : mapObj.getDictTerritory().keySet())
 		{
-			System.out.println((mapObj.dictTerritory).get(territory).getOwner());
+			System.out.println((mapObj.getDictTerritory()).get(territory).getOwner());
 		}
 		return 0;
 	}
 	
-	public Maps createMap(String mapLocation)
+	/**
+	 * @param mapName
+	 * @return mapObj
+	 */
+	public Maps createMap(String mapName)
 	{
-		mapObj = new Maps(mapLocation);
+		mapObj = new Maps(mapName);
 		return mapObj;
 	}
 	
 	private void setupPlayers()
 	{
-		players = new Player[numPlayers];
+		this.players = new Player[numPlayers];
 		for(int i = 0; i < numPlayers; i++)
 		{
 			Player playerObj = new Player("Player" + Integer.toString(i));
@@ -42,11 +69,11 @@ public class GameConfig {
 	
 	private void initTerritory()
 	{
-		Integer perPlayer = mapObj.dictTerritory.size() / numPlayers;
-		Integer remainingTerritoryDist = mapObj.dictTerritory.size() - perPlayer;
+		Integer perPlayer = mapObj.getDictTerritory().size() / numPlayers;
+		Integer remainingTerritoryDist = mapObj.getDictTerritory().size() - perPlayer;
 		Integer nextOwnerPlayer = new Integer(0);
 		Integer perPlayerDistFlag = -1;
-		for (String territory : mapObj.dictTerritory.keySet())
+		for (String territory : mapObj.getDictTerritory().keySet())
 		{
 			if(perPlayerDistFlag != 0)
 			{
@@ -67,20 +94,23 @@ public class GameConfig {
 			if(perPlayerDistFlag == 0)
 			{
 				nextOwnerPlayer++;
-				(mapObj.dictTerritory).get(territory).setOwner(nextOwnerPlayer);
+				(mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
 				players[nextOwnerPlayer].occupyTerritory();
 			}
 			else 
 			{
 				if(players[nextOwnerPlayer].numOfTerritories() < perPlayer)
 				{
-					(mapObj.dictTerritory).get(territory).setOwner(nextOwnerPlayer);
+					(mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
 					players[nextOwnerPlayer].occupyTerritory();
 				}
 			}
 		}
 	}
 	
+	/**
+	 * @param inPerPlayer
+	 */
 	private Integer checkForDistCompletion(Integer inPerPlayer)
 	{
 		for(int i=0; i<numPlayers; i++)
@@ -95,31 +125,84 @@ public class GameConfig {
 	
 	private Integer getInitArmy()
 	{
-		if(numPlayers == 2)
-		{
-			return 40;
-		}
-		else if(numPlayers == 3)
-		{
-			return 35;
-		}
-		else if(numPlayers == 4)
-		{
-			return 30;
-		}
-		else if(numPlayers == 5)
-		{
-			return 25;
-		}
-		else
-		{
-			return 20;
-		}
-// 		if(numPlayers >= 2 && numPlayers <=6 ) {
-// 			return 5*(10-this.numPlayers);
-// 		} else {
-// 			return 0;		// should throw an exception
-// 		}
+
+ 		if(numPlayers >= 2 && numPlayers <=6 ) {
+ 			return 5*(10-this.numPlayers);
+ 		} else {
+ 			return 0;		// should throw an exception
+ 		}
 
 	}
+	
+
+	/**
+	 * @return the gameCards
+	 */
+	public ArrayList<Card> getGameCards() {
+		return gameCards;
+	}
+
+	/**
+	 * @return the mapObj
+	 */
+	public Maps getMapObj() {
+		return mapObj;
+	}
+
+	/**
+	 * @param mapObj the mapObj to set
+	 */
+	public void setMapObj(Maps mapObj) {
+		this.mapObj = mapObj;
+	}
+
+//// =================================<< Card Methods >>=================================
+	// To Do:
+	// change to private then use the method in the constructor
+	/**
+	 * Generate 2 WILD cards,
+	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
+	 * generated in a ratio close to 5:2:1 respectively
+	 * 
+	 */
+	public void setupCards() {
+		
+		this.gameCards = new ArrayList<Card>();
+		int randomNum = 0;
+		Random randGenerator = new Random();		
+		// 2 WILD cards with no country names
+		gameCards.add(new Card(RiskCard.WILD, ""));
+		gameCards.add(new Card(RiskCard.WILD, ""));
+		Card newCard = null;
+		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
+		{
+			randomNum = randGenerator.nextInt((16 - 1) + 1) + 1;
+//			System.out.println( randomNum );
+			if( randomNum % 8 == 0) {		// 8,16
+				newCard = new Card(RiskCard.ARTILLERY, trName);
+			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
+				newCard = new Card(RiskCard.CAVALRY, trName);
+			} else {						// 1,2,4,5,7,10,11,13,14,15
+				newCard = new Card(RiskCard.INFANTRY, trName);
+			} 
+//			System.out.println( newCard );
+			gameCards.add(newCard);
+		}
+	}
+	
+	/**
+	 * @param type
+	 * @return categ 
+	 */
+	public ArrayList<Card> getGameCardsOfType(RiskCard type) {
+		ArrayList<Card> categ = new ArrayList<Card>();
+		
+		for(Card card: gameCards) {
+			if(card.compareTypeTo(type) == 0) {
+				categ.add(card);
+			}
+		}
+		return categ;
+	}
+	
 }
