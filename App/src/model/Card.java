@@ -72,7 +72,10 @@ public class Card {
 			return 1;
 		}
 	}
-	
+
+	/**
+	 * This method return the information of all types of cards
+	 */
 	public String toString() {
 		String Info = "Card Type:	" + this.cardType +"\n"
 				+ "Card Territory name:	" + this.getTerritoryName() +"\n"

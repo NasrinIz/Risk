@@ -21,7 +21,8 @@ public class Continent {
 		this.territories = inTerritories;
 	}
     
-	/** 
+	/**
+	 * This method get the name 
 	 * @return name
 	 */
 	public String getName() {
@@ -29,6 +30,7 @@ public class Continent {
 	}
     
 	/**
+	 * This method get territories
 	 * @return territories
 	 */
 	public Territory[] getTerritories() {
@@ -36,12 +38,18 @@ public class Continent {
 	}
 	
     /**
+     * This method get armyReward
      * @return armyReward
      */
 	public int getArmyReward() {
 		return armyReward;
 	}
 
+	/**
+	 * This method checks if a continent is captured or not. 
+	 * @param p
+	 * @return true
+	 */
 	public boolean isContinentCaptured(Player p) {
 		return true;
 	}
