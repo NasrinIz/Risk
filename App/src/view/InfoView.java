@@ -25,8 +25,8 @@ public class InfoView extends JPanel {
 		this.setLayout(new FlowLayout());
 		InfoTextArea = new JTextArea();
 		InfoTextArea.setRows(10);
-		
-		this.setBounds(1024, 0, 350, 768);
+		this.setBounds(1024, 0, 255, 768);
+		InfoTextArea.setBounds(1024, 0, 255, 768);
 		this.add(InfoTextArea);
 		TitledBorder border = new TitledBorder("Information Panel");
 	    border.setTitleJustification(TitledBorder.CENTER);
