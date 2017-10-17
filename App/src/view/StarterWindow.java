@@ -126,35 +126,35 @@ public class StarterWindow extends JFrame {
 	}
 
 	public void showStarterForm() {
-
-//		radioLoadMap = new JRadioButton("Load map");
-//		radioLoadMap.setBounds(10, 80, 200, 30);
-
+	
+		radioLoadMap = new JRadioButton("Load map");
+		radioLoadMap.setBounds(10, 80, 200, 30);
+	
 		radioSelectMap = new JRadioButton("Select map");
-		radioSelectMap.setBounds(10, 80, 200, 30);
-
+		radioSelectMap.setBounds(220, 80, 200, 30);
+	
 		radioCreateMap = new JRadioButton("Create map");
-		radioCreateMap.setBounds(220, 80, 200, 30);
-
+		radioCreateMap.setBounds(430, 80, 200, 30);
+	
 		lblNumPlayers = new JLabel("Number of Human Players: ");
 		lblNumPlayers.setBounds(10, 40, 200, 20);
-
+	
 		Integer[] playerNums = new Integer[] { 2, 3, 4, 5, 6 };
-
+	
 		playerNum = new JComboBox<>(playerNums);
 		playerNum.setBounds(220, 40, 200, 20);
-
+	
 		submitButton = new JButton("Start New Game");
 		submitButton.setBounds(10, 440, 400, 30);
-		// submitButton.setEnabled(false);
+		submitButton.setEnabled(false);
 		group = new ButtonGroup();
-		//group.add(radioLoadMap);
+		group.add(radioLoadMap);
 		group.add(radioSelectMap);
 		group.add(radioCreateMap);
-
+	
 		this.getContentPane().add(lblNumPlayers);
 		this.getContentPane().add(playerNum);
-		//this.getContentPane().add(radioLoadMap);
+		this.getContentPane().add(radioLoadMap);
 		this.getContentPane().add(radioSelectMap);
 		this.getContentPane().add(radioCreateMap);
 		this.getContentPane().add(submitButton);
@@ -180,7 +180,7 @@ public class StarterWindow extends JFrame {
 
 		this.removeCreateMapForm();
 		this.removeEditMapForm();
-		//this.removeLoadMapForm();
+		this.removeLoadMapForm();
 
 		this.getContentPane().add(editMapRadioBtn);
 		this.getContentPane().add(lblMapSelect);
@@ -188,25 +188,25 @@ public class StarterWindow extends JFrame {
 		this.getContentPane().repaint();
 	}
 
-//	public void showLoadMapForm() {
-//		lblMapLoad = new JLabel("Load a map: ");
-//		lblMapLoad.setBounds(10, 120, 200, 20);
-//
-//		loadMapField = new JTextField();
-//		loadMapField.setBounds(220, 120, 200, 20);
-//
-//		if (editMapRadioBtn != null) {
-//			editMapRadioBtn.setSelected(false);
-//		}
-//
-//		this.removeSelectMapForm();
-//		this.removeCreateMapForm();
-//		this.removeEditMapForm();
-//
-//		this.getContentPane().add(lblMapLoad);
-//		this.getContentPane().add(loadMapField);
-//		this.getContentPane().repaint();
-//	}
+	public void showLoadMapForm() {
+		lblMapLoad = new JLabel("Load a map: ");
+		lblMapLoad.setBounds(10, 120, 200, 20);
+
+		loadMapField = new JTextField();
+		loadMapField.setBounds(220, 120, 200, 20);
+
+		if (editMapRadioBtn != null) {
+			editMapRadioBtn.setSelected(false);
+		}
+
+		this.removeSelectMapForm();
+		this.removeCreateMapForm();
+		this.removeEditMapForm();
+
+		this.getContentPane().add(lblMapLoad);
+		this.getContentPane().add(loadMapField);
+		this.getContentPane().repaint();
+	}
 
 	public void showCreateMapForm() {
 
@@ -218,7 +218,7 @@ public class StarterWindow extends JFrame {
 
 		adjacentCountriesLbl = new JLabel("Adjacent countries: ");
 		adjacentCountriesLbl.setBounds(430, 150, 200, 20);
-		
+
 		adjacentCountriesField = new JTextField();
 		adjacentCountriesField.setBounds(640, 150, 200, 20);
 
@@ -236,7 +236,7 @@ public class StarterWindow extends JFrame {
 		}
 		this.removeEditMapForm();
 		this.removeSelectMapForm();
-		//this.removeLoadMapForm();
+		this.removeLoadMapForm();
 
 		this.getContentPane().add(addCountryLbl);
 		this.getContentPane().add(addCountryField);
@@ -264,7 +264,7 @@ public class StarterWindow extends JFrame {
 		editMapButton = new JButton("Remove from Map");
 		editMapButton.setBounds(10, 350, 200, 30);
 
-		//this.removeLoadMapForm();
+		this.removeLoadMapForm();
 		this.showCreateMapForm();
 
 		this.getContentPane().add(editCountryLbl);
@@ -334,11 +334,11 @@ public class StarterWindow extends JFrame {
 		}
 	}
 
-//	public void removeLoadMapForm() {
-//		if (lblMapLoad != null && loadMapField != null) {
-//			this.getContentPane().remove(lblMapLoad);
-//			this.getContentPane().remove(loadMapField);
-//			this.getContentPane().repaint();
-//		}
-//	}
+	public void removeLoadMapForm() {
+		if (lblMapLoad != null && loadMapField != null) {
+			this.getContentPane().remove(lblMapLoad);
+			this.getContentPane().remove(loadMapField);
+			this.getContentPane().repaint();
+		}
+	}
 }
