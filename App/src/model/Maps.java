@@ -327,18 +327,39 @@ public class Maps {
 	{
 		Integer rt = 0;
 		HashMap<Territory, Integer> TerritoryVisitFlags = new HashMap<Territory, Integer>();
+		Territory tmp = null;
 		for(String territory : this.dictTerritory.keySet())
 		{
-			Territory tmpTerritoryObj = this.dictTerritory.get(territory); 
+			Territory tmpTerritoryObj = this.dictTerritory.get(territory);
+			if(tmp == null)
+			{
+				tmp = tmpTerritoryObj;
+			}
 		    if(tmpTerritoryObj.getName() == null)
 		    {
-		    	/* vj*/
+		    	TerritoryVisitFlags.put(tmpTerritoryObj, 0);
 		    }
 		}
+		
+		TerritoryVisitFlags = validateConnectivity(TerritoryVisitFlags, tmp);
 		
 		return rt;
 	}
 
+	private HashMap<Territory, Integer> validateConnectivity(HashMap<Territory, Integer> TerritoryVisitFlags, Territory territory)
+	{
+		if(TerritoryVisitFlags.get(territory) == 0)
+		{
+			TerritoryVisitFlags.put(territory, 1);
+		}
+		
+		for(String adjTerritory : territory.getAdjacentCountries())
+		{
+			TerritoryVisitFlags = validateConnectivity(TerritoryVisitFlags, dictTerritory.get(adjTerritory));
+		}
+		
+		return TerritoryVisitFlags;
+	}
 }
 
 
