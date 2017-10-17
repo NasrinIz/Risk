@@ -348,7 +348,7 @@ public class Maps {
 		
 		for(String territory : this.dictTerritory.keySet())
 		{
-			if(TerritoryVisitFlags.get(territory) != 1)
+			if(TerritoryVisitFlags.get(this.dictTerritory.get(territory)) != 1)
 			{
 				rt = -1;
 				System.out.println("The map is not a connected graph");
