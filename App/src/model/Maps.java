@@ -297,7 +297,7 @@ public class Maps {
 			        Vector<String> checkList = (this.dictTerritory.get(adjacentCountry)).getAdjacentCountries(); 
 			        for(int j = 0; j<checkList.size(); j++) 
 			        { 
-				        if(adjacentCountry.equals(checkList.get(j))) 
+				        if(this.dictTerritory.get(territory).getName().equals(checkList.get(j))) 
 				        { 
 					        matchFlag = 1; 
 					        break; 
@@ -318,7 +318,10 @@ public class Maps {
 		
 		}
 		
-		
+		if(mapConnectivity() != 0)
+		{
+			return -1;
+		}
 
 		return 0;
 	}
@@ -335,7 +338,7 @@ public class Maps {
 			{
 				tmp = tmpTerritoryObj;
 			}
-		    if(tmpTerritoryObj.getName() == null)
+		    if(tmpTerritoryObj.getName() != null)
 		    {
 		    	TerritoryVisitFlags.put(tmpTerritoryObj, 0);
 		    }
@@ -343,21 +346,51 @@ public class Maps {
 		
 		TerritoryVisitFlags = validateConnectivity(TerritoryVisitFlags, tmp);
 		
+		for(String territory : this.dictTerritory.keySet())
+		{
+			if(TerritoryVisitFlags.get(territory) != 1)
+			{
+				rt = -1;
+				System.out.println("The map is not a connected graph");
+				break;
+			}
+		}
+		
+		
 		return rt;
 	}
 
 	private HashMap<Territory, Integer> validateConnectivity(HashMap<Territory, Integer> TerritoryVisitFlags, Territory territory)
 	{
-		if(TerritoryVisitFlags.get(territory) == 0)
+		try
 		{
-			TerritoryVisitFlags.put(territory, 1);
+			if((TerritoryVisitFlags == null) || (territory == null) || (TerritoryVisitFlags.size() == 0))
+			{
+				return null;
+			}
+			
+			int val = TerritoryVisitFlags.get(territory); 
+			
+			if(val == 0)
+			{
+				TerritoryVisitFlags.put(territory, 1);
+			}
+			
+			for(String adjTerritory : territory.getAdjacentCountries())
+			{
+				if(TerritoryVisitFlags.get(dictTerritory.get(adjTerritory)) == 0)
+				{
+					TerritoryVisitFlags = validateConnectivity(TerritoryVisitFlags, dictTerritory.get(adjTerritory));
+				}
+			}
 		}
-		
-		for(String adjTerritory : territory.getAdjacentCountries())
+		catch(Exception e)
 		{
-			TerritoryVisitFlags = validateConnectivity(TerritoryVisitFlags, dictTerritory.get(adjTerritory));
+			e.printStackTrace();
+			System.out.println(TerritoryVisitFlags);
+			System.out.println(territory);
+			//System.out.println(TerritoryVisitFlags.get(territory));
 		}
-		
 		return TerritoryVisitFlags;
 	}
 }
