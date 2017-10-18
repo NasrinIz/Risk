@@ -38,7 +38,6 @@ public class TestGameConfig {
 	@Test
 	public void testGenerateCards() {
 		
-		gameConfig.setupCards();
 		assertNotNull(gameConfig.getGameCards());
 		assertEquals( gameConfig.getGameCards().size(), 10 );
 		assertEquals( gameConfig.getGameCardsOfType(RiskCard.WILD).size(), 2);

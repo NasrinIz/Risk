@@ -1,0 +1,15 @@
+[Map]
+author=Samer Ayoub
+image=invalid_1.bmp
+wrap=yes
+scroll=horizontal
+warn=yes
+
+[Continents]
+X=4
+
+[Territories]
+A,120,120,X,B
+B,80,80,X,A
+C,140,140,X,D
+D,180,180,X,C

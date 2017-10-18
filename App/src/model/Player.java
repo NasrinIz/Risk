@@ -10,6 +10,7 @@ public class Player {
 
 	private String name;
 	private ArrayList<Territory> territories;
+	private ArrayList<Card> playerCards;
 	private int armies;
 	private Integer numTerritories = new Integer(0);
 
@@ -85,6 +86,16 @@ public class Player {
 	 */
 	public int getArmies() {
 		return armies;
+	}
+	
+	
+	public void addCard(Card c) {
+
+		playerCards.add(c);
+	}
+	
+	public void removeCard(Card c) {
+		playerCards.remove(c);
 	}
 
 }

@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 // import javax.swing.JButton;
  
@@ -10,15 +10,13 @@ import java.util.Vector;
  *
  */
 public class Territory {
-	/***************************/
-	private static Integer TERRITORY_INIT_SIZE = 2;
-	private static Integer TERRITORY_CAPACITY_INCREMENT = 2;
+
 	/***************************/
 	private String continent = null;
 	private String name = null;
 	private Integer X = 0;
 	private Integer Y = 0;
-	private Vector<String> adjacentCountries = new Vector<String>(TERRITORY_INIT_SIZE, TERRITORY_CAPACITY_INCREMENT);
+	private ArrayList<String> adjacentCountries = new ArrayList<String>();
 
 //	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
@@ -29,7 +27,7 @@ public class Territory {
 	 * @param y
 	 * @param adjacentCountries
 	 */
-	public Territory(String continent, String name, Integer x, Integer y, Vector<String> adjacentCountries) {
+	public Territory(String continent, String name, Integer x, Integer y, ArrayList<String> adjacentCountries) {
 		super();
 		this.continent = continent;
 		this.name = name;
@@ -79,7 +77,7 @@ public class Territory {
 	/**
 	 * @return adajacentCountries
 	 */
-	public Vector<String> getAdjacentCountries() {
+	public ArrayList<String> getAdjacentCountries() {
 		return adjacentCountries;
 	}
 	
@@ -99,7 +97,7 @@ public class Territory {
 		X = genFunObj.genStrToInt(inX);
 		Y = genFunObj.genStrToInt(inY);
 		continent = inContinent;
-		adjacentCountries = genFunObj.genCommaSepStrToVector(inAdjacent);
+		adjacentCountries = genFunObj.genCommaSepStrToArrayList(inAdjacent);
 		return;
 	}
 	
@@ -129,6 +127,6 @@ public class Territory {
 			info += adjTerr + "\n";
 		}
 		
-		return info.substring(0,info.length()-3);
+		return info.substring(0,info.length());
 	}
 }

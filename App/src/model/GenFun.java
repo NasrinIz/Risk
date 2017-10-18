@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Vector;
@@ -15,6 +16,13 @@ public class GenFun {
 	public Vector<String> genCommaSepStrToVector(String inVal) {
 		String[] tmp = inVal.split(",");
 		Vector<String> tmpVec = new Vector<String>();
+		tmpVec.addAll(Arrays.asList(tmp));
+		return tmpVec;
+	}
+	
+	public ArrayList<String> genCommaSepStrToArrayList(String inVal) {
+		String[] tmp = inVal.split(",");
+		ArrayList<String> tmpVec = new ArrayList<String>();
 		tmpVec.addAll(Arrays.asList(tmp));
 		return tmpVec;
 	}

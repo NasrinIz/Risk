@@ -157,15 +157,14 @@ public class GameConfig {
 	}
 
 //// =================================<< Card Methods >>=================================
-	// To Do:
-	// change to private then use the method in the constructor
+
 	/**
 	 * Generate 2 WILD cards,
 	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
 	 * generated in a ratio close to 5:2:1 respectively
 	 * 
 	 */
-	public void setupCards() {
+	private void setupCards() {
 		
 		this.gameCards = new ArrayList<Card>();
 		int randomNum = 0;
@@ -203,6 +202,20 @@ public class GameConfig {
 			}
 		}
 		return categ;
+	}
+	
+	/**
+	 * Distributes game cards among players according to countries they own
+	 * 
+	 */
+	
+	// not yet completed, missing more methods in other classes ?!!!!!
+	public void distributeCards() {
+		Player p;
+		for(int i = 0; i< players.length ; i++) {
+			p = players[i];
+		}
+		
 	}
 	
 }

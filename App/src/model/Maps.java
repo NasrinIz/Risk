@@ -2,7 +2,9 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Team20
@@ -154,7 +156,7 @@ public class Maps {
 		String[] tmpArr;
 		Integer count = new Integer(0);
 
-		/* Property Flags - 1 = Found, 2 = Completed, 0 = Not Found */
+		/* Property Flags 	- 1 = Found, 2 = Completed, 0 = Not Found */
 		Integer mapProperty = new Integer(0);
 		Integer continentsProperty = new Integer(0);
 		Integer territoriesProperty = new Integer(0);
@@ -287,14 +289,14 @@ public class Maps {
 			    return -1; 
 	 	    } 
 		   
-		    Vector<String> adjacent = tmpTerritoryObj.getAdjacentCountries(); 
+		    ArrayList<String> adjacent = tmpTerritoryObj.getAdjacentCountries(); 
 		    for(int i = 0; i<adjacent.size(); i++) 
 		    { 
 			    Integer matchFlag = 0; 
 			    String adjacentCountry = adjacent.get(i); 
 			    if(this.dictTerritory.get(adjacentCountry) != null) 
 			    { 
-			        Vector<String> checkList = (this.dictTerritory.get(adjacentCountry)).getAdjacentCountries(); 
+			    	ArrayList<String> checkList = (this.dictTerritory.get(adjacentCountry)).getAdjacentCountries(); 
 			        for(int j = 0; j<checkList.size(); j++) 
 			        { 
 				        if(this.dictTerritory.get(territory).getName().equals(checkList.get(j))) 
@@ -394,6 +396,3 @@ public class Maps {
 		return TerritoryVisitFlags;
 	}
 }
-
-
-
