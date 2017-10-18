@@ -1,0 +1,16 @@
+[Map]
+author=vj
+image=
+wrap=yes
+scroll=horizontal
+warn=yes
+
+[Continents]
+A=5
+
+[Territories]
+A1,120,120,A,A2
+A2,120,120,A,A1
+
+B1,120,120,A,B2
+B2,120,120,A,B1
