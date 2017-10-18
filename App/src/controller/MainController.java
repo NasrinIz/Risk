@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,7 +12,10 @@ import java.util.Map.Entry;
 import javax.swing.JButton;
 
 import model.GameConfig;
+import model.GenFun;
 import model.Maps;
+import model.Player;
+import model.Territory;
 import view.InfoView;
 import view.MainWindow;
 import view.StarterWindow;
@@ -27,14 +32,15 @@ public class MainController {
 	 * reference to mainView
 	 */
 	private MainWindow mainWindow;
-	/**
-	 * reference to mainModel
-	 */
+	private InfoView infoView;
 	private GameConfig gameConfig;
 	private Maps mapObj;
 	private ArrayList<String> territories = null;
 	private ArrayList<String> continents = null;
 
+	public Integer gamePhase = 0;
+	private GenFun genFunObj = new GenFun();
+	
 	public MainController(StarterWindow starterView) {
 		this.starterView = starterView;
 		this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
@@ -116,6 +122,28 @@ public class MainController {
 		}
 	}
 
+	private class passBtnListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Player tmpPlayers[] = gameConfig.getPlayers();
+			int i;
+			
+			for(i = 0; i<tmpPlayers.length; i++)
+			{
+				if(tmpPlayers[i].getTurnStatus() == false)
+					break;
+			}
+			
+			if(i >= tmpPlayers.length)
+			{
+				incrementGamePhase();
+			}
+			
+			gameConfig.nextPlayerTurn();
+		}
+	}
+	
 	private class submitButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -125,12 +153,31 @@ public class MainController {
 			String selectedMap = starterView.getSelectedMap();
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
-
+			
 			mainWindow = new MainWindow();
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
 			addTerritoryListeners();
+			infoView =mainWindow.getInfoView();
+			infoView.passBtnActionListener(new passBtnListener());
+			gamePhase = genFunObj.GAMEPHASESTARTUP;
+		}
+	}
+
+	private void incrementGamePhase()
+	{
+		if(gamePhase == genFunObj.GAMEPHASESTARTUP)
+		{
+			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
+		}
+		else if(gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
+		{
+			gamePhase = genFunObj.GAMEPHASEFORTIFICATION;
+		}
+		else if(gamePhase == genFunObj.GAMEPHASEFORTIFICATION)
+		{
+			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
 		}
 	}
 
@@ -144,8 +191,25 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
-			mainWindow.getInfoView().showTerritoryInfo(info);
+			Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
+			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
+			
+			if((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) ||
+					(gamePhase == genFunObj.GAMEPHASEFORTIFICATION))
+			{
+				if(currentPlayerId == territoryOwner)
+				{
+					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
+					mainWindow.getInfoView().showTerritoryInfo(info);
+					
+					if((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT))
+					{
+						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
+					}
+				}
+			}
+			
+			
 		}
 	}
 

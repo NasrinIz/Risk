@@ -16,7 +16,11 @@ public class Territory {
 	private String name = null;
 	private Integer X = 0;
 	private Integer Y = 0;
+	private Integer stationedArmies = 0;
 	private ArrayList<String> adjacentCountries = new ArrayList<String>();
+	
+	private Integer ownerPlayerId = null;
+	GenFun genFunObj = new GenFun();
 
 //	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
@@ -34,11 +38,18 @@ public class Territory {
 		X = x;
 		Y = y;
 		this.adjacentCountries = adjacentCountries;
+		this.stationedArmies = 1;
 	}
 	
-	
-	private Integer ownerPlayerId = null;
-	GenFun genFunObj = new GenFun();
+	public void increaseArmies()
+	{
+		
+		stationedArmies++;
+	}
+	public void decreaseArmies()
+	{
+		stationedArmies--;
+	}
 	
 	public Territory(String inInfo) {
 		String[] tmp = genFunObj.genCommaSepStrToArray(inInfo);

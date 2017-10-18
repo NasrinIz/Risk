@@ -12,6 +12,7 @@ public class GameConfig {
 	private Player players[];
 	private Maps mapObj;
 	private ArrayList<Card> gameCards;
+	Integer currentPlayer = 0;
 	
 	/**
 	 * @param numPlayers
@@ -19,30 +20,46 @@ public class GameConfig {
 	 * @param mapObj
 	 * @param gameCards
 	 */
+	
 	public GameConfig(Integer numPlayers, String mapName) {
 		super();
 		
 		this.numPlayers = numPlayers;
 		this.mapObj = new Maps(mapName);
-		setupPlayers();
 		setupCards();
+		setNumPlayers();
 	}
 
 	private GenFun genFunObj = new GenFun();
 	
-	
-	public Integer setNumPlayers(int inNumPlayers)
+	public void nextPlayerTurn()
 	{
-		if((inNumPlayers < 2) || (inNumPlayers > 6))
+		currentPlayer++;
+		if(currentPlayer >= players.length)
+		{
+			currentPlayer = 0;
+		}
+	}
+	public Player getCurrentPlayer()
+	{
+		return players[currentPlayer];
+	}
+	
+	private Integer setNumPlayers()
+	{
+		if((numPlayers < 2) || (numPlayers > 6))
 			return -1;
 		
-		numPlayers = new Integer(inNumPlayers);
 		setupPlayers();
 		for (String territory : mapObj.getDictTerritory().keySet())
 		{
 			System.out.println((mapObj.getDictTerritory()).get(territory).getOwner());
 		}
 		return 0;
+	}
+	public Player[] getPlayers()
+	{
+		return players;
 	}
 	
 	/**
@@ -58,13 +75,17 @@ public class GameConfig {
 	private void setupPlayers()
 	{
 		this.players = new Player[numPlayers];
+		Integer playerArmies = 0;
+		initTerritory();
 		for(int i = 0; i < numPlayers; i++)
 		{
-			Player playerObj = new Player("Player" + Integer.toString(i));
-			playerObj.setArmies(getInitArmy());
+			Player playerObj = new Player("Player" + Integer.toString(i), i);
+			playerArmies = getInitArmy();
+			playerArmies -= playerObj.getTerritories().size();
+			
+			playerObj.setArmies(playerArmies);
 			players[i] = playerObj;
 		}
-		initTerritory();
 	}
 	
 	private void initTerritory()
@@ -155,7 +176,7 @@ public class GameConfig {
 	public void setMapObj(Maps mapObj) {
 		this.mapObj = mapObj;
 	}
-
+	
 //// =================================<< Card Methods >>=================================
 
 	/**

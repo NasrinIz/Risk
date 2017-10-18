@@ -9,6 +9,13 @@ import java.util.Random;
 import java.util.Vector;
 
 public class GenFun {
+	
+	public final int GAMEPHASENONE = 0;
+	public final int GAMEPHASESTARTUP = 1;
+	public final int GAMEPHASEREINFORCEMENT = 2;
+	public final int GAMEPHASEFORTIFICATION = 3;
+	
+	
 	public Integer genStrToInt(String inVal) {
 		return Integer.valueOf(inVal);
 	}
@@ -34,6 +41,10 @@ public class GenFun {
 	
 	public String genStringGetValueAfterEquals(String inVal) {
 		String[] tmp = inVal.split("=");
+		if(tmp.length < 2)
+		{
+			return null;
+		}
 		return tmp[1];
 	}
 	

@@ -13,14 +13,32 @@ public class Player {
 	private ArrayList<Card> playerCards;
 	private int armies;
 	private Integer numTerritories = new Integer(0);
+	Integer id = null;
 
+	private boolean isTurnCompleted = false;
+	
+	
+	public void setTurnStatus(boolean status)
+	{
+		isTurnCompleted = status;
+	}
+	public boolean getTurnStatus()
+	{
+		return isTurnCompleted;
+	}
 	/**
 	 * @param name
 	 */
-	Player(String name) {
+	Player(String name, Integer inId) {
 		this.name = name;
+		this.id = inId;
 	}
 
+	public Integer getPlayerId()
+	{
+		return id;
+	}
+	
 	/**
 	 * @return name
 	 */
@@ -98,4 +116,19 @@ public class Player {
 		playerCards.remove(c);
 	}
 
+	public void getTerritoriesInfo()
+	{
+		// to do
+	}
+	
+	public void placeArmiesOnTerritory(String territoryName)
+	{
+		for(int i=0; i < territories.size(); i++)
+		{
+			if(territories.get(i).getName().equals(territoryName) == true)
+			{
+				territories.get(i).increaseArmies();
+			}
+		}
+	}
 }

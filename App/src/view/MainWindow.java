@@ -63,10 +63,11 @@ public class MainWindow extends JFrame {
 		mapPane.setBounds(0, 0, 1024, 768);
 		mapPane.setMinimumSize(new Dimension(1200, 900));
 		mapPane.setWheelScrollingEnabled(true);
-
+		Integer owner = null;
 		for (String territoryName : objMap.getDictTerritory().keySet()) {
 			x = (objMap.getDictTerritory()).get(territoryName).getX();
 			y = (objMap.getDictTerritory()).get(territoryName).getY();
+			owner = (objMap.getDictTerritory()).get(territoryName).getOwner();
 			
 //			JButton btnTemp = new JButton(territoryName);
 //			btnTemp.setBounds(x - 4, y - 4, 10, 10);
@@ -74,7 +75,7 @@ public class MainWindow extends JFrame {
 //			mapPane.setComponentZOrder(btnTemp, 0);
 			
 			// comment the previous 4 lines and uncomment the next 4
-			TerritoryView terrPanel = new TerritoryView(territoryName, "3", new Point(x,y), Color.WHITE );
+			TerritoryView terrPanel = new TerritoryView(territoryName, owner, new Point(x,y), Color.WHITE );
 			mapPane.add(terrPanel);
 			mapPane.setComponentZOrder(terrPanel, 0);
 			dictTerrViews.put(territoryName, terrPanel);

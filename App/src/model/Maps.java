@@ -125,23 +125,31 @@ public class Maps {
 
 		if (inVal.contains("author=")) {
 			mapAuthor = genFunObj.genStringGetValueAfterEquals(inVal);
-			return rtVal;
+			if(mapAuthor != null)
+				return rtVal;
 		}
+		
 		if (inVal.contains("image=")) {
-			mapImage = genFunObj.genStringGetValueAfterEquals(inVal);
-			return rtVal;
+			/* vj, we dont load images */
+			//mapImage = genFunObj.genStringGetValueAfterEquals(inVal);
+			//if(mapImage != null)
+				return rtVal;
 		}
+		
 		if (inVal.contains("wrap=")) {
 			mapWrap = genFunObj.genStringGetValueAfterEquals(inVal);
-			return rtVal;
+			if(mapWrap != null)
+				return rtVal;
 		}
 		if (inVal.contains("scroll=")) {
 			mapScroll = genFunObj.genStringGetValueAfterEquals(inVal);
-			return rtVal;
+			if(mapScroll != null)
+				return rtVal;
 		}
 		if (inVal.contains("warn=")) {
 			mapWarning = genFunObj.genStringGetValueAfterEquals(inVal);
-			return rtVal;
+			if(mapWarning != null)
+				return rtVal;
 		}
 		rtVal = -1;
 		return rtVal;

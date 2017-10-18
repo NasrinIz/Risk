@@ -177,7 +177,7 @@ public class StarterWindow extends JFrame {
 		lblMapSelect.setBounds(10, 120, 200, 20);
 
 		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-				"USA", "World", "valid_1" };
+				"USA", "World", "valid_1", "vj_test" };
 
 		mapList = new JComboBox<>(mapTitles);
 		mapList.setBounds(220, 120, 200, 20);
