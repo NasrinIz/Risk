@@ -75,16 +75,23 @@ public class GameConfig {
 	private void setupPlayers()
 	{
 		this.players = new Player[numPlayers];
-		Integer playerArmies = 0;
-		initTerritory();
+
 		for(int i = 0; i < numPlayers; i++)
 		{
 			Player playerObj = new Player("Player" + Integer.toString(i), i);
-			playerArmies = getInitArmy();
-			playerArmies -= playerObj.getTerritories().size();
-			
-			playerObj.setArmies(playerArmies);
+			playerObj.setArmies(getInitArmy());
 			players[i] = playerObj;
+		}
+		initTerritory();
+		
+		for (String territory : mapObj.getDictTerritory().keySet())
+		{
+			players[mapObj.getDictTerritory().get(territory).getOwner()].setTerritories(mapObj.getDictTerritory().get(territory));
+		}
+		
+		for(int i = 0; i < numPlayers; i++)
+		{
+			players[i].setArmies(players[i].getArmies() - players[i].numOfTerritories());
 		}
 	}
 	

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 public class Player {
 
 	private String name;
-	private ArrayList<Territory> territories;
+	
+	/* Its empty, dont use */
+	private ArrayList<Territory> territories = new ArrayList<Territory>();
 	private ArrayList<Card> playerCards;
 	private int armies;
-	private Integer numTerritories = new Integer(0);
+	private Integer numTerritories = 0;
 	Integer id = null;
 
 	private boolean isTurnCompleted = false;
@@ -54,10 +56,10 @@ public class Player {
 	}
 
 	/**
-	 * @param territories
+	 * @param territory
 	 */
-	public void setTerritories(ArrayList<Territory>  territories) {
-		this.territories = territories;
+	public void setTerritories(Territory  territory) {
+		this.territories.add(territory);
 	}
 	
 	/**
@@ -65,6 +67,10 @@ public class Player {
 	 */
 	public int numOfTerritories() {
 		return numTerritories;
+	}
+	public void increaseNumTerritories()
+	{
+		numTerritories++;
 	}
 
 	/**
