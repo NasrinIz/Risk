@@ -12,7 +12,7 @@ import javax.swing.border.TitledBorder;
  * @author Team20
  */
 public class ErrorInfoView extends JPanel {
-	private JLabel infoLabel;
+	private JTextArea InfoTextArea;
 	
 	public ErrorInfoView() {
 		this.showErrorPanel();
@@ -25,6 +25,12 @@ public class ErrorInfoView extends JPanel {
 		this.setBackground(Color.RED);
 		this.setLayout(new FlowLayout());
 		this.setBounds(1024, 468, 255, 300);
+		InfoTextArea = new JTextArea();
+		InfoTextArea.setRows(2);
+		this.setBounds(1024, 468, 255, 300);
+		InfoTextArea.setBounds(1024, 0, 255, 50);
+		this.add(InfoTextArea);
+		
 		TitledBorder border = new TitledBorder("Error Panel");
 	    border.setTitleJustification(TitledBorder.CENTER);
 	    border.setTitlePosition(TitledBorder.TOP);
@@ -32,10 +38,8 @@ public class ErrorInfoView extends JPanel {
 		this.setVisible(true);
 	}
 	
-	public void showErrorInfo(String error){
-		infoLabel = new JLabel(error);
-		infoLabel.setBounds(1024, 468, 200, 30);
-		this.add(infoLabel);
+	public void showErrorInfo(String error) {
+		InfoTextArea.setText(error);
 	}
 
 }

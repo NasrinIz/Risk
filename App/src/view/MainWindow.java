@@ -106,4 +106,11 @@ public class MainWindow extends JFrame {
 		return infoView;
 	}
 	
+	/**
+	 * @return the infoView
+	 */
+	public ErrorInfoView getErrorInfoView() {
+		return errorInfoView;
+	}
+	
 }

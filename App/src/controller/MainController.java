@@ -155,12 +155,25 @@ public class MainController {
 			gameConfig = new GameConfig(playerNum, selectedMap);
 			
 			mainWindow = new MainWindow();
+			
+			
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
 			addTerritoryListeners();
 			infoView =mainWindow.getInfoView();
 			infoView.passBtnActionListener(new passBtnListener());
+			
+
+			if (gameConfig.getMapObj().readMap() != 0) {
+				mainWindow.getErrorInfoView().showErrorInfo("Can not read map");
+			}
+			
+			if (gameConfig.getMapObj().validateMap() != 0) {
+				mainWindow.getErrorInfoView().showErrorInfo("This map is not valid");
+			}
+			
+			
 			gamePhase = genFunObj.GAMEPHASESTARTUP;
 		}
 	}
