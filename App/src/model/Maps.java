@@ -58,20 +58,6 @@ public class Maps {
 	 */
 	public Maps(String inMapLocation, Integer Mode) {
 		mapLocation = inMapLocation;
-		
-		if(Mode == 0)	// non editor mode
-		{		
-			if (readMap() != "true") {
-				// TBD error
-			}
-			if (validateMap() != "true") {
-				// TBD error
-			}
-		}
-		else if(Mode == 1) // Editor Mode
-		{
-			// do nothing
-		}
 	}
 
 	public void setMapName(String inMapName) {

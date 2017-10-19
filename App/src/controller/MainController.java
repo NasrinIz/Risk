@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import model.GameConfig;
 import model.GenFun;
+import model.MapEditor;
 import model.Maps;
 import model.Player;
 import model.Territory;
@@ -40,6 +41,12 @@ public class MainController {
 
 	public Integer gamePhase = 0;
 	private GenFun genFunObj = new GenFun();
+	private MapEditor mapEditor;
+	/*
+	 * 0 New game
+	 * 1 Edit or create
+	 */
+	private Integer applicationMode = 0;
 
 	public MainController(StarterWindow starterView) {
 		this.starterView = starterView;
@@ -62,6 +69,7 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			applicationMode = 0;
 			starterView.showLoadMapForm();
 
 		}
@@ -71,6 +79,7 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			applicationMode = 0;
 			starterView.showSelectMapForm();
 			starterView.addEditMapRadioBtnListener(new editMapListener());
 		}
@@ -80,8 +89,11 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			applicationMode = 1;
+			mapEditor = new MapEditor(2);
 			starterView.showCreateMapForm();
 			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
+			starterView.addContinentBtnActionListener(new addContinentListener());
 		}
 	}
 
@@ -90,35 +102,84 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			applicationMode = 1;
+			mapEditor = new MapEditor(2);
+//			Integer playerNum = starterView.getPlayerNumbers();
+//			String selectedMap = starterView.getSelectedMap();
+//
+//			gameConfig = new GameConfig(playerNum, selectedMap);
+//			mapObj = gameConfig.getMapObj();
+//
+//			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
+//			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
 
-			Integer playerNum = starterView.getPlayerNumbers();
-			String selectedMap = starterView.getSelectedMap();
-
-			gameConfig = new GameConfig(playerNum, selectedMap);
-			mapObj = gameConfig.getMapObj();
-
-			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
-			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
-
-			starterView.showEditMapForm(territoryList, continentList);
+			starterView.showEditMapForm(mapEditor.getCountryListInMapEditor(), mapEditor.getContinentListInMapEditor());
 
 			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
+			starterView.addContinentBtnActionListener(new addContinentListener());
+			starterView.removeCountryBtnActionListener(new removeCountryListener());
+			starterView.removeContinentBtnActionListener(new removeContinentListener());
+			// starterView.addContinentAgainActionListener(new
+			// addContinentAgainListener());
 		}
 	}
 
 	private class finishAddContinentListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			//
+//			Integer playerNum = starterView.getPlayerNumbers();
+//			String selectedMap = starterView.getSelectedMap();
+//
+//			gameConfig = new GameConfig(playerNum, selectedMap);
+//			mapObj = gameConfig.getMapObj();
+//
+//			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
+
+			starterView.showAddCountryForm(mapEditor.getContinentListInMapEditor());
+			starterView.addCountryBtnActionListener(new addCountryListener());
+
+		}
+	}
+
+	private class addContinentListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String continentInfo = starterView.getContinentValues();
+			mapEditor.addContinent(continentInfo);
+		}
+	}
+
+	private class addCountryListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String countryInfo = starterView.getCountryValues();
+			mapEditor.newCountry(countryInfo);
+			
+		}
+	}
+
+	private class removeCountryListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String countryInfo = starterView.getCountryValue();
+			mapEditor.delCountry(countryInfo);
+		}
+	}
+
+	private class removeContinentListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String continentInfo = starterView.getContinentValue();
+			mapEditor.deleteContinent(continentInfo);
+		}
+	}
+
+	private class addContinentAgainListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-
-			Integer playerNum = starterView.getPlayerNumbers();
-			String selectedMap = starterView.getSelectedMap();
-
-			gameConfig = new GameConfig(playerNum, selectedMap);
-			mapObj = gameConfig.getMapObj();
-
-			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
-			starterView.showAddCountryForm(continentList);
+			starterView.showCreateMapForm();
 		}
 	}
 
@@ -128,20 +189,17 @@ public class MainController {
 			// TODO Auto-generated method stub
 			Player tmpPlayers[] = gameConfig.getPlayers();
 			int i;
-			
+
 			gameConfig.getCurrentPlayer().setTurnStatus(true);
-			for(i = 0; i<tmpPlayers.length; i++)
-			{
-				if(tmpPlayers[i].getTurnStatus() == false)
-				{
+			for (i = 0; i < tmpPlayers.length; i++) {
+				if (tmpPlayers[i].getTurnStatus() == false) {
 					break;
 				}
 			}
 
 			if (i >= tmpPlayers.length) {
 				incrementGamePhase();
-				for(i = 0; i < tmpPlayers.length; i++)
-				{
+				for (i = 0; i < tmpPlayers.length; i++) {
 					tmpPlayers[i].setTurnStatus(false);
 				}
 			}
@@ -155,11 +213,16 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
+			if(applicationMode == 1){
+				mapEditor.finishAndValidate();
+				return;
+			}
+			
 			Integer playerNum = starterView.getPlayerNumbers();
 			String selectedMap = starterView.getSelectedMap();
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
-
+			
 			mainWindow = new MainWindow();
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
@@ -170,26 +233,22 @@ public class MainController {
 			gamePhase = genFunObj.GAMEPHASESTARTUP;
 
 			String error = gameConfig.getMapObj().validateMap();
-			
+
 			if (error != "true") {
 				mainWindow.getErrorInfoView().showErrorInfo(error);
 				mainWindow.removeCountryButtons();
 			}
-			
+
 		}
 	}
 
-	private void incrementGamePhase()
-	{
-		if(gamePhase == genFunObj.GAMEPHASESTARTUP)
-		{
+	private void incrementGamePhase() {
+		if (gamePhase == genFunObj.GAMEPHASESTARTUP) {
 			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
 		} else if (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) {
 			gamePhase = genFunObj.GAMEPHASEFORTIFICATION;
-		}
-		else if(gamePhase == genFunObj.GAMEPHASEFORTIFICATION)
-		{
+		} else if (gamePhase == genFunObj.GAMEPHASEFORTIFICATION) {
 			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
 		}
@@ -207,17 +266,14 @@ public class MainController {
 			// TODO Auto-generated method stub
 			Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
 			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
-			
-			if((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) ||
-					(gamePhase == genFunObj.GAMEPHASEFORTIFICATION))
-			{
-				if(currentPlayerId == territoryOwner)
-				{
-					if((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT))
-					{
+
+			if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
+					|| (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
+				if (currentPlayerId == territoryOwner) {
+					if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)) {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
-					
+
 					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
 					mainWindow.getInfoView().showTerritoryInfo(info);
 				}
