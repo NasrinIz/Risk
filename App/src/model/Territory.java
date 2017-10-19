@@ -132,6 +132,7 @@ public class Territory {
 		String info = "Country Name: " + name + "\n\n"
 					+ "Continent Name : " + continent + "\n\n"
 					+ "Coordinates: " + "(" + X + "," + Y + ")\n\n"
+					+ "Number of Armies:" + stationedArmies + "\n\n"
 					+ "Adjacent Countries:\n";
 		
 		for(String adjTerr: adjacentCountries) {
