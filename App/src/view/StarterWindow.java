@@ -48,6 +48,7 @@ public class StarterWindow extends JFrame {
 	private JButton editMapButton;
 	private JLabel addCountryToContinentLbl;
 	private JComboBox <String> continentList;
+	private ErrorInfoView errorInfoView;
 
 	ButtonGroup group = new ButtonGroup();
 
@@ -71,7 +72,7 @@ public class StarterWindow extends JFrame {
 		this.setResizable(false);
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 600);
+		setBounds(100, 100, 1424, 768);
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 	}
 
@@ -163,12 +164,15 @@ public class StarterWindow extends JFrame {
 		group.add(radioSelectMap);
 		group.add(radioCreateMap);
 
+		errorInfoView = new ErrorInfoView();
+		
 		this.getContentPane().add(lblNumPlayers);
 		this.getContentPane().add(playerNum);
 		this.getContentPane().add(radioLoadMap);
 		this.getContentPane().add(radioSelectMap);
 		this.getContentPane().add(radioCreateMap);
 		this.getContentPane().add(submitButton);
+		this.getContentPane().add(errorInfoView);
 		this.getContentPane().repaint();
 	}
 

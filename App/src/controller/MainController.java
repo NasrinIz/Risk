@@ -40,7 +40,7 @@ public class MainController {
 
 	public Integer gamePhase = 0;
 	private GenFun genFunObj = new GenFun();
-	
+
 	public MainController(StarterWindow starterView) {
 		this.starterView = starterView;
 		this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
@@ -113,7 +113,7 @@ public class MainController {
 
 			Integer playerNum = starterView.getPlayerNumbers();
 			String selectedMap = starterView.getSelectedMap();
-			
+
 			gameConfig = new GameConfig(playerNum, selectedMap);
 			mapObj = gameConfig.getMapObj();
 
@@ -137,20 +137,19 @@ public class MainController {
 					break;
 				}
 			}
-			
-			if(i >= tmpPlayers.length)
-			{
+
+			if (i >= tmpPlayers.length) {
 				incrementGamePhase();
 				for(i = 0; i < tmpPlayers.length; i++)
 				{
 					tmpPlayers[i].setTurnStatus(false);
 				}
 			}
-			
+
 			gameConfig.nextPlayerTurn();
 		}
 	}
-	
+
 	private class submitButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -160,23 +159,23 @@ public class MainController {
 			String selectedMap = starterView.getSelectedMap();
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
-			
+
 			mainWindow = new MainWindow();
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
 			addTerritoryListeners();
-			infoView =mainWindow.getInfoView();
+			infoView = mainWindow.getInfoView();
 			infoView.passBtnActionListener(new passBtnListener());
 			gamePhase = genFunObj.GAMEPHASESTARTUP;
-//			
-//			if (gameConfig.getMapObj().readMap() != "true") {
-//				mainWindow.getErrorInfoView().showErrorInfo(gameConfig.getMapObj().readMap());
-//			}
-//			
-//			if (gameConfig.getMapObj().validateMap() != "true") {
-//				mainWindow.getErrorInfoView().showErrorInfo(gameConfig.getMapObj().validateMap());
-//			}
+
+			String error = gameConfig.getMapObj().validateMap();
+			
+			if (error != "true") {
+				mainWindow.getErrorInfoView().showErrorInfo(error);
+				mainWindow.removeCountryButtons();
+			}
+			
 		}
 	}
 
@@ -186,9 +185,7 @@ public class MainController {
 		{
 			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
-		}
-		else if(gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
-		{
+		} else if (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) {
 			gamePhase = genFunObj.GAMEPHASEFORTIFICATION;
 		}
 		else if(gamePhase == genFunObj.GAMEPHASEFORTIFICATION)
@@ -224,7 +221,7 @@ public class MainController {
 					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
 					mainWindow.getInfoView().showTerritoryInfo(info);
 				}
-			}	
+			}
 		}
 	}
 

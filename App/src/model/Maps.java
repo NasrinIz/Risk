@@ -41,6 +41,8 @@ public class Maps {
 	private String mapAuthor = null; // first and last name
 	private String mapWarning = null; // yes or no
 
+	public String errorStr = null;
+	
 	/* Map Continents and Army Bonuses for each */
 	// Map<String, Integer> dictContinents = new HashMap<String,
 	// Integer>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
@@ -58,20 +60,12 @@ public class Maps {
 		mapLocation = inMapLocation;
 		
 		if(Mode == 0)	// non editor mode
-		{
-			errorInfoView = new ErrorInfoView();
-			String readMapMsg = readMap();
-			String validateMapMsg = validateMap();
-			
-			if (readMapMsg != "true") {
+		{		
+			if (readMap() != "true") {
 				// TBD error
-				System.out.println(readMapMsg);
-				errorInfoView.showErrorInfo(readMapMsg);
 			}
-			if (validateMapMsg != "true") {
+			if (validateMap() != "true") {
 				// TBD error
-				System.out.println(validateMapMsg);
-				errorInfoView.showErrorInfo(validateMapMsg);
 			}
 		}
 		else if(Mode == 1) // Editor Mode
@@ -269,13 +263,13 @@ public class Maps {
 			}
 
 			if (mapProperty != 2) {
-				return "Map is missing [MAP] section";
+				//return "Map is missing [MAP] section";
 			}
 			if (continentsProperty != 2) {
-				return "Map is missing [Continents] section";
+				//return "Map is missing [Continents] section";
 			}
 			if (territoriesProperty != 2) {
-				return "Map is missing [Territories] section";
+				//return "Map is missing [Territories] section";
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -286,7 +280,7 @@ public class Maps {
 
 	public String validateMap() {
 		if ((mapAuthor == null) && (mapWarning == null)) {
-		      return "The map author or map warning property is not valid"; 
+		    //  return "The map author or map warning property is not valid"; 
 		}
 
 		for (String territory : this.dictTerritory.keySet()) 

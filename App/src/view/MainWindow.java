@@ -91,6 +91,19 @@ public class MainWindow extends JFrame {
 		this.getContentPane().repaint();
 
 	}
+	
+	/**
+	 * creates country buttons or territory views
+	 * called by controller
+	 * @param objMap passed by controller who has a reference to GameConfig->maps
+	 * 
+	 */
+	public void removeCountryButtons() {
+		this.getContentPane().remove(mapPane);
+		this.getContentPane().repaint();
+
+	}
+	
 
 	/**
 	 * @return the dictTerrViews
