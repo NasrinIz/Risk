@@ -27,8 +27,7 @@ public class ErrorInfoView extends JPanel {
 		this.setBounds(1024, 468, 255, 300);
 		InfoTextArea = new JTextArea();
 		InfoTextArea.setRows(2);
-		this.setBounds(1024, 468, 255, 300);
-		InfoTextArea.setBounds(1024, 0, 255, 50);
+		InfoTextArea.setBounds(1024, 468, 200, 50);
 		this.add(InfoTextArea);
 		
 		TitledBorder border = new TitledBorder("Error Panel");
@@ -39,6 +38,7 @@ public class ErrorInfoView extends JPanel {
 	}
 	
 	public void showErrorInfo(String error) {
+		System.out.println(error);
 		InfoTextArea.setText(error);
 	}
 

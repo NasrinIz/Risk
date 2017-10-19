@@ -162,6 +162,14 @@ public class MainController {
 			infoView =mainWindow.getInfoView();
 			infoView.passBtnActionListener(new passBtnListener());
 			gamePhase = genFunObj.GAMEPHASESTARTUP;
+//			
+//			if (gameConfig.getMapObj().readMap() != "true") {
+//				mainWindow.getErrorInfoView().showErrorInfo(gameConfig.getMapObj().readMap());
+//			}
+//			
+//			if (gameConfig.getMapObj().validateMap() != "true") {
+//				mainWindow.getErrorInfoView().showErrorInfo(gameConfig.getMapObj().validateMap());
+//			}
 		}
 	}
 

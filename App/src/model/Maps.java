@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import view.ErrorInfoView;
+import view.MainWindow;
+
 /**
  * @author Team20
  *
@@ -40,17 +43,25 @@ public class Maps {
 			TERRITORY_CAPACITY_INCREMENT);
 
 	GenFun genFunObj = new GenFun();
-
+	private ErrorInfoView errorInfoView;
 	/**
 	 * @param inMapLocation
 	 */
 	public Maps(String inMapLocation) {
 		mapLocation = inMapLocation;
-		if (readMap() != 0) {
+		errorInfoView = new ErrorInfoView();
+		String readMapMsg = readMap();
+		String validateMapMsg = validateMap();
+		
+		if (readMapMsg != "true") {
 			// TBD error
+			System.out.println(readMapMsg);
+			errorInfoView.showErrorInfo(readMapMsg);
 		}
-		if (validateMap() != 0) {
+		if (validateMapMsg != "true") {
 			// TBD error
+			System.out.println(validateMapMsg);
+			errorInfoView.showErrorInfo(validateMapMsg);
 		}
 	}
 
@@ -155,7 +166,7 @@ public class Maps {
 		return rtVal;
 	}
 
-	public Integer readMap() {
+	public String readMap() {
 		String mapTxtLoc = String.format("Resources//Maps//%s.map", mapLocation);
 		String mapImgLoc = String.format("Resources//Maps//%s.bmp", mapLocation);
 
@@ -243,28 +254,24 @@ public class Maps {
 			}
 
 			if (mapProperty != 2) {
-				System.out.println("Map is missing [MAP] section");
-				return -1;
+				return "Map is missing [MAP] section";
 			}
 			if (continentsProperty != 2) {
-				System.out.println("Map is missing [Continents] section");
-				return -1;
+				return "Map is missing [Continents] section";
 			}
 			if (territoriesProperty != 2) {
-				System.out.println("Map is missing [Territories] section");
-				return -1;
+				return "Map is missing [Territories] section";
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		return 0;
+		return "true";
 	}
 
-	public Integer validateMap() {
+	public String validateMap() {
 		if ((mapAuthor == null) && (mapWarning == null)) {
-		      System.out.print("The map author or map warning property is not valid"); 
-		      return -1; 
+		      return "The map author or map warning property is not valid"; 
 		}
 
 		for (String territory : this.dictTerritory.keySet()) 
@@ -272,29 +279,24 @@ public class Maps {
 		    Territory tmpTerritoryObj = this.dictTerritory.get(territory); 
 		    if(tmpTerritoryObj.getName() == null) 
 		    { 
-		    	System.out.printf("\nThe territory %s does not have a name", territory); 
-		    	return -1; 
+		    	return "\nThe territory %s does not have a name" + territory; 
 		    } 
 		    if(tmpTerritoryObj.getContinent() == null) 
 		    { 
-			    System.out.printf("\nThe territory %s does not have a continent", territory); 
-			    return -1; 
+			    return "\nThe territory %s does not have a continent" +  territory; 
 		    } 
 		    if(tmpTerritoryObj.getX() == 0) 
 		    { 
-			    System.out.printf("\nThe territory %s does not have defined X Axis", territory); 
-			    return -1; 
+			    return "\nThe territory %s does not have defined X Axis" + territory; 
 		    } 
 		    else if(tmpTerritoryObj.getY() == 0) 
 		    { 
-			    System.out.printf("\nThe territory %s does not have defined Y Axis", territory); 
-			    return -1; 
+			    return "\nThe territory %s does not have defined Y Axis" + territory; 
 		    } 
 		   
 		    if(dictContinents.get((tmpTerritoryObj.getContinent())) == null) 
 		    { 
-			    System.out.printf("\nThe territory %s is in continent %s. This continent either does not exist or isnt defined properly", territory, tmpTerritoryObj.getContinent()); 
-			    return -1; 
+			    return "\nThe territory %s is in continent %s. This continent either does not exist or isnt defined properly" + territory + tmpTerritoryObj.getContinent();
 	 	    } 
 		   
 		    ArrayList<String> adjacent = tmpTerritoryObj.getAdjacentCountries(); 
@@ -315,30 +317,27 @@ public class Maps {
 			        } 
 			        if(matchFlag == 0) 
 			        { 
-				        System.out.printf("\nPlease check adjacency for territory %s", adjacentCountry); 
-				        return -1; 
+				       return "\nPlease check adjacency for territory %s" + adjacentCountry;  
 			        } 
 			    } 
 				else 
 				{ 
-				    System.out.printf("\nPlease mention adjacent territories for %s", adjacentCountry); 
-				    return -1; 
+				    return "\nPlease mention adjacent territories for %s" + adjacentCountry; 
 				} 
 			} 
 		
 		}
 		
-		if(mapConnectivity() != 0)
+		if(mapConnectivity() != "true")
 		{
-			return -1;
+			return "The map is not a connected graph";
 		}
 
-		return 0;
+		return "true";
 	}
 	
-	public Integer mapConnectivity()
+	public String mapConnectivity()
 	{
-		Integer rt = 0;
 		HashMap<Territory, Integer> TerritoryVisitFlags = new HashMap<Territory, Integer>();
 		Territory tmp = null;
 		for(String territory : this.dictTerritory.keySet())
@@ -360,14 +359,12 @@ public class Maps {
 		{
 			if(TerritoryVisitFlags.get(this.dictTerritory.get(territory)) != 1)
 			{
-				rt = -1;
-				System.out.println("The map is not a connected graph");
-				break;
+				return "The map is not a connected graph";
 			}
 		}
 		
 		
-		return rt;
+		return "true";
 	}
 
 	private HashMap<Territory, Integer> validateConnectivity(HashMap<Territory, Integer> TerritoryVisitFlags, Territory territory)
