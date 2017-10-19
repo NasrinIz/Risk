@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
 	private JScrollPane mapPane;
 	private BorderLayout borderLayout;
 	private InfoView infoView;
+	private ErrorInfoView errorInfoView;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<String, TerritoryView>(2,2);
 	public MainWindow() {
@@ -83,7 +84,9 @@ public class MainWindow extends JFrame {
 		}
 
 		infoView = new InfoView();
+		errorInfoView = new ErrorInfoView();
 		this.getContentPane().add(infoView);
+		this.getContentPane().add(errorInfoView);
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 

@@ -34,8 +34,8 @@ public class InfoView extends JPanel {
 		this.setLayout(new FlowLayout());
 		InfoTextArea = new JTextArea();
 		InfoTextArea.setRows(10);
-		this.setBounds(1024, 0, 255, 768);
-		InfoTextArea.setBounds(1024, 0, 255, 768);
+		this.setBounds(1024, 0, 255, 468);
+		InfoTextArea.setBounds(1024, 0, 255, 468);
 		this.add(InfoTextArea);
 		
 		
