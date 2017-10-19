@@ -191,7 +191,6 @@ public class GameConfig {
 			Continent cont = mapObj.getDictContinents().get(terObj.getContinent());
 			cont.getTerritories().add(terObj);
 		}
-
 	}
 	
 //// =================================<< Card Methods >>=================================
