@@ -207,9 +207,7 @@ public class MainController {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
 				}
-			}
-			
-			
+			}	
 		}
 	}
 

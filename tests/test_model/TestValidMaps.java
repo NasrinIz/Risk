@@ -1,8 +1,8 @@
 package test_model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,19 +13,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.Continent;
-import model.Maps;
+import model.GameConfig;
 import model.Territory;
 
 public class TestValidMaps {
 
-	private static String mapLocation;
 	private static Map<String, Continent> dictContinents;
 	private static Map<String, Territory> dictTerritory;
-	private static Maps gameMap;
+	private static GameConfig gameConfig;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		mapLocation = "testing_maps//valid_1";
+		gameConfig = new GameConfig(3,"testing_maps//valid_1");
 
 		dictContinents = new HashMap<String, Continent>(2, 2);
 		dictTerritory = new HashMap<String, Territory>(2, 2);
@@ -35,13 +34,15 @@ public class TestValidMaps {
 				"A3,180,180,A,A2,A4,A5,B2\r\n" + 
 				"A4,120,180,A,A1,A3,A5,B3\r\n" + 
 				"A5,150,240,A,A3,A4";
+		
 		String[] terrA = contStrA.split("\\n");
 
-		Territory[] contA_terr = new Territory[5];
+		ArrayList<Territory> contA_terr = new ArrayList<Territory>();
 
-		for (int i = 0; i < contA_terr.length; i++) {
-			contA_terr[i] = new Territory(terrA[i]);
-			dictTerritory.put(contA_terr[i].getName(), contA_terr[i]);
+		for (int i = 0; i < terrA.length; i++) {
+			Territory newTer =  new Territory(terrA[i]);
+			contA_terr.add( newTer );
+			dictTerritory.put(newTer.getName(), newTer);
 		}
 
 		String contStrB = "B1,300,120,B,A2,B2,B3\r\n" + 
@@ -49,28 +50,25 @@ public class TestValidMaps {
 				"B3,360,150,B,B1,B2,A1,A4";
 		String[] terrB = contStrB.split("\\n");
 
-		Territory[] contB_terr = new Territory[3];
+		ArrayList<Territory> contB_terr = new ArrayList<Territory>();
 
-		for (int i = 0; i < contB_terr.length; i++) {
-			contB_terr[i] = new Territory(terrB[i]);
-			dictTerritory.put(contB_terr[i].getName(), contB_terr[i]);
+		for (int i = 0; i < terrB.length; i++) {
+			Territory newTer =  new Territory(terrB[i]);
+			contB_terr.add( newTer );
+			dictTerritory.put(newTer.getName(), newTer);
 		}
 		
-		Continent contA = new Continent("A", contA_terr, 5);
-		Continent contB = new Continent("B", contB_terr, 3);
+		Continent contA = new Continent("A", 5);
+		Continent contB = new Continent("B", 3);
 
 		dictContinents.put(contA.getName(), contA);
 		dictContinents.put(contB.getName(), contB);
 		
-		System.out.println( contA );
-		System.out.println( contB );
-		
-		gameMap = new Maps(mapLocation);
-		gameMap.readMap();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		gameConfig = null;
 	}
 
 	@Before
@@ -86,18 +84,20 @@ public class TestValidMaps {
 		
 		assertNotNull(dictContinents);
 		assertNotNull(dictTerritory);
-		assertEquals(gameMap.getDictContinents().keySet(), dictContinents.keySet());
-		assertEquals(gameMap.getDictTerritory().keySet(), dictTerritory.keySet());
-		assertEquals(gameMap.getNumContinents(), new Integer(2));
-		assertEquals(gameMap.getNumTerritories(), new Integer(8));
-		assertEquals(gameMap.getMapAuthor(), "Samer Ayoub");
+		assertEquals(gameConfig.getMapObj().getDictContinents().keySet(), dictContinents.keySet());
+		assertEquals(gameConfig.getMapObj().getDictTerritory().keySet(), dictTerritory.keySet());
+		assertEquals(gameConfig.getMapObj().getNumContinents(), new Integer(2));
+		assertEquals(gameConfig.getMapObj().getNumTerritories(), new Integer(8));
+		assertEquals(gameConfig.getMapObj().getMapAuthor(), "Samer Ayoub");
+		assertEquals(gameConfig.getMapObj().getDictContinents().get("A").getTerritories().size(), 5);
+		assertEquals(gameConfig.getMapObj().getDictContinents().get("B").getTerritories().size(), 3);
 		// To Do:
 		// override equals in Territory and Continent and use it to assert equality
 	}
 	
 	@Test
 	public void validateMap() {
-		assertEquals(gameMap.validateMap(), new Integer(0) );
+		assertEquals(gameConfig.getMapObj().validateMap(), new Integer(0) );
 	}
 	
 	

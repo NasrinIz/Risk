@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * @author Team20
  * This is class Continent that maintain name,territories,armyReward
@@ -7,7 +9,7 @@ package model;
 public class Continent {
 
 	private String name;
-	private Territory territories[];
+	private ArrayList<Territory> territories;
 	private int armyReward;
 
 	/**
@@ -15,10 +17,10 @@ public class Continent {
 	 * @param inTerritories
 	 * @param inArmyReward
 	 */
-	public Continent(String inName, Territory inTerritories[], int inArmyReward) {
+	public Continent(String inName, int inArmyReward) {
 		this.name = inName;
 		this.armyReward = inArmyReward;
-		this.territories = inTerritories;
+		this.territories = new ArrayList<Territory>();
 	}
     
 	/**
@@ -33,7 +35,7 @@ public class Continent {
 	 * This method get territories
 	 * @return territories
 	 */
-	public Territory[] getTerritories() {
+	public ArrayList<Territory> getTerritories() {
 		return territories;
 	}
 	
@@ -57,13 +59,18 @@ public class Continent {
 	public String toString() {
 		String info = "Name:	" + name + "\n"
 					+ "Territories:	";
-		for(int i = 0; i < territories.length ; i++) {
-			info += territories[i].getName() + " ";
+		for(Territory ter: territories) {
+			info += ter.getName() + " ";
 		}
 		
 		info += "\nArmy reward:	" + armyReward + "\n";
 				
 		return info;	
+	}
+
+	public void removeTerritory(Territory ter) {
+		
+		this.territories.remove(ter);
 	}
 	
 }

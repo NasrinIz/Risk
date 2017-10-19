@@ -28,6 +28,7 @@ public class GameConfig {
 		this.mapObj = new Maps(mapName);
 		setupCards();
 		setNumPlayers();
+		setContinentsTerritoryList();
 	}
 
 	private GenFun genFunObj = new GenFun();
@@ -182,6 +183,15 @@ public class GameConfig {
 	 */
 	public void setMapObj(Maps mapObj) {
 		this.mapObj = mapObj;
+	}
+	
+	public void setContinentsTerritoryList() {
+		for (String terName : mapObj.getDictTerritory().keySet()) {
+			Territory terObj =  mapObj.getDictTerritory().get(terName);
+			Continent cont = mapObj.getDictContinents().get(terObj.getContinent());
+			cont.getTerritories().add(terObj);
+		}
+
 	}
 	
 //// =================================<< Card Methods >>=================================
