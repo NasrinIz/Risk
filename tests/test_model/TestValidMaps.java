@@ -97,7 +97,7 @@ public class TestValidMaps {
 	
 	@Test
 	public void validateMap() {
-		assertEquals(gameConfig.getMapObj().validateMap(), new Integer(0) );
+		assertEquals(gameConfig.getMapObj().validateMap(), "true" );
 	}
 	
 	

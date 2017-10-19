@@ -36,7 +36,7 @@ public class TestInvalidMaps {
 	@Test
 	public void testDisconnectedMap() {
 		gameConfig = new GameConfig(3, "testing_maps//invalid_1");
-		assertEquals(gameConfig.getMapObj().validateMap(), new Integer(-1));
+		assertEquals(gameConfig.getMapObj().validateMap(), "The map is not a connected graph");
 	}
 	
 	public void testInconsistentAdjacency() {

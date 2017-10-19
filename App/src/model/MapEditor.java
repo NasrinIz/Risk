@@ -60,7 +60,7 @@ public class MapEditor {
 	 */
 	public void  removeTerritory(String terName) {
 		Territory ter = mapObj.getDictTerritory().get(terName);
-		System.out.println(ter);
+
 		// connect all common neighbors and remove ter from their adjacency lists
 		ArrayList<String> terrAdj = ter.getAdjacentCountries();
 
@@ -74,14 +74,14 @@ public class MapEditor {
 			
 			neighAdj.remove(neigName);	// the neighbor itself was added to its own adjacency list so remove it 
 			neighAdj.remove(terName);	// remove terName from it's neighbor adjacency list
-//			System.out.println(Neighbor);
+
 		}
 		
 		mapObj.getDictTerritory().remove(terName);	// remove terName from Territory Dictionary
 		Continent terCont = mapObj.getDictContinents().get(ter.getContinent()); 
 		terCont.removeTerritory(ter);	// remove terName from its continent Dictionary
 		ter = null;		// delete Territory object
-		System.out.println(mapObj.getDictTerritory());
+
 	}
 	/**
 	 * helper method used in removeTerritory
