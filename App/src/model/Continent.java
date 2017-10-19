@@ -11,7 +11,8 @@ public class Continent {
 	private String name;
 	private ArrayList<Territory> territories;
 	private int armyReward;
-
+	private Integer ownerPlayerId = null;
+	
 	/**
 	 * @param inName
 	 * @param inTerritories
@@ -23,6 +24,39 @@ public class Continent {
 		this.territories = new ArrayList<Territory>();
 	}
     
+	public Integer checkForOwnership()
+	{
+		Integer ownerId = null;
+		for(int i = 0; i < territories.size(); i++)
+		{
+			if(ownerId == null)
+			{
+				ownerId = new Integer(territories.get(i).getOwner());
+			}
+			else
+			{
+				if(territories.get(i).getOwner() != ownerId)
+				{
+					return -1;
+				}
+			}
+		}
+		if(ownerPlayerId == null)
+		{
+			ownerPlayerId = new Integer(ownerId);
+		}
+		else
+		{
+			ownerPlayerId = ownerId;
+		}
+		return 0;
+	}
+	
+	public Integer getOwnerId()
+	{
+		return ownerPlayerId;
+	}
+	
 	/**
 	 * This method get the name 
 	 * @return name

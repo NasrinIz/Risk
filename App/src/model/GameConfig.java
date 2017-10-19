@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -25,7 +27,7 @@ public class GameConfig {
 		super();
 		
 		this.numPlayers = numPlayers;
-		this.mapObj = new Maps(mapName);
+		this.mapObj = new Maps(mapName, 0);
 		setupCards();
 		setNumPlayers();
 		setContinentsTerritoryList();
@@ -69,7 +71,7 @@ public class GameConfig {
 	 */
 	public Maps createMap(String mapName)
 	{
-		mapObj = new Maps(mapName);
+		mapObj = new Maps(mapName, 0);
 		return mapObj;
 	}
 	
@@ -163,7 +165,28 @@ public class GameConfig {
 
 	}
 	
+	public void calcReinforcementArmy()
+	{
+		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
+	    while (ite.hasNext()) 
+	    {
+	        Map.Entry pair = (Map.Entry)ite.next();
+	        Continent tmpContinent = mapObj.getDictContinents().get(pair.getKey());
 
+	        /* Calculates army reward for each continent and add to players */
+	        if(tmpContinent.checkForOwnership() == 0)
+	        {
+	        	players[tmpContinent.getOwnerId()].setContinentArmyReward(tmpContinent.getArmyReward());
+	        }
+	        
+	        System.out.println(pair.getKey() + " = " + pair.getValue());
+	    }
+		
+		for(int i = 0; i < players.length; i++)
+		{
+			players[i].calcReinforcementArmies();
+		}
+	}
 	/**
 	 * @return the gameCards
 	 */

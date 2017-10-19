@@ -18,7 +18,8 @@ public class Player {
 	Integer id = null;
 
 	private boolean isTurnCompleted = false;
-	
+	private Integer continentArmyReward = 0;
+	private Integer cardsArmyReward = 0;
 	
 	public void setTurnStatus(boolean status)
 	{
@@ -133,8 +134,30 @@ public class Player {
 		{
 			if(territories.get(i).getName().equals(territoryName) == true)
 			{
-				territories.get(i).increaseArmies();
+				if(armies > 0)
+				{
+					territories.get(i).increaseArmies();
+					armies--;
+				}
 			}
 		}
+	}
+	
+	public void calcReinforcementArmies()
+	{
+		Integer newArmies = numTerritories / 3;
+		newArmies += continentArmyReward;
+		newArmies += cardsArmyReward;
+		armies += newArmies;
+	}
+	
+	public void setContinentArmyReward(Integer inArmy)
+	{
+		continentArmyReward = inArmy;
+	}
+	
+	public void setCardsArmyReward(Integer inArmy)
+	{
+		cardsArmyReward = inArmy;
 	}
 }

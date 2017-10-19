@@ -16,7 +16,7 @@ public class Territory {
 	private String name = null;
 	private Integer X = 0;
 	private Integer Y = 0;
-	private Integer stationedArmies = 0;
+	private Integer stationedArmies = 1;
 	private ArrayList<String> adjacentCountries = new ArrayList<String>();
 	
 	private Integer ownerPlayerId = null;
@@ -43,7 +43,6 @@ public class Territory {
 	
 	public void increaseArmies()
 	{
-		
 		stationedArmies++;
 	}
 	public void decreaseArmies()
@@ -53,8 +52,14 @@ public class Territory {
 	
 	public Territory(String inInfo) {
 		String[] tmp = genFunObj.genCommaSepStrToArray(inInfo);
+		if(tmp.length < 5)
+		{
+			System.out.println("Invalid Territory Info Skipped Addition");
+			return;
+		}
 		String tmpAdjacent = inInfo.substring(genFunObj.genOrdinalIndexOf(inInfo, ",", 4));
 		SetInfo(tmp[0], tmp[1], tmp[2], tmp[3], tmpAdjacent);
+		
 	}
 	
 	/** 

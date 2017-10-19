@@ -15,6 +15,9 @@ public class GenFun {
 	public final int GAMEPHASEREINFORCEMENT = 2;
 	public final int GAMEPHASEFORTIFICATION = 3;
 	
+	public final int EDITORMODENONE = 0;
+	public final int EDITORMODEEDIT = 1;
+	public final int EDITORMODECREATE = 2;
 	
 	public Integer genStrToInt(String inVal) {
 		return Integer.valueOf(inVal);

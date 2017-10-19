@@ -3,7 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -11,100 +14,267 @@ import java.util.Set;
  *
  */
 public class MapEditor {
+	final int CHOICENONE = 0;
+	final int CHOICEADDCONT = 1;
+	final int CHOICEDELCONT = 2;
+	final int CHOICEADDCOUNT = 3;
+	final int CHOICEDELCOUNT = 4;
+	
+	GenFun genFunObj = new GenFun();
+	Integer editorMode = genFunObj.EDITORMODENONE;
 	Maps mapObj = null;
-	Integer editChoice = null;
+	List<Territory> addedTerritories = new ArrayList<Territory>();
+	List<Continent> addedContinents = new ArrayList<Continent>();
+	Integer choice = 0;
 	
 	/**
 	 * @param inMapLocation
 	 */
-	public MapEditor(String inMapLocation) {
-		createMap(inMapLocation);
+	public MapEditor(Integer inEditorMode) {
+		editorMode = inEditorMode;
+		if(editorMode == genFunObj.EDITORMODEEDIT)
+		{
+			System.out.println("Please enter path of map to edit: ");
+			Scanner scanIn = new Scanner(System.in);
+			String path = scanIn.next();
+			editMap(path);
+		}
+		else if(editorMode == genFunObj.EDITORMODECREATE)
+		{
+			System.out.println("Please enter path for new Map: ");
+			Scanner scanIn = new Scanner(System.in);
+			String path = scanIn.next();
+			createMap(path);
+		}
 	}
 	
-	/**
-	 * @param inMapLocation
-	 */
-	private void createMap(String inMapLocation)
+	private void editMap(String inPath)
 	{
-		mapObj = new Maps(inMapLocation);
+		mapObj = new Maps(inPath, 1);
+		if(mapObj.readMap().equals("true") == false)
+		{
+			System.out.println("Input Map Not correct. Opening to edit for correct");
+		}
+		System.out.println("Map Opened");
+		checkChoice(displayChoice());
 	}
 	
-	private void loadEditor()
+	private void createMap(String inPath)
 	{
-		dispMapInfo(mapObj);
-		dispEditMenu();
+		mapObj = new Maps(null, 1);
+		checkChoice(displayChoice());
 	}
 	
-	/**
-	 * @param inMapObj
-	 */
-	private void dispMapInfo(Maps inMapObj)
+	private void checkChoice(Integer choice)
 	{
-		System.out.printf("Current Map Info:");
-		System.out.printf("Name of map = %s", inMapObj.getMapName());
-		System.out.printf("Continents = %d", inMapObj.getNumContinents());
-		System.out.printf("Territories = %d", inMapObj.getNumTerritories());
-	}
-	
-	
-	private void dispEditMenu()
-	{
-		System.out.printf("What would you like to do:");
-		System.out.printf("1) Add a territory");
-		System.out.printf("2) Add a continent");
-	}
-	
-	/**
-	 *  removes a passed territory node from the graph of the map
-	 *  @param territory
-	 */
-	public void  removeTerritory(String terName) {
-		Territory ter = mapObj.getDictTerritory().get(terName);
-
-		// connect all common neighbors and remove ter from their adjacency lists
-		ArrayList<String> terrAdj = ter.getAdjacentCountries();
-
-		for(String neigName: terrAdj) {
-			
-			Territory Neighbor = mapObj.getDictTerritory().get(neigName);
-
-			ArrayList<String> neighAdj = Neighbor.getAdjacentCountries();
-			
-			union(terrAdj, neighAdj);
-			
-			neighAdj.remove(neigName);	// the neighbor itself was added to its own adjacency list so remove it 
-			neighAdj.remove(terName);	// remove terName from it's neighbor adjacency list
-
+		this.choice = choice;
+		
+		if(choice == null)
+			System.out.println("System state not correct");
+		
+		switch(choice)
+		{
+		case 1:
+			addContinent();
+			break;
+		case 2:
+			deleteContinent();
+			break;
+		case 3:
+			newCountry();
+			break;
+		case 4:
+			delCountry();
+			break;
+		case 5:
+			quitAndValidate();
+			break;
 		}
 		
-		mapObj.getDictTerritory().remove(terName);	// remove terName from Territory Dictionary
-		Continent terCont = mapObj.getDictContinents().get(ter.getContinent()); 
-		terCont.removeTerritory(ter);	// remove terName from its continent Dictionary
-		ter = null;		// delete Territory object
-
 	}
-	/**
-	 * helper method used in removeTerritory
-	 * @param terrAdj
-	 * @param neighAdj
-	 * @return union of territory adjacency list and a neighbor adjacency list 
-	 */
-    private void union(ArrayList<String> terrAdj, ArrayList<String> neighAdj) {
-        
-    	for(String t: terrAdj) {
-    		if(!neighAdj.contains(t)) {
-    			neighAdj.add(t);
-    		}
-    	}
-    }
-
-	/**
-	 * @return the mapObj
-	 */
-	public Maps getMapObj() {
-		return mapObj;
+	
+	private void quitAndValidate()
+	{
+		mapObj.addContinent(addedContinents);
+		mapObj.addCountry(addedTerritories);
+		
+		
 	}
-    
+	
+	private void addContinent()
+	{
+		System.out.println("Enter continent name: ");
+		Scanner in = new Scanner(System.in);
+		String continentName = in.next();
+		
+		System.out.println("Enter continent award armies: ");
+		Integer continentAward = in.nextInt();
+	
+		for(int i = 0; i < addedContinents.size(); i++)
+		{
+			if(addedContinents.get(i).getName().equals(continentName))
+			{
+				System.out.println("A continent with this name already exists");
+				return;
+			}
+		}
+		
+		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			if(pair.getKey().equals(continentName))
+			{
+				System.out.println("A continent with this name already exists");
+				return;
+			}
+		}
+		
+		Continent tmpCont = new Continent(continentName, continentAward);
+		
+		System.out.println("Every continent must have atlest one country.");
+		Territory tmpTerritory = null;
+		
+		while(tmpTerritory != null)
+		{
+			Territory tmp = addCountry();
+			if(tmp != null)
+			{
+				if(tmp.getContinent().equals(continentName) == false)
+				{
+					System.out.printf("\nPlease add territory for your new continent %s first\n", continentName);
+				}
+				else
+				{
+					tmpTerritory = tmp;
+				}
+			}
+			else
+			{
+				System.out.println("Please try again: ");
+			}
+		}
+		
+		addedContinents.add(tmpCont);
+		addedTerritories.add(tmpTerritory);
+	}
+	
+	private void deleteContinent()
+	{
+		System.out.println("Please enter name of continent to be deleted");
+		Scanner in = new Scanner(System.in);
+		String continentName = in.next();
+		
+		for(int i = 0; i < addedContinents.size(); i++)
+		{
+			if(addedContinents.get(i).getName().equals(continentName))
+			{
+				addedContinents.remove(i);
+				return;
+			}
+		}
+		
+		if(mapObj.getDictContinents().containsKey(continentName))
+		{
+			mapObj.deleteContinent(continentName);
+		}
+		else
+		{
+			System.out.println("No such continent exists");
+			return;
+		}
+	}
+
+	private void newCountry()
+	{
+		Territory tmpTerritory = addCountry();
+		
+		if(tmpTerritory != null)
+		{
+			if(mapObj.getDictContinents().containsKey(tmpTerritory.getContinent()))
+			{
+				addedTerritories.add(tmpTerritory);
+				return;
+			}
+			else
+			{
+				System.out.printf("\nNo continent found for territory with name %s\n. "
+						+ "Please add this continent first", tmpTerritory.getContinent());
+			}
+		}
+	}
+	
+	private Territory addCountry()
+	{
+		System.out.println("Enter Territory Info. Format = <name>, <x>, <y>, <continent>, <adjacent territory, ...>");
+		Scanner in = new Scanner(System.in);
+		String territoryInfo = in.next();
+		Territory tmpTerritory = new Territory(territoryInfo);
+		
+		if(tmpTerritory.getName() == null)
+			return null;
+		
+		for(int i = 0; i < addedTerritories.size(); i++)
+		{
+			if(addedTerritories.get(i).getName().equals(tmpTerritory.getName()))
+			{
+				System.out.println("A territory with this name already exists");
+				return null;
+			}
+		}
+		
+		return tmpTerritory;
+	}
+	
+	private void delCountry()
+	{
+		System.out.println("Please enter name of territory to be deleted");
+		Scanner in = new Scanner(System.in);
+		String territoryName = in.next();
+		
+		deleteCountry(territoryName);
+	}
+	
+	private void deleteCountry(String tmpTerritory)
+	{
+		for(int i = 0; i < addedTerritories.size(); i++)
+		{
+			if(addedTerritories.get(i).getName().equals(tmpTerritory))
+			{
+				addedTerritories.remove(i);
+				return;
+			}
+		}
+		
+		if(mapObj.getDictTerritory().containsKey(tmpTerritory))
+		{
+			mapObj.deleteTerritory(mapObj.getDictTerritory().get(tmpTerritory));
+		}
+		else
+		{
+			System.out.println("No such territory exists");
+		}
+	}
+	
+	private Integer displayChoice()
+	{
+		Integer choice = 0;
+		
+		while((choice < 1) || (choice > 4))
+		System.out.println("1) Add a continent");
+		System.out.println("2) Delete a continent");
+		System.out.println("3) Add a country");
+		System.out.println("4) Delete a country");
+		
+		Scanner in = new Scanner(System.in);
+		choice = in.nextInt();
+		if((choice < 1) || (choice > 4))
+		{
+			System.out.println("Incorrect Choice, Please try again: ");
+		}
+		
+		return choice;
+	}
     
 }
 

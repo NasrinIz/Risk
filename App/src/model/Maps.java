@@ -1,10 +1,17 @@
 package model;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import view.ErrorInfoView;
 import view.MainWindow;
@@ -22,7 +29,7 @@ public class Maps {
 	private Integer TERRITORY_CAPACITY_INCREMENT = 2;
 	/*************************/
 
-	private String mapLocation;
+	public String mapLocation;
 	private String mapName;
 	/* Basic Map Properties */
 	/* Remove */
@@ -47,21 +54,29 @@ public class Maps {
 	/**
 	 * @param inMapLocation
 	 */
-	public Maps(String inMapLocation) {
+	public Maps(String inMapLocation, Integer Mode) {
 		mapLocation = inMapLocation;
-		errorInfoView = new ErrorInfoView();
-		String readMapMsg = readMap();
-		String validateMapMsg = validateMap();
 		
-		if (readMapMsg != "true") {
-			// TBD error
-			System.out.println(readMapMsg);
-			errorInfoView.showErrorInfo(readMapMsg);
+		if(Mode == 0)	// non editor mode
+		{
+			errorInfoView = new ErrorInfoView();
+			String readMapMsg = readMap();
+			String validateMapMsg = validateMap();
+			
+			if (readMapMsg != "true") {
+				// TBD error
+				System.out.println(readMapMsg);
+				errorInfoView.showErrorInfo(readMapMsg);
+			}
+			if (validateMapMsg != "true") {
+				// TBD error
+				System.out.println(validateMapMsg);
+				errorInfoView.showErrorInfo(validateMapMsg);
+			}
 		}
-		if (validateMapMsg != "true") {
-			// TBD error
-			System.out.println(validateMapMsg);
-			errorInfoView.showErrorInfo(validateMapMsg);
+		else if(Mode == 1) // Editor Mode
+		{
+			// do nothing
 		}
 	}
 
@@ -399,5 +414,152 @@ public class Maps {
 			//System.out.println(TerritoryVisitFlags.get(territory));
 		}
 		return TerritoryVisitFlags;
+	}
+	
+	public void addContinent(List<Continent> tmpContinent)
+	{
+		for(int i = 0; i < tmpContinent.size(); i++)
+		{
+			this.getDictContinents().put(tmpContinent.get(i).getName(), tmpContinent.get(i));
+		}
+	}
+	
+	public void addCountry(List<Territory> tmpTerritory)
+	{
+		for(int i = 0; i < tmpTerritory.size(); i++)
+		{
+			this.getDictTerritory().put(tmpTerritory.get(i).getName(), tmpTerritory.get(i));
+		}
+	}
+	
+	public void deleteContinent(String tmpContinent)
+	{
+		Integer rt = -1;
+		
+		if(this.getDictContinents().containsKey(tmpContinent) == false)
+		{
+			System.out.println("No such continent exists");
+		}
+		List<Territory> territories = this.getDictContinents().get(tmpContinent).getTerritories();
+		
+		for(int i = 0; i < territories.size(); i++)
+		{
+			Iterator ite = this.getDictTerritory().entrySet().iterator();
+			while(ite.hasNext())
+			{
+				Map.Entry pair = (Map.Entry)ite.next();
+				if(this.getDictTerritory().get(pair.getKey()).getName().equals(territories.get(i).getName()))
+				{
+					this.getDictTerritory().remove(pair.getKey());
+				}
+			}
+		}
+		
+		this.getDictContinents().remove(tmpContinent);
+	}
+	
+	public void deleteTerritory(Territory tmpTerritory)
+	{
+		/* From Continent */
+		Iterator ite = this.getDictContinents().entrySet().iterator();
+		Integer foundFlag = -1;
+		
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			List<Territory> territoriesInContinent = this.getDictContinents().get(pair.getKey()).getTerritories();
+			for(int i = 0; i < territoriesInContinent.size(); i++)
+			{
+				if(territoriesInContinent.get(i).getName().equals(tmpTerritory.getName()))
+				{
+					territoriesInContinent.remove(i);
+					foundFlag = 1;
+					break;
+				}
+			}
+		}
+		
+		/* From Territory */
+		ite = this.getDictTerritory().entrySet().iterator();
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			if(pair.getValue().equals(tmpTerritory.getName()))
+			{
+				List<String> adjacent = this.getDictTerritory().get(pair.getKey()).getAdjacentCountries();
+				for(int i = 0; i < adjacent.size(); i++)
+				{
+					List<String> adjacentOfAdjacent = this.getDictTerritory().get(adjacent.get(i)).getAdjacentCountries();
+					for(int j = 0; j < adjacentOfAdjacent.size(); j++)
+					{
+						if(adjacentOfAdjacent.get(j).equals(tmpTerritory.getName()))
+						{
+							adjacentOfAdjacent.remove(j);
+							break;
+						}
+					}
+				}
+				this.getDictTerritory().remove(tmpTerritory.getName());
+				break;
+			}
+		}
+		
+		System.out.println("Territory Deleted");
+	}
+	
+	private void writeMapToFile(String inPath)
+	{
+		File logFile = new File(inPath);
+		PrintWriter out = null;
+		try 
+		{
+			if(logFile.exists() && !logFile.isDirectory())
+			{
+				out = new PrintWriter(new FileOutputStream(new File(inPath), true));
+			}
+			else
+			{
+				out = new PrintWriter(inPath);
+			}
+
+			out.printf("\n[Continents]\n");
+			Iterator ite = this.getDictContinents().entrySet().iterator();
+			while(ite.hasNext())
+			{
+				Map.Entry pair = (Map.Entry)ite.next();
+				out.printf("%s = %d\n", this.getDictContinents().get(pair.getKey()).getName(),
+						this.getDictContinents().get(pair.getKey()).getArmyReward());
+				
+			}
+			
+			out.printf("\n[Territories]\n");
+			
+			ite = this.getDictTerritory().entrySet().iterator();
+			while(ite.hasNext())
+			{
+				Map.Entry pair = (Map.Entry)ite.next();
+				out.printf("%s,%d,%d,%s", this.getDictTerritory().get(pair.getKey()).getName(),
+						this.getDictTerritory().get(pair.getKey()).getX(),
+						this.getDictTerritory().get(pair.getKey()).getY(),
+						this.getDictTerritory().get(pair.getKey()).getContinent());
+				for(int i = 0; i < this.getDictTerritory().get(pair.getKey()).getAdjacentCountries().size(); i++)
+				{
+					out.printf("%s", this.getDictTerritory().get(pair.getKey()).getAdjacentCountries().get(i));
+				}
+				
+				out.printf("\n");
+			}
+		} 
+		catch (FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			if (out != null) 
+			{
+				out.close();
+	        }
+		}
 	}
 }

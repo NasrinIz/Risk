@@ -129,15 +129,22 @@ public class MainController {
 			Player tmpPlayers[] = gameConfig.getPlayers();
 			int i;
 			
+			gameConfig.getCurrentPlayer().setTurnStatus(true);
 			for(i = 0; i<tmpPlayers.length; i++)
 			{
 				if(tmpPlayers[i].getTurnStatus() == false)
+				{
 					break;
+				}
 			}
 			
 			if(i >= tmpPlayers.length)
 			{
 				incrementGamePhase();
+				for(i = 0; i < tmpPlayers.length; i++)
+				{
+					tmpPlayers[i].setTurnStatus(false);
+				}
 			}
 			
 			gameConfig.nextPlayerTurn();
@@ -177,6 +184,7 @@ public class MainController {
 	{
 		if(gamePhase == genFunObj.GAMEPHASESTARTUP)
 		{
+			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
 		}
 		else if(gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
@@ -185,6 +193,7 @@ public class MainController {
 		}
 		else if(gamePhase == genFunObj.GAMEPHASEFORTIFICATION)
 		{
+			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
 		}
 	}
@@ -207,13 +216,13 @@ public class MainController {
 			{
 				if(currentPlayerId == territoryOwner)
 				{
-					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
-					mainWindow.getInfoView().showTerritoryInfo(info);
-					
 					if((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT))
 					{
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
+					
+					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
+					mainWindow.getInfoView().showTerritoryInfo(info);
 				}
 			}	
 		}
