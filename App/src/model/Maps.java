@@ -17,6 +17,8 @@ import view.ErrorInfoView;
 import view.MainWindow;
 
 /**
+ * This class is used to instantiate maps, which reads the map files into memory.
+ * And then, it validates every map.
  * @author Team20
  *
  */

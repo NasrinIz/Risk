@@ -10,6 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * this view is used to display the territories as buttons.
+ * @author Team20
+ *
+ */
+
 public class TerritoryView extends JPanel {
 
 	JLabel armiesNumLbl;

@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 
 /**
+ * This class is used to instantiate players, and different attributes.
+ * Each player has a list of territories and cards that are owned by him.
  * @author Team20
  *
  */

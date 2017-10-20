@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  * @author Team20
- * This is class Continent that maintain name,territories,armyReward
+ * This is class Continent that is used to instantiate the continents of map, including
+ * the list of territories for each continent among other properties.
  */
 public class Continent {
 

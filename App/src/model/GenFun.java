@@ -8,6 +8,12 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Vector;
 
+/**
+ * This class contains generic functions and common constants that are used
+ * across the whlole application.
+ * @author Team20
+ *
+ */
 public class GenFun {
 	
 	public final int GAMEPHASENONE = 0;

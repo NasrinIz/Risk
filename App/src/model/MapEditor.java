@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
+ * This class is used to instantiate the map editor, to enable the user
+ * to add or delete the country, continent.
  * @author Team20
  *
  */

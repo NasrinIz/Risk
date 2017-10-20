@@ -9,6 +9,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 /**
+ * This is the view that displays the error messages while loading the map.
  * @author Team20
  */
 public class ErrorInfoView extends JPanel {

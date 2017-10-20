@@ -11,6 +11,8 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 /**
+ * this class is used to show informatiokn for each territory that the
+ * user clicks on on a separate panel.
  * @author Team20
  */
 public class InfoView extends JPanel {

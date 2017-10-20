@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 
 import model.Maps;
 /**
+ * this is the main window, that contains all the other panels and in which
+ * we load the map.
  * @author Team20
  */
 public class MainWindow extends JFrame {

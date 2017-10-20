@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @author Team20
- *
+ * This class is used to instantiate everything, and starts the flow of new game.
  */
 public class GameConfig {
 	private final Integer BEGINNINGCARDDISTRIBUTION = 4;

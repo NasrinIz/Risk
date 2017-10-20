@@ -20,6 +20,13 @@ import javax.swing.JTextField;
 import model.MapEditor;
 import model.Maps;
 
+/**
+ * This view is used to display the starter window when the form is given to user
+ * to select the options, whether he wants to load the map, edit the map, or create
+ * a new map.
+ * @author Team20
+ *
+ */
 public class StarterWindow extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu menu;

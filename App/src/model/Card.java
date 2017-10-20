@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
+ * This class is used to create cards according to the Risk rules.
+ * The created cards can then be assigned to players, and they receive additional
+ * army for exchanging cards.
  * @author Team20
  *
  */

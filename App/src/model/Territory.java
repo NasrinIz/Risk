@@ -5,7 +5,8 @@ import java.util.ArrayList;
 // import javax.swing.JButton;
  
 /**
- * 
+ * This class is used to instantiate different territories along with information
+ * such as stationed armies and adjecent countries to each country.
  * @author Team20
  *
  */

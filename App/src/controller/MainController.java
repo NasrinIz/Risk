@@ -23,6 +23,10 @@ import view.StarterWindow;
 import view.TerritoryView;
 
 /**
+ * As our architecture is MVC, this is the main controller, that adds action
+ * listeners too all the GUI components, defined and declared in view.
+ * This controller is also connected to the model package, so that it can
+ * initiate the execution of appropriate business logic on the basis of specific events.
  * @author Team20
  *
  */
