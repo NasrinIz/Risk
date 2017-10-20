@@ -10,10 +10,13 @@ import java.util.Random;
  *
  */
 public class GameConfig {
+	private final Integer BEGINNINGCARDDISTRIBUTION = 4;
+	private final Integer MAXCARDS = 44;
+	
 	private Integer numPlayers = null;
 	private Player players[];
 	private Maps mapObj;
-	private ArrayList<Card> gameCards;
+	private ArrayList<Card> gameCards = new ArrayList<Card>();
 	Integer currentPlayer = 0;
 	
 	/**
@@ -25,13 +28,12 @@ public class GameConfig {
 	
 	public GameConfig(Integer numPlayers, String mapName) {
 		super();
-		
+		initCards();
 		this.numPlayers = numPlayers;
 		this.mapObj = new Maps(mapName, 0);
 		//setContinentsTerritoryList();
 		initMap();
 		setNumPlayers();
-		setupCards();
 	}
 
 	private GenFun genFunObj = new GenFun();
@@ -102,13 +104,30 @@ public class GameConfig {
 	private void setupPlayers()
 	{
 		this.players = new Player[numPlayers];
-
+		ArrayList<Card> playerCards = new ArrayList<Card>();
+		Integer cardId = 0;
+		
 		for(int i = 0; i < numPlayers; i++)
 		{
-			Player playerObj = new Player("Player" + Integer.toString(i), i);
+			while(playerCards.size() < 4)
+			{
+				while(true)
+				{
+					cardId = genFunObj.genRandomNumber(0, 41);
+					if(gameCards.get(cardId).getOwnerId() == null)
+					{
+						break;
+					}
+				}
+				gameCards.get(cardId).setOwnerId(i);
+				playerCards.add(gameCards.get(cardId));
+			}
+			
+			Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards);
 			playerObj.setArmies(getInitArmy());
 			players[i] = playerObj;
 		}
+		
 		initTerritory();
 		
 		for (String territory : mapObj.getDictTerritory().keySet())
@@ -121,6 +140,75 @@ public class GameConfig {
 			players[i].setArmies(players[i].getArmies() - players[i].numOfTerritories());
 		}
 	}
+	
+	private void initCards()
+	{
+		Integer infantryCards = 0;
+		Integer cavalryCards = 0;
+		Integer artilleryCards = 0;
+		Integer wildCards = 0;
+		Integer cardtype = 0;
+		
+		for(int i = 0; i < this.MAXCARDS; i++)
+		{
+			while(true)
+			{
+				cardtype = genFunObj.genRandomNumber(1, 4);
+				
+				if(infantryCards == 14)
+				{
+					cardtype = genFunObj.genRandomNumber(2, 4);
+				}
+				else if(wildCards == 2)
+				{
+					cardtype = genFunObj.genRandomNumber(1, 3);
+				}
+				else if((infantryCards == 14) && (cavalryCards == 14))
+				{
+					cardtype = genFunObj.genRandomNumber(3, 4);
+				}
+				else if((artilleryCards == 14) && (wildCards == 2))
+				{
+					cardtype = genFunObj.genRandomNumber(1, 2);
+				}
+				else if((infantryCards == 14) && (cavalryCards == 14) && (wildCards == 2))
+				{
+					cardtype = 3;
+					break;
+				}
+				else if((artilleryCards == 14) && (cavalryCards == 14) && (wildCards == 2))
+				{
+					cardtype = 1;
+					break;
+				}
+				else if((infantryCards == 14) && (artilleryCards == 14) && (wildCards == 2))
+				{
+					cardtype = 2;
+					break;
+				}
+				else if((cardtype == 1) && (infantryCards < 14))
+				{
+					break;
+				}
+				else if((cardtype == 2) && (cavalryCards < 14))
+				{
+					break;
+				}
+				else if((cardtype == 3) && (artilleryCards < 14))
+				{
+					break;
+				}
+				else if((cardtype == 4) && (wildCards < 2))
+				{
+					break;
+				}
+			}
+			
+			Card tmpCard = new Card(0, cardtype);
+			this.gameCards.add(tmpCard);
+		}
+	}
+
 	
 	private void initTerritory()
 	{
@@ -234,68 +322,6 @@ public class GameConfig {
 	public void setMapObj(Maps mapObj) {
 		this.mapObj = mapObj;
 	}
-
-	
-//// =================================<< Card Methods >>=================================
-
-	/**
-	 * Generate 2 WILD cards,
-	 * In addition to INFANTRY, CAVALRY, ARTILLARY cards = number of map territories,
-	 * generated in a ratio close to 5:2:1 respectively
-	 * 
-	 */
-	private void setupCards() {
-		this.gameCards = new ArrayList<Card>();
-		int randomNum = 0;
-		Random randGenerator = new Random();		
-		// 2 WILD cards with no country names
-		gameCards.add(new Card(RiskCard.WILD, ""));
-		gameCards.add(new Card(RiskCard.WILD, ""));
-		Card newCard = null;
-		for (String trName : mapObj.getDictTerritory().keySet()) // causes error 
-		{
-			randomNum = randGenerator.nextInt((16 - 1) + 1) + 1;
-//			System.out.println( randomNum );
-			if( randomNum % 8 == 0) {		// 8,16
-				newCard = new Card(RiskCard.ARTILLERY, trName);
-			} else if(randomNum %3 == 0 ) {	// 3,6,9,12
-				newCard = new Card(RiskCard.CAVALRY, trName);
-			} else {						// 1,2,4,5,7,10,11,13,14,15
-				newCard = new Card(RiskCard.INFANTRY, trName);
-			} 
-//			System.out.println( newCard );
-			gameCards.add(newCard);
-		}
-	}
-	
-	/**
-	 * @param type
-	 * @return categ 
-	 */
-	public ArrayList<Card> getGameCardsOfType(RiskCard type) {
-		ArrayList<Card> categ = new ArrayList<Card>();
-		
-		for(Card card: gameCards) {
-			if(card.compareTypeTo(type) == 0) {
-				categ.add(card);
-			}
-		}
-		return categ;
-	}
-	
-	/**
-	 * Distributes game cards among players according to countries they own
-	 * 
-	 */
-	
-	// not yet completed, missing more methods in other classes ?!!!!!
-	public void distributeCards() {
-		Player p;
-		for(int i = 0; i< players.length ; i++) {
-			p = players[i];
-		}
-		
-	}
 	
 	public void fortifyArmies(String srcTerritory, String destTerritory)
 	{
@@ -310,5 +336,4 @@ public class GameConfig {
 			mapObj.getDictTerritory().get(destTerritory).getArmies());
 		}
 	}
-	
 }

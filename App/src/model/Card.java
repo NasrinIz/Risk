@@ -1,97 +1,38 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * @author Team20
  *
  */
 public class Card {
-	RiskCard cardType;
-	String territoryName;
-
-	/**
-	 * @param cardType
-	 * @param territoryName
-	 */
-	public Card(RiskCard cardType, String territoryName) {
-		this.cardType = cardType;
-		this.territoryName = territoryName;
-	}
-
 	
+	private final Integer CARDNONE = 0;
+	private final Integer CARDINFANTORY = 1;
+	private final Integer CARDCAVALRY = 2;
+	private final Integer CARDARTILLERY = 3;
 	
+	private Integer cardId = null;
+	private Integer ownerId = null;
+	public Integer cardType = CARDNONE;
+	public Integer cardRewardArmy = 15;
 	
-	/**
-	 * @return the cardType
-	 */
-	public RiskCard getCardType() {
-		return cardType;
-	}
-
-
-
-
-	/**
-	 * @param cardType the cardType to set
-	 */
-	public void setCardType(RiskCard cardType) {
+	Card(Integer cardId, Integer cardType)
+	{
+		this.cardId = cardId;
 		this.cardType = cardType;
 	}
-
-
-
-
-	/**
-	 * @return the territoryName
-	 */
-	public String getTerritoryName() {
-		return territoryName;
-	}
-
-
-
-
-	/**
-	 * @param territoryName the territoryName to set
-	 */
-	public void setTerritoryName(String territoryName) {
-		this.territoryName = territoryName;
-	}
-
-
-	public int getWorth() {
-		
-		switch (cardType) {
-		case WILD:
-			return 8;
-		case CAVALRY:
-			return 5;
-		case ARTILLERY:
-			return 10;
-		
-		default:
-			return 1;
-		}
-	}
-
-	/**
-	 * This method return the information of all types of cards
-	 */
-	public String toString() {
-		String Info = "Card Type:	" + this.cardType +"\n"
-				+ "Card Territory name:	" + this.getTerritoryName() +"\n"
-				+ "card value:	" + this.getWorth() +"\n";
-		return Info;
-		
+	
+	public Integer getOwnerId()
+	{
+		return this.ownerId;
 	}
 	
-	/**
-	 * compares this.cardType to the passed type
-	 * @param type
-	 * @return 0 if this.cardType == type, 1 if this.cardType > type, -1 if this.cardType < type
-	 */
-	public int compareTypeTo(RiskCard type) {
-		return this.cardType.compareTo(type);
+	public void setOwnerId(Integer id)
+	{
+		this.ownerId = id;
 	}
-	
 }
 
