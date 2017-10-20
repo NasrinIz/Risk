@@ -40,6 +40,8 @@ public class StarterWindow extends JFrame {
 	private JTextField countryCoordinationField;
 	private JLabel addContinentLbl;
 	private JTextField addContinentField;
+	private JLabel saveMapPathLbl;
+	private JTextField saveMapPathField;
 	private JLabel continentAwardLbl;
 	private JTextField continentAwardField;
 	private JButton finishAddingContinentsBtn;
@@ -282,6 +284,12 @@ public class StarterWindow extends JFrame {
 		continentAwardField = new JTextField();
 		continentAwardField.setBounds(640, 150, 200, 20);
 
+		saveMapPathLbl = new JLabel("Map save location: ");
+		saveMapPathLbl.setBounds(840, 150, 200, 20);
+
+		saveMapPathField = new JTextField();
+		saveMapPathField.setBounds(1050, 150, 200, 20);
+		
 		addContinentButton = new JButton("Add continent");
 		addContinentButton.setBounds(10, 200, 200, 30);
 
@@ -301,6 +309,8 @@ public class StarterWindow extends JFrame {
 		this.getContentPane().add(addContinentField);
 		this.getContentPane().add(continentAwardLbl);
 		this.getContentPane().add(continentAwardField);
+		this.getContentPane().add(saveMapPathLbl);
+		this.getContentPane().add(saveMapPathField);
 		this.getContentPane().add(addContinentButton);
 		this.getContentPane().add(finishAddingContinentsBtn);
 		this.getContentPane().repaint();
@@ -321,6 +331,10 @@ public class StarterWindow extends JFrame {
 
 	public String getContinentValue() {
 		return (String) editContinentList.getSelectedItem();
+	}
+	
+	public String getMapSaveLocation(){
+		return saveMapPathField.getText();
 	}
 
 	public void showAddCountryForm(String[] continents) {
@@ -434,6 +448,8 @@ public class StarterWindow extends JFrame {
 			this.getContentPane().remove(addContinentField);
 			this.getContentPane().remove(continentAwardLbl);
 			this.getContentPane().remove(continentAwardField);
+			this.getContentPane().remove(saveMapPathLbl);
+			this.getContentPane().remove(saveMapPathField);
 			this.getContentPane().remove(addContinentButton);
 			this.getContentPane().remove(finishAddingContinentsBtn);
 			this.getContentPane().repaint();

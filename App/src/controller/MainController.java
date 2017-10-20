@@ -90,8 +90,8 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			applicationMode = 1;
-			mapEditor = new MapEditor(2, "vj rox");
 			starterView.showCreateMapForm();
+			mapEditor = new MapEditor(2, starterView.getMapSaveLocation());
 			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
 			starterView.addContinentBtnActionListener(new addContinentListener());
 		}
