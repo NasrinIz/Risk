@@ -23,6 +23,10 @@ public class GenFun {
 		return Integer.valueOf(inVal);
 	}
 	
+	/**
+	 * @param inVal
+	 * @return tmpVec
+	 */
 	public Vector<String> genCommaSepStrToVector(String inVal) {
 		String[] tmp = inVal.split(",");
 		Vector<String> tmpVec = new Vector<String>();
@@ -30,6 +34,10 @@ public class GenFun {
 		return tmpVec;
 	}
 	
+	/**
+	 * @param inVal
+	 * @return tmpVec
+	 */
 	public ArrayList<String> genCommaSepStrToArrayList(String inVal) {
 		String[] tmp = inVal.split(",");
 		ArrayList<String> tmpVec = new ArrayList<String>();
@@ -37,11 +45,18 @@ public class GenFun {
 		return tmpVec;
 	}
 	
+	/**
+	 * @param inVal
+	 * @return tmp
+	 */
 	public String[] genCommaSepStrToArray(String inVal) {
 		String[] tmp = inVal.split(",");
 		return tmp;
 	}
 	
+	/**
+	 * @param inVal
+	 */
 	public String genStringGetValueAfterEquals(String inVal) {
 		String[] tmp = inVal.split("=");
 		if(tmp.length < 2)
@@ -51,11 +66,21 @@ public class GenFun {
 		return tmp[1];
 	}
 	
+	/**
+	 * @param inVal
+	 * @return tmp
+	 */
 	public String[] genStringGetSplitArrayEquals(String inVal) {
 		String[] tmp = inVal.split("=");
 		return tmp;
 	}
 	
+	/**
+	 * @param str
+	 * @param substr
+	 * @param n
+	 * @return pos
+	 */
 	public int genOrdinalIndexOf(String str, String substr, int n) {
 	    int pos = str.indexOf(substr);
 	    while (--n > 0 && pos != -1)
@@ -64,6 +89,10 @@ public class GenFun {
 	    return pos;
 	}
 	
+	/**
+	 * @param inPath
+	 * @return rtTmp
+	 */
 	public BufferedReader genOpenFileToBufferedReader(String inPath) {
 		File tmp = new File(inPath);
 		BufferedReader rtTmp = null;
@@ -80,6 +109,10 @@ public class GenFun {
 		return rtTmp;
 	}
 	
+	/**
+	 * @param min
+	 * @param max
+	 */
 	public Integer genRandomNumber(Integer min, Integer max)
 	{
 		Random rand = new Random();

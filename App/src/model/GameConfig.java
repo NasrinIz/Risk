@@ -35,6 +35,9 @@ public class GameConfig {
 
 	private GenFun genFunObj = new GenFun();
 	
+	/**
+	 * 
+	 */
 	public void nextPlayerTurn()
 	{
 		currentPlayer++;
@@ -43,11 +46,18 @@ public class GameConfig {
 			currentPlayer = 0;
 		}
 	}
+	
+	/**
+	 * @return current player
+	 */
 	public Player getCurrentPlayer()
 	{
 		return players[currentPlayer];
 	}
 	
+	/**
+	 * @return
+	 */
 	private Integer setNumPlayers()
 	{
 		if((numPlayers < 2) || (numPlayers > 6))
@@ -60,6 +70,10 @@ public class GameConfig {
 		}
 		return 0;
 	}
+	
+	/**
+	 * @return players
+	 */
 	public Player[] getPlayers()
 	{
 		return players;
@@ -154,6 +168,9 @@ public class GameConfig {
 		return 0;
 	}
 	
+	/**
+	 * This method initialize how many armies base on the number of players
+	 */
 	private Integer getInitArmy()
 	{
 
