@@ -509,9 +509,9 @@ public class Maps {
 		System.out.println("Territory Deleted");
 	}
 	
-	private void writeMapToFile(String inPath)
+	public void writeMapToFile(String inPath)
 	{
-		File logFile = new File(inPath);
+		File logFile = new File(inPath, "w");
 		PrintWriter out = null;
 		try 
 		{
@@ -546,7 +546,7 @@ public class Maps {
 						this.getDictTerritory().get(pair.getKey()).getContinent());
 				for(int i = 0; i < this.getDictTerritory().get(pair.getKey()).getAdjacentCountries().size(); i++)
 				{
-					out.printf("%s", this.getDictTerritory().get(pair.getKey()).getAdjacentCountries().get(i));
+					out.printf(",%s", this.getDictTerritory().get(pair.getKey()).getAdjacentCountries().get(i));
 				}
 				
 				out.printf("\n");

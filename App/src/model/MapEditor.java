@@ -198,18 +198,24 @@ public class MapEditor {
 	
 	public int finishAndValidate(){
 		Integer rt = 0;
-		/*
-		if(mapObj.readMap() != "true")
-		{
-			System.out.println("The edited map is not valid");
-			rt = -1;
-		}
-		*/
 		
 		if(mapObj.validateMap() != "true")
 		{
 			System.out.println("The edited map is not valid");
 			rt = -1;
+		}
+		
+		if(rt == 0)
+		{
+			if(this.editorMode == genFunObj.EDITORMODEEDIT)
+			{
+				String path = String.format("Resources//Maps//%s.map", mapName);
+				mapObj.writeMapToFile(path);
+			}
+			else if(this.editorMode == genFunObj.EDITORMODECREATE)
+			{
+				mapObj.writeMapToFile(mapName);
+			}
 		}
 		return rt;
 	}
