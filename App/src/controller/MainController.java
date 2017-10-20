@@ -42,9 +42,9 @@ public class MainController {
 	public Integer gamePhase = 0;
 	private GenFun genFunObj = new GenFun();
 	private MapEditor mapEditor;
+	private String previousCountryName;
 	/*
-	 * 0 New game
-	 * 1 Edit or create
+	 * 0 New game 1 Edit or create
 	 */
 	private Integer applicationMode = 0;
 
@@ -91,6 +91,7 @@ public class MainController {
 			// TODO Auto-generated method stub
 			applicationMode = 1;
 			starterView.showCreateMapForm();
+			System.out.println(starterView.getMapSaveLocation());
 			mapEditor = new MapEditor(2, starterView.getMapSaveLocation());
 			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
 			starterView.addContinentBtnActionListener(new addContinentListener());
@@ -104,15 +105,17 @@ public class MainController {
 			// TODO Auto-generated method stub
 			applicationMode = 1;
 			mapEditor = new MapEditor(1, starterView.getSelectedMap());
-			
-//			Integer playerNum = starterView.getPlayerNumbers();
-//			String selectedMap = starterView.getSelectedMap();
-//
-//			gameConfig = new GameConfig(playerNum, selectedMap);
-//			mapObj = gameConfig.getMapObj();
-//
-//			String[] territoryList = getTerritoryList(mapObj).toArray(new String[getTerritoryList(mapObj).size()]);
-//			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
+
+			// Integer playerNum = starterView.getPlayerNumbers();
+			// String selectedMap = starterView.getSelectedMap();
+			//
+			// gameConfig = new GameConfig(playerNum, selectedMap);
+			// mapObj = gameConfig.getMapObj();
+			//
+			// String[] territoryList = getTerritoryList(mapObj).toArray(new
+			// String[getTerritoryList(mapObj).size()]);
+			// String[] continentList = getContinentList(mapObj).toArray(new
+			// String[getContinentList(mapObj).size()]);
 
 			starterView.showEditMapForm(mapEditor.getCountryListInMapEditor(), mapEditor.getContinentListInMapEditor());
 
@@ -129,13 +132,14 @@ public class MainController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//
-//			Integer playerNum = starterView.getPlayerNumbers();
-//			String selectedMap = starterView.getSelectedMap();
-//
-//			gameConfig = new GameConfig(playerNum, selectedMap);
-//			mapObj = gameConfig.getMapObj();
-//
-//			String[] continentList = getContinentList(mapObj).toArray(new String[getContinentList(mapObj).size()]);
+			// Integer playerNum = starterView.getPlayerNumbers();
+			// String selectedMap = starterView.getSelectedMap();
+			//
+			// gameConfig = new GameConfig(playerNum, selectedMap);
+			// mapObj = gameConfig.getMapObj();
+			//
+			// String[] continentList = getContinentList(mapObj).toArray(new
+			// String[getContinentList(mapObj).size()]);
 
 			starterView.showAddCountryForm(mapEditor.getContinentListInMapEditor());
 			starterView.addCountryBtnActionListener(new addCountryListener());
@@ -156,7 +160,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			String countryInfo = starterView.getCountryValues();
 			mapEditor.newCountry(countryInfo);
-			
+
 		}
 	}
 
@@ -214,16 +218,16 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 
-			if(applicationMode == 1){
+			if (applicationMode == 1) {
 				mapEditor.finishAndValidate();
 				return;
 			}
-			
+
 			Integer playerNum = starterView.getPlayerNumbers();
 			String selectedMap = starterView.getSelectedMap();
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
-			
+
 			mainWindow = new MainWindow();
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
@@ -273,6 +277,12 @@ public class MainController {
 				if (currentPlayerId == territoryOwner) {
 					if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)) {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
+					}
+
+					if (previousCountryName != null && gamePhase == genFunObj.GAMEPHASEFORTIFICATION) {
+						// vj
+					} else {
+						previousCountryName = countryName;
 					}
 
 					String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();

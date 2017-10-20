@@ -264,7 +264,7 @@ public class StarterWindow extends JFrame {
 		this.removeEditMapForm();
 		this.removeAddCountryForm();
 
-		this.getContentPane().add(editMapRadioBtn);
+		//this.getContentPane().add(editMapRadioBtn);
 		this.getContentPane().add(lblMapLoad);
 		this.getContentPane().add(loadMapField);
 		this.getContentPane().repaint();
@@ -498,7 +498,7 @@ public class StarterWindow extends JFrame {
 	}
 
 	public void removeLoadMapForm() {
-		if (lblMapLoad != null && loadMapField != null) {
+		if (lblMapLoad != null && loadMapField != null && editMapRadioBtn!= null) {
 			this.getContentPane().remove(editMapRadioBtn);
 			this.getContentPane().remove(lblMapLoad);
 			this.getContentPane().remove(loadMapField);
