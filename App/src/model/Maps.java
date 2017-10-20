@@ -164,6 +164,7 @@ public class Maps {
 	public String readMap() {
 		String mapTxtLoc = String.format("Resources//Maps//%s.map", mapLocation);
 		String mapImgLoc = String.format("Resources//Maps//%s.bmp", mapLocation);
+		mapLocation = mapTxtLoc;
 
 		BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapTxtLoc);
 		String line;

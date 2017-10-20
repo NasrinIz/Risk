@@ -85,64 +85,24 @@ public class MapEditor {
 		
 		Continent tmpCont = new Continent(continentName, continentAward);
 		mapObj.getDictContinents().put(continentName, tmpCont);
-		
-		/*System.out.println("Every continent must have atlest one country.");
-		Territory tmpTerritory = null;
-		
-		while(tmpTerritory != null)
-		{
-			Territory tmp = addCountry();
-			if(tmp != null)
-			{
-				if(tmp.getContinent().equals(continentName) == false)
-				{
-					System.out.printf("\nPlease add territory for your new continent %s first\n", continentName);
-				}
-				else
-				{
-					tmpTerritory = tmp;
-				}
-			}
-			else
-			{
-				System.out.println("Please try again: ");
-			}
-		}
-		*/
-		
-		//addedContinents.add(tmpCont);
-		//addedTerritories.add(tmpTerritory);
 	}
 	
 	public void deleteContinent(String continentInfo)
 	{
 		System.out.printf("%d", editorMode);
 		System.out.println(continentInfo);
-		/*
-		System.out.println("Please enter name of continent to be deleted");
-		Scanner in = new Scanner(System.in);
-		String continentName = in.next();
-		
-		for(int i = 0; i < addedContinents.size(); i++)
+		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
+		String continentName = continentInfo;
+
+		if(mapObj.getDictContinents().containsKey(continentName))
 		{
-			if(addedContinents.get(i).getName().equals(continentName))
-			{
-				addedContinents.remove(i);
-				return;
-			}
+			mapObj.deleteContinent(continentName);
 		}
-		*/
-//		if(mapObj.getDictContinents().containsKey(continentName))
-//		{
-//			mapObj.deleteContinent(continentName);
-//		}
-		/*
 		else
 		{
 			System.out.println("No such continent exists");
 			return;
 		}
-		*/
 	}
 
 
@@ -151,74 +111,32 @@ public class MapEditor {
 	{
 		System.out.printf("%d", editorMode);
 		System.out.println(countryInfo);
-//		Territory tmpTerritory = addCountry();
-//		
-//		if(tmpTerritory != null)
-//		{
-//			if(mapObj.getDictContinents().containsKey(tmpTerritory.getContinent()))
-//			{
-//				addedTerritories.add(tmpTerritory);
-//				return;
-//			}
-//			else
-//			{
-//				System.out.printf("\nNo continent found for territory with name %s\n. "
-//						+ "Please add this continent first", tmpTerritory.getContinent());
-//			}
-//		}
-	}
-	
-	
-	//private Territory addCountry()
-	{
-		/*
-		System.out.println("Enter Territory Info. Format = <name>, <x>, <y>, <continent>, <adjacent territory, ...>");
-		Scanner in = new Scanner(System.in);
-		String territoryInfo = in.next();
-		*/
-		//Territory tmpTerritory = new Territory(territoryInfo);
-		/*
-		if(tmpTerritory.getName() == null)
-			return null;
+
+		Territory tmpTerritory = new Territory(countryInfo);
 		
-		for(int i = 0; i < addedTerritories.size(); i++)
+		if(tmpTerritory != null)
 		{
-			if(addedTerritories.get(i).getName().equals(tmpTerritory.getName()))
+			if(mapObj.getDictContinents().containsKey(tmpTerritory.getContinent()))
 			{
-				System.out.println("A territory with this name already exists");
-				return null;
+				mapObj.getDictTerritory().put(tmpTerritory.getName(), tmpTerritory);
+				return;
+			}
+			else
+			{
+				System.out.printf("\nNo continent found for territory with name %s. "
+						+ "Please add this continent first\n", tmpTerritory.getContinent());
 			}
 		}
-		
-		return tmpTerritory;
-		*/
 	}
+	
 	
 	public void delCountry(String countryInfo)
 	{
 		System.out.printf("%d", editorMode);
-		System.out.println(countryInfo);
-//		System.out.println("Please enter name of territory to be deleted");
-//		Scanner in = new Scanner(System.in);
-//		String territoryName = in.next();
-//		
-//		deleteCountry(territoryName);
-	}
-	
-	private void deleteCountry(String tmpTerritory)
-	{
-		for(int i = 0; i < addedTerritories.size(); i++)
+		System.out.println(countryInfo);	
+		if(mapObj.getDictTerritory().containsKey(countryInfo))
 		{
-			if(addedTerritories.get(i).getName().equals(tmpTerritory))
-			{
-				addedTerritories.remove(i);
-				return;
-			}
-		}
-		
-		if(mapObj.getDictTerritory().containsKey(tmpTerritory))
-		{
-			mapObj.deleteTerritory(mapObj.getDictTerritory().get(tmpTerritory));
+			mapObj.deleteTerritory(mapObj.getDictTerritory().get(countryInfo));
 		}
 		else
 		{
@@ -226,29 +144,18 @@ public class MapEditor {
 		}
 	}
 	
-	private Integer displayChoice()
-	{
-		Integer choice = 0;
-		
-		while((choice < 1) || (choice > 4))
-		System.out.println("1) Add a continent");
-		System.out.println("2) Delete a continent");
-		System.out.println("3) Add a country");
-		System.out.println("4) Delete a country");
-		
-		Scanner in = new Scanner(System.in);
-		choice = in.nextInt();
-		if((choice < 1) || (choice > 4))
-		{
-			System.out.println("Incorrect Choice, Please try again: ");
-		}
-		
-		return choice;
-	}
-	
 	public String[] getContinentListInMapEditor(){
-		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-				"USA", "World" };
+		String[] mapTitles = new String[mapObj.getDictContinents().size()];
+		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
+		int i = 0;
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			mapTitles[i] = (String) pair.getKey();
+			i++;
+		}
+		//String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
+			//	"USA", "World" };
 		return mapTitles;
 	}
 	
@@ -260,8 +167,19 @@ public class MapEditor {
 	}
 	
 	public int finishAndValidate(){
-		System.out.println("Finished Editing");
-		return 0;
+		Integer rt = 0;
+		if(mapObj.readMap() != "true")
+		{
+			System.out.println("The edited map is not valid");
+			rt = -1;
+		}
+		
+		if(mapObj.validateMap() != "true")
+		{
+			System.out.println("The edited map is not valid");
+			rt = -1;
+		}
+		return rt;
 	}
     
 }
