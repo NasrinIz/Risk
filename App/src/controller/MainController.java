@@ -53,6 +53,11 @@ public class MainController {
 		this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
 	}
 
+	/**
+	 * 
+	 * @author Team20
+	 *
+	 */
 	private class NewGameListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
