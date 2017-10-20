@@ -37,6 +37,9 @@ public class ErrorInfoView extends JPanel {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * @param error
+	 */
 	public void showErrorInfo(String error) {
 		System.out.println(error);
 		InfoTextArea.setText(error);

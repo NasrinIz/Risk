@@ -21,6 +21,9 @@ public class InfoView extends JPanel {
 		this.showTerritoryPanel();
 	}
 
+	/**
+	 * It adds Pass Button
+	 */
 	public void addPassButton() {
 		passTurnBtn = new JButton("Pass turn");
 		passTurnBtn.setBounds(1024, 1000, 200, 30);
@@ -53,6 +56,10 @@ public class InfoView extends JPanel {
 		passTurnBtn.addActionListener(listenForPassBtn);
 	}
 	
+	/**
+	 * It shows the information of territory
+	 * @param info
+	 */
 	public void showTerritoryInfo(String info) {
 		InfoTextArea.setText(info);
 	}

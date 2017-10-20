@@ -48,7 +48,7 @@ public class GameConfig {
 	private GenFun genFunObj = new GenFun();
 	
 	/**
-	 * 
+	 * It shows the turn of next player 
 	 */
 	public void nextPlayerTurn()
 	{
@@ -68,7 +68,7 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @return
+	 * It sets the number of players
 	 */
 	private Integer setNumPlayers()
 	{
@@ -110,6 +110,9 @@ public class GameConfig {
 		}
 	}
 	
+	/**
+	 * It initializes the players with some default properties
+	 */
 	private void setupPlayers()
 	{
 		this.players = new Player[numPlayers];
@@ -298,6 +301,9 @@ public class GameConfig {
 
 	}
 	
+	/**
+	 * It calculate reinforcement army
+	 */
 	public void calcReinforcementArmy()
 	{
 		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
@@ -341,6 +347,11 @@ public class GameConfig {
 		this.mapObj = mapObj;
 	}
 	
+	/**
+	 * user can fortify armies from one territory to the others
+	 * @param srcTerritory
+	 * @param destTerritory
+	 */
 	public void fortifyArmies(String srcTerritory, String destTerritory)
 	{
 		if(mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1)
