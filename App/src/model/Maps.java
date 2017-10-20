@@ -511,19 +511,11 @@ public class Maps {
 	
 	public void writeMapToFile(String inPath)
 	{
-		File logFile = new File(inPath, "w");
+		File logFile = new File(inPath);
 		PrintWriter out = null;
 		try 
 		{
-			if(logFile.exists() && !logFile.isDirectory())
-			{
-				out = new PrintWriter(new FileOutputStream(new File(inPath), true));
-			}
-			else
-			{
-				out = new PrintWriter(inPath);
-			}
-
+			logFile.createNewFile();
 			out.printf("\n[Continents]\n");
 			Iterator ite = this.getDictContinents().entrySet().iterator();
 			while(ite.hasNext())
@@ -554,6 +546,9 @@ public class Maps {
 		} 
 		catch (FileNotFoundException e) 
 		{
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally
