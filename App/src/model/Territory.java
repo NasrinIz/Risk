@@ -49,6 +49,10 @@ public class Territory {
 	{
 		stationedArmies--;
 	}
+	public Integer getArmies()
+	{
+		return stationedArmies;
+	}
 	
 	public Territory(String inInfo) {
 		String[] tmp = genFunObj.genCommaSepStrToArray(inInfo);

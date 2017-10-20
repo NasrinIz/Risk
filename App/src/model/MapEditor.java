@@ -48,6 +48,7 @@ public class MapEditor {
 	
 	private void editMap()
 	{
+		//mapName = mapName.substring(0, mapName.length() - 4);
 		mapObj = new Maps(mapName, 1);
 		if(mapObj.readMap().equals("true") == false)
 		{
@@ -61,11 +62,32 @@ public class MapEditor {
 		mapObj = new Maps(mapName, 1);
 	}
 	
+	private void displayMap()
+	{
+		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			Continent tmpContinent = mapObj.getDictContinents().get(pair.getKey());
+			System.out.printf("\n%s, %d", tmpContinent.getName(), tmpContinent.getArmyReward());
+		}
+		System.out.println();
+		ite = mapObj.getDictTerritory().entrySet().iterator();
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			Territory tmpTerritory = mapObj.getDictTerritory().get(pair.getKey());
+			System.out.printf("\n%s, %d, %d, %s", tmpTerritory.getName(), tmpTerritory.getX(), 
+					tmpTerritory.getY(), tmpTerritory.getContinent());
+			for(int i = 0; i < tmpTerritory.getAdjacentCountries().size(); i++)
+			{
+				System.out.printf(", %s,", tmpTerritory.getAdjacentCountries().get(i));
+			}
+		}
+	}
+	
 	public void addContinent(String continentInfo)
 	{
-		System.out.printf("%d", editorMode);
-		System.out.println(continentInfo);
-		
 		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
 		String continentName = continentInfoList.get(0);
 		Integer continentAward = Integer.parseInt(continentInfoList.get(1));
@@ -85,12 +107,11 @@ public class MapEditor {
 		
 		Continent tmpCont = new Continent(continentName, continentAward);
 		mapObj.getDictContinents().put(continentName, tmpCont);
+		displayMap();
 	}
 	
 	public void deleteContinent(String continentInfo)
 	{
-		System.out.printf("%d", editorMode);
-		System.out.println(continentInfo);
 		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
 		String continentName = continentInfo;
 
@@ -103,15 +124,13 @@ public class MapEditor {
 			System.out.println("No such continent exists");
 			return;
 		}
+		displayMap();
 	}
 
 
 
 	public void newCountry(String countryInfo)
 	{
-		System.out.printf("%d", editorMode);
-		System.out.println(countryInfo);
-
 		Territory tmpTerritory = new Territory(countryInfo);
 		
 		if(tmpTerritory != null)
@@ -119,6 +138,8 @@ public class MapEditor {
 			if(mapObj.getDictContinents().containsKey(tmpTerritory.getContinent()))
 			{
 				mapObj.getDictTerritory().put(tmpTerritory.getName(), tmpTerritory);
+				List<Territory> continentTerritories = mapObj.getDictContinents().get(tmpTerritory.getContinent()).getTerritories();
+				continentTerritories.add(tmpTerritory);
 				return;
 			}
 			else
@@ -127,13 +148,12 @@ public class MapEditor {
 						+ "Please add this continent first\n", tmpTerritory.getContinent());
 			}
 		}
+		displayMap();
 	}
 	
 	
 	public void delCountry(String countryInfo)
-	{
-		System.out.printf("%d", editorMode);
-		System.out.println(countryInfo);	
+	{	
 		if(mapObj.getDictTerritory().containsKey(countryInfo))
 		{
 			mapObj.deleteTerritory(mapObj.getDictTerritory().get(countryInfo));
@@ -142,6 +162,7 @@ public class MapEditor {
 		{
 			System.out.println("No such territory exists");
 		}
+		displayMap();
 	}
 	
 	public String[] getContinentListInMapEditor(){
@@ -161,18 +182,29 @@ public class MapEditor {
 	
 	
 	public String[] getCountryListInMapEditor(){
-		String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-				"USA", "World" };
+		String[] mapTitles = new String[mapObj.getDictTerritory().size()];
+		Iterator ite = mapObj.getDictTerritory().entrySet().iterator();
+		int i = 0;
+		while(ite.hasNext())
+		{
+			Map.Entry pair = (Map.Entry)ite.next();
+			mapTitles[i] = (String) pair.getKey();
+			i++;
+		}
+		//String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
+				//"USA", "World" };
 		return mapTitles;
 	}
 	
 	public int finishAndValidate(){
 		Integer rt = 0;
+		/*
 		if(mapObj.readMap() != "true")
 		{
 			System.out.println("The edited map is not valid");
 			rt = -1;
 		}
+		*/
 		
 		if(mapObj.validateMap() != "true")
 		{

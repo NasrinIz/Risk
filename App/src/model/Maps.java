@@ -162,9 +162,18 @@ public class Maps {
 	}
 
 	public String readMap() {
-		String mapTxtLoc = String.format("Resources//Maps//%s.map", mapLocation);
-		String mapImgLoc = String.format("Resources//Maps//%s.bmp", mapLocation);
-		mapLocation = mapTxtLoc;
+		String tmpExtChecker = mapLocation.substring(mapLocation.length() - 4, mapLocation.length());
+		String mapTxtLoc = null;
+		if(tmpExtChecker.equals(".map") == false)
+		{
+			mapTxtLoc = String.format("Resources//Maps//%s.map", mapLocation);
+			String mapImgLoc = String.format("Resources//Maps//%s.bmp", mapLocation);
+			mapLocation = mapTxtLoc;
+		}
+		else
+		{
+			mapTxtLoc = mapLocation; 
+		}
 
 		BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapTxtLoc);
 		String line;
@@ -261,10 +270,28 @@ public class Maps {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		
+		mapFillContinentTerritories();
+		
 		return "true";
 	}
 
+	private void mapFillContinentTerritories()
+	{
+		for(String continent : this.getDictContinents().keySet())
+		{
+			String continentName = this.getDictContinents().get(continent).getName();
+			for(String territory : this.getDictTerritory().keySet())
+			{
+				String territoryContinentName = this.getDictTerritory().get(territory).getContinent();
+				if(territoryContinentName.equals(continentName) == true)
+				{
+					this.getDictContinents().get(continent).addToTerritoryList(this.getDictTerritory().get(territory));
+				}
+			}
+		}
+	}
+	
 	public String validateMap() {
 		if ((mapAuthor == null) && (mapWarning == null)) {
 		    //  return "The map author or map warning property is not valid"; 
@@ -425,15 +452,7 @@ public class Maps {
 		
 		for(int i = 0; i < territories.size(); i++)
 		{
-			Iterator ite = this.getDictTerritory().entrySet().iterator();
-			while(ite.hasNext())
-			{
-				Map.Entry pair = (Map.Entry)ite.next();
-				if(this.getDictTerritory().get(pair.getKey()).getName().equals(territories.get(i).getName()))
-				{
-					this.getDictTerritory().remove(pair.getKey());
-				}
-			}
+			this.dictTerritory.remove(territories.get(i).getName());
 		}
 		
 		this.getDictContinents().remove(tmpContinent);
@@ -465,8 +484,9 @@ public class Maps {
 		while(ite.hasNext())
 		{
 			Map.Entry pair = (Map.Entry)ite.next();
-			if(pair.getValue().equals(tmpTerritory.getName()))
+			if(pair.getKey().equals(tmpTerritory.getName()))
 			{
+				/*
 				List<String> adjacent = this.getDictTerritory().get(pair.getKey()).getAdjacentCountries();
 				for(int i = 0; i < adjacent.size(); i++)
 				{
@@ -480,6 +500,7 @@ public class Maps {
 						}
 					}
 				}
+				*/
 				this.getDictTerritory().remove(tmpTerritory.getName());
 				break;
 			}

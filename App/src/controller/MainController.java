@@ -42,7 +42,7 @@ public class MainController {
 	public Integer gamePhase = 0;
 	private GenFun genFunObj = new GenFun();
 	private MapEditor mapEditor;
-	private String previousCountryName;
+	private String previousCountryName = null;
 	/*
 	 * 0 New game 1 Edit or create
 	 */
@@ -143,7 +143,6 @@ public class MainController {
 
 			starterView.showAddCountryForm(mapEditor.getContinentListInMapEditor());
 			starterView.addCountryBtnActionListener(new addCountryListener());
-
 		}
 	}
 
@@ -194,7 +193,7 @@ public class MainController {
 			// TODO Auto-generated method stub
 			Player tmpPlayers[] = gameConfig.getPlayers();
 			int i;
-
+			previousCountryName = null;
 			gameConfig.getCurrentPlayer().setTurnStatus(true);
 			for (i = 0; i < tmpPlayers.length; i++) {
 				if (tmpPlayers[i].getTurnStatus() == false) {
@@ -251,12 +250,16 @@ public class MainController {
 		if (gamePhase == genFunObj.GAMEPHASESTARTUP) {
 			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
+			System.out.println("Startup Phase ends, Reinforcement Phase Begins");
 		} else if (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) {
 			gamePhase = genFunObj.GAMEPHASEFORTIFICATION;
+			System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
 		} else if (gamePhase == genFunObj.GAMEPHASEFORTIFICATION) {
 			gameConfig.calcReinforcementArmy();
 			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
+			System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
 		}
+		
 	}
 
 	private class territoryListener implements ActionListener {
@@ -279,9 +282,13 @@ public class MainController {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
 
-					if (previousCountryName != null && gamePhase == genFunObj.GAMEPHASEFORTIFICATION) {
-						// vj
-					} else {
+					if ((previousCountryName != null) && (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
+						if(previousCountryName.equals(countryName) == false) {
+							gameConfig.fortifyArmies(previousCountryName, countryName);
+						}
+					}
+					else if((previousCountryName == null) && (gamePhase == genFunObj.GAMEPHASEFORTIFICATION))
+					{
 						previousCountryName = countryName;
 					}
 

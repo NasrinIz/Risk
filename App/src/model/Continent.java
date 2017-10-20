@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Continent {
 
 	private String name;
-	private ArrayList<Territory> territories;
+	private ArrayList<Territory> territories = new ArrayList<Territory>();
 	private int armyReward;
 	private Integer ownerPlayerId = null;
 	
@@ -71,6 +71,11 @@ public class Continent {
 	 */
 	public ArrayList<Territory> getTerritories() {
 		return territories;
+	}
+	
+	public void addToTerritoryList(Territory obj)
+	{
+		this.territories.add(obj);
 	}
 	
     /**

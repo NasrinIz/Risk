@@ -28,9 +28,10 @@ public class GameConfig {
 		
 		this.numPlayers = numPlayers;
 		this.mapObj = new Maps(mapName, 0);
-		setupCards();
+		//setContinentsTerritoryList();
+		initMap();
 		setNumPlayers();
-		setContinentsTerritoryList();
+		setupCards();
 	}
 
 	private GenFun genFunObj = new GenFun();
@@ -83,10 +84,19 @@ public class GameConfig {
 	 * @param mapName
 	 * @return mapObj
 	 */
-	public Maps createMap(String mapName)
+	public void initMap()
 	{
-		mapObj = new Maps(mapName, 0);
-		return mapObj;
+		if(this.mapObj.readMap().equals("true") == false)
+		{
+			System.out.println("Map initialization failure");
+			return;
+		}
+		
+		if(this.mapObj.validateMap().equals("true") == false)
+		{
+			System.out.println("Map validation failure");
+			return;
+		}
 	}
 	
 	private void setupPlayers()
@@ -196,7 +206,7 @@ public class GameConfig {
 	        	players[tmpContinent.getOwnerId()].setContinentArmyReward(tmpContinent.getArmyReward());
 	        }
 	        
-	        System.out.println(pair.getKey() + " = " + pair.getValue());
+	        //System.out.println(pair.getKey() + " = " + pair.getValue());
 	    }
 		
 		for(int i = 0; i < players.length; i++)
@@ -224,14 +234,7 @@ public class GameConfig {
 	public void setMapObj(Maps mapObj) {
 		this.mapObj = mapObj;
 	}
-	
-	public void setContinentsTerritoryList() {
-		for (String terName : mapObj.getDictTerritory().keySet()) {
-			Territory terObj =  mapObj.getDictTerritory().get(terName);
-			Continent cont = mapObj.getDictContinents().get(terObj.getContinent());
-			cont.getTerritories().add(terObj);
-		}
-	}
+
 	
 //// =================================<< Card Methods >>=================================
 
@@ -242,7 +245,6 @@ public class GameConfig {
 	 * 
 	 */
 	private void setupCards() {
-		
 		this.gameCards = new ArrayList<Card>();
 		int randomNum = 0;
 		Random randGenerator = new Random();		
@@ -293,6 +295,20 @@ public class GameConfig {
 			p = players[i];
 		}
 		
+	}
+	
+	public void fortifyArmies(String srcTerritory, String destTerritory)
+	{
+		if(mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1)
+		{
+			mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
+			mapObj.getDictTerritory().get(destTerritory).increaseArmies();
+			System.out.printf("\n%s : %d left, %s : %d now", 
+			mapObj.getDictTerritory().get(srcTerritory).getName(),
+			mapObj.getDictTerritory().get(srcTerritory).getArmies(), 
+			mapObj.getDictTerritory().get(destTerritory).getName(),
+			mapObj.getDictTerritory().get(destTerritory).getArmies());
+		}
 	}
 	
 }

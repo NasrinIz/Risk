@@ -5,16 +5,19 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import model.MapEditor;
 import model.Maps;
 
 public class StarterWindow extends JFrame {
@@ -46,18 +49,18 @@ public class StarterWindow extends JFrame {
 	private JTextField continentAwardField;
 	private JButton finishAddingContinentsBtn;
 	private JLabel editCountryLbl;
-	private JComboBox<String> editCountryList;
+	private JTextField editCountryList;
 	private JLabel editContinentLbl;
-	private JComboBox<String> editContinentList;
+	private JTextField editContinentList;
 	private JButton addContinentButton;
 	private JButton addCountryButton;
 	private JButton removeCountryButton;
 	private JButton removeContinentButton;
 	// private JButton addContinentAgain;
 	private JLabel addCountryToContinentLbl;
-	private JComboBox<String> continentList;
+	private JTextField continentList;
 	private ErrorInfoView errorInfoView;
-
+	
 	ButtonGroup group = new ButtonGroup();
 
 	private BorderLayout borderLayout;
@@ -71,7 +74,7 @@ public class StarterWindow extends JFrame {
 		this.initMenuBar();
 		this.initContentPane();
 	}
-
+	
 	private void initWindow() {
 		// Size the frame.
 		setSize(new Dimension(WIDTH, HEIGHT));
@@ -201,7 +204,7 @@ public class StarterWindow extends JFrame {
 		playerNum.setBounds(220, 40, 200, 20);
 
 		submitButton = new JButton("Start New Game");
-		submitButton.setBounds(10, 500, 400, 30);
+		submitButton.setBounds(590, 500, 260, 30);
 
 		group = new ButtonGroup();
 		group.add(radioLoadMap);
@@ -209,7 +212,7 @@ public class StarterWindow extends JFrame {
 		group.add(radioCreateMap);
 
 		errorInfoView = new ErrorInfoView();
-
+		
 		this.getContentPane().add(lblNumPlayers);
 		this.getContentPane().add(playerNum);
 		this.getContentPane().add(radioLoadMap);
@@ -322,15 +325,15 @@ public class StarterWindow extends JFrame {
 
 	public String getCountryValues() {
 		return addCountryField.getText() + "," + countryCoordinationField.getText() + ","
-				+ adjacentCountriesLbl.getText() + "," + continentList.getSelectedItem();
+				+ continentList.getText() + "," + adjacentCountriesField.getText();
 	}
 
 	public String getCountryValue() {
-		return (String) editCountryList.getSelectedItem();
+		return (String) editCountryList.getText();
 	}
 
 	public String getContinentValue() {
-		return (String) editContinentList.getSelectedItem();
+		return (String) editContinentList.getText();
 	}
 	
 	public String getMapSaveLocation(){
@@ -360,7 +363,7 @@ public class StarterWindow extends JFrame {
 		addCountryToContinentLbl = new JLabel("Add Country to continent: ");
 		addCountryToContinentLbl.setBounds(10, 250, 200, 20);
 
-		continentList = new JComboBox<String>(continents);
+		continentList = new JTextField();
 		continentList.setBounds(220, 250, 200, 20);
 
 		addCountryButton = new JButton("Add Country");
@@ -383,26 +386,26 @@ public class StarterWindow extends JFrame {
 		this.getContentPane().add(continentList);
 		this.getContentPane().repaint();
 	}
-
+	
 	public void showEditMapForm(String[] countries, String[] Continents) {
 		editCountryLbl = new JLabel("Edit country: ");
-		editCountryLbl.setBounds(10, 400, 200, 20);
+		editCountryLbl.setBounds(10, 400, 100, 20);
 
-		editCountryList = new JComboBox<>(countries);
-		editCountryList.setBounds(220, 400, 200, 20);
+		editCountryList = new JTextField();
+		editCountryList.setBounds(120, 400, 150, 20);
 
 		editContinentLbl = new JLabel("Edit continent: ");
-		editContinentLbl.setBounds(420, 400, 200, 20);
+		editContinentLbl.setBounds(290, 400, 100, 20);
 
-		editContinentList = new JComboBox<>(Continents);
-		editContinentList.setBounds(620, 400, 200, 20);
+		editContinentList = new JTextField();
+		editContinentList.setBounds(410, 400, 150, 20);
 
 		removeCountryButton = new JButton("Remove country");
-		removeCountryButton.setBounds(10, 450, 200, 30);
+		removeCountryButton.setBounds(590, 450, 130, 30);
 
 		removeContinentButton = new JButton("Remove continent");
-		removeContinentButton.setBounds(220, 450, 200, 30);
-
+		removeContinentButton.setBounds(740, 450, 130, 30);
+		
 		this.removeLoadMapForm();
 		this.showCreateMapForm();
 
