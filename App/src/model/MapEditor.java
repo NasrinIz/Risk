@@ -26,13 +26,16 @@ public class MapEditor {
 	List<Territory> addedTerritories = new ArrayList<Territory>();
 	List<Continent> addedContinents = new ArrayList<Continent>();
 	Integer choice = 0;
+	String mapPath = null;
 	
 	/**
 	 * @param inMapLocation
 	 */
-	public MapEditor(Integer inEditorMode) {
+	public MapEditor(Integer inEditorMode, String inMapPath) {
 		
 		editorMode = inEditorMode;
+		mapPath = inMapPath;
+		System.out.println(mapPath);
 		/*
 		if(editorMode == genFunObj.EDITORMODEEDIT)
 		{

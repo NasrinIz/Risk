@@ -90,7 +90,7 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			applicationMode = 1;
-			mapEditor = new MapEditor(2);
+			mapEditor = new MapEditor(2, "vj rox");
 			starterView.showCreateMapForm();
 			starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
 			starterView.addContinentBtnActionListener(new addContinentListener());
@@ -103,7 +103,8 @@ public class MainController {
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			applicationMode = 1;
-			mapEditor = new MapEditor(2);
+			mapEditor = new MapEditor(1, starterView.getSelectedMap());
+			
 //			Integer playerNum = starterView.getPlayerNumbers();
 //			String selectedMap = starterView.getSelectedMap();
 //

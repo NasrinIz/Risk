@@ -420,11 +420,11 @@ public class StarterWindow extends JFrame {
 	 * @return selectedMap
 	 */
 	public String getSelectedMap() {
-		if (mapList != null) {
+		//if (mapList != null) {
 			String selectedMap = String.valueOf(mapList.getSelectedItem());
 			return selectedMap;
-		}
-		return " ";
+		//}
+		//return " ";
 	}
 
 	public void removeCreateMapForm() {
