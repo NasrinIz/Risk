@@ -80,6 +80,11 @@ public class Continent {
 	public int getArmyReward() {
 		return armyReward;
 	}
+	
+	public void setArmyReward(Integer inArmyReward)
+	{
+		this.armyReward = inArmyReward;
+	}
 
 	/**
 	 * This method checks if a continent is captured or not. 

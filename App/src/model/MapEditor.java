@@ -26,120 +26,65 @@ public class MapEditor {
 	List<Territory> addedTerritories = new ArrayList<Territory>();
 	List<Continent> addedContinents = new ArrayList<Continent>();
 	Integer choice = 0;
-	String mapPath = null;
+	String mapName = null;
 	
 	/**
 	 * @param inMapLocation
 	 */
-	public MapEditor(Integer inEditorMode, String inMapPath) {
-		
+	public MapEditor(Integer inEditorMode, String inMapName) {
+		mapName = inMapName;
 		editorMode = inEditorMode;
-		mapPath = inMapPath;
-		System.out.println(mapPath);
-		/*
+		
 		if(editorMode == genFunObj.EDITORMODEEDIT)
 		{
-			System.out.println("Please enter path of map to edit: ");
-			Scanner scanIn = new Scanner(System.in);
-			String path = scanIn.next();
-			editMap(path);
+			editMap();
 		}
 		else if(editorMode == genFunObj.EDITORMODECREATE)
 		{
-			System.out.println("Please enter path for new Map: ");
-			Scanner scanIn = new Scanner(System.in);
-			String path = scanIn.next();
-			createMap(path);
+			createMap();
 		}
-		*/
+		
 	}
 	
-	private void editMap(String inPath)
+	private void editMap()
 	{
-		mapObj = new Maps(inPath, 1);
+		mapObj = new Maps(mapName, 1);
 		if(mapObj.readMap().equals("true") == false)
 		{
 			System.out.println("Input Map Not correct. Opening to edit for correct");
 		}
 		System.out.println("Map Opened");
-		checkChoice(displayChoice());
 	}
 	
-	private void createMap(String inPath)
+	private void createMap()
 	{
-		mapObj = new Maps(null, 1);
-		checkChoice(displayChoice());
-	}
-	
-	private void checkChoice(Integer choice)
-	{
-		this.choice = choice;
-		
-		if(choice == null)
-			System.out.println("System state not correct");
-		
-		switch(choice)
-		{
-		case 1:
-	//		addContinent();
-			break;
-		case 2:
-			//deleteContinent();
-			break;
-		case 3:
-	//		newCountry();
-			break;
-		case 4:
-		//	delCountry();
-			break;
-		case 5:
-			quitAndValidate();
-			break;
-		}
-		
-	}
-	
-	
-	private void quitAndValidate()
-	{
-		mapObj.addContinent(addedContinents);
-		mapObj.addCountry(addedTerritories);	
+		mapObj = new Maps(mapName, 1);
 	}
 	
 	public void addContinent(String continentInfo)
 	{
 		System.out.printf("%d", editorMode);
 		System.out.println(continentInfo);
-		/*
-		System.out.println("Enter continent name: ");
-		Scanner in = new Scanner(System.in);
-		String continentName = in.next();
 		
-		System.out.println("Enter continent award armies: ");
-		Integer continentAward = in.nextInt();
-	
-		for(int i = 0; i < addedContinents.size(); i++)
+		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
+		String continentName = continentInfoList.get(0);
+		Integer continentAward = Integer.parseInt(continentInfoList.get(1));
+		if(editorMode == genFunObj.EDITORMODEEDIT)
 		{
-			if(addedContinents.get(i).getName().equals(continentName))
+			Iterator ite = mapObj.getDictContinents().entrySet().iterator();
+			while(ite.hasNext())
 			{
-				System.out.println("A continent with this name already exists");
-				return;
+				Map.Entry pair = (Map.Entry)ite.next();
+				if(pair.getKey().equals(continentName))
+				{
+					System.out.println("A continent with this name already exists. Updating the army reward values.");
+					mapObj.getDictContinents().get(pair.getKey()).setArmyReward(continentAward);
+				}
 			}
 		}
 		
-		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
-		while(ite.hasNext())
-		{
-			Map.Entry pair = (Map.Entry)ite.next();
-			if(pair.getKey().equals(continentName))
-			{
-				System.out.println("A continent with this name already exists");
-				return;
-			}
-		}
-		
-		*/
-		//Continent tmpCont = new Continent(continentName, continentAward);
+		Continent tmpCont = new Continent(continentName, continentAward);
+		mapObj.getDictContinents().put(continentName, tmpCont);
 		
 		/*System.out.println("Every continent must have atlest one country.");
 		Territory tmpTerritory = null;
