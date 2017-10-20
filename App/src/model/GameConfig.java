@@ -36,6 +36,15 @@ public class GameConfig {
 		setNumPlayers();
 	}
 
+	public void setNumPlayers(Integer numPlayers)
+	{
+		this.numPlayers = numPlayers;
+	}
+	public void setPlayers(Player inPlayers[])
+	{
+		this.players = inPlayers;
+	}
+	
 	private GenFun genFunObj = new GenFun();
 	
 	/**
@@ -141,6 +150,11 @@ public class GameConfig {
 		}
 	}
 	
+	public void callInitcards()
+	{
+		initCards();
+	}
+	
 	private void initCards()
 	{
 		Integer infantryCards = 0;
@@ -209,6 +223,10 @@ public class GameConfig {
 		}
 	}
 
+	public void callInitTerritory()
+	{
+		initTerritory();
+	}
 	
 	private void initTerritory()
 	{

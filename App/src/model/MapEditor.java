@@ -20,13 +20,13 @@ public class MapEditor {
 	final int CHOICEADDCOUNT = 3;
 	final int CHOICEDELCOUNT = 4;
 	
-	GenFun genFunObj = new GenFun();
-	Integer editorMode = genFunObj.EDITORMODENONE;
-	Maps mapObj = null;
-	List<Territory> addedTerritories = new ArrayList<Territory>();
-	List<Continent> addedContinents = new ArrayList<Continent>();
-	Integer choice = 0;
-	String mapName = null;
+	private GenFun genFunObj = new GenFun();
+	private Integer editorMode = genFunObj.EDITORMODENONE;
+	public Maps mapObj = null;
+	private List<Territory> addedTerritories = new ArrayList<Territory>();
+	private List<Continent> addedContinents = new ArrayList<Continent>();
+	private Integer choice = 0;
+	private String mapName = null;
 	
 	/**
 	 * @param inMapLocation
@@ -122,7 +122,6 @@ public class MapEditor {
 		else
 		{
 			System.out.println("No such continent exists");
-			return;
 		}
 		displayMap();
 	}

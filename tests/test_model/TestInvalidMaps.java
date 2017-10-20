@@ -9,39 +9,57 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.GameConfig;
+import model.Maps;
 
 public class TestInvalidMaps {
 
-	private static GameConfig gameConfig;
+	private String disconnectedMapName = null;
+	private String inconsistentAdjacencyMapName = null;
+	private Maps objMap = null; 
+	
+	TestInvalidMaps(String inDisconnectedMapName, String inInconsistentAdjacencyMapName)
+	{
+		this.disconnectedMapName = inDisconnectedMapName;
+		this.inconsistentAdjacencyMapName = inInconsistentAdjacencyMapName;
+	}
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		// do nothing
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		// do nothing
 	}
 
 	@Before
 	public void setUp() throws Exception {
-		
+		objMap = null;
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		gameConfig = null;
+		// do nothing
 	}
 
 	@Test
 	public void testDisconnectedMap() {
-		gameConfig = new GameConfig(3, "testing_maps//invalid_1");
-		assertEquals(gameConfig.getMapObj().validateMap(), "The map is not a connected graph");
+		String path = String.format("Resources//Maps//%s.map", disconnectedMapName);
+		objMap = new Maps(path, 0);
+		//gameConfig = new GameConfig(3, "testing_maps//invalid_1");
+		objMap.readMap();
+		assertEquals(objMap.validateMap(), "The map is not a connected graph");
 	}
 	
+	@Test
 	public void testInconsistentAdjacency() {
-		gameConfig = new GameConfig(3, "testing_maps//invalid_2");
-		assertEquals(gameConfig.getMapObj().validateMap(), new Integer(-1));
+		String path = String.format("Resources//Maps//%s.map", inconsistentAdjacencyMapName);
+		objMap = new Maps(path, 0);
+		objMap.readMap();
+		String rt = objMap.validateMap();
+		rt = rt.substring(0, 23);
+		assertEquals(rt.substring(0, 23), "\nPlease check adjacency");
 	}
 
 }

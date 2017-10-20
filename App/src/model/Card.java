@@ -19,7 +19,7 @@ public class Card {
 	public Integer cardType = CARDNONE;
 	public Integer cardRewardArmy = 15;
 	
-	Card(Integer cardId, Integer cardType)
+	public Card(Integer cardId, Integer cardType)
 	{
 		this.cardId = cardId;
 		this.cardType = cardType;

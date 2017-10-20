@@ -38,7 +38,7 @@ public class Player {
 	/**
 	 * @param name
 	 */
-	Player(String name, Integer inId, ArrayList<Card> inCards) {
+	public Player(String name, Integer inId, ArrayList<Card> inCards) {
 		this.name = name;
 		this.id = inId;
 		this.gameCards = inCards;
