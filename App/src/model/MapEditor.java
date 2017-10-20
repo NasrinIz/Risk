@@ -86,6 +86,9 @@ public class MapEditor {
 		}
 	}
 	
+	/**
+	 * @param continentInfo
+	 */
 	public void addContinent(String continentInfo)
 	{
 		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
@@ -128,8 +131,10 @@ public class MapEditor {
 	}
 
 
-
-	public void newCountry(String countryInfo)
+       /**
+        * @param countryInfo
+        */
+       public void newCountry(String countryInfo)
 	{
 		Territory tmpTerritory = new Territory(countryInfo);
 		
@@ -150,7 +155,9 @@ public class MapEditor {
 		displayMap();
 	}
 	
-	
+	/**
+	 * @param countryInfo
+	 */
 	public void delCountry(String countryInfo)
 	{	
 		if(mapObj.getDictTerritory().containsKey(countryInfo))
@@ -164,6 +171,9 @@ public class MapEditor {
 		displayMap();
 	}
 	
+	/**
+	 * @return maoTitles
+	 */
 	public String[] getContinentListInMapEditor(){
 		String[] mapTitles = new String[mapObj.getDictContinents().size()];
 		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
@@ -180,6 +190,9 @@ public class MapEditor {
 	}
 	
 	
+	/**
+	 * It get the list of country in map editor
+	 */
 	public String[] getCountryListInMapEditor(){
 		String[] mapTitles = new String[mapObj.getDictTerritory().size()];
 		Iterator ite = mapObj.getDictTerritory().entrySet().iterator();
@@ -195,6 +208,9 @@ public class MapEditor {
 		return mapTitles;
 	}
 	
+	/**
+	 * @param inPath
+	 */
 	public int finishAndValidate(String inPath){
 		Integer rt = 0;
 		

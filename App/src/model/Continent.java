@@ -24,6 +24,9 @@ public class Continent {
 		this.territories = new ArrayList<Territory>();
 	}
     
+	/**
+	 * check who is the owner of continent
+	 */
 	public Integer checkForOwnership()
 	{
 		Integer ownerId = null;
@@ -52,6 +55,9 @@ public class Continent {
 		return 0;
 	}
 	
+	/**
+	 * @return owner player id
+	 */
 	public Integer getOwnerId()
 	{
 		return ownerPlayerId;
@@ -73,6 +79,9 @@ public class Continent {
 		return territories;
 	}
 	
+	/**
+	 * @param obj
+	 */
 	public void addToTerritoryList(Territory obj)
 	{
 		this.territories.add(obj);
@@ -86,6 +95,9 @@ public class Continent {
 		return armyReward;
 	}
 	
+	/**
+	 * @param inArmyReward
+	 */
 	public void setArmyReward(Integer inArmyReward)
 	{
 		this.armyReward = inArmyReward;
@@ -112,6 +124,9 @@ public class Continent {
 		return info;	
 	}
 
+	/**
+	 * @param ter
+	 */
 	public void removeTerritory(Territory ter) {
 		
 		this.territories.remove(ter);

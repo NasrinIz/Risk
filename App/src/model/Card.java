@@ -25,11 +25,18 @@ public class Card {
 		this.cardType = cardType;
 	}
 	
+	/**
+	 * This method get the owner id
+	 */
 	public Integer getOwnerId()
 	{
 		return this.ownerId;
 	}
 	
+	/**
+	 * This method set owner id
+	 * @param id
+	 */
 	public void setOwnerId(Integer id)
 	{
 		this.ownerId = id;
