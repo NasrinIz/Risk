@@ -140,7 +140,6 @@ public class MapEditor {
 				mapObj.getDictTerritory().put(tmpTerritory.getName(), tmpTerritory);
 				List<Territory> continentTerritories = mapObj.getDictContinents().get(tmpTerritory.getContinent()).getTerritories();
 				continentTerritories.add(tmpTerritory);
-				return;
 			}
 			else
 			{
@@ -196,7 +195,7 @@ public class MapEditor {
 		return mapTitles;
 	}
 	
-	public int finishAndValidate(){
+	public int finishAndValidate(String inPath){
 		Integer rt = 0;
 		
 		if(mapObj.validateMap() != "true")
@@ -214,7 +213,7 @@ public class MapEditor {
 			}
 			else if(this.editorMode == genFunObj.EDITORMODECREATE)
 			{
-				mapObj.writeMapToFile(mapName);
+				mapObj.writeMapToFile(inPath);
 			}
 		}
 		return rt;

@@ -218,7 +218,7 @@ public class MainController {
 			// TODO Auto-generated method stub
 
 			if (applicationMode == 1) {
-				mapEditor.finishAndValidate();
+				mapEditor.finishAndValidate(starterView.saveMapPathField.getText());
 				return;
 			}
 

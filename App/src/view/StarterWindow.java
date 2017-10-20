@@ -44,7 +44,7 @@ public class StarterWindow extends JFrame {
 	private JLabel addContinentLbl;
 	private JTextField addContinentField;
 	private JLabel saveMapPathLbl;
-	private JTextField saveMapPathField;
+	public JTextField saveMapPathField;
 	private JLabel continentAwardLbl;
 	private JTextField continentAwardField;
 	private JButton finishAddingContinentsBtn;

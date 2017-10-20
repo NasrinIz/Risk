@@ -516,6 +516,8 @@ public class Maps {
 		try 
 		{
 			logFile.createNewFile();
+			out = new PrintWriter(inPath);
+
 			out.printf("\n[Continents]\n");
 			Iterator ite = this.getDictContinents().entrySet().iterator();
 			while(ite.hasNext())
