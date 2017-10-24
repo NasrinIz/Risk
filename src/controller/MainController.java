@@ -2,15 +2,14 @@ package src.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import src.model.GameConfig;
 import src.model.GenFun;
 import src.model.MapEditor;
-import src.model.Maps;
 import src.model.Player;
 import src.view.InfoView;
 import src.view.MainWindow;
@@ -28,17 +27,9 @@ import src.view.TerritoryView;
 public class MainController {
 
 	private StarterWindow starterView;
-	/**
-	 * reference to mainView
-	 */
 	private MainWindow mainWindow;
-	private InfoView infoView;
 	private GameConfig gameConfig;
-	private Maps mapObj;
-	private ArrayList<String> territories = null;
-	private ArrayList<String> continents = null;
-
-	public Integer gamePhase = 0;
+	private Integer gamePhase = 0;
 	private GenFun genFunObj = new GenFun();
 	private MapEditor mapEditor;
 	private String previousCountryName = null;
@@ -46,6 +37,10 @@ public class MainController {
 	 * 0 New game 1 Edit or create
 	 */
 	private Integer applicationMode = 0;
+
+	Integer getGamePhase() {
+		return gamePhase;
+	}
 
 	public MainController(StarterWindow starterView) {
 		this.starterView = starterView;
@@ -183,14 +178,6 @@ public class MainController {
 		}
 	}
 
-	private class addContinentAgainListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			starterView.showCreateMapForm();
-		}
-	}
-
 	private class passBtnListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -200,7 +187,7 @@ public class MainController {
 			previousCountryName = null;
 			gameConfig.getCurrentPlayer().setTurnStatus(true);
 			for (i = 0; i < tmpPlayers.length; i++) {
-				if (tmpPlayers[i].getTurnStatus() == false) {
+				if (!tmpPlayers[i].getTurnStatus()) {
 					break;
 				}
 			}
@@ -236,13 +223,13 @@ public class MainController {
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
 			addTerritoryListeners();
-			infoView = mainWindow.getInfoView();
+			InfoView infoView = mainWindow.getInfoView();
 			infoView.passBtnActionListener(new passBtnListener());
 			gamePhase = genFunObj.GAMEPHASESTARTUP;
 
 			String error = gameConfig.getMapObj().validateMap();
 
-			if (error != "true") {
+			if (!error.equals("true")) {
 				mainWindow.getErrorInfoView().showErrorInfo(error);
 				mainWindow.removeCountryButtons();
 			}
@@ -281,13 +268,13 @@ public class MainController {
 
 			if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
 					|| (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
-				if (currentPlayerId == territoryOwner) {
+				if (Objects.equals(currentPlayerId, territoryOwner)) {
 					if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)) {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
 
 					if ((previousCountryName != null) && (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
-						if(previousCountryName.equals(countryName) == false) {
+						if(!previousCountryName.equals(countryName)) {
 							gameConfig.fortifyArmies(previousCountryName, countryName);
 						}
 					}
@@ -303,28 +290,10 @@ public class MainController {
 		}
 	}
 
-	public ArrayList<String> getTerritoryList(Maps mapObj) {
-		territories = new ArrayList<String>();
-		for (String territoryName : mapObj.getDictTerritory().keySet()) {
-			territoryName = (mapObj.getDictTerritory()).get(territoryName).getName();
-			territories.add(territoryName);
-		}
-		return territories;
-	}
-
-	public ArrayList<String> getContinentList(Maps mapObj) {
-		continents = new ArrayList<String>();
-		for (String continentName : mapObj.getDictTerritory().keySet()) {
-			continentName = (mapObj.getDictTerritory()).get(continentName).getContinent();
-			continents.add(continentName);
-		}
-		return continents;
-	}
-
-	public void addTerritoryListeners() {
+	private void addTerritoryListeners() {
 		Iterator<Entry<String, TerritoryView>> it = mainWindow.getDictTerrViews().entrySet().iterator();
 		while (it.hasNext()) {
-			Map.Entry<String, TerritoryView> pair = (Entry<String, TerritoryView>) it.next();
+			Map.Entry<String, TerritoryView> pair = it.next();
 			TerritoryView tv = pair.getValue();
 			tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
 			it.remove(); // avoids a ConcurrentModificationException
