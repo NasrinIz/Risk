@@ -1,15 +1,14 @@
-package view;
+package src.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 /**
- * This is the view that displays the error messages while loading the map.
+ * This is the src.view that displays the error messages while loading the map.
  * @author Team20
  */
 public class ErrorInfoView extends JPanel {

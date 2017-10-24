@@ -1,9 +1,8 @@
-package model;
+package src.model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * @author Team20

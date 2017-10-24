@@ -1,14 +1,11 @@
 package test_model;
 
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import model.GameConfig;
-import model.MapEditor;
-import model.Maps;
+import src.model.MapEditor;
 
 
 public class TestMapEditor {

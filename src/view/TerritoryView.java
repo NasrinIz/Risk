@@ -1,4 +1,4 @@
-package view;
+package src.view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * this view is used to display the territories as buttons.
+ * this src.view is used to display the territories as buttons.
  * @author Team20
  *
  */

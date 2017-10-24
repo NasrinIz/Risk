@@ -1,7 +1,5 @@
 package test_model;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -10,8 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Card;
-import model.Player;
+import src.model.Card;
+import src.model.Player;
 
 public class TestPlayer {
 

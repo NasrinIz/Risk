@@ -1,4 +1,4 @@
-package view;
+package src.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
-import model.Maps;
+import src.model.Maps;
 /**
  * this is the main window, that contains all the other panels and in which
  * we load the map.
@@ -55,8 +55,8 @@ public class MainWindow extends JFrame {
 
 	/**
 	 * creates country buttons or territory views
-	 * called by controller
-	 * @param objMap passed by controller who has a reference to GameConfig->maps
+	 * called by src.controller
+	 * @param objMap passed by src.controller who has a reference to GameConfig->maps
 	 * 
 	 */
 	public void addCountryButtons(Maps objMap) {
@@ -96,8 +96,8 @@ public class MainWindow extends JFrame {
 	
 	/**
 	 * creates country buttons or territory views
-	 * called by controller
-	 * @param objMap passed by controller who has a reference to GameConfig->maps
+	 * called by src.controller
+	 * @param objMap passed by src.controller who has a reference to GameConfig->maps
 	 * 
 	 */
 	public void removeCountryButtons() {

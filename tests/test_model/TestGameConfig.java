@@ -9,9 +9,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.GameConfig;
-import model.Maps;
-import model.Player;
+import src.model.GameConfig;
+import src.model.Maps;
+import src.model.Player;
 
 
 public class TestGameConfig {

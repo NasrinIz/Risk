@@ -2,8 +2,8 @@
 <class-diagram version="1.2.1" icons="true" automaticImage="JPEG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="true" nesting-relationships="true" 
   router="FAN">  
-  <class id="1" language="java" name="controller.MainController.selectMapListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="src.controller.MainController.selectMapListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1118" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -11,7 +11,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="view.StarterWindow" project="Risk" file="/Risk/App/src/view/StarterWindow.java" 
+  <class id="2" language="java" name="src.view.StarterWindow" project="Risk" file="/Risk/App/src/src.view/StarterWindow.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="1384" width="371" x="990" y="1371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -20,7 +20,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="view.TerritoryView" project="Risk" file="/Risk/App/src/view/TerritoryView.java" 
+  <class id="3" language="java" name="src.view.TerritoryView" project="Risk" file="/Risk/App/src/src.view/TerritoryView.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="232" width="276" x="2528" y="2795"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -29,8 +29,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="controller.MainController.passBtnListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="src.controller.MainController.passBtnListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="2271" y="1207"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -38,8 +38,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="controller.MainController.NewGameListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="src.controller.MainController.NewGameListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1070" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -47,8 +47,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="controller.MainController.territoryListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="src.controller.MainController.territoryListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="124" width="223" x="2555" y="1207"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -56,8 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="controller.MainController.addContinentAgainListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="src.controller.MainController.addContinentAgainListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="622" y="623"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -65,7 +65,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="application.Main" project="Risk" file="/Risk/App/src/application/Main.java" 
+  <class id="8" language="java" name="application.src.Main" project="Risk" file="/Risk/App/src/application/src.Main.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="106" width="130" x="580" y="187"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -74,8 +74,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="controller.MainController.editMapListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="9" language="java" name="src.controller.MainController.editMapListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1333" y="915"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -83,8 +83,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="controller.MainController.removeCountryListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="10" language="java" name="src.controller.MainController.removeCountryListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1640" y="1061"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -92,7 +92,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="model.Card" project="Risk" file="/Risk/App/src/model/Card.java" binary="false" 
+  <class id="11" language="java" name="src.model.Card" project="Risk" file="/Risk/App/src/src.model/Card.java" binary="false"
     corner="BOTTOM_RIGHT">    
     <position height="268" width="214" x="2674" y="4565"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -101,8 +101,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="controller.MainController.createMapListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="src.controller.MainController.createMapListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1070" y="915"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -110,7 +110,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="model.Continent" project="Risk" file="/Risk/App/src/model/Continent.java" 
+  <class id="13" language="java" name="src.model.Continent" project="Risk" file="/Risk/App/src/src.model/Continent.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="322" width="237" x="1832" y="3517"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -119,7 +119,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="model.MapEditor" project="Risk" file="/Risk/App/src/model/MapEditor.java" 
+  <class id="14" language="java" name="src.model.MapEditor" project="Risk" file="/Risk/App/src/src.model/MapEditor.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="412" width="343" x="1401" y="1371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -128,7 +128,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="model.Maps" project="Risk" file="/Risk/App/src/model/Maps.java" binary="false" 
+  <class id="15" language="java" name="src.model.Maps" project="Risk" file="/Risk/App/src/src.model/Maps.java" binary="false"
     corner="BOTTOM_RIGHT">    
     <position height="682" width="519" x="1550" y="2795"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -137,8 +137,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="controller.MainController.loadMapListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="src.controller.MainController.loadMapListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="683" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -146,7 +146,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="model.Player" project="Risk" file="/Risk/App/src/model/Player.java" 
+  <class id="17" language="java" name="src.model.Player" project="Risk" file="/Risk/App/src/src.model/Player.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="646" width="246" x="2488" y="3879"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -155,8 +155,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="controller.MainController.addContinentListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="18" language="java" name="src.controller.MainController.addContinentListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1030" y="1061"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -164,7 +164,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="view.MainWindow" project="Risk" file="/Risk/App/src/view/MainWindow.java" 
+  <class id="19" language="java" name="src.view.MainWindow" project="Risk" file="/Risk/App/src/src.view/MainWindow.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="286" width="288" x="1964" y="1371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -173,7 +173,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="model.Territory" project="Risk" file="/Risk/App/src/model/Territory.java" 
+  <class id="20" language="java" name="src.model.Territory" project="Risk" file="/Risk/App/src/src.model/Territory.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="448" width="391" x="1832" y="4565"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -182,8 +182,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="controller.MainController.submitButtonListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="21" language="java" name="src.controller.MainController.submitButtonListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1924" y="1061"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -191,7 +191,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="model.GameConfig" project="Risk" file="/Risk/App/src/model/GameConfig.java" 
+  <class id="22" language="java" name="src.model.GameConfig" project="Risk" file="/Risk/App/src/src.model/GameConfig.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="502" width="290" x="2488" y="1371"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -200,7 +200,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="view.ErrorInfoView" project="Risk" file="/Risk/App/src/view/ErrorInfoView.java" 
+  <class id="23" language="java" name="src.view.ErrorInfoView" project="Risk" file="/Risk/App/src/src.view/ErrorInfoView.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="142" width="172" x="1487" y="3517"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -209,8 +209,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="controller.MainController.finishAddContinentListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="24" language="java" name="src.controller.MainController.finishAddContinentListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1335" y="1061"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -218,8 +218,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="controller.MainController.addCountryListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="25" language="java" name="src.controller.MainController.addCountryListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="1335" y="1207"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -227,8 +227,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="controller.MainController.removeContinentListener" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="26" language="java" name="src.controller.MainController.removeContinentListener" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="106" width="223" x="746" y="1061"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -236,8 +236,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="controller.MainController" project="Risk" 
-    file="/Risk/App/src/controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="27" language="java" name="src.controller.MainController" project="Risk"
+    file="/Risk/App/src/src.controller/MainController.java" binary="false" corner="BOTTOM_RIGHT">
     <position height="250" width="266" x="1598" y="333"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -245,7 +245,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="view.InfoView" project="Risk" file="/Risk/App/src/view/InfoView.java" 
+  <class id="28" language="java" name="src.view.InfoView" project="Risk" file="/Risk/App/src/src.view/InfoView.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="196" width="274" x="2130" y="2795"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
@@ -254,7 +254,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="model.GenFun" project="Risk" file="/Risk/App/src/model/GenFun.java" 
+  <class id="29" language="java" name="src.model.GenFun" project="Risk" file="/Risk/App/src/src.model/GenFun.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="376" width="345" x="1832" y="5053"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

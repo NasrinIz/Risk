@@ -1,9 +1,8 @@
-package model;
+package src.model;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -11,10 +10,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import view.ErrorInfoView;
-import view.MainWindow;
+import src.view.ErrorInfoView;
 
 /**
  * This class is used to instantiate maps, which reads the map files into memory.

@@ -1,5 +1,5 @@
 application
-controller
-model
+src.controller
+src.model
 test_model
-view
+src.view

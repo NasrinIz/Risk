@@ -1,7 +1,4 @@
-package model;
-
-import java.util.ArrayList;
-import java.util.Random;
+package src.model;
 
 /**
  * This class is used to create cards according to the Risk rules.

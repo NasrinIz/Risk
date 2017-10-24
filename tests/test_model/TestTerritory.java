@@ -2,15 +2,13 @@ package test_model;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Territory;
+import src.model.Territory;
 
 public class TestTerritory {
 

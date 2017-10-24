@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.Continent;
-import model.GameConfig;
-import model.Territory;
+import src.model.Continent;
+import src.model.GameConfig;
+import src.model.Territory;
 
 public class TestValidMaps {
 

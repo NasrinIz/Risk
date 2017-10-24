@@ -1,31 +1,26 @@
-package controller;
+package src.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.swing.JButton;
-
-import model.GameConfig;
-import model.GenFun;
-import model.MapEditor;
-import model.Maps;
-import model.Player;
-import model.Territory;
-import view.InfoView;
-import view.MainWindow;
-import view.StarterWindow;
-import view.TerritoryView;
+import src.model.GameConfig;
+import src.model.GenFun;
+import src.model.MapEditor;
+import src.model.Maps;
+import src.model.Player;
+import src.view.InfoView;
+import src.view.MainWindow;
+import src.view.StarterWindow;
+import src.view.TerritoryView;
 
 /**
- * As our architecture is MVC, this is the main controller, that adds action
- * listeners too all the GUI components, defined and declared in view.
- * This controller is also connected to the model package, so that it can
+ * As our architecture is MVC, this is the main src.controller, that adds action
+ * listeners too all the GUI components, defined and declared in src.view.
+ * This src.controller is also connected to the src.model package, so that it can
  * initiate the execution of appropriate business logic on the basis of specific events.
  * @author Team20
  *

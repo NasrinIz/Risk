@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import model.GameConfig;
-import model.Maps;
+import src.model.Maps;
 
 public class TestInvalidMaps {
 
