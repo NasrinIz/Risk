@@ -18,8 +18,8 @@ public class MapEditor {
 	final int CHOICEADDCOUNT = 3;
 	final int CHOICEDELCOUNT = 4;
 	
-	private GenFun genFunObj = new GenFun();
-	private Integer editorMode = genFunObj.EDITORMODENONE;
+	private GenericFunctions genericFunctionsObj = new GenericFunctions();
+	private Integer editorMode = genericFunctionsObj.EDITORMODENONE;
 	public Maps mapObj = null;
 	private List<Territory> addedTerritories = new ArrayList<Territory>();
 	private List<Continent> addedContinents = new ArrayList<Continent>();
@@ -27,17 +27,18 @@ public class MapEditor {
 	private String mapName = null;
 	
 	/**
-	 * @param inMapLocation
+	 * @param inMapName map location
+	 *  @param inEditorMode is in editor mode or not
 	 */
 	public MapEditor(Integer inEditorMode, String inMapName) {
 		mapName = inMapName;
 		editorMode = inEditorMode;
 		
-		if(editorMode == genFunObj.EDITORMODEEDIT)
+		if(editorMode == genericFunctionsObj.EDITORMODEEDIT)
 		{
 			editMap();
 		}
-		else if(editorMode == genFunObj.EDITORMODECREATE)
+		else if(editorMode == genericFunctionsObj.EDITORMODECREATE)
 		{
 			createMap();
 		}
@@ -89,10 +90,10 @@ public class MapEditor {
 	 */
 	public void addContinent(String continentInfo)
 	{
-		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
+		List<String> continentInfoList = genericFunctionsObj.genCommaSepStrToArrayList(continentInfo);
 		String continentName = continentInfoList.get(0);
 		Integer continentAward = Integer.parseInt(continentInfoList.get(1));
-		if(editorMode == genFunObj.EDITORMODEEDIT)
+		if(editorMode == genericFunctionsObj.EDITORMODEEDIT)
 		{
 			Iterator ite = mapObj.getDictContinents().entrySet().iterator();
 			while(ite.hasNext())
@@ -113,7 +114,7 @@ public class MapEditor {
 	
 	public void deleteContinent(String continentInfo)
 	{
-		List<String> continentInfoList = genFunObj.genCommaSepStrToArrayList(continentInfo); 
+		List<String> continentInfoList = genericFunctionsObj.genCommaSepStrToArrayList(continentInfo);
 		String continentName = continentInfo;
 
 		if(mapObj.getDictContinents().containsKey(continentName))
@@ -219,12 +220,12 @@ public class MapEditor {
 		
 		if(rt == 0)
 		{
-			if(this.editorMode == genFunObj.EDITORMODEEDIT)
+			if(this.editorMode == genericFunctionsObj.EDITORMODEEDIT)
 			{
 				String path = String.format("Resources//Maps//%s.map", mapName);
 				mapObj.writeMapToFile(path);
 			}
-			else if(this.editorMode == genFunObj.EDITORMODECREATE)
+			else if(this.editorMode == genericFunctionsObj.EDITORMODECREATE)
 			{
 				mapObj.writeMapToFile(inPath);
 			}

@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 /**
- * this class is used to show informatiokn for each territory that the
+ * This class is used to show information for each territory that the
  * user clicks on on a separate panel.
  * @author Team20
  */
@@ -25,7 +25,7 @@ public class InfoView extends JPanel {
 	/**
 	 * It adds Pass Button
 	 */
-	public void addPassButton() {
+	private void addPassButton() {
 		passTurnBtn = new JButton("Pass turn");
 		passTurnBtn.setBounds(1024, 1000, 200, 30);
 		this.add(passTurnBtn);
@@ -33,7 +33,7 @@ public class InfoView extends JPanel {
 	/**
 	 * Show territory information panel
 	 */
-	public void showTerritoryPanel() {
+	private void showTerritoryPanel() {
 		this.setBackground(Color.GRAY);
 		this.setLayout(new FlowLayout());
 		InfoTextArea = new JTextArea();
@@ -51,7 +51,7 @@ public class InfoView extends JPanel {
 	}
 
 	/**
-	 * @param listenForSubmitButton
+	 * @param listenForPassBtn listens for pass turn button
 	 */
 	public void passBtnActionListener(ActionListener listenForPassBtn) {
 		passTurnBtn.addActionListener(listenForPassBtn);
@@ -59,7 +59,7 @@ public class InfoView extends JPanel {
 	
 	/**
 	 * It shows the information of territory
-	 * @param info
+	 * @param info Territory information
 	 */
 	public void showTerritoryInfo(String info) {
 		InfoTextArea.setText(info);

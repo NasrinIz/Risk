@@ -13,7 +13,7 @@ public class Card {
 	private final Integer CARDINFANTORY = 1;
 	private final Integer CARDCAVALRY = 2;
 	private final Integer CARDARTILLERY = 3;
-	
+
 	private Integer cardId = null;
 	private Integer ownerId = null;
 	public Integer cardType = CARDNONE;
@@ -32,7 +32,7 @@ public class Card {
 	{
 		return this.ownerId;
 	}
-	
+
 	/**
 	 * This method set owner id
 	 * @param id

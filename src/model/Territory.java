@@ -21,7 +21,7 @@ public class Territory {
 	private ArrayList<String> adjacentCountries = new ArrayList<String>();
 	
 	private Integer ownerPlayerId = null;
-	GenFun genFunObj = new GenFun();
+	GenericFunctions genericFunctionsObj = new GenericFunctions();
 
 //	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
@@ -56,13 +56,13 @@ public class Territory {
 	}
 	
 	public Territory(String inInfo) {
-		String[] tmp = genFunObj.genCommaSepStrToArray(inInfo);
+		String[] tmp = genericFunctionsObj.genCommaSepStrToArray(inInfo);
 		if(tmp.length < 5)
 		{
 			System.out.println("Invalid Territory Info Skipped Addition");
 			return;
 		}
-		String tmpAdjacent = inInfo.substring(genFunObj.genOrdinalIndexOf(inInfo, ",", 4));
+		String tmpAdjacent = inInfo.substring(genericFunctionsObj.genOrdinalIndexOf(inInfo, ",", 4));
 		SetInfo(tmp[0], tmp[1], tmp[2], tmp[3], tmpAdjacent);
 		
 	}
@@ -115,10 +115,10 @@ public class Territory {
      */
 	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) {
 		name = inName;
-		X = genFunObj.genStrToInt(inX);
-		Y = genFunObj.genStrToInt(inY);
+		X = genericFunctionsObj.genStrToInt(inX);
+		Y = genericFunctionsObj.genStrToInt(inY);
 		continent = inContinent;
-		adjacentCountries = genFunObj.genCommaSepStrToArrayList(inAdjacent);
+		adjacentCountries = genericFunctionsObj.genCommaSepStrToArrayList(inAdjacent);
 		return;
 	}
 	

@@ -254,7 +254,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="src.model.GenFun" project="Risk" file="/Risk/App/src/src.model/GenFun.java"
+  <class id="29" language="java" name="src.model.GenericFunctions" project="Risk" file="/Risk/App/src/src.model/GenFun.java"
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="376" width="345" x="1832" y="5053"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

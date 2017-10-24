@@ -21,7 +21,7 @@ public class ErrorInfoView extends JPanel {
 	/**
 	 * Show error information 
 	 */
-	public void showErrorPanel() {
+	private void showErrorPanel() {
 		this.setBackground(Color.RED);
 		this.setLayout(new FlowLayout());
 		this.setBounds(1024, 468, 255, 300);
@@ -38,7 +38,7 @@ public class ErrorInfoView extends JPanel {
 	}
 	
 	/**
-	 * @param error
+	 * @param error error to show in panel
 	 */
 	public void showErrorInfo(String error) {
 		System.out.println(error);

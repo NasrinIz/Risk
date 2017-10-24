@@ -19,10 +19,8 @@ public class GameConfig {
 	Integer currentPlayer = 0;
 	
 	/**
-	 * @param numPlayers
-	 * @param players
-	 * @param mapObj
-	 * @param gameCards
+	 * @param numPlayers number of players
+	 * @param mapName map name
 	 */
 	
 	public GameConfig(Integer numPlayers, String mapName) {
@@ -44,7 +42,7 @@ public class GameConfig {
 		this.players = inPlayers;
 	}
 	
-	private GenFun genFunObj = new GenFun();
+	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	
 	/**
 	 * It shows the turn of next player 
@@ -91,7 +89,6 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @param mapName
 	 * @return mapObj
 	 */
 	public void initMap()
@@ -124,7 +121,7 @@ public class GameConfig {
 			{
 				while(true)
 				{
-					cardId = genFunObj.genRandomNumber(0, 41);
+					cardId = genericFunctionsObj.genRandomNumber(0, 41);
 					if(gameCards.get(cardId).getOwnerId() == null)
 					{
 						break;
@@ -169,23 +166,23 @@ public class GameConfig {
 		{
 			while(true)
 			{
-				cardtype = genFunObj.genRandomNumber(1, 4);
+				cardtype = genericFunctionsObj.genRandomNumber(1, 4);
 				
 				if(infantryCards == 14)
 				{
-					cardtype = genFunObj.genRandomNumber(2, 4);
+					cardtype = genericFunctionsObj.genRandomNumber(2, 4);
 				}
 				else if(wildCards == 2)
 				{
-					cardtype = genFunObj.genRandomNumber(1, 3);
+					cardtype = genericFunctionsObj.genRandomNumber(1, 3);
 				}
 				else if((infantryCards == 14) && (cavalryCards == 14))
 				{
-					cardtype = genFunObj.genRandomNumber(3, 4);
+					cardtype = genericFunctionsObj.genRandomNumber(3, 4);
 				}
 				else if((artilleryCards == 14) && (wildCards == 2))
 				{
-					cardtype = genFunObj.genRandomNumber(1, 2);
+					cardtype = genericFunctionsObj.genRandomNumber(1, 2);
 				}
 				else if((infantryCards == 14) && (cavalryCards == 14) && (wildCards == 2))
 				{
@@ -240,12 +237,12 @@ public class GameConfig {
 		{
 			if(perPlayerDistFlag != 0)
 			{
-				nextOwnerPlayer = (genFunObj.genRandomNumber(0, numPlayers - 1));
+				nextOwnerPlayer = (genericFunctionsObj.genRandomNumber(0, numPlayers - 1));
 			}
 			
 			while((players[nextOwnerPlayer].numOfTerritories() + remainingTerritoryDist) == (perPlayer + remainingTerritoryDist))
 			{
-				nextOwnerPlayer = (genFunObj.genRandomNumber(0, numPlayers - 1));
+				nextOwnerPlayer = (genericFunctionsObj.genRandomNumber(0, numPlayers - 1));
 				perPlayerDistFlag = checkForDistCompletion(perPlayer);
 				if(perPlayerDistFlag == 0)
 				{
@@ -348,8 +345,8 @@ public class GameConfig {
 	
 	/**
 	 * user can fortify armies from one territory to the others
-	 * @param srcTerritory
-	 * @param destTerritory
+	 * @param srcTerritory fortify from source
+	 * @param destTerritory fortify to destiny
 	 */
 	public void fortifyArmies(String srcTerritory, String destTerritory)
 	{

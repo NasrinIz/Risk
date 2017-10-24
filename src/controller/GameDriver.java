@@ -2,14 +2,14 @@ package src.controller;
 
 import javax.swing.SwingWorker;
 
-import src.model.GenFun;
+import src.model.GenericFunctions;
 
 /**
  * Game driver will go through the phases of the game which are Startup, Reinforcement, Fortification, ...
  */
 public class GameDriver extends SwingWorker<Integer, Integer>{
 
-    private GenFun genObj = new GenFun();
+    private GenericFunctions genObj = new GenericFunctions();
 	private MainController mainController = null;
 	
 	public GameDriver(MainController inMainController)

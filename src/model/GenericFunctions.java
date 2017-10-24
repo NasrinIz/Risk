@@ -14,7 +14,7 @@ import java.util.Vector;
  * @author Team20
  *
  */
-public class GenFun {
+public class GenericFunctions {
 	
 	public final int GAMEPHASENONE = 0;
 	public final int GAMEPHASESTARTUP = 1;

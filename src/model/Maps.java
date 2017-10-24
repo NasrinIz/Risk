@@ -50,7 +50,7 @@ public class Maps {
 	private Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORY_INIT_SIZE,
 			TERRITORY_CAPACITY_INCREMENT);
 
-	GenFun genFunObj = new GenFun();
+	GenericFunctions genericFunctionsObj = new GenericFunctions();
 	private ErrorInfoView errorInfoView;
 	/**
 	 * @param inMapLocation
@@ -129,30 +129,30 @@ public class Maps {
 		Integer rtVal = 0; // 0 = Success, -1 = Fail
 
 		if (inVal.contains("author=")) {
-			mapAuthor = genFunObj.genStringGetValueAfterEquals(inVal);
+			mapAuthor = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapAuthor != null)
 				return rtVal;
 		}
 		
 		if (inVal.contains("image=")) {
 			/* vj, we dont load images */
-			//mapImage = genFunObj.genStringGetValueAfterEquals(inVal);
+			//mapImage = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			//if(mapImage != null)
 				return rtVal;
 		}
 		
 		if (inVal.contains("wrap=")) {
-			mapWrap = genFunObj.genStringGetValueAfterEquals(inVal);
+			mapWrap = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapWrap != null)
 				return rtVal;
 		}
 		if (inVal.contains("scroll=")) {
-			mapScroll = genFunObj.genStringGetValueAfterEquals(inVal);
+			mapScroll = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapScroll != null)
 				return rtVal;
 		}
 		if (inVal.contains("warn=")) {
-			mapWarning = genFunObj.genStringGetValueAfterEquals(inVal);
+			mapWarning = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapWarning != null)
 				return rtVal;
 		}
@@ -174,7 +174,7 @@ public class Maps {
 			mapTxtLoc = mapLocation; 
 		}
 
-		BufferedReader mapData = genFunObj.genOpenFileToBufferedReader(mapTxtLoc);
+		BufferedReader mapData = genericFunctionsObj.genOpenFileToBufferedReader(mapTxtLoc);
 		String line;
 		String[] tmpArr;
 		Integer count = new Integer(0);
@@ -232,11 +232,11 @@ public class Maps {
 				}
 
 				if (continentsProperty == 1) {
-					tmpArr = genFunObj.genStringGetSplitArrayEquals(line);
+					tmpArr = genericFunctionsObj.genStringGetSplitArrayEquals(line);
 					if (tmpArr.length < 2) {
 						continue;
 					}
-					Continent tmpContinentObj = new Continent(tmpArr[0], genFunObj.genStrToInt(tmpArr[1]));
+					Continent tmpContinentObj = new Continent(tmpArr[0], genericFunctionsObj.genStrToInt(tmpArr[1]));
 					dictContinents.put(tmpArr[0], tmpContinentObj);
 				}
 

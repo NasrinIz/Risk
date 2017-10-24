@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 import src.model.GameConfig;
-import src.model.GenFun;
+import src.model.GenericFunctions;
 import src.model.MapEditor;
 import src.model.Player;
 import src.view.InfoView;
@@ -30,7 +30,7 @@ public class MainController {
 	private MainWindow mainWindow;
 	private GameConfig gameConfig;
 	private Integer gamePhase = 0;
-	private GenFun genFunObj = new GenFun();
+	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	private MapEditor mapEditor;
 	private String previousCountryName = null;
 	/*
@@ -225,7 +225,7 @@ public class MainController {
 			addTerritoryListeners();
 			InfoView infoView = mainWindow.getInfoView();
 			infoView.passBtnActionListener(new passBtnListener());
-			gamePhase = genFunObj.GAMEPHASESTARTUP;
+			gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
 
 			String error = gameConfig.getMapObj().validateMap();
 
@@ -238,16 +238,16 @@ public class MainController {
 	}
 
 	private void incrementGamePhase() {
-		if (gamePhase == genFunObj.GAMEPHASESTARTUP) {
+		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
 			gameConfig.calcReinforcementArmy();
-			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
+			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
 			System.out.println("Startup Phase ends, Reinforcement Phase Begins");
-		} else if (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT) {
-			gamePhase = genFunObj.GAMEPHASEFORTIFICATION;
+		} else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+			gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
 			System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
-		} else if (gamePhase == genFunObj.GAMEPHASEFORTIFICATION) {
+		} else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
 			gameConfig.calcReinforcementArmy();
-			gamePhase = genFunObj.GAMEPHASEREINFORCEMENT;
+			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
 			System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
 		}
 		
@@ -266,19 +266,19 @@ public class MainController {
 			Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
 			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
 
-			if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)
-					|| (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
+			if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
+					|| (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
 				if (Objects.equals(currentPlayerId, territoryOwner)) {
-					if ((gamePhase == genFunObj.GAMEPHASESTARTUP) || (gamePhase == genFunObj.GAMEPHASEREINFORCEMENT)) {
+					if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
 					}
 
-					if ((previousCountryName != null) && (gamePhase == genFunObj.GAMEPHASEFORTIFICATION)) {
+					if ((previousCountryName != null) && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
 						if(!previousCountryName.equals(countryName)) {
 							gameConfig.fortifyArmies(previousCountryName, countryName);
 						}
 					}
-					else if((previousCountryName == null) && (gamePhase == genFunObj.GAMEPHASEFORTIFICATION))
+					else if((previousCountryName == null) && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION))
 					{
 						previousCountryName = countryName;
 					}
