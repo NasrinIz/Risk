@@ -38,21 +38,32 @@ public class MainController {
 	 */
 	private Integer applicationMode = 0;
 
+	/**
+	 * @return the current gamePhase.
+	 */
 	Integer getGamePhase() {
 		return gamePhase;
 	}
 
+	/**
+	 * This is the constructor to the controller.
+	 * @param starterView reference to the view to register appropriate action listeners.
+	 */
 	public MainController(StarterWindow starterView) {
 		this.starterView = starterView;
 		this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
 	}
 
 	/**
-	 * 
+	 * This is the inner class, to define action listener to the menu option "New Game"
 	 * @author Team20
-	 *
 	 */
 	private class NewGameListener implements ActionListener {
+		/**
+		 * This function over-rides the actionPerformed function of ActionListerner class
+		 * and registers listeners for starterview
+		 * @param e Action Event received by user interaction
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -64,7 +75,16 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Load Map"
+	 * @author Team20
+	 */
 	private class loadMapListener implements ActionListener {
+		/**
+		 * This function over-rides the actionPerformed function of ActionListerner class
+		 * and registers listeners for starter view's load map form.
+		 * @param e Action Event received by user interaction
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
@@ -74,6 +94,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Select Map"
+	 * @author Team20
+	 */
 	private class selectMapListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -84,6 +108,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Create Map"
+	 * @author Team20
+	 */
 	private class createMapListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -97,6 +125,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Edit Map"
+	 * @author Team20
+	 */
 	private class editMapListener implements ActionListener {
 		@SuppressWarnings("null")
 		@Override
@@ -127,6 +159,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Finish Add Continent Button"
+	 * @author Team20
+	 */
 	private class finishAddContinentListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -145,6 +181,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Add Continent Button"
+	 * @author Team20
+	 */
 	private class addContinentListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -153,6 +193,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Add Country Button"
+	 * @author Team20
+	 */
 	private class addCountryListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -162,6 +206,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Remove Country Button"
+	 * @author Team20
+	 */
 	private class removeCountryListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -170,6 +218,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Remove Continent Button"
+	 * @author Team20
+	 */
 	private class removeContinentListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -178,6 +230,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Pass Button"
+	 * @author Team20
+	 */
 	private class passBtnListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -203,6 +259,10 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the option "Submit Button"
+	 * @author Team20
+	 */
 	private class submitButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -237,6 +297,9 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This functions increment the gamePhase according to previous phase.
+	 */
 	private void incrementGamePhase() {
 		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
 			gameConfig.calcReinforcementArmy();
@@ -253,6 +316,10 @@ public class MainController {
 		
 	}
 
+	/**
+	 * This is the inner class, to define action listener to the territory buttons
+	 * @author Team20
+	 */
 	private class territoryListener implements ActionListener {
 		String countryName;
 
@@ -290,6 +357,9 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * This function calls for the addition of all the territory listeners in the territory hashmap
+	 */
 	private void addTerritoryListeners() {
 		Iterator<Entry<String, TerritoryView>> it = mainWindow.getDictTerrViews().entrySet().iterator();
 		while (it.hasNext()) {

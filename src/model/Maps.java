@@ -28,6 +28,9 @@ public class Maps {
 	private Integer TERRITORY_CAPACITY_INCREMENT = 2;
 	/*************************/
 
+	/**
+	 * This data member is used to store the map path
+	 */
 	public String mapLocation;
 	private String mapName;
 	/* Basic Map Properties */
@@ -40,6 +43,9 @@ public class Maps {
 	private String mapAuthor = null; // first and last name
 	private String mapWarning = null; // yes or no
 
+	/**
+	 * This is the error string
+	 */
 	public String errorStr = null;
 	
 	/* Map Continents and Army Bonuses for each */
@@ -53,77 +59,93 @@ public class Maps {
 	GenericFunctions genericFunctionsObj = new GenericFunctions();
 	private ErrorInfoView errorInfoView;
 	/**
-	 * @param inMapLocation
+	 * This is the constructor to Maps class, and is used to set the map location.
+	 * @param inMapLocation The map location on secondary drive
+	 * @param Mode The mode indicates, whether the map is for editor or new game.
 	 */
 	public Maps(String inMapLocation, Integer Mode) {
 		mapLocation = inMapLocation;
 	}
 
+	/**
+	 * This function is used to set the map name.
+	 * @param inMapName This is the map name.
+	 */
 	public void setMapName(String inMapName) {
 		mapName = inMapName;
 	}
 
 	/**
-	 * @return mapName
+	 * This function is used to retrieve the map name.
+	 * @return mapName The current name of the map.
 	 */
 	public String getMapName() {
 		return mapName;
 	}
 
 	/**
-	 * @return size of dictContinents
+	 * This function returns the number of continents in map
+	 * @return Number of continents in map
 	 */
 	public Integer getNumContinents() {
 		return dictContinents.size();
 	}
 
 	/**
-	 * @return size of dictContinents
+	 * @return This function returns the number of territories in map.
 	 */
 	public Integer getNumTerritories() {
 		return dictTerritory.size();
 	}
 
+	/**
+	 * This function sets the continents of this map with the input param.
+	 * @param dictContinents The new hashmap of continents for map,
+	 */
 	public void setDictContinents(Map<String, Continent> dictContinents) {
 		this.dictContinents = dictContinents;
 	}
-
+	/**
+	 * This function sets the territories of this map with the input param. 
+	 * @param dictTerritory The new hashmap of territories for map.
+	 */
 	public void setDictTerritory(Map<String, Territory> dictTerritory) {
 		this.dictTerritory = dictTerritory;
 	}
 
 	/**
-	 * @return the dictContinents
+	 * @return The list and objects of current continents in map
 	 */
 	public Map<String, Continent> getDictContinents() {
 		return dictContinents;
 	}
 
 	/**
-	 * @return the dictTerritory
+	 * @return The list and objects of current territories in map
 	 */
 	public Map<String, Territory> getDictTerritory() {
 		return dictTerritory;
 	}
 
 	/**
-	 * @return the mapAuthor
+	 * @return Returns the name of map author
 	 */
 	public String getMapAuthor() {
 		return mapAuthor;
 	}
 
 	/**
-	 * @param mapAuthor
-	 *            the mapAuthor to set
+	 * This function is used to set the name of author of map
+	 * @param The new map author.
 	 */
 	public void setMapAuthor(String mapAuthor) {
 		this.mapAuthor = mapAuthor;
 	}
 
 	/**
-	 * @param inVal
-	 * @return rtVal
+	 * This function is used to check whether all the properties of map object are filled or not.
+	 * @param inVal The string containing map properties.
+	 * @return rtVal Indicates whether all the properties were found or not.
 	 */
 	private Integer checkPropertyMap(String inVal) {
 		Integer rtVal = 0; // 0 = Success, -1 = Fail
@@ -160,6 +182,10 @@ public class Maps {
 		return rtVal;
 	}
 
+	/**
+	 * This function is used to read the map, and store it into the memory using data structures.
+	 * @return The error message if any, while reading the map.
+	 */
 	public String readMap() {
 		String tmpExtChecker = mapLocation.substring(mapLocation.length() - 4, mapLocation.length());
 		String mapTxtLoc = null;
@@ -275,6 +301,9 @@ public class Maps {
 		return "true";
 	}
 
+	/**
+	 * This function is used to fill the territories for each continent in the map object
+	 */
 	private void mapFillContinentTerritories()
 	{
 		for(String continent : this.getDictContinents().keySet())
@@ -291,6 +320,10 @@ public class Maps {
 		}
 	}
 	
+	/**
+	 * This function is used to validate the map adjacency.
+	 * @return Any error string, if any, while validating the map adjacency.
+	 */
 	public String validateMap() {
 		if ((mapAuthor == null) && (mapWarning == null)) {
 		    //  return "The map author or map warning property is not valid"; 
@@ -358,6 +391,10 @@ public class Maps {
 		return "true";
 	}
 	
+	/**
+	 * This function checks whether the map is a connected graph or not.
+	 * @return Any error message, while checking for map connectivity.
+	 */
 	public String mapConnectivity()
 	{
 		HashMap<Territory, Integer> TerritoryVisitFlags = new HashMap<Territory, Integer>();
@@ -389,6 +426,12 @@ public class Maps {
 		return "true";
 	}
 
+	/**
+	 * The recursive function to travel across each territory in map.
+	 * @param TerritoryVisitFlags The flag indicating whether the territory was previously visited or not
+	 * @param territory The object of territory being checked.
+	 * @return The current territory visited.
+	 */
 	private HashMap<Territory, Integer> validateConnectivity(HashMap<Territory, Integer> TerritoryVisitFlags, Territory territory)
 	{
 		try
@@ -423,6 +466,10 @@ public class Maps {
 		return TerritoryVisitFlags;
 	}
 	
+	/**
+	 * This function is used to add a continent to hashmap of existing continents.
+	 * @param tmpContinent The information of new continents to be added.
+	 */
 	public void addContinent(List<Continent> tmpContinent)
 	{
 		for(int i = 0; i < tmpContinent.size(); i++)
@@ -431,6 +478,10 @@ public class Maps {
 		}
 	}
 	
+	/**
+	 * This functions is used to add new territories to hashmap of existing territories.
+	 * @param tmpTerritory The information of new territories to be added.
+	 */
 	public void addCountry(List<Territory> tmpTerritory)
 	{
 		for(int i = 0; i < tmpTerritory.size(); i++)
@@ -439,6 +490,10 @@ public class Maps {
 		}
 	}
 	
+	/**
+	 * This function is used to delete a continent from existing continents.
+	 * @param tmpContinent The name of continent to be deleted.
+	 */
 	public void deleteContinent(String tmpContinent)
 	{
 		Integer rt = -1;
@@ -457,6 +512,10 @@ public class Maps {
 		this.getDictContinents().remove(tmpContinent);
 	}
 	
+	/**
+	 * This function is used to delete a territory from existing territories.
+	 * @param tmpTerritory The name of territory to be deleted.
+	 */
 	public void deleteTerritory(Territory tmpTerritory)
 	{
 		/* From Continent */
@@ -508,6 +567,10 @@ public class Maps {
 		System.out.println("Territory Deleted");
 	}
 	
+	/**
+	 * This function is used to write the edited map to a file.
+	 * @param inPath The new path of map file.
+	 */
 	public void writeMapToFile(String inPath)
 	{
 		File logFile = new File(inPath);

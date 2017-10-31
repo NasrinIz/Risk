@@ -29,16 +29,28 @@ public class Player {
 	private Integer currentCardReward = 15;
 	private Integer countCardExchange = 0;
 	
+	/**
+	 * This function is used to set current player's turn status.
+	 * @param status The new status.
+	 */
 	public void setTurnStatus(boolean status)
 	{
 		isTurnCompleted = status;
 	}
+	
+	/**
+	 * This function is used to get current player's turn status.
+	 * @return The current status.
+	 */
 	public boolean getTurnStatus()
 	{
 		return isTurnCompleted;
 	}
 	/**
-	 * @param name
+	 * This is the constructor to the class Player and is used to initialize the local class variables.
+	 * @param name The name of the player
+	 * @param inId The player's unique ID
+	 * @param inCards The list of cards that this player owns
 	 */
 	public Player(String name, Integer inId, ArrayList<Card> inCards) {
 		this.name = name;
@@ -46,92 +58,120 @@ public class Player {
 		this.gameCards = inCards;
 	}
 
+	/**
+	 * @return Returns the player's ID
+	 */
 	public Integer getPlayerId()
 	{
 		return id;
 	}
 	
+	/**
+	 * @return Returns the number of cards that the player owns
+	 */
 	public Integer getNumCard()
 	{
 		return this.numCards;
 	}
 	
 	/**
-	 * @return name
+	 * @return Returns the player's name
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * @return territories
+	 * @return Returns the player's territories
 	 */
 	public ArrayList<Territory> getTerritories() {
 		return territories;
 	}
 
 	/**
-	 * @param territory
+	 * This function is used to set player's owned territories.
+	 * @param territory name that player owns
 	 */
 	public void setTerritories(Territory  territory) {
 		this.territories.add(territory);
 	}
 	
 	/**
-	 * @return numTerritories
+	 * 
+	 * @return Returns the number of territories that player owns
 	 */
 	public int numOfTerritories() {
 		return numTerritories;
 	}
+	
+	/**
+	 * This function increases the number of territories that player owns
+	 */
 	public void increaseNumTerritories()
 	{
 		numTerritories++;
 	}
 
 	/**
-	 * after occupying each territories,add one to the numbers of them  
+	 * This function is called after player occupyies a territory to
+	 * increase the numbers of territories.
 	 */
 	public void occupyTerritory() {
 		numTerritories++;
 	}
 
+	/**
+	 * This function is called when player looses one of his territories
+	 * @param territory Information about the territory that player lost
+	 */
 	public void loseTerritory(Territory territory) {
 		//
 	}
 
 	/**
-	 * @param a
+	 * This function is used to add armies to player's owned armies.
+	 * @param newArmies Number of armies to add.
 	 */
-	public void addArmy(int a) {
-		armies += a;
+	public void addArmy(int newArmies) {
+		armies += newArmies;
 	}
 
 	/**
-	 * @param a
+	 * This function is called when player looses number of armies he had.
+	 * @param lostArmies Number of armies player lost
 	 */
-	public void loseArmy(int a) {
-		armies -= a;
+	public void loseArmy(int lostArmies) {
+		armies -= lostArmies;
 	}
 	
 	/**
-	 * @param inArmies
+	 * This function is used to set number of armies that player owns
+	 * @param inArmies New number of armies of player.
 	 */
 	public void setArmies(int inArmies) {
 		armies = inArmies;
 	}
 	
 	/**
-	 * @return armies
+	 * This function is called to retrieve number of armies that player owns
+	 * @return armies Number of armies that player owns
 	 */
 	public int getArmies() {
 		return armies;
 	}
 
+	/** 
+	 * This function retrieves information about the territories owned by player
+	 */
 	public void getTerritoriesInfo()
 	{
 		// to do
 	}
 	
+	/**
+	 * This function is called to place an army on territories owned by player.
+	 * @param territoryName The territory name, on which army is to be placed.
+	 */
 	public void placeArmiesOnTerritory(String territoryName)
 	{
 		for(int i=0; i < territories.size(); i++)
@@ -147,6 +187,9 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * This function is used to calculate the new armies that player receives when Reinforcement phase begins
+	 */
 	public void calcReinforcementArmies()
 	{
 		Integer newArmies = numTerritories / 3;
@@ -159,11 +202,19 @@ public class Player {
 		System.out.printf("\nPlayer %d received %d armies.", this.getPlayerId(), armies);
 	}
 	
+	/**
+	 * This function is used to set the number of armies player received
+	 * from owned continents
+	 * @param inArmy Number of armies player received
+	 */
 	public void setContinentArmyReward(Integer inArmy)
 	{
 		continentArmyReward = inArmy;
 	}
 	
+	/**
+	 * This function is used to check, how many armies player gets when exchanging cards
+	 */
 	private void checkReward()
 	{
 		if(this.countCardExchange > 6)
@@ -172,6 +223,9 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * This function is used to exchange cards
+	 */
 	public void exchangeCards()
 	{
 		ArrayList<Card> cards = this.gameCards;

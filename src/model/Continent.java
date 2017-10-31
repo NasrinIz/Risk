@@ -16,6 +16,7 @@ public class Continent {
 	private Integer ownerPlayerId = null;
 	
 	/**
+	 * This is the constructor to class Continent
 	 * @param inName continent name
 	 * @param inArmyReward army reward
 	 */
@@ -26,7 +27,7 @@ public class Continent {
 	}
     
 	/**
-	 * check who is the owner of continent
+	 * @return The owner of the continent
 	 */
 	Integer checkForOwnership()
 	{
@@ -60,22 +61,21 @@ public class Continent {
 	}
 	
 	/**
-	 * This method get the name 
-	 * @return name
+	 * @return The name of the continent
 	 */
 	public String getName() {
 		return name;
 	}
     
 	/**
-	 * This method get territories
-	 * @return territories
+	 * @return Returns the territories inside this continent
 	 */
 	public ArrayList<Territory> getTerritories() {
 		return territories;
 	}
 	
 	/**
+	 * This function is used to add a territory to this continent
 	 * @param obj territory object
 	 */
 	void addToTerritoryList(Territory obj)
@@ -84,14 +84,14 @@ public class Continent {
 	}
 	
     /**
-     * This method get armyReward
-     * @return armyReward
+     * @return This method returns armyReward for the continent capture
      */
 	int getArmyReward() {
 		return armyReward;
 	}
 	
 	/**
+	 * Sets the army reward for the capture of this continent
 	 * @param inArmyReward reward of armies
 	 */
 	void setArmyReward(Integer inArmyReward)
@@ -100,14 +100,17 @@ public class Continent {
 	}
 
 	/**
-//	 * This method checks if a continent is captured or not.
-//	 * @param p player
-//	 * @return true
-//	 */
+	 * This method checks if a continent is captured or not.
+	 * @param p player
+	 * @return true
+	 */
 //	public boolean isContinentCaptured(Player p) {
 //		return true;
 //	}
 	
+	/** 
+	 * @return This function returns the continent information in a string
+	 */
 	public String toString() {
 		StringBuilder info = new StringBuilder("Name:	" + name + "\n"
 				+ "Territories:	");

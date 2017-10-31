@@ -18,11 +18,13 @@ public class GameConfig {
 	private ArrayList<Card> gameCards = new ArrayList<Card>();
 	Integer currentPlayer = 0;
 	
-	/**
-	 * @param numPlayers number of players
-	 * @param mapName map name
-	 */
+	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	
+	/**
+	 * This is the constructor to class GameConfig and initializes class variables.
+	 * @param numPlayers Number of players playing the game
+	 * @param mapName Map Name to be loaded for game.
+	 */
 	public GameConfig(Integer numPlayers, String mapName) {
 		super();
 		initCards();
@@ -33,16 +35,22 @@ public class GameConfig {
 		setNumPlayers();
 	}
 
+	/**
+	 * @param numPlayers Number of players playing the game
+	 */
 	public void setNumPlayers(Integer numPlayers)
 	{
 		this.numPlayers = numPlayers;
 	}
+	
+	/**
+	 * Sets the player objects from player class for all players into Gameconfig
+	 * @param inPlayers Player objects
+	 */
 	public void setPlayers(Player inPlayers[])
 	{
 		this.players = inPlayers;
 	}
-	
-	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	
 	/**
 	 * It shows the turn of next player 
@@ -65,7 +73,7 @@ public class GameConfig {
 	}
 	
 	/**
-	 * It sets the number of players
+	 * It calls the function to setup players.
 	 */
 	private Integer setNumPlayers()
 	{
@@ -81,7 +89,7 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @return players
+	 * @return Returns the player objects
 	 */
 	public Player[] getPlayers()
 	{
@@ -89,7 +97,7 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @return mapObj
+	 * This function is used to initialize Map Object.
 	 */
 	public void initMap()
 	{
@@ -149,11 +157,17 @@ public class GameConfig {
 		}
 	}
 	
+	/**
+	 * This function calls for the initialization of cards
+	 */
 	public void callInitcards()
 	{
 		initCards();
 	}
 	
+	/**
+	 * This function initializes the cards
+	 */
 	private void initCards()
 	{
 		Integer infantryCards = 0;
@@ -222,6 +236,9 @@ public class GameConfig {
 		}
 	}
 
+	/**
+	 * This function initializes the territories for map.
+	 */
 	public void callInitTerritory()
 	{
 		initTerritory();
@@ -269,7 +286,8 @@ public class GameConfig {
 	}
 	
 	/**
-	 * @param inPerPlayer
+	 * @param inPerPlayer Check if the territory distribution is complete for all players
+	 * according to inPerPlayer distribution number.
 	 */
 	private Integer checkForDistCompletion(Integer inPerPlayer)
 	{

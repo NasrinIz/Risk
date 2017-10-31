@@ -26,11 +26,12 @@ public class Territory {
 //	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
 	/**
-	 * @param continent
-	 * @param name
-	 * @param x
-	 * @param y
-	 * @param adjacentCountries
+	 * This is the constructor to Territory class, and initializes local class variables
+	 * @param continent The continent in which territory exists.
+	 * @param name The name of territory
+	 * @param x The x co-ordinate of territory
+	 * @param y The y co-ordinate of territory
+	 * @param adjacentCountries The list of adjacent territories to current territory
 	 */
 	public Territory(String continent, String name, Integer x, Integer y, ArrayList<String> adjacentCountries) {
 		super();
@@ -42,19 +43,36 @@ public class Territory {
 		this.stationedArmies = 1;
 	}
 	
+	/**
+	 * Increase number of armies on territory
+	 */
 	public void increaseArmies()
 	{
 		stationedArmies++;
 	}
+	
+	/**
+	 * Decrease number of armies on territory
+	 */
 	public void decreaseArmies()
 	{
 		stationedArmies--;
 	}
+	
+	/**
+	 * 
+	 * @return Returns number of armies on territory
+	 */
 	public Integer getArmies()
 	{
 		return stationedArmies;
 	}
 	
+	/**
+	 * The overloaded constructor that receives territory information in string,
+	 * and calls function to parse the string and save information in data memebers.
+	 * @param inInfo The string containing all the information about the territory
+	 */
 	public Territory(String inInfo) {
 		String[] tmp = genericFunctionsObj.genCommaSepStrToArray(inInfo);
 		if(tmp.length < 5)
@@ -68,35 +86,35 @@ public class Territory {
 	}
 	
 	/** 
-	 * @return name
+	 * @return Returns the name of territory
 	 */
 	public String getName() {
 		return name;
 	}
 	
     /**
-     * @return continent
+     * @return Returns the name of the continent in which territory exists
      */
 	public String getContinent() {
 		return continent;
 	}
 	
     /**
-     * @return X
+     * @return Returns x co-ordinate of the territory
      */
 	public Integer getX() {
 		return X;
 	}
 	
 	/**
-	 * @return Y
+	 * @return Returns y co-ordinate of the territory
 	 */
 	public Integer getY() {
 		return Y;
 	}
 	
 	/**
-	 * @return adajacentCountries
+	 * @return Returns list of adjacent territories to the current territory
 	 */
 	public ArrayList<String> getAdjacentCountries() {
 		return adjacentCountries;
@@ -107,11 +125,12 @@ public class Territory {
 //	}
 	
     /**
-     * @param inName
-     * @param inX
-     * @param inY
-     * @param inContinent
-     * @param inAdjacent
+     * The function used to set the information of territory into the data structures
+     * @param inName The name of the territory
+     * @param inX The x co-ordinate of the territory
+     * @param inY The y co-ordinate of the territory
+     * @param inContinent The name of the continent in which territory exists
+     * @param inAdjacent The string containing information about adjacent territories
      */
 	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) {
 		name = inName;
@@ -123,21 +142,25 @@ public class Territory {
 	}
 	
 	/**
-	 * @param inId
+	 * Sets the current owner of the territory
+	 * @param inId The new owner
 	 */
 	public void setOwner(Integer inId)
 	{
 		ownerPlayerId = inId;
 	}
 	
-	/**
-	 * @return ownerPlayerId
+	/** 
+	 * @return Returns the current owner ID
 	 */
 	public Integer getOwner()
 	{
 		return ownerPlayerId;
 	}
 	
+	/**
+	 * @return This function returns the territory information as a single string
+	 */
 	public String toString() {
 		String info = "Country Name: " + name + "\n\n"
 					+ "Continent Name : " + continent + "\n\n"

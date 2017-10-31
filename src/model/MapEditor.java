@@ -20,6 +20,9 @@ public class MapEditor {
 	
 	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	private Integer editorMode = genericFunctionsObj.EDITORMODENONE;
+	/**
+	 * The map object containing, the map information being edited or created.
+	 */
 	public Maps mapObj = null;
 	private List<Territory> addedTerritories = new ArrayList<Territory>();
 	private List<Continent> addedContinents = new ArrayList<Continent>();
@@ -27,8 +30,11 @@ public class MapEditor {
 	private String mapName = null;
 	
 	/**
+	 * This is the constructor to the class MapEditor and starts the flow
+	 * of editor towards editing the previously existing map or creating a new map
+	 * on the basis of received parameters.
 	 * @param inMapName map location
-	 *  @param inEditorMode is in editor mode or not
+	 * @param inEditorMode determines whether the flow edits previous map or creates new. 
 	 */
 	public MapEditor(Integer inEditorMode, String inMapName) {
 		mapName = inMapName;
@@ -45,6 +51,9 @@ public class MapEditor {
 		
 	}
 	
+	/**
+	 * This function is used to edit the map.
+	 */
 	private void editMap()
 	{
 		//mapName = mapName.substring(0, mapName.length() - 4);
@@ -56,11 +65,17 @@ public class MapEditor {
 		System.out.println("Map Opened");
 	}
 	
+	/**
+	 * This function is sued to create a new map.
+	 */
 	private void createMap()
 	{
 		mapObj = new Maps(mapName, 1);
 	}
 	
+	/**
+	 * This function displays the information existing in map object.
+	 */
 	private void displayMap()
 	{
 		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
@@ -86,7 +101,8 @@ public class MapEditor {
 	}
 	
 	/**
-	 * @param continentInfo
+	 * This function is used to add continent to the map object
+	 * @param continentInfo The information about the new continent to be added.
 	 */
 	public void addContinent(String continentInfo)
 	{
@@ -112,6 +128,10 @@ public class MapEditor {
 		displayMap();
 	}
 	
+	/**
+	 * This function is used to delete the continent.
+	 * @param continentInfo Information for the continent to be deleted.
+	 */
 	public void deleteContinent(String continentInfo)
 	{
 		List<String> continentInfoList = genericFunctionsObj.genCommaSepStrToArrayList(continentInfo);
@@ -129,10 +149,11 @@ public class MapEditor {
 	}
 
 
-       /**
-        * @param countryInfo
-        */
-       public void newCountry(String countryInfo)
+   /**
+    * This function is sued to create a new country
+    * @param countryInfo The information of new country to be created
+    */
+	public void newCountry(String countryInfo)
 	{
 		Territory tmpTerritory = new Territory(countryInfo);
 		
@@ -154,7 +175,8 @@ public class MapEditor {
 	}
 	
 	/**
-	 * @param countryInfo
+	 * This function is sued to delete the country.
+	 * @param countryInfo The information for the country to be deleted.
 	 */
 	public void delCountry(String countryInfo)
 	{	
@@ -170,7 +192,8 @@ public class MapEditor {
 	}
 	
 	/**
-	 * @return maoTitles
+	 * This function is used to retrieve the list of continents inside the map object
+	 * @return mapTitles The list of continents inside the map object.
 	 */
 	public String[] getContinentListInMapEditor(){
 		String[] mapTitles = new String[mapObj.getDictContinents().size()];
@@ -189,7 +212,8 @@ public class MapEditor {
 	
 	
 	/**
-	 * It get the list of country in map editor
+	 * This function is used to retrieve the list of countries inside the map object.
+	 * @return mapTitles The list of countries inside the map object.
 	 */
 	public String[] getCountryListInMapEditor(){
 		String[] mapTitles = new String[mapObj.getDictTerritory().size()];
@@ -207,7 +231,9 @@ public class MapEditor {
 	}
 	
 	/**
-	 * @param inPath
+	 * This function is used to finish map editing and call for validation.
+	 * @param inPath The path where the edited map is to be saved.
+	 * @return rt Indicates whether the validation succeeded or failed.
 	 */
 	public int finishAndValidate(String inPath){
 		Integer rt = 0;
