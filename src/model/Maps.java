@@ -19,7 +19,8 @@ import src.view.ErrorInfoView;
  * @author Team20
  *
  */
-public class Maps {
+public class Maps 
+{
 	/*************************/
 	private Integer MAP_INIT_SIZE = 2;
 	private Integer MAP_CAPACITY_INCREMENT = 2;
@@ -63,7 +64,8 @@ public class Maps {
 	 * @param inMapLocation The map location on secondary drive
 	 * @param Mode The mode indicates, whether the map is for editor or new game.
 	 */
-	public Maps(String inMapLocation, Integer Mode) {
+	public Maps(String inMapLocation, Integer Mode) 
+	{
 		mapLocation = inMapLocation;
 	}
 
@@ -71,7 +73,8 @@ public class Maps {
 	 * This function is used to set the map name.
 	 * @param inMapName This is the map name.
 	 */
-	public void setMapName(String inMapName) {
+	public void setMapName(String inMapName) 
+	{
 		mapName = inMapName;
 	}
 
@@ -79,7 +82,8 @@ public class Maps {
 	 * This function is used to retrieve the map name.
 	 * @return mapName The current name of the map.
 	 */
-	public String getMapName() {
+	public String getMapName() 
+	{
 		return mapName;
 	}
 
@@ -87,14 +91,16 @@ public class Maps {
 	 * This function returns the number of continents in map
 	 * @return Number of continents in map
 	 */
-	public Integer getNumContinents() {
+	public Integer getNumContinents() 
+	{
 		return dictContinents.size();
 	}
 
 	/**
 	 * @return This function returns the number of territories in map.
 	 */
-	public Integer getNumTerritories() {
+	public Integer getNumTerritories() 
+	{
 		return dictTerritory.size();
 	}
 
@@ -102,35 +108,40 @@ public class Maps {
 	 * This function sets the continents of this map with the input param.
 	 * @param dictContinents The new hashmap of continents for map,
 	 */
-	public void setDictContinents(Map<String, Continent> dictContinents) {
+	public void setDictContinents(Map<String, Continent> dictContinents) 
+	{
 		this.dictContinents = dictContinents;
 	}
 	/**
 	 * This function sets the territories of this map with the input param. 
 	 * @param dictTerritory The new hashmap of territories for map.
 	 */
-	public void setDictTerritory(Map<String, Territory> dictTerritory) {
+	public void setDictTerritory(Map<String, Territory> dictTerritory) 
+	{
 		this.dictTerritory = dictTerritory;
 	}
 
 	/**
 	 * @return The list and objects of current continents in map
 	 */
-	public Map<String, Continent> getDictContinents() {
+	public Map<String, Continent> getDictContinents() 
+	{
 		return dictContinents;
 	}
 
 	/**
 	 * @return The list and objects of current territories in map
 	 */
-	public Map<String, Territory> getDictTerritory() {
+	public Map<String, Territory> getDictTerritory() 
+	{
 		return dictTerritory;
 	}
 
 	/**
 	 * @return Returns the name of map author
 	 */
-	public String getMapAuthor() {
+	public String getMapAuthor() 
+	{
 		return mapAuthor;
 	}
 
@@ -138,7 +149,8 @@ public class Maps {
 	 * This function is used to set the name of author of map
 	 * @param The new map author.
 	 */
-	public void setMapAuthor(String mapAuthor) {
+	public void setMapAuthor(String mapAuthor) 
+	{
 		this.mapAuthor = mapAuthor;
 	}
 
@@ -147,33 +159,39 @@ public class Maps {
 	 * @param inVal The string containing map properties.
 	 * @return rtVal Indicates whether all the properties were found or not.
 	 */
-	private Integer checkPropertyMap(String inVal) {
+	private Integer checkPropertyMap(String inVal) 
+	{
 		Integer rtVal = 0; // 0 = Success, -1 = Fail
 
-		if (inVal.contains("author=")) {
+		if (inVal.contains("author=")) 
+		{
 			mapAuthor = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapAuthor != null)
 				return rtVal;
 		}
 		
-		if (inVal.contains("image=")) {
+		if (inVal.contains("image=")) 
+		{
 			/* vj, we dont load images */
 			//mapImage = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			//if(mapImage != null)
 				return rtVal;
 		}
 		
-		if (inVal.contains("wrap=")) {
+		if (inVal.contains("wrap=")) 
+		{
 			mapWrap = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapWrap != null)
 				return rtVal;
 		}
-		if (inVal.contains("scroll=")) {
+		if (inVal.contains("scroll=")) 
+		{
 			mapScroll = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapScroll != null)
 				return rtVal;
 		}
-		if (inVal.contains("warn=")) {
+		if (inVal.contains("warn=")) 
+		{
 			mapWarning = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
 			if(mapWarning != null)
 				return rtVal;
@@ -186,7 +204,8 @@ public class Maps {
 	 * This function is used to read the map, and store it into the memory using data structures.
 	 * @return The error message if any, while reading the map.
 	 */
-	public String readMap() {
+	public String readMap() 
+	{
 		String tmpExtChecker = mapLocation.substring(mapLocation.length() - 4, mapLocation.length());
 		String mapTxtLoc = null;
 		if(tmpExtChecker.equals(".map") == false)
@@ -210,44 +229,57 @@ public class Maps {
 		Integer continentsProperty = new Integer(0);
 		Integer territoriesProperty = new Integer(0);
 
-		try {
-			while ((line = mapData.readLine()) != null) {
+		try 
+		{
+			while ((line = mapData.readLine()) != null) 
+			{
 
-				if ((line.equalsIgnoreCase("[MAP]") == true)) {
-					if (continentsProperty == 1) {
+				if ((line.equalsIgnoreCase("[MAP]") == true)) 
+				{
+					if (continentsProperty == 1) 
+					{
 						continentsProperty = 2;
 					}
-					if (territoriesProperty == 1) {
+					if (territoriesProperty == 1) 
+					{
 						territoriesProperty = 2;
 					}
 					mapProperty = 1;
 					continue;
 				}
 
-				if ((line.equalsIgnoreCase("[Continents]") == true)) {
-					if ((mapProperty != 2) && (mapProperty != 0)) {
+				if ((line.equalsIgnoreCase("[Continents]") == true)) 
+				{
+					if ((mapProperty != 2) && (mapProperty != 0)) 
+					{
 						break;
 					}
-					if (territoriesProperty == 1) {
+					if (territoriesProperty == 1) 
+					{
 						territoriesProperty = 2;
 					}
 					continentsProperty = 1;
 					continue;
 				}
 
-				if ((line.equalsIgnoreCase("[Territories]") == true)) {
-					if ((mapProperty != 2) && (mapProperty != 0)) {
+				if ((line.equalsIgnoreCase("[Territories]") == true)) 
+				{
+					if ((mapProperty != 2) && (mapProperty != 0)) 
+					{
 						break;
 					}
-					if (continentsProperty == 1) {
+					if (continentsProperty == 1) 
+					{
 						continentsProperty = 2;
 					}
 					territoriesProperty = 1;
 					continue;
 				}
 
-				if (mapProperty == 1) {
-					if (checkPropertyMap(line) == 0) {
+				if (mapProperty == 1) 
+				{
+					if (checkPropertyMap(line) == 0) 
+					{
 						count++;
 					} else {
 						if (count < 5)
@@ -257,17 +289,21 @@ public class Maps {
 					}
 				}
 
-				if (continentsProperty == 1) {
+				if (continentsProperty == 1) 
+				{
 					tmpArr = genericFunctionsObj.genStringGetSplitArrayEquals(line);
-					if (tmpArr.length < 2) {
+					if (tmpArr.length < 2) 
+					{
 						continue;
 					}
 					Continent tmpContinentObj = new Continent(tmpArr[0], genericFunctionsObj.genStrToInt(tmpArr[1]));
 					dictContinents.put(tmpArr[0], tmpContinentObj);
 				}
 
-				if (territoriesProperty == 1) {
-					if (line.equalsIgnoreCase("")) {
+				if (territoriesProperty == 1) 
+				{
+					if (line.equalsIgnoreCase("")) 
+					{
 						continue;
 					}
 					Territory obj = new Territory(line);
@@ -276,23 +312,30 @@ public class Maps {
 				}
 			}
 
-			if (continentsProperty == 2) {
+			if (continentsProperty == 2) 
+			{
 				territoriesProperty = 2;
 			}
-			if (territoriesProperty == 2) {
+			if (territoriesProperty == 2) 
+			{
 				continentsProperty = 2;
 			}
 
-			if (mapProperty != 2) {
+			if (mapProperty != 2) 
+			{
 				//return "Map is missing [MAP] section";
 			}
-			if (continentsProperty != 2) {
+			if (continentsProperty != 2) 
+			{
 				//return "Map is missing [Continents] section";
 			}
-			if (territoriesProperty != 2) {
+			if (territoriesProperty != 2) 
+			{
 				//return "Map is missing [Territories] section";
 			}
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		
@@ -324,8 +367,10 @@ public class Maps {
 	 * This function is used to validate the map adjacency.
 	 * @return Any error string, if any, while validating the map adjacency.
 	 */
-	public String validateMap() {
-		if ((mapAuthor == null) && (mapWarning == null)) {
+	public String validateMap() 
+	{
+		if ((mapAuthor == null) && (mapWarning == null)) 
+		{
 		    //  return "The map author or map warning property is not valid"; 
 		}
 

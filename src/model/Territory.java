@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * @author Team20
  *
  */
-public class Territory {
+public class Territory 
+{
 
 	/***************************/
 	private String continent = null;
@@ -33,7 +34,8 @@ public class Territory {
 	 * @param y The y co-ordinate of territory
 	 * @param adjacentCountries The list of adjacent territories to current territory
 	 */
-	public Territory(String continent, String name, Integer x, Integer y, ArrayList<String> adjacentCountries) {
+	public Territory(String continent, String name, Integer x, Integer y, ArrayList<String> adjacentCountries) 
+	{
 		super();
 		this.continent = continent;
 		this.name = name;
@@ -73,7 +75,8 @@ public class Territory {
 	 * and calls function to parse the string and save information in data memebers.
 	 * @param inInfo The string containing all the information about the territory
 	 */
-	public Territory(String inInfo) {
+	public Territory(String inInfo) 
+	{
 		String[] tmp = genericFunctionsObj.genCommaSepStrToArray(inInfo);
 		if(tmp.length < 5)
 		{
@@ -88,41 +91,42 @@ public class Territory {
 	/** 
 	 * @return Returns the name of territory
 	 */
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 	
     /**
      * @return Returns the name of the continent in which territory exists
      */
-	public String getContinent() {
+	public String getContinent() 
+	{
 		return continent;
 	}
 	
     /**
      * @return Returns x co-ordinate of the territory
      */
-	public Integer getX() {
+	public Integer getX() 
+	{
 		return X;
 	}
 	
 	/**
 	 * @return Returns y co-ordinate of the territory
 	 */
-	public Integer getY() {
+	public Integer getY() 
+	{
 		return Y;
 	}
 	
 	/**
 	 * @return Returns list of adjacent territories to the current territory
 	 */
-	public ArrayList<String> getAdjacentCountries() {
+	public ArrayList<String> getAdjacentCountries() 
+	{
 		return adjacentCountries;
 	}
-	
-//	public Vector<JButton> getBtnTerritories() {
-//		return btnTerritories;
-//	}
 	
     /**
      * The function used to set the information of territory into the data structures
@@ -132,7 +136,8 @@ public class Territory {
      * @param inContinent The name of the continent in which territory exists
      * @param inAdjacent The string containing information about adjacent territories
      */
-	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) {
+	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) 
+	{
 		name = inName;
 		X = genericFunctionsObj.genStrToInt(inX);
 		Y = genericFunctionsObj.genStrToInt(inY);
@@ -161,14 +166,16 @@ public class Territory {
 	/**
 	 * @return This function returns the territory information as a single string
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		String info = "Country Name: " + name + "\n\n"
 					+ "Continent Name : " + continent + "\n\n"
 					+ "Coordinates: " + "(" + X + "," + Y + ")\n\n"
 					+ "Number of Armies:" + stationedArmies + "\n\n"
 					+ "Adjacent Countries:\n";
 		
-		for(String adjTerr: adjacentCountries) {
+		for(String adjTerr: adjacentCountries) 
+		{
 			info += adjTerr + "\n";
 		}
 		

@@ -8,7 +8,8 @@ import java.util.Map;
  * @author Team20
  * This class is used to instantiate everything, and starts the flow of new game.
  */
-public class GameConfig {
+public class GameConfig 
+{
 	private final Integer BEGINNINGCARDDISTRIBUTION = 4;
 	private final Integer MAXCARDS = 44;
 	
@@ -27,7 +28,8 @@ public class GameConfig {
 	 * @param numPlayers Number of players playing the game
 	 * @param mapName Map Name to be loaded for game.
 	 */
-	public GameConfig(Integer numPlayers, String mapName) {
+	public GameConfig(Integer numPlayers, String mapName) 
+	{
 		super();
 		initCards();
 		this.numPlayers = numPlayers;
@@ -58,7 +60,8 @@ public class GameConfig {
 	/**
 	 * @return the current gamePhase.
 	 */
-	public Integer getGamePhase() {
+	public Integer getGamePhase() 
+	{
 		return gamePhase;
 	}
 	
@@ -317,9 +320,12 @@ public class GameConfig {
 	private Integer getInitArmy()
 	{
 
- 		if(numPlayers >= 2 && numPlayers <=6 ) {
+ 		if(numPlayers >= 2 && numPlayers <=6 ) 
+ 		{
  			return 5*(10-this.numPlayers);
- 		} else {
+ 		} 
+ 		else 
+ 		{
  			return 0;		// should throw an exception
  		}
 
@@ -353,21 +359,24 @@ public class GameConfig {
 	/**
 	 * @return the gameCards
 	 */
-	public ArrayList<Card> getGameCards() {
+	public ArrayList<Card> getGameCards() 
+	{
 		return gameCards;
 	}
 
 	/**
 	 * @return the mapObj
 	 */
-	public Maps getMapObj() {
+	public Maps getMapObj() 
+	{
 		return mapObj;
 	}
 
 	/**
 	 * @param mapObj the mapObj to set
 	 */
-	public void setMapObj(Maps mapObj) {
+	public void setMapObj(Maps mapObj) 
+	{
 		this.mapObj = mapObj;
 	}
 	
@@ -393,15 +402,21 @@ public class GameConfig {
 	/**
 	 * This functions increment the gamePhase according to previous phase.
 	 */
-	private void incrementGamePhase() {
-		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
+	private void incrementGamePhase() 
+	{
+		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) 
+		{
 			calcReinforcementArmy();
 			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
 			System.out.println("Startup Phase ends, Reinforcement Phase Begins");
-		} else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+		} 
+		else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) 
+		{
 			gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
 			System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
-		} else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+		} 
+		else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) 
+		{
 			calcReinforcementArmy();
 			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
 			System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
@@ -410,14 +425,19 @@ public class GameConfig {
 	}
 	
 	/**
+	 * This function passes the turn to next player in a round robin manner
+	 * And, also changes the game phase based on different conditions
 	 * 
 	 */
-	public void nextPlayerOrPhase() {
+	public void nextPlayerOrPhase() 
+	{
 		Player tmpPlayers[] = getPlayers();
 		int i;
 		getCurrentPlayer().setTurnStatus(true);
-		for (i = 0; i < tmpPlayers.length; i++) {
-			if (!tmpPlayers[i].getTurnStatus()) {
+		for (i = 0; i < tmpPlayers.length; i++) 
+		{
+			if (!tmpPlayers[i].getTurnStatus()) 
+			{
 				break;
 			}
 		}
@@ -426,8 +446,10 @@ public class GameConfig {
 				(gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT))
 		{
 			Integer gamePhaseFlag = 0; // 0 Change True, -1 Change False
-			for (i = 0; i < tmpPlayers.length; i++) {
-				if(tmpPlayers[i].getArmies() != 0) {
+			for (i = 0; i < tmpPlayers.length; i++) 
+			{
+				if(tmpPlayers[i].getArmies() != 0) 
+				{
 					gamePhaseFlag = -1;
 					break;
 				}

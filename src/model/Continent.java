@@ -8,7 +8,8 @@ import java.util.Objects;
  * This is class Continent that is used to instantiate the continents of map, including
  * the list of territories for each continent among other properties.
  */
-public class Continent {
+public class Continent 
+{
 
 	private String name;
 	private ArrayList<Territory> territories = new ArrayList<>();
@@ -20,7 +21,8 @@ public class Continent {
 	 * @param inName continent name
 	 * @param inArmyReward army reward
 	 */
-	public Continent(String inName, int inArmyReward) {
+	public Continent(String inName, int inArmyReward) 
+	{
 		this.name = inName;
 		this.armyReward = inArmyReward;
 		this.territories = new ArrayList<>();
@@ -32,11 +34,16 @@ public class Continent {
 	Integer checkForOwnership()
 	{
 		Integer ownerId = null;
-		for (Territory territory : territories) {
-			if (ownerId == null) {
+		for (Territory territory : territories) 
+		{
+			if (ownerId == null) 
+			{
 				ownerId = territory.getOwner();
-			} else {
-				if (!Objects.equals(territory.getOwner(), ownerId)) {
+			} 
+			else 
+			{
+				if (!Objects.equals(territory.getOwner(), ownerId)) 
+				{
 					return -1;
 				}
 			}
@@ -63,14 +70,16 @@ public class Continent {
 	/**
 	 * @return The name of the continent
 	 */
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
     
 	/**
 	 * @return Returns the territories inside this continent
 	 */
-	public ArrayList<Territory> getTerritories() {
+	public ArrayList<Territory> getTerritories() 
+	{
 		return territories;
 	}
 	
@@ -86,7 +95,8 @@ public class Continent {
     /**
      * @return This method returns armyReward for the continent capture
      */
-	int getArmyReward() {
+	int getArmyReward() 
+	{
 		return armyReward;
 	}
 	
@@ -111,10 +121,12 @@ public class Continent {
 	/** 
 	 * @return This function returns the continent information in a string
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		StringBuilder info = new StringBuilder("Name:	" + name + "\n"
 				+ "Territories:	");
-		for(Territory ter: territories) {
+		for(Territory ter: territories) 
+		{
 			info.append(ter.getName()).append(" ");
 		}
 		

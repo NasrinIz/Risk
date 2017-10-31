@@ -8,7 +8,8 @@ import java.util.ArrayList;
  * @author Team20
  *
  */
-public class Player {
+public class Player 
+{
 
 	private String name;
 	
@@ -52,7 +53,8 @@ public class Player {
 	 * @param inId The player's unique ID
 	 * @param inCards The list of cards that this player owns
 	 */
-	public Player(String name, Integer inId, ArrayList<Card> inCards) {
+	public Player(String name, Integer inId, ArrayList<Card> inCards) 
+	{
 		this.name = name;
 		this.id = inId;
 		this.gameCards = inCards;
@@ -77,14 +79,16 @@ public class Player {
 	/**
 	 * @return Returns the player's name
 	 */
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
 	/**
 	 * @return Returns the player's territories
 	 */
-	public ArrayList<Territory> getTerritories() {
+	public ArrayList<Territory> getTerritories() 
+	{
 		return territories;
 	}
 
@@ -92,7 +96,8 @@ public class Player {
 	 * This function is used to set player's owned territories.
 	 * @param territory name that player owns
 	 */
-	public void setTerritories(Territory  territory) {
+	public void setTerritories(Territory  territory) 
+	{
 		this.territories.add(territory);
 	}
 	
@@ -100,7 +105,8 @@ public class Player {
 	 * 
 	 * @return Returns the number of territories that player owns
 	 */
-	public int numOfTerritories() {
+	public int numOfTerritories() 
+	{
 		return numTerritories;
 	}
 	
@@ -116,7 +122,8 @@ public class Player {
 	 * This function is called after player occupyies a territory to
 	 * increase the numbers of territories.
 	 */
-	public void occupyTerritory() {
+	public void occupyTerritory() 
+	{
 		numTerritories++;
 	}
 
@@ -124,7 +131,8 @@ public class Player {
 	 * This function is called when player looses one of his territories
 	 * @param territory Information about the territory that player lost
 	 */
-	public void loseTerritory(Territory territory) {
+	public void loseTerritory(Territory territory) 
+	{
 		//
 	}
 
@@ -132,7 +140,8 @@ public class Player {
 	 * This function is used to add armies to player's owned armies.
 	 * @param newArmies Number of armies to add.
 	 */
-	public void addArmy(int newArmies) {
+	public void addArmy(int newArmies) 
+	{
 		armies += newArmies;
 	}
 
@@ -140,7 +149,8 @@ public class Player {
 	 * This function is called when player looses number of armies he had.
 	 * @param lostArmies Number of armies player lost
 	 */
-	public void loseArmy(int lostArmies) {
+	public void loseArmy(int lostArmies) 
+	{
 		armies -= lostArmies;
 	}
 	
@@ -148,7 +158,8 @@ public class Player {
 	 * This function is used to set number of armies that player owns
 	 * @param inArmies New number of armies of player.
 	 */
-	public void setArmies(int inArmies) {
+	public void setArmies(int inArmies) 
+	{
 		armies = inArmies;
 	}
 	
@@ -156,7 +167,8 @@ public class Player {
 	 * This function is called to retrieve number of armies that player owns
 	 * @return armies Number of armies that player owns
 	 */
-	public int getArmies() {
+	public int getArmies() 
+	{
 		return armies;
 	}
 

@@ -11,17 +11,20 @@ import javax.swing.border.TitledBorder;
  * This is the src.view that displays the error messages while loading the map.
  * @author Team20
  */
-public class ErrorInfoView extends JPanel {
+public class ErrorInfoView extends JPanel 
+{
 	private JTextArea InfoTextArea;
 	
-	public ErrorInfoView() {
+	public ErrorInfoView() 
+	{
 		this.showErrorPanel();
 	}
 
 	/**
 	 * Show error information 
 	 */
-	private void showErrorPanel() {
+	private void showErrorPanel() 
+	{
 		this.setBackground(Color.RED);
 		this.setLayout(new FlowLayout());
 		this.setBounds(1024, 468, 255, 300);
@@ -40,7 +43,8 @@ public class ErrorInfoView extends JPanel {
 	/**
 	 * @param error error to show in panel
 	 */
-	public void showErrorInfo(String error) {
+	public void showErrorInfo(String error) 
+	{
 		System.out.println(error);
 		InfoTextArea.setText(error);
 	}

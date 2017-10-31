@@ -11,7 +11,8 @@ import java.util.Map;
  * @author Team20
  *
  */
-public class MapEditor {
+public class MapEditor 
+{
 	final int CHOICENONE = 0;
 	final int CHOICEADDCONT = 1;
 	final int CHOICEDELCONT = 2;
@@ -36,7 +37,8 @@ public class MapEditor {
 	 * @param inMapName map location
 	 * @param inEditorMode determines whether the flow edits previous map or creates new. 
 	 */
-	public MapEditor(Integer inEditorMode, String inMapName) {
+	public MapEditor(Integer inEditorMode, String inMapName) 
+	{
 		mapName = inMapName;
 		editorMode = inEditorMode;
 		
@@ -195,7 +197,8 @@ public class MapEditor {
 	 * This function is used to retrieve the list of continents inside the map object
 	 * @return mapTitles The list of continents inside the map object.
 	 */
-	public String[] getContinentListInMapEditor(){
+	public String[] getContinentListInMapEditor()
+	{
 		String[] mapTitles = new String[mapObj.getDictContinents().size()];
 		Iterator ite = mapObj.getDictContinents().entrySet().iterator();
 		int i = 0;
@@ -215,7 +218,8 @@ public class MapEditor {
 	 * This function is used to retrieve the list of countries inside the map object.
 	 * @return mapTitles The list of countries inside the map object.
 	 */
-	public String[] getCountryListInMapEditor(){
+	public String[] getCountryListInMapEditor()
+	{
 		String[] mapTitles = new String[mapObj.getDictTerritory().size()];
 		Iterator ite = mapObj.getDictTerritory().entrySet().iterator();
 		int i = 0;
@@ -235,7 +239,8 @@ public class MapEditor {
 	 * @param inPath The path where the edited map is to be saved.
 	 * @return rt Indicates whether the validation succeeded or failed.
 	 */
-	public int finishAndValidate(String inPath){
+	public int finishAndValidate(String inPath)
+	{
 		Integer rt = 0;
 		
 		if(mapObj.validateMap() != "true")

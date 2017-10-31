@@ -7,7 +7,8 @@ package src.model;
  * @author Team20
  *
  */
-public class Card {
+public class Card 
+{
 	
 	private final Integer CARDNONE = 0;
 	private final Integer CARDINFANTORY = 1;

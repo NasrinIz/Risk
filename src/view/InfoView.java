@@ -14,10 +14,12 @@ import javax.swing.border.TitledBorder;
  * user clicks on on a separate panel.
  * @author Team20
  */
-public class InfoView extends JPanel {
+public class InfoView extends JPanel 
+{
 	private JTextArea InfoTextArea;
 	private JButton passTurnBtn;
-	public InfoView() {
+	public InfoView() 
+	{
 		this.addPassButton();
 		this.showTerritoryPanel();
 	}
@@ -25,7 +27,8 @@ public class InfoView extends JPanel {
 	/**
 	 * It adds Pass Button
 	 */
-	private void addPassButton() {
+	private void addPassButton() 
+	{
 		passTurnBtn = new JButton("Pass turn");
 		passTurnBtn.setBounds(1024, 1000, 200, 30);
 		this.add(passTurnBtn);
@@ -33,7 +36,8 @@ public class InfoView extends JPanel {
 	/**
 	 * Show territory information panel
 	 */
-	private void showTerritoryPanel() {
+	private void showTerritoryPanel() 
+	{
 		this.setBackground(Color.GRAY);
 		this.setLayout(new FlowLayout());
 		InfoTextArea = new JTextArea();
@@ -53,7 +57,8 @@ public class InfoView extends JPanel {
 	/**
 	 * @param listenForPassBtn listens for pass turn button
 	 */
-	public void passBtnActionListener(ActionListener listenForPassBtn) {
+	public void passBtnActionListener(ActionListener listenForPassBtn) 
+	{
 		passTurnBtn.addActionListener(listenForPassBtn);
 	}
 	
@@ -61,7 +66,8 @@ public class InfoView extends JPanel {
 	 * It shows the information of territory
 	 * @param info Territory information
 	 */
-	public void showTerritoryInfo(String info) {
+	public void showTerritoryInfo(String info) 
+	{
 		InfoTextArea.setText(info);
 	}
 

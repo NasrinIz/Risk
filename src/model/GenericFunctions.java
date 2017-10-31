@@ -14,7 +14,8 @@ import java.util.Vector;
  * @author Team20
  *
  */
-public class GenericFunctions {
+public class GenericFunctions 
+{
 	
 	public final int GAMEPHASENONE = 0;
 	public final int GAMEPHASESTARTUP = 1;
@@ -25,7 +26,8 @@ public class GenericFunctions {
 	public final int EDITORMODEEDIT = 1;
 	public final int EDITORMODECREATE = 2;
 	
-	public Integer genStrToInt(String inVal) {
+	public Integer genStrToInt(String inVal) 
+	{
 		return Integer.valueOf(inVal);
 	}
 	
@@ -34,7 +36,8 @@ public class GenericFunctions {
 	 * @param inVal Input String
 	 * @return tmpVec Vector containing resultant strings.
 	 */
-	public Vector<String> genCommaSepStrToVector(String inVal) {
+	public Vector<String> genCommaSepStrToVector(String inVal) 
+	{
 		String[] tmp = inVal.split(",");
 		Vector<String> tmpVec = new Vector<String>();
 		tmpVec.addAll(Arrays.asList(tmp));
@@ -47,7 +50,8 @@ public class GenericFunctions {
 	 * @param inVal The string to be separated.
 	 * @return tmpVec the arraylist containing separated strings.
 	 */
-	public ArrayList<String> genCommaSepStrToArrayList(String inVal) {
+	public ArrayList<String> genCommaSepStrToArrayList(String inVal) 
+	{
 		String[] tmp = inVal.split(",");
 		ArrayList<String> tmpVec = new ArrayList<String>();
 		tmpVec.addAll(Arrays.asList(tmp));
@@ -59,7 +63,8 @@ public class GenericFunctions {
 	 * @param inVal String to be separated.
 	 * @return tmp The resultant array containing separated strings.
 	 */
-	public String[] genCommaSepStrToArray(String inVal) {
+	public String[] genCommaSepStrToArray(String inVal) 
+	{
 		String[] tmp = inVal.split(",");
 		return tmp;
 	}
@@ -69,7 +74,8 @@ public class GenericFunctions {
 	 * @param inVal The input string containing an operand and an assignment operator.
 	 * @return tmp[1] The output string after assignment operator.
 	 */
-	public String genStringGetValueAfterEquals(String inVal) {
+	public String genStringGetValueAfterEquals(String inVal) 
+	{
 		String[] tmp = inVal.split("=");
 		if(tmp.length < 2)
 		{
@@ -84,7 +90,8 @@ public class GenericFunctions {
 	 * @param inVal The input string.
 	 * @return tmp The resultant separated strings.
 	 */
-	public String[] genStringGetSplitArrayEquals(String inVal) {
+	public String[] genStringGetSplitArrayEquals(String inVal) 
+	{
 		String[] tmp = inVal.split("=");
 		return tmp;
 	}
@@ -96,7 +103,8 @@ public class GenericFunctions {
 	 * @param n The number of occurence
 	 * @return pos The returned position.
 	 */
-	public int genOrdinalIndexOf(String str, String substr, int n) {
+	public int genOrdinalIndexOf(String str, String substr, int n) 
+	{
 	    int pos = str.indexOf(substr);
 	    while (--n > 0 && pos != -1)
 	        pos = str.indexOf(substr, pos + 1);
@@ -109,16 +117,20 @@ public class GenericFunctions {
 	 * @param inPath Path at which, source file is present.
 	 * @return rtTmp The returned buffered reader.
 	 */
-	public BufferedReader genOpenFileToBufferedReader(String inPath) {
+	public BufferedReader genOpenFileToBufferedReader(String inPath) 
+	{
 		File tmp = new File(inPath);
 		BufferedReader rtTmp = null;
-		try {
+		try 
+		{
 			rtTmp = new BufferedReader(new FileReader(tmp));
 		}
-		catch (FileNotFoundException e) {
+		catch (FileNotFoundException e) 
+		{
 			e.printStackTrace();
 		}
-		catch(Exception e) {
+		catch(Exception e) 
+		{
 			e.printStackTrace();
 		}
 		

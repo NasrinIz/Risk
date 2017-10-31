@@ -16,7 +16,8 @@ import src.model.Maps;
  * we load the map.
  * @author Team20
  */
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame 
+{
 	
 	private static final int WIDTH = 1400;
 	private static final int HEIGHT = 800;
@@ -26,14 +27,15 @@ public class MainWindow extends JFrame {
 	private ErrorInfoView errorInfoView;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<>(2, 2);
-	public MainWindow() {
+	public MainWindow() 
+	{
 		super("Risky Conquest");		
 		this.initWindow();
 		this.initContentPane();
 	}
 
-	private void initWindow() {
-
+	private void initWindow() 
+	{
 		// Size the frame.
 	    setSize( new Dimension(WIDTH, HEIGHT) );
 	    setMinimumSize( new Dimension(WIDTH, HEIGHT) );
@@ -46,7 +48,8 @@ public class MainWindow extends JFrame {
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 	}
 
-	private void initContentPane() {
+	private void initContentPane() 
+	{
 		BorderLayout borderLayout = new BorderLayout();
 		this.setLayout(borderLayout);
 	}
@@ -57,7 +60,8 @@ public class MainWindow extends JFrame {
 	 * @param objMap passed by src.controller who has a reference to GameConfig->maps
 	 * 
 	 */
-	public void addCountryButtons(Maps objMap) {
+	public void addCountryButtons(Maps objMap) 
+	{
 		Integer x;
 		Integer y;
 		mapPane = new JScrollPane();
@@ -65,7 +69,8 @@ public class MainWindow extends JFrame {
 		mapPane.setMinimumSize(new Dimension(1200, 900));
 		mapPane.setWheelScrollingEnabled(true);
 		Integer owner;
-		for (String territoryName : objMap.getDictTerritory().keySet()) {
+		for (String territoryName : objMap.getDictTerritory().keySet()) 
+		{
 			x = (objMap.getDictTerritory()).get(territoryName).getX();
 			y = (objMap.getDictTerritory()).get(territoryName).getY();
 			owner = (objMap.getDictTerritory()).get(territoryName).getOwner();
@@ -89,7 +94,8 @@ public class MainWindow extends JFrame {
 	 * creates country buttons or territory views
 	 * called by src.controller
 	 */
-	public void removeCountryButtons() {
+	public void removeCountryButtons() 
+	{
 		this.getContentPane().remove(mapPane);
 		this.getContentPane().repaint();
 
@@ -98,21 +104,24 @@ public class MainWindow extends JFrame {
 	/**
 	 * @return the dictTerrViews
 	 */
-	public Map<String, TerritoryView> getDictTerrViews() {
+	public Map<String, TerritoryView> getDictTerrViews() 
+	{
 		return dictTerrViews;
 	}
 
 	/**
 	 * @return the infoView
 	 */
-	public InfoView getInfoView() {
+	public InfoView getInfoView() 
+	{
 		return infoView;
 	}
 	
 	/**
 	 * @return the infoView
 	 */
-	public ErrorInfoView getErrorInfoView() {
+	public ErrorInfoView getErrorInfoView() 
+	{
 		return errorInfoView;
 	}
 	

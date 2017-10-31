@@ -15,7 +15,8 @@ import javax.swing.JPanel;
  *
  */
 
-public class TerritoryView extends JPanel {
+public class TerritoryView extends JPanel 
+{
 
 	private JButton terrNameBtn;
 
@@ -27,7 +28,8 @@ public class TerritoryView extends JPanel {
 	 * @param terrPos
 	 *            coordinates of the position of the territory
 	 */
-	public TerritoryView(Integer ownerId, Point terrPos, Color color) {
+	public TerritoryView(Integer ownerId, Point terrPos, Color color) 
+	{
 		this.setBackground(color);
 		this.setLayout(new FlowLayout());
 		terrNameBtn = new JButton(ownerId.toString());
@@ -40,7 +42,8 @@ public class TerritoryView extends JPanel {
 	/**
 	 * @param territoryBtnListener listen for territories
 	 */
-	public void addTerritoryBtnListener(ActionListener territoryBtnListener) {
+	public void addTerritoryBtnListener(ActionListener territoryBtnListener) 
+	{
 		terrNameBtn.addActionListener(territoryBtnListener);
 	}
 

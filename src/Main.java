@@ -11,17 +11,23 @@ import src.view.StarterWindow;
  * @author Team20
  * 
  */
-public class Main {
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(() -> {
-            try {
+public class Main 
+{
+	public static void main(String[] args) 
+	{
+		SwingUtilities.invokeLater(() -> 
+		{
+            try 
+            {
                 StarterWindow frame = new StarterWindow();
                 MainController mainController = new MainController(frame);
                 //GameDriver gameDriver = new GameDriver(mainController);
                 //gameDriver.addPropertyChangeListener(mainController);
 
                 frame.setVisible(true);
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 e.printStackTrace();
             }
 
