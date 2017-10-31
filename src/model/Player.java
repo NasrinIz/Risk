@@ -311,6 +311,7 @@ public class Player {
 			this.countCardExchange += 1;
 			checkReward();
 			System.out.printf("\nPlayer %d exchanged 1 of each", this.getPlayerId());
+			return;
 		}
 		
 		if(infantryCards > 2)
@@ -336,6 +337,7 @@ public class Player {
 			this.countCardExchange += 1;
 			checkReward();
 			System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
+			return;
 		}
 		
 		if(cavalryCards > 2)
@@ -361,6 +363,7 @@ public class Player {
 			this.countCardExchange += 1;
 			checkReward();
 			System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
+			return;
 		}
 		
 		if(artilleryCards > 2)
@@ -386,6 +389,7 @@ public class Player {
 			this.countCardExchange += 1;
 			checkReward();
 			System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
+			return;
 		}
 
 		for(int i = 0; i < wildCards; i++)
@@ -411,6 +415,7 @@ public class Player {
 				this.countCardExchange += 1;
 				checkReward();
 				System.out.printf("\nPlayer %d exchanged with one wild card", this.getPlayerId());
+				return;
 			}
 			
 			if((wildCards == 2) && (remainingCards == 1))
@@ -435,6 +440,7 @@ public class Player {
 				this.countCardExchange += 1;
 				checkReward();
 				System.out.printf("\nPlayer %d exchanged with 2 wild cards", this.getPlayerId());
+				return;
 			}
 		}
 	}

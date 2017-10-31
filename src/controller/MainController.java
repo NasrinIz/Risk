@@ -29,7 +29,6 @@ public class MainController {
 	private StarterWindow starterView;
 	private MainWindow mainWindow;
 	private GameConfig gameConfig;
-	private Integer gamePhase = 0;
 	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	private MapEditor mapEditor;
 	private String previousCountryName = null;
@@ -37,13 +36,6 @@ public class MainController {
 	 * 0 New game 1 Edit or create
 	 */
 	private Integer applicationMode = 0;
-
-	/**
-	 * @return the current gamePhase.
-	 */
-	Integer getGamePhase() {
-		return gamePhase;
-	}
 
 	/**
 	 * This is the constructor to the controller.
@@ -231,35 +223,6 @@ public class MainController {
 	}
 
 	/**
-	 * This is the inner class, to define action listener to the option "Pass Button"
-	 * @author Team20
-	 */
-	private class passBtnListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			Player tmpPlayers[] = gameConfig.getPlayers();
-			int i;
-			previousCountryName = null;
-			gameConfig.getCurrentPlayer().setTurnStatus(true);
-			for (i = 0; i < tmpPlayers.length; i++) {
-				if (!tmpPlayers[i].getTurnStatus()) {
-					break;
-				}
-			}
-
-			if (i >= tmpPlayers.length) {
-				incrementGamePhase();
-				for (i = 0; i < tmpPlayers.length; i++) {
-					tmpPlayers[i].setTurnStatus(false);
-				}
-			}
-
-			gameConfig.nextPlayerTurn();
-		}
-	}
-
-	/**
 	 * This is the inner class, to define action listener to the option "Submit Button"
 	 * @author Team20
 	 */
@@ -284,8 +247,6 @@ public class MainController {
 			starterView.setVisible(false);
 			addTerritoryListeners();
 			InfoView infoView = mainWindow.getInfoView();
-			infoView.passBtnActionListener(new passBtnListener());
-			gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
 
 			String error = gameConfig.getMapObj().validateMap();
 
@@ -295,25 +256,6 @@ public class MainController {
 			}
 
 		}
-	}
-
-	/**
-	 * This functions increment the gamePhase according to previous phase.
-	 */
-	private void incrementGamePhase() {
-		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
-			gameConfig.calcReinforcementArmy();
-			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-			System.out.println("Startup Phase ends, Reinforcement Phase Begins");
-		} else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
-			gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
-			System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
-		} else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-			gameConfig.calcReinforcementArmy();
-			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-			System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
-		}
-		
 	}
 
 	/**
@@ -332,12 +274,13 @@ public class MainController {
 			// TODO Auto-generated method stub
 			Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
 			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
-
+			Integer gamePhase = gameConfig.getGamePhase();
 			if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
 					|| (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
 				if (Objects.equals(currentPlayerId, territoryOwner)) {
 					if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
 						gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
+						gameConfig.nextPlayerOrPhase();
 					}
 
 					if ((previousCountryName != null) && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {

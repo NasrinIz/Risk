@@ -18,6 +18,8 @@ public class GameConfig {
 	private ArrayList<Card> gameCards = new ArrayList<Card>();
 	Integer currentPlayer = 0;
 	
+
+	private Integer gamePhase = 0;
 	private GenericFunctions genericFunctionsObj = new GenericFunctions();
 	
 	/**
@@ -33,6 +35,7 @@ public class GameConfig {
 		//setContinentsTerritoryList();
 		initMap();
 		setNumPlayers();
+		gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
 	}
 
 	/**
@@ -50,6 +53,13 @@ public class GameConfig {
 	public void setPlayers(Player inPlayers[])
 	{
 		this.players = inPlayers;
+	}
+	
+	/**
+	 * @return the current gamePhase.
+	 */
+	public Integer getGamePhase() {
+		return gamePhase;
 	}
 	
 	/**
@@ -378,5 +388,57 @@ public class GameConfig {
 			mapObj.getDictTerritory().get(destTerritory).getName(),
 			mapObj.getDictTerritory().get(destTerritory).getArmies());
 		}
+	}
+	
+	/**
+	 * This functions increment the gamePhase according to previous phase.
+	 */
+	private void incrementGamePhase() {
+		if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
+			calcReinforcementArmy();
+			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
+			System.out.println("Startup Phase ends, Reinforcement Phase Begins");
+		} else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+			gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
+			System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
+		} else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+			calcReinforcementArmy();
+			gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
+			System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
+		}
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void nextPlayerOrPhase() {
+		Player tmpPlayers[] = getPlayers();
+		int i;
+		getCurrentPlayer().setTurnStatus(true);
+		for (i = 0; i < tmpPlayers.length; i++) {
+			if (!tmpPlayers[i].getTurnStatus()) {
+				break;
+			}
+		}
+
+		if((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) ||
+				(gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT))
+		{
+			Integer gamePhaseFlag = 0; // 0 Change True, -1 Change False
+			for (i = 0; i < tmpPlayers.length; i++) {
+				if(tmpPlayers[i].getArmies() != 0) {
+					gamePhaseFlag = -1;
+					break;
+				}
+			}
+			
+			if(gamePhaseFlag == 0)
+			{
+				incrementGamePhase();
+			}
+		}
+
+		nextPlayerTurn();
 	}
 }
