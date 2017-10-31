@@ -20,7 +20,7 @@ public class InfoView extends JPanel
 	private JButton passTurnBtn;
 	public InfoView() 
 	{
-		this.addPassButton();
+		//this.addPassButton();
 		this.showTerritoryPanel();
 	}
 

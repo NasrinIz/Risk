@@ -112,19 +112,18 @@ public class GameConfig
 	/**
 	 * This function is used to initialize Map Object.
 	 */
-	public void initMap()
+	private void initMap()
 	{
-		if(this.mapObj.readMap().equals("true") == false)
+		if(!this.mapObj.readMap().equals("true"))
 		{
 			System.out.println("Map initialization failure");
 			return;
 		}
 		
-		if(this.mapObj.validateMap().equals("true") == false)
+		if(!this.mapObj.validateMap().equals("true"))
 		{
 			System.out.println("Map validation failure");
-			return;
-		}
+        }
 	}
 	
 	/**
@@ -386,17 +385,8 @@ public class GameConfig
 	 * @param destTerritory fortify to destiny
 	 */
 	public void fortifyArmies(String srcTerritory, String destTerritory)
-	{
-		if(mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1)
-		{
-			mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
-			mapObj.getDictTerritory().get(destTerritory).increaseArmies();
-			System.out.printf("\n%s : %d left, %s : %d now", 
-			mapObj.getDictTerritory().get(srcTerritory).getName(),
-			mapObj.getDictTerritory().get(srcTerritory).getArmies(), 
-			mapObj.getDictTerritory().get(destTerritory).getName(),
-			mapObj.getDictTerritory().get(destTerritory).getArmies());
-		}
+    {
+        getCurrentPlayer().fortifyArmy(mapObj, srcTerritory, destTerritory);
 	}
 	
 	/**

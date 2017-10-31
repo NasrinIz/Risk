@@ -34,7 +34,7 @@ public class Player
 	 * This function is used to set current player's turn status.
 	 * @param status The new status.
 	 */
-	public void setTurnStatus(boolean status)
+    void setTurnStatus(boolean status)
 	{
 		isTurnCompleted = status;
 	}
@@ -43,7 +43,7 @@ public class Player
 	 * This function is used to get current player's turn status.
 	 * @return The current status.
 	 */
-	public boolean getTurnStatus()
+    boolean getTurnStatus()
 	{
 		return isTurnCompleted;
 	}
@@ -122,7 +122,7 @@ public class Player
 	 * This function is called after player occupyies a territory to
 	 * increase the numbers of territories.
 	 */
-	public void occupyTerritory() 
+    void occupyTerritory()
 	{
 		numTerritories++;
 	}
@@ -158,7 +158,7 @@ public class Player
 	 * This function is used to set number of armies that player owns
 	 * @param inArmies New number of armies of player.
 	 */
-	public void setArmies(int inArmies) 
+    void setArmies(int inArmies)
 	{
 		armies = inArmies;
 	}
@@ -167,7 +167,7 @@ public class Player
 	 * This function is called to retrieve number of armies that player owns
 	 * @return armies Number of armies that player owns
 	 */
-	public int getArmies() 
+    int getArmies()
 	{
 		return armies;
 	}
@@ -186,17 +186,14 @@ public class Player
 	 */
 	public void placeArmiesOnTerritory(String territoryName)
 	{
-		for(int i=0; i < territories.size(); i++)
-		{
-			if(territories.get(i).getName().equals(territoryName) == true)
-			{
-				if(armies > 0)
-				{
-					territories.get(i).increaseArmies();
-					armies--;
-				}
-			}
-		}
+        for (Territory territory : territories) {
+            if (territory.getName().equals(territoryName)) {
+                if (armies > 0) {
+                    territory.increaseArmies();
+                    armies--;
+                }
+            }
+        }
 	}
 	
 	/**
@@ -238,7 +235,7 @@ public class Player
 	/**
 	 * This function is used to exchange cards
 	 */
-	public void exchangeCards()
+    private void exchangeCards()
 	{
 		ArrayList<Card> cards = this.gameCards;
 		Integer rewardedArmy = 0;
@@ -456,4 +453,17 @@ public class Player
 			}
 		}
 	}
+
+	void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory){
+        if(mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1)
+        {
+            mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
+            mapObj.getDictTerritory().get(destTerritory).increaseArmies();
+            System.out.printf("\n%s : %d left, %s : %d now",
+                    mapObj.getDictTerritory().get(srcTerritory).getName(),
+                    mapObj.getDictTerritory().get(srcTerritory).getArmies(),
+                    mapObj.getDictTerritory().get(destTerritory).getName(),
+                    mapObj.getDictTerritory().get(destTerritory).getArmies());
+        }
+    }
 }
