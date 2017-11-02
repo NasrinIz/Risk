@@ -3,7 +3,6 @@ package src;
 import javax.swing.SwingUtilities;
 
 import src.controller.MainController;
-import src.model.GenericFunctions;
 import src.view.StarterWindow;
 /**
  * This is the main class that is used to instantiate the src.controller, from where

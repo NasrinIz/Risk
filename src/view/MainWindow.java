@@ -25,6 +25,8 @@ public class MainWindow extends JFrame
 	private JScrollPane mapPane;
 	private InfoView infoView;
 	private ErrorInfoView errorInfoView;
+	private PlayerInformationView playerInformationView;
+	private PlayerDominationView playerDominationView;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<>(2, 2);
 	public MainWindow() 
@@ -83,8 +85,12 @@ public class MainWindow extends JFrame
 
 		infoView = new InfoView();
 		errorInfoView = new ErrorInfoView();
+        playerInformationView = new PlayerInformationView();
+        playerDominationView = new PlayerDominationView();
 		this.getContentPane().add(infoView);
 		this.getContentPane().add(errorInfoView);
+        this.getContentPane().add(playerInformationView);
+        this.getContentPane().add(playerDominationView);
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 
@@ -124,5 +130,18 @@ public class MainWindow extends JFrame
 	{
 		return errorInfoView;
 	}
-	
+    /**
+     * @return the infoView
+     */
+    public PlayerInformationView getPlayerInformationView()
+    {
+        return playerInformationView;
+    }
+	/**
+	 * @return the infoView
+	 */
+	public PlayerDominationView getPlayerDominationView()
+	{
+		return playerDominationView;
+	}
 }
