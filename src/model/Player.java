@@ -1,6 +1,7 @@
 package src.model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * This class is used to instantiate players, and different attributes.
@@ -29,6 +30,8 @@ public class Player
 	
 	private Integer currentCardReward = 15;
 	private Integer countCardExchange = 0;
+	
+	GenericFunctions genFunObj = new GenericFunctions();
 	
 	/**
 	 * This function is used to set current player's turn status.
@@ -212,6 +215,180 @@ public class Player
 		armies += newArmies;
 		
 		System.out.printf("\nPlayer %d received %d armies.", this.getPlayerId(), armies);
+	}
+
+	/**
+	 * This function is called to initiate the attack from attacker country
+	 * to defendor country.
+	 * @param attackerDice Number of dices, attacker chooses to roll
+	 * @param defendorDice Number of dices, defendor chooses to roll
+	 * @param srcTerritory Attacker Country
+	 * @param targetTerritory Defendor Country
+	 * @return Returns whether the attack was successfull or not
+	 */
+	public Integer attackTerritory(Integer attackerDice, Integer defendorDice, 
+			Territory srcTerritory, Territory targetTerritory, Map<String, Continent> dictContinents)
+	{
+		Integer rt = 0;
+		Integer adjacencyFlag = -1;
+		Integer isCaptured; 
+				
+		if(this.territories.contains(srcTerritory) != true)
+		{
+			return -1;
+		}
+		
+		ArrayList<String> adjacents = srcTerritory.getAdjacentCountries();
+		for(int ctr = 0; ctr < adjacents.size(); ctr++)
+		{
+			if(adjacents.get(ctr).equals(targetTerritory.getName()) == true)
+			{
+				adjacencyFlag = 0;
+				break;
+			}
+		}
+		
+		if(adjacencyFlag == -1)
+		{
+			return -1;
+		}
+		
+		if(srcTerritory.getArmies() < 2)
+		{
+			return -1;
+		}
+		
+		isCaptured = rollDiceToAttack(attackerDice, defendorDice, srcTerritory, targetTerritory);
+		
+		if(isCaptured == 0) // Attacker captured the territory
+		{
+			targetTerritory.setOwner(id);
+			targetTerritory.increaseArmies();
+			srcTerritory.decreaseArmies();
+		}
+		
+		for(String continent : dictContinents.keySet())
+		{
+			if(dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true)
+			{
+				System.out.println("Player " + srcTerritory.getOwner().toString() + " captured " + srcTerritory.getName());
+				System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward());
+			}
+		}
+		// vj push to view
+		
+		return rt;
+	}
+	
+	/**
+	 * This function is called to actually roll the dice for attacker and defender
+	 * @param redDice Number of red dice to roll
+	 * @param whiteDice Number of white dice to roll
+	 * @param attacker Attacker Country
+	 * @param defendor Defender Country
+	 * @return Returns whether the country was captured or not
+	 */
+	private Integer rollDiceToAttack(Integer redDice, Integer whiteDice, Territory attacker, Territory defendor)
+	{
+		Integer rDiceOne = genFunObj.genRandomNumber(1, 6);
+		Integer rDiceTwo = genFunObj.genRandomNumber(1, 6);
+		Integer rDiceThree = genFunObj.genRandomNumber(1, 6);
+		Integer wDiceOne = genFunObj.genRandomNumber(1, 6);
+		Integer wDiceTwo = genFunObj.genRandomNumber(1, 6);
+		Integer max = getMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
+		Integer maxTwo = getSecondMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
+		
+		switch(redDice)
+		{
+		case 1:
+			if(max > wDiceOne)
+			{
+				defendor.decreaseArmies();
+			}
+			else
+			{
+				attacker.decreaseArmies();
+			}
+			break;
+		case 2:
+		case 3:
+			if(max > wDiceOne)
+			{
+				defendor.decreaseArmies();
+			}
+			else
+			{
+				attacker.decreaseArmies();
+			}
+			if(maxTwo > wDiceTwo)
+			{
+				defendor.decreaseArmies();
+			}
+			else
+			{
+				defendor.decreaseArmies();
+			}
+		}
+		
+		if(defendor.getArmies() == 0)
+		{
+			return 0;
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * This function is called to receive the highest roll of all 3 dices
+	 * @param r1 Red dice number 1
+	 * @param r2 Red dice number 2
+	 * @param r3 Red dice number 3
+	 * @return Returns the highest dice roll
+	 */
+	private Integer getMaxRedDice(Integer r1, Integer r2, Integer r3)
+	{
+		if((r1 >= r2) && (r1 >= r3))
+		{
+			return r1;
+		}
+		else if((r2 >= r1) && (r2 >= r3))
+		{
+			return r2;
+		}
+		else if((r3 >= r1) && (r3 >= r2))
+		{
+			return r3;
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * This function is called to receive the second highest roll of all 3 dices
+	 * @param r1 Red dice number 1
+	 * @param r2 Red dice number 2
+	 * @param r3 Red dice number 3
+	 * @return Returns the second highest dice roll
+	 */
+	private Integer getSecondMaxRedDice(Integer r1, Integer r2, Integer r3)
+	{
+		if(((r1 >= r2) && (r1 <= r3)) ||
+				((r1 >= r3) && (r1 <= r2)))
+		{
+			return r1;
+		}
+		else if(((r2 >= r1) && (r2 <= r3)) ||
+				((r2 >= r3) && (r2 <= r1)))
+		{
+			return r2;
+		}
+		else if(((r3 >= r1) && (r3 <= r2)) ||
+				((r3 >= r2) && (r3 <= r1)))
+		{
+			return r3;
+		}
+		
+		return 0;
 	}
 	
 	/**

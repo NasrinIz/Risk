@@ -111,12 +111,19 @@ public class Continent
 
 	/**
 	 * This method checks if a continent is captured or not.
-	 * @param p player
-	 * @return true
+	 * @param playerId The owner that might have captured the continent
+	 * @return Returns if the continent is captured by player or not.
 	 */
-//	public boolean isContinentCaptured(Player p) {
-//		return true;
-//	}
+	public boolean isContinentCaptured(Integer playerId) {
+		for(int ctr = 0; ctr < territories.size(); ctr++)
+		{
+			if(territories.get(ctr).getOwner() != playerId)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	/** 
 	 * @return This function returns the continent information in a string
