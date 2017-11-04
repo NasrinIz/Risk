@@ -148,4 +148,14 @@ public class GenericFunctions
 		Random rand = new Random();
 		return (rand.nextInt((max - min) + 1) + min);
 	}
+	
+	public String toString(String[] astrArray){
+		String str = "";
+		 for(String value : astrArray) {
+			 System.out.println(value);
+			 str= str + value + "\n";
+		 }
+		return str;
+		
+	}
 }

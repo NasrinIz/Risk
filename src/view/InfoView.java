@@ -20,7 +20,7 @@ public class InfoView extends JPanel
 	private JButton passTurnBtn;
 	public InfoView() 
 	{
-		this.addPassButton();
+		//this.addPassButton();
 		this.showTerritoryPanel();
 	}
 
@@ -42,8 +42,8 @@ public class InfoView extends JPanel
 		this.setLayout(new FlowLayout());
 		InfoTextArea = new JTextArea();
 		InfoTextArea.setRows(10);
-		this.setBounds(1024, 0, 255, 468);
-		InfoTextArea.setBounds(1024, 0, 255, 468);
+		this.setBounds(1024, 0, 255, 268);
+		InfoTextArea.setBounds(1024, 0, 255, 268);
 		this.add(InfoTextArea);
 		
 		

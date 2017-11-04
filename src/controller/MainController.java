@@ -288,6 +288,7 @@ public class MainController
 	 */
 	private class territoryListener implements ActionListener 
 	{
+
 		String countryName;
 
 		territoryListener(String countryName) 
@@ -302,6 +303,36 @@ public class MainController
 			Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
 			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
 			Integer gamePhase = gameConfig.getGamePhase();
+
+			String playerName = gameConfig.getCurrentPlayer().getName();
+			String gamePhaseName = "";
+			switch (gamePhase) {
+				case 0:
+					gamePhaseName = "STARTUP";
+					break;
+				case 1:
+					gamePhaseName = "REINFORCEMENT";
+					break;
+				case 2:
+					gamePhaseName = "FORTIFICATION";
+					break;
+				case 3:
+					gamePhaseName = "ATTACK";
+					break;
+			}
+
+			gameConfig.getCurrentPlayer().numOfTerritories();
+			mainWindow.getPlayerInformationView().showPlayerInformationView(playerName + gamePhaseName);
+			mainWindow.getPlayerDominationView().showPlayerDominationView(gameConfig.getCurrentPlayer().numOfTerritories(),gameConfig.getMapObj().getNumTerritories());
+
+			if(gamePhase == 3){
+                mainWindow.getAttackView().showAttackInfo();
+            }
+
+            if(gamePhase == 1){
+                mainWindow.getCardView().showCardInfo();
+            }
+
 			if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) 
 					|| (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
 					|| (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) 
@@ -334,7 +365,6 @@ public class MainController
 			}
 		}
 	}
-
 	/**
 	 * This function calls for the addition of all the territory listeners in the territory hashmap
 	 */
