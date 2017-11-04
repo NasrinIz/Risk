@@ -51,7 +51,7 @@ public class Territory
 	public void increaseArmies()
 	{
 		stationedArmies++;
-		System.out.println(this.getOwner() + " gets one army");
+		System.out.println("Player " + this.getOwner().toString() + " gets one army on " + this.name);
 	}
 	
 	/**
@@ -60,7 +60,7 @@ public class Territory
 	public void decreaseArmies()
 	{
 		stationedArmies--;
-		System.out.println(this.getOwner() + " lost one army");
+		System.out.println("Player " + this.getOwner().toString() + " lost one army on " + this.name);
 	}
 	
 	/**

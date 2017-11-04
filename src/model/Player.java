@@ -225,26 +225,44 @@ public class Player {
         Integer isCaptured;
         Territory srcTerritory = srcAttackTerritory;
         Territory targetTerritory = dstAttackTerritory;
-        if (this.territories.contains(srcTerritory) != true) {
+        if (this.territories.contains(srcTerritory) != true) 
+        {
             return -1;
         }
 
         ArrayList<String> adjacents = srcTerritory.getAdjacentCountries();
-        for (int ctr = 0; ctr < adjacents.size(); ctr++) {
-            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true) {
+        for (int ctr = 0; ctr < adjacents.size(); ctr++) 
+        {
+            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true) 
+            {
                 adjacencyFlag = 0;
                 break;
             }
         }
 
-        if (adjacencyFlag == -1) {
+        if (adjacencyFlag == -1) 
+        {
+        	System.out.println("Attack failed, attacking country is not adjacent to defending country");
             return -1;
         }
 
-        if (srcTerritory.getArmies() < 2) {
+        if ((srcTerritory.getArmies() + 1) < attackerDice) 
+        {
+        	System.out.println("Attacker's " + srcTerritory.getArmies().toString() + " armies on " +
+        			srcTerritory.getName() + " not enough to roll " + attackerDice.toString() + " dice");
             return -1;
         }
-
+        
+        if ((targetTerritory.getArmies()) < defendorDice) 
+        {
+        	System.out.println("Defender's " + targetTerritory.getArmies().toString() + " armies on " +
+        			targetTerritory.getName() + " not enough to roll " + defendorDice.toString() + " dice");
+            return -1;
+        }
+        
+        System.out.println("Player " + srcTerritory.getOwner().toString() + 
+        		" attacks player " + targetTerritory.getOwner().toString() + "'s Territory");
+        
         isCaptured = rollDiceToAttack(attackerDice, defendorDice, srcTerritory, targetTerritory);
 
         if (isCaptured == 0) // Attacker captured the territory
@@ -256,14 +274,20 @@ public class Player {
             srcTerritory.decreaseArmies();
         }
 
-        for (String continent : dictContinents.keySet()) {
-            if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) {
-                System.out.println("Player " + srcTerritory.getOwner().toString() + " captured " + srcTerritory.getName());
-                System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward());
+        for (String continent : dictContinents.keySet()) 
+        {
+            if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) 
+            {
+                System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
+                System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() + 
+                		" additional armies");
             }
         }
         // vj push to view
 
+        
+        srcAttackTerritory = null;
+        dstAttackTerritory = null;
         return rt;
     }
 
@@ -285,26 +309,70 @@ public class Player {
         Integer max = getMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
         Integer maxTwo = getSecondMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
         
+        if(wDiceTwo > wDiceOne)
+        {
+        	wDiceOne = wDiceOne + wDiceTwo;
+        	wDiceTwo = wDiceOne - wDiceTwo;
+        	wDiceOne = wDiceOne - wDiceTwo;
+        }
+        
         System.out.println("Attacker rolls " + redDice.toString() + " dice.");
         System.out.println("Defender rolls " + whiteDice.toString() + " dice.");
         switch (redDice) {
             case 1:
-                if (max > wDiceOne) {
+            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
+            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                if (max > wDiceOne) 
+                {
+                	System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
+                			", Attacker Wins");
                     defendor.decreaseArmies();
-                } else {
+                } 
+                else 
+                {
+                	System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
+                			", Defendor Wins");
                     attacker.decreaseArmies();
                 }
                 break;
             case 2:
             case 3:
-                if (max > wDiceOne) {
+            	if(redDice == 2)
+            	{
+	            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
+	            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + maxTwo.toString());
+	            }
+            	else if(redDice == 3)
+            	{
+            		System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceOne.toString());
+            		System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceTwo.toString());
+                	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceThree.toString());
+            	}
+            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
+            	
+                if (max > wDiceOne) 
+                {
+                	System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
+                			", Attacker Wins");
                     defendor.decreaseArmies();
-                } else {
+                } 
+                else 
+                {
+                	System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
+                			", Defendor Wins");
                     attacker.decreaseArmies();
                 }
-                if (maxTwo > wDiceTwo) {
+                if (maxTwo > wDiceTwo) 
+                {
+                	System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
+                			", Attacker Wins");
                     defendor.decreaseArmies();
-                } else {
+                } 
+                else 
+                {
+                	System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
+                			", Defendor Wins");
                     defendor.decreaseArmies();
                 }
         }

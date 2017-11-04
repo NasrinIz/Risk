@@ -76,6 +76,10 @@ public class AttackView extends JPanel {
                 attackerDice = Integer.parseInt(attackInputField.getText());
                 attackerTurn = false;
             }
+            else
+            {
+            	System.out.println("Incorrect dice roll. Attacker can roll from 1 to 3 dice");
+            }
         } 
         else 
         {
@@ -83,14 +87,17 @@ public class AttackView extends JPanel {
             {
                 defenderDice = Integer.parseInt(attackInputField.getText());
                 attackerTurn = true;
+                if((attackerDice != null) && (defenderDice != null) &&
+                		(attackerDice > 0) && (attackerDice < 4) && 
+                		(defenderDice > 0) && (defenderDice < 3)) 
+                {
+                    return true;
+                } 
             }
-            
-            if((attackerDice != null) && (defenderDice != null) &&
-            		(attackerDice > 0) && (attackerDice < 4) && 
-            		(defenderDice > 0) && (defenderDice < 3)) 
+            else
             {
-                return true;
-            } 
+            	System.out.println("Incorrect dice roll. Defender can roll from 1 to 2 dice");
+            }
         }
 
         return false;
