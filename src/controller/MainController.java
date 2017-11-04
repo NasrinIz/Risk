@@ -308,7 +308,7 @@ public class MainController {
             Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
             Integer gamePhase = gameConfig.getGamePhase();
 
-            if (gamePhase == 3) {
+            if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
                 mainWindow.getAttackView().showAttackInfo();
                 mainWindow.getAttackView().addDiceBtnListener(new attackTerritory());
                 if (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner() == gameConfig.getCurrentPlayer().getPlayerId()) {
@@ -322,8 +322,7 @@ public class MainController {
                 }
 
             }
-
-            if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
+            else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
                 if (Objects.equals(currentPlayerId, territoryOwner)) {
@@ -373,10 +372,13 @@ public class MainController {
      *
      * @author Team20
      */
-    private class attackTerritory implements ActionListener {
+    private class attackTerritory implements ActionListener 
+    {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            if (mainWindow.getAttackView().checkDiceValue()) {
+        public void actionPerformed(ActionEvent e) 
+        {
+            if (mainWindow.getAttackView().checkDiceValue()) 
+            {
                 String values[] = genericFunctionsObj.genCommaSepStrToArray(mainWindow.getAttackView().getDiceValues());
                 gameConfig.getCurrentPlayer().attackTerritory(
                         genericFunctionsObj.genStrToInt(values[0]),

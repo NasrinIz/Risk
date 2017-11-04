@@ -91,9 +91,11 @@ public class GameConfig extends Observable {
             return -1;
 
         setupPlayers();
+        /*
         for (String territory : mapObj.getDictTerritory().keySet()) {
             System.out.println((mapObj.getDictTerritory()).get(territory).getOwner());
         }
+        */
         return 0;
     }
 
@@ -140,7 +142,7 @@ public class GameConfig extends Observable {
 
             Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards);
             // playerObj.setArmies(getInitArmy());
-            playerObj.setArmies(22);
+            playerObj.setArmies(30);
             players[i] = playerObj;
         }
 
@@ -291,9 +293,9 @@ public class GameConfig extends Observable {
             //System.out.println(pair.getKey() + " = " + pair.getValue());
         }
 
-//        for (int i = 0; i < players.length; i++) {
-//            players[i].calcReinforcementArmies();
-//        }
+        for (int i = 0; i < players.length; i++) {
+            players[i].calcReinforcementArmies();
+        }
     }
 
     /**
@@ -376,6 +378,7 @@ public class GameConfig extends Observable {
 
             if (gamePhaseFlag == 0) {
                 incrementGamePhase();
+                nextPlayerTurn();
             } else {
                 nextPlayerTurn();
             }

@@ -199,7 +199,6 @@ public class Player {
      */
     public void calcReinforcementArmies() {
         Integer newArmies = numTerritories / 3;
-        exchangeCards();
 
         newArmies += continentArmyReward;
         newArmies += cardsArmyReward;
@@ -218,17 +217,14 @@ public class Player {
      * @param targetTerritory Defendor Country
      * @return Returns whether the attack was successfull or not
      */
-    public Integer attackTerritory(Integer attackerDice, Integer defendorDice, Map<String, Continent> dictContinents) {
-        System.out.println("Attack takes place");
-        return 0;
-    }
-
-    public Integer attackTerritory1(Integer attackerDice, Integer defendorDice,
-                                    Territory srcTerritory, Territory targetTerritory, Map<String, Continent> dictContinents) {
+    public Integer attackTerritory(Integer attackerDice, Integer defendorDice,
+                                    Map<String, Continent> dictContinents) 
+    {
         Integer rt = 0;
         Integer adjacencyFlag = -1;
         Integer isCaptured;
-
+        Territory srcTerritory = srcAttackTerritory;
+        Territory targetTerritory = dstAttackTerritory;
         if (this.territories.contains(srcTerritory) != true) {
             return -1;
         }
@@ -253,6 +249,8 @@ public class Player {
 
         if (isCaptured == 0) // Attacker captured the territory
         {
+        	System.out.println("Player " + srcTerritory.getOwner().toString() + 
+            		" captured player " + targetTerritory.getOwner().toString() + "'s Territory");
             targetTerritory.setOwner(id);
             targetTerritory.increaseArmies();
             srcTerritory.decreaseArmies();
@@ -286,7 +284,9 @@ public class Player {
         Integer wDiceTwo = genFunObj.genRandomNumber(1, 6);
         Integer max = getMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
         Integer maxTwo = getSecondMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
-
+        
+        System.out.println("Attacker rolls " + redDice.toString() + " dice.");
+        System.out.println("Defender rolls " + whiteDice.toString() + " dice.");
         switch (redDice) {
             case 1:
                 if (max > wDiceOne) {

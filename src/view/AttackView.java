@@ -16,8 +16,8 @@ public class AttackView extends JPanel {
     private JLabel attackLabel;
     private JButton diceNumberButton;
     private Boolean attackerTurn = true;
-    private Integer attackerDice;
-    private Integer defenderDice;
+    private Integer attackerDice = 0;
+    private Integer defenderDice = 0;
 
 
     AttackView() {
@@ -44,8 +44,11 @@ public class AttackView extends JPanel {
         attackInputField.setBounds(1044, 418, 235, 50);
 
         diceNumberButton = new JButton("Submit");
-        attackInputField.setBounds(1024, 450, 200, 50);
+        diceNumberButton.setBounds(1024, 450, 200, 50);
 
+        this.add(attackLabel);
+        this.add(attackInputField);
+        this.add(diceNumberButton);
         this.setBorder(border);
         this.setVisible(true);
     }
@@ -54,39 +57,63 @@ public class AttackView extends JPanel {
      * Showing attack input
      */
     public void showAttackInfo() {
-
-
-        this.add(attackLabel);
-        this.add(attackInputField);
-        this.add(diceNumberButton);
+    	/*
+    	Component obj;
+        obj = this.add(attackLabel);
+        obj = this.add(attackInputField);
+        obj = this.add(diceNumberButton);
+        */
     }
 
     /**
      *
      */
     public Boolean checkDiceValue() {
-        if (attackerTurn) {
-            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) {
+        if (attackerTurn) 
+        {
+            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
+            {
                 attackerDice = Integer.parseInt(attackInputField.getText());
                 attackerTurn = false;
             }
-        } else {
-            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) {
+        } 
+        else 
+        {
+            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) 
+            {
                 defenderDice = Integer.parseInt(attackInputField.getText());
                 attackerTurn = true;
             }
+            
+            if((attackerDice != null) && (defenderDice != null) &&
+            		(attackerDice > 0) && (attackerDice < 4) && 
+            		(defenderDice > 0) && (defenderDice < 3)) 
+            {
+                return true;
+            } 
         }
-        if (attackerDice > 0 && attackerDice < 4 && defenderDice > 0 && defenderDice < 3) {
-            return true;
-        } else {
-            return false;
-        }
+
+        return false;
     }
 
-    public String getDiceValues() {
+    /**
+     * This function returns the dice values to the controller from view.
+     * @return Dice Values of both attacker and defender as one String
+     */
+    public String getDiceValues() 
+    {
         return attackerDice.toString() + "," + defenderDice.toString();
     }
 
+    /**
+     * This function is used to reset the dice values to zero
+     */
+    public void resetDiceValues() 
+    {
+    	attackerDice = 0;
+    	defenderDice = 0;
+    }
+    
     /**
      * @param listenForDiceBtn dice btn
      */
