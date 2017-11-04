@@ -27,7 +27,7 @@ public class CardView extends JPanel
     {
         this.setBackground(Color.CYAN);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 568, 255, 100);
+        this.setBounds(1024, 568, 255, 50);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
         InfoTextArea.setBounds(1024, 568, 200, 50);

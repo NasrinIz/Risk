@@ -29,7 +29,7 @@ public class AttackView extends JPanel
     {
         this.setBackground(Color.DARK_GRAY);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 468, 255, 100);
+        this.setBounds(1024, 418, 255, 150);
 
 
         TitledBorder border = new TitledBorder("Attack Panel");
@@ -39,10 +39,10 @@ public class AttackView extends JPanel
         this.setVisible(true);
         attackInputField = new JTextField();
         attackLabel= new JLabel("Dice #: ");
-        attackLabel.setBounds(1024, 468, 30, 100);
+        attackLabel.setBounds(1024, 418, 30, 150);
 
         attackInputField = new JTextField();
-        attackInputField.setBounds(1024, 550, 200, 100);
+        attackInputField.setBounds(1024, 500, 200, 150);
 
         diceNumberButton = new JButton("Submit");
     }

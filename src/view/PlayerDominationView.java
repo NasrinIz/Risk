@@ -25,7 +25,7 @@ public class PlayerDominationView extends JPanel implements Observer{
     {
         this.setBackground(Color.GREEN);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 368, 255, 100);
+        this.setBounds(1024, 368, 255, 50);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
         InfoTextArea.setBounds(1024, 368, 200, 50);
