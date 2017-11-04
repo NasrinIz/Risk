@@ -1,6 +1,8 @@
 package src.view;
 
 
+import src.model.GameConfig;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -10,19 +12,13 @@ import java.util.Observer;
 /**
  * This view shows the percentage of territories of players
  */
-public class PlayerDominationView extends JPanel implements Observer{
+public class PlayerDominationView extends JPanel implements Observer {
     private JTextArea InfoTextArea;
-
-    PlayerDominationView()
-    {
-        this.showInfoPanel();
-    }
 
     /**
      * Show error information
      */
-    private void showInfoPanel()
-    {
+    public void showInfoPanel() {
         this.setBackground(Color.GREEN);
         this.setLayout(new FlowLayout());
         this.setBounds(1024, 368, 255, 50);
@@ -40,18 +36,15 @@ public class PlayerDominationView extends JPanel implements Observer{
 
     /**
      * @param playerTerritories Number of territories of players
-     * @param totalTerritories Total numbers of territories
+     * @param totalTerritories  Total numbers of territories
      */
-    public void showPlayerDominationView(Integer playerTerritories, Integer totalTerritories)
-    {
-        System.out.println(playerTerritories);
-        System.out.println(totalTerritories);
+    public void showPlayerDominationView(Integer playerTerritories, Integer totalTerritories) {
         double percentage = Math.floor(((playerTerritories * 100) / totalTerritories));
-        System.out.println(percentage);
         InfoTextArea.setText(percentage + "%");
     }
+
     @Override
     public void update(Observable o, Object arg) {
-
+        this.showPlayerDominationView(((GameConfig) o).getCurrentPlayer().numOfTerritories(), ((GameConfig) o).getMapObj().getNumTerritories());
     }
 }

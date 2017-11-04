@@ -11,10 +11,7 @@ import src.model.GameConfig;
 import src.model.GenericFunctions;
 import src.model.MapEditor;
 import src.model.Player;
-import src.view.InfoView;
-import src.view.MainWindow;
-import src.view.StarterWindow;
-import src.view.TerritoryView;
+import src.view.*;
 
 /**
  * As our architecture is MVC, this is the main src.controller, that adds action
@@ -37,6 +34,9 @@ public class MainController
 	 * 0 New game 1 Edit or create
 	 */
 	private Integer applicationMode = 0;
+    private PlayerDominationView playerDominationView;
+    private PlayerInformationView playerInformationView;
+    private CardView cardView;
 
 	/**
 	 * This is the constructor to the controller.
@@ -251,6 +251,8 @@ public class MainController
 		@Override
 		public void actionPerformed(ActionEvent e) 
 		{
+
+            mainWindow = new MainWindow();
 			// TODO Auto-generated method stub
 
 			if (applicationMode == 1) 
@@ -264,7 +266,21 @@ public class MainController
 
 			gameConfig = new GameConfig(playerNum, selectedMap);
 
-			mainWindow = new MainWindow();
+            playerDominationView = new PlayerDominationView();
+            mainWindow.setPlayerDominationView(playerDominationView);
+			gameConfig.addObserver(playerDominationView);
+			mainWindow.getPlayerDominationView().showInfoPanel();
+
+            playerInformationView = new PlayerInformationView();
+            mainWindow.setPlayerInformationView(playerInformationView);
+            gameConfig.addObserver(playerInformationView);
+            mainWindow.getPlayerInformationView().showInfoPanel();
+
+            cardView = new CardView();
+            mainWindow.setCardView(cardView);
+            gameConfig.addObserver(cardView);
+            mainWindow.getCardView().showCardPanel();
+
 			mainWindow.addCountryButtons(gameConfig.getMapObj());
 			mainWindow.setVisible(true);
 			starterView.setVisible(false);
@@ -304,33 +320,8 @@ public class MainController
 			Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
 			Integer gamePhase = gameConfig.getGamePhase();
 
-			String playerName = gameConfig.getCurrentPlayer().getName();
-			String gamePhaseName = "";
-			switch (gamePhase) {
-				case 0:
-					gamePhaseName = "STARTUP";
-					break;
-				case 1:
-					gamePhaseName = "REINFORCEMENT";
-					break;
-				case 2:
-					gamePhaseName = "FORTIFICATION";
-					break;
-				case 3:
-					gamePhaseName = "ATTACK";
-					break;
-			}
-
-			gameConfig.getCurrentPlayer().numOfTerritories();
-			mainWindow.getPlayerInformationView().showPlayerInformationView(playerName + gamePhaseName);
-			mainWindow.getPlayerDominationView().showPlayerDominationView(gameConfig.getCurrentPlayer().numOfTerritories(),gameConfig.getMapObj().getNumTerritories());
-
 			if(gamePhase == 3){
                 mainWindow.getAttackView().showAttackInfo();
-            }
-
-            if(gamePhase == 1){
-                mainWindow.getCardView().showCardInfo();
             }
 
 			if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) 

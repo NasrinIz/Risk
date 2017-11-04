@@ -38,7 +38,19 @@ public class MainWindow extends JFrame
 		this.initContentPane();
 	}
 
-	private void initWindow() 
+    public void setPlayerDominationView(PlayerDominationView playerDominationView) {
+        this.playerDominationView = playerDominationView;
+    }
+
+    public void setPlayerInformationView(PlayerInformationView playerInformationView) {
+        this.playerInformationView = playerInformationView;
+    }
+
+    public void setCardView(CardView cardView) {
+        this.cardView = cardView;
+    }
+
+    private void initWindow()
 	{
 		// Size the frame.
 	    setSize( new Dimension(WIDTH, HEIGHT) );
@@ -87,10 +99,7 @@ public class MainWindow extends JFrame
 
 		infoView = new InfoView();
 		errorInfoView = new ErrorInfoView();
-        playerInformationView = new PlayerInformationView();
-        playerDominationView = new PlayerDominationView();
         attackView = new AttackView();
-        cardView = new CardView();
 		this.getContentPane().add(infoView);
 		this.getContentPane().add(errorInfoView);
         this.getContentPane().add(playerInformationView);

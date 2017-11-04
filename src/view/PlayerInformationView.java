@@ -1,6 +1,8 @@
 package src.view;
 
 
+import src.model.GameConfig;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -21,7 +23,7 @@ public class PlayerInformationView extends JPanel implements Observer{
     /**
      * Show error information
      */
-    private void showInfoPanel()
+    public void showInfoPanel()
     {
         this.setBackground(Color.BLUE);
         this.setLayout(new FlowLayout());
@@ -48,6 +50,26 @@ public class PlayerInformationView extends JPanel implements Observer{
     }
     @Override
     public void update(Observable o, Object arg) {
+        String playerName = ((GameConfig) o).getCurrentPlayer().getName();
+        Integer gamePhase = ((GameConfig) o).getGamePhase();
+        String gamePhaseName = " ";
+
+        switch (gamePhase) {
+            case 0:
+                gamePhaseName = "STARTUP";
+                break;
+            case 1:
+                gamePhaseName = "REINFORCEMENT";
+                break;
+            case 2:
+                gamePhaseName = "FORTIFICATION";
+                break;
+            case 3:
+                gamePhaseName = "ATTACK";
+                break;
+        }
+
+        this.showPlayerInformationView(playerName + gamePhaseName);
 
     }
 }

@@ -350,6 +350,7 @@ public class GameConfig extends Observable {
      * And, also changes the game phase based on different conditions
      */
     public void nextPlayerOrPhase() {
+
         Player tmpPlayers[] = getPlayers();
         int i;
         getCurrentPlayer().setTurnStatus(true);
@@ -375,5 +376,8 @@ public class GameConfig extends Observable {
         }
 
         nextPlayerTurn();
+        setChanged();
+        notifyObservers(this);
     }
+
 }
