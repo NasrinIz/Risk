@@ -325,6 +325,14 @@ public class MainController
 			mainWindow.getPlayerInformationView().showPlayerInformationView(playerName + gamePhaseName);
 			mainWindow.getPlayerDominationView().showPlayerDominationView(gameConfig.getCurrentPlayer().numOfTerritories(),gameConfig.getMapObj().getNumTerritories());
 
+			if(gamePhase == 3){
+                mainWindow.getAttackView().showAttackInfo();
+            }
+
+            if(gamePhase == 1){
+                mainWindow.getCardView().showCardInfo();
+            }
+
 			if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) 
 					|| (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
 					|| (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) 

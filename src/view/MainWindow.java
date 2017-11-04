@@ -27,6 +27,8 @@ public class MainWindow extends JFrame
 	private ErrorInfoView errorInfoView;
 	private PlayerInformationView playerInformationView;
 	private PlayerDominationView playerDominationView;
+    private AttackView attackView;
+    private CardView cardView;
 	
 	private Map<String, TerritoryView> dictTerrViews = new HashMap<>(2, 2);
 	public MainWindow() 
@@ -87,10 +89,14 @@ public class MainWindow extends JFrame
 		errorInfoView = new ErrorInfoView();
         playerInformationView = new PlayerInformationView();
         playerDominationView = new PlayerDominationView();
+        attackView = new AttackView();
+        cardView = new CardView();
 		this.getContentPane().add(infoView);
 		this.getContentPane().add(errorInfoView);
         this.getContentPane().add(playerInformationView);
         this.getContentPane().add(playerDominationView);
+        this.getContentPane().add(attackView);
+        this.getContentPane().add(cardView);
 		this.getContentPane().add(mapPane);
 		this.getContentPane().repaint();
 
@@ -144,4 +150,18 @@ public class MainWindow extends JFrame
 	{
 		return playerDominationView;
 	}
+    /**
+     * @return the attackView
+     */
+    public AttackView getAttackView()
+    {
+        return attackView;
+    }
+    /**
+     * @return the attackView
+     */
+    public CardView getCardView()
+    {
+        return cardView;
+    }
 }
