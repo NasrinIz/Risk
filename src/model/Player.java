@@ -226,6 +226,13 @@ public class Player
 	public Integer attackTerritory(Integer attackerDice, Integer defendorDice, 
 			Territory srcTerritory, Territory targetTerritory, Map<String, Continent> dictContinents)
 	{
+		System.out.println("Attack takes place");
+		return 0;
+	}
+	
+	public Integer attackTerritory1(Integer attackerDice, Integer defendorDice, 
+			Territory srcTerritory, Territory targetTerritory, Map<String, Continent> dictContinents)
+	{
 		Integer rt = 0;
 		Integer adjacencyFlag = -1;
 		Integer isCaptured; 
