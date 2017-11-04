@@ -21,6 +21,7 @@ public class GenericFunctions
 	public final int GAMEPHASESTARTUP = 1;
 	public final int GAMEPHASEREINFORCEMENT = 2;
 	public final int GAMEPHASEFORTIFICATION = 3;
+	public final int GAMEPHASEATTACK = 4;
 	
 	public final int EDITORMODENONE = 0;
 	public final int EDITORMODEEDIT = 1;

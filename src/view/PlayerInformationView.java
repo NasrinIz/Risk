@@ -55,16 +55,16 @@ public class PlayerInformationView extends JPanel implements Observer{
         String gamePhaseName = " ";
 
         switch (gamePhase) {
-            case 0:
+            case 1:
                 gamePhaseName = "STARTUP";
                 break;
-            case 1:
+            case 2:
                 gamePhaseName = "REINFORCEMENT";
                 break;
-            case 2:
+            case 3:
                 gamePhaseName = "FORTIFICATION";
                 break;
-            case 3:
+            case 4:
                 gamePhaseName = "ATTACK";
                 break;
         }

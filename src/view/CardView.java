@@ -62,8 +62,7 @@ public class CardView extends JPanel implements Observer {
             return;
         }
         for (Card value : cards) {
-            Integer id = value.getOwnerId();
-            if (value.getOwnerId()== playerId) {
+            if (value.getOwnerId() == playerId) {
                 if (value.cardType == 0) {
                     cardNone++;
                 }

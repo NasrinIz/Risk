@@ -139,7 +139,8 @@ public class GameConfig extends Observable {
             }
 
             Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards);
-            playerObj.setArmies(getInitArmy());
+            // playerObj.setArmies(getInitArmy());
+            playerObj.setArmies(22);
             players[i] = playerObj;
         }
 
@@ -290,9 +291,9 @@ public class GameConfig extends Observable {
             //System.out.println(pair.getKey() + " = " + pair.getValue());
         }
 
-        for (int i = 0; i < players.length; i++) {
-            players[i].calcReinforcementArmies();
-        }
+//        for (int i = 0; i < players.length; i++) {
+//            players[i].calcReinforcementArmies();
+//        }
     }
 
     /**
@@ -338,9 +339,13 @@ public class GameConfig extends Observable {
             gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
             System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+            //  calcReinforcementArmy();
+            gamePhase = genericFunctionsObj.GAMEPHASEATTACK;
+            System.out.println("Fortification Phase ends, Attack Phase Begins");
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
             calcReinforcementArmy();
             gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-            System.out.println("Fortification Phase ends, Reinforcement Phase Begins");
+            System.out.println("Attack Phase ends, Reinforcement Phase Begins");
         }
 
     }
@@ -360,8 +365,7 @@ public class GameConfig extends Observable {
             }
         }
 
-        if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) ||
-                (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
+        if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
             Integer gamePhaseFlag = 0; // 0 Change True, -1 Change False
             for (i = 0; i < tmpPlayers.length; i++) {
                 if (tmpPlayers[i].getArmies() != 0) {
@@ -372,10 +376,19 @@ public class GameConfig extends Observable {
 
             if (gamePhaseFlag == 0) {
                 incrementGamePhase();
+            } else {
+                nextPlayerTurn();
             }
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+            if (getCurrentPlayer().getArmies() <= 0) {
+                incrementGamePhase();
+            }
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+            incrementGamePhase();
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+            nextPlayerTurn();
         }
 
-        nextPlayerTurn();
         setChanged();
         notifyObservers(this);
     }
