@@ -69,37 +69,50 @@ public class AttackView extends JPanel {
      *
      */
     public Boolean checkDiceValue() {
-        if (attackerTurn) 
-        {
-            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
-            {
-                attackerDice = Integer.parseInt(attackInputField.getText());
-                attackerTurn = false;
-            }
-            else
-            {
-            	System.out.println("Incorrect dice roll. Attacker can roll from 1 to 3 dice");
-            }
-        } 
-        else 
-        {
-            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) 
-            {
-                defenderDice = Integer.parseInt(attackInputField.getText());
-                attackerTurn = true;
-                if((attackerDice != null) && (defenderDice != null) &&
-                		(attackerDice > 0) && (attackerDice < 4) && 
-                		(defenderDice > 0) && (defenderDice < 3)) 
-                {
-                    return true;
-                } 
-            }
-            else
-            {
-            	System.out.println("Incorrect dice roll. Defender can roll from 1 to 2 dice");
-            }
-        }
-
+    	try
+    	{
+	    	if((attackerTurn == false) && ((attackerDice <= 0) || (attackerDice > 3)))
+	    	{
+	    		return false;
+	    	}
+	    	
+	        if (attackerTurn == true) 
+	        {
+	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
+	            {
+	                attackerDice = Integer.parseInt(attackInputField.getText());
+	                attackInputField.setText("");
+	                attackerTurn = false;
+	            }
+	            else
+	            {
+	            	System.out.println("Incorrect dice roll. Attacker can roll from 1 to 3 dice");
+	            }
+	        } 
+	        else 
+	        {
+	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) 
+	            {
+	                defenderDice = Integer.parseInt(attackInputField.getText());
+	                attackInputField.setText("");
+	                attackerTurn = true;
+	                if((attackerDice != null) && (defenderDice != null) &&
+	                		(attackerDice > 0) && (attackerDice < 4) && 
+	                		(defenderDice > 0) && (defenderDice < 3)) 
+	                {
+	                    return true;
+	                } 
+	            }
+	            else
+	            {
+	            	System.out.println("Incorrect dice roll. Defender can roll from 1 to 2 dice");
+	            }
+	        }
+    	}
+    	catch(NumberFormatException e)
+    	{
+    		//
+    	}
         return false;
     }
 
