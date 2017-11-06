@@ -440,8 +440,30 @@ public class Player {
     /**
      * This function is used to check, how many armies player gets when exchanging cards
      */
-    private void checkReward() {
-        if (this.countCardExchange > 6) {
+    private void checkReward() 
+    {
+    	if (this.countCardExchange == 1) 
+        {
+            this.currentCardReward = 4;
+        }
+    	else if (this.countCardExchange == 2) 
+        {
+            this.currentCardReward = 6;
+        }
+    	else if (this.countCardExchange == 3) 
+        {
+            this.currentCardReward = 8;
+        }
+    	else if (this.countCardExchange == 4) 
+        {
+            this.currentCardReward = 10;
+        }
+    	else if (this.countCardExchange == 5) 
+        {
+            this.currentCardReward = 12;
+        }
+    	else
+        {
             this.currentCardReward = 15 + (5 * (this.countCardExchange - 6));
         }
     }
@@ -449,178 +471,65 @@ public class Player {
     /**
      * This function is used to exchange cards
      */
-    private void exchangeCards() {
-        ArrayList<Card> cards = this.gameCards;
-        Integer rewardedArmy = 0;
-        Integer infantryCards = 0;
-        Integer cavalryCards = 0;
-        Integer artilleryCards = 0;
-        Integer wildCards = 0;
-
-        for (int i = 0; i < cards.size(); i++) {
-            if (cards.get(i).cardType == 1) {
-                infantryCards++;
-            } else if (cards.get(i).cardType == 2) {
-                cavalryCards++;
-            } else if (cards.get(i).cardType == 3) {
-                artilleryCards++;
-            } else if (cards.get(i).cardType == 4) {
-                wildCards++;
-            }
-        }
-
-        while ((infantryCards > 0) && (cavalryCards > 0) && (artilleryCards > 0)) {
-            infantryCards -= 1;
-            cavalryCards -= 1;
-            artilleryCards -= 1;
-
-            Integer infantryRemoved = -1;
-            Integer cavalryRemoved = -1;
-            Integer artilleryRemoved = -1;
-            int i = 0;
-            while ((infantryRemoved != 0) && (cavalryRemoved != 0) && (artilleryRemoved != 0)) {
-                if (cards.get(i).cardType == 1) {
-                    if (infantryRemoved == 0) {
-                        infantryRemoved++;
-                        cards.get(i).setOwnerId(null);
-                        cards.remove(i);
-                    } else {
-                        continue;
-                    }
-                } else if (cards.get(i).cardType == 2) {
-                    if (cavalryRemoved == 0) {
-                        cavalryRemoved++;
-                        cards.get(i).setOwnerId(null);
-                        cards.remove(i);
-                    } else {
-                        continue;
-                    }
-                } else if (cards.get(i).cardType == 3) {
-                    if (artilleryRemoved == 0) {
-                        artilleryRemoved++;
-                        cards.get(i).setOwnerId(null);
-                        cards.remove(i);
-                    } else {
-                        continue;
-                    }
-                }
-            }
+    private void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild)
+    {
+    	boolean exchangeSuccess = false;
+    	int infantryRem = 0;
+    	int cavalryRem = 0;
+    	int artilleryRem = 0;
+    	int wildRem = 0;
+    	
+    	if((infantry == 3) || (cavalry == 3) || (artillery == 3) || (wild == 3) ||
+    			((infantry == 1) && (cavalry == 1) && (artillery == 1)) ||
+    			((infantry == 1) && (cavalry == 1) && (wild == 1)) ||
+    			((infantry == 1) && (wild == 1) && (artillery == 1)) ||
+    			((wild == 1) && (cavalry == 1) && (artillery == 1)) )
+    	{
+    		exchangeSuccess = true;
+    	}
+    	
+    	if(exchangeSuccess == true)
+    	{
+    		for(int ctr = 0; ctr < this.gameCards.size(); ctr++)
+			{
+				if( (infantryRem < infantry) &&
+						(this.gameCards.get(ctr).cardType == 1))
+				{
+					this.gameCards.get(ctr).setOwnerId(null);
+					this.gameCards.remove(ctr);
+					infantryRem++;
+				}
+				
+				if( (cavalryRem < cavalry) &&
+						(this.gameCards.get(ctr).cardType == 2))
+				{
+					this.gameCards.get(ctr).setOwnerId(null);
+					this.gameCards.remove(ctr);
+					cavalryRem++;
+				}
+				
+				if( (artilleryRem < artillery) &&
+						(this.gameCards.get(ctr).cardType == 3))
+				{
+					this.gameCards.get(ctr).setOwnerId(null);
+					this.gameCards.remove(ctr);
+					artilleryRem++;
+				}
+				
+				if( (wildRem < wild) &&
+						(this.gameCards.get(ctr).cardType == 4))
+				{
+					this.gameCards.get(ctr).setOwnerId(null);
+					this.gameCards.remove(ctr);
+					wildRem++;
+				}
+			}
+    		this.countCardExchange += 1;
+    		checkReward();
             this.cardsArmyReward += this.currentCardReward;
-            this.countCardExchange += 1;
-            checkReward();
-            System.out.printf("\nPlayer %d exchanged 1 of each", this.getPlayerId());
-            return;
-        }
+            System.out.printf("\nPlayer %d exchanged 3 cards for %d armies", this.getPlayerId(), this.cardsArmyReward);
+    	}
 
-        if (infantryCards > 2) {
-            rewardedArmy += this.cardsArmyReward;
-            infantryCards -= 3;
-            int removed = 0;
-            for (int i = 0; i < cards.size(); i++) {
-                if (removed == 3) {
-                    break;
-                }
-                if (cards.get(i).cardType != 1) {
-                    continue;
-                }
-                cards.get(i).setOwnerId(null);
-                cards.remove(i);
-                removed += 1;
-            }
-            this.cardsArmyReward += this.currentCardReward;
-            this.countCardExchange += 1;
-            checkReward();
-            System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
-            return;
-        }
-
-        if (cavalryCards > 2) {
-            rewardedArmy += this.cardsArmyReward;
-            cavalryCards -= 3;
-            int removed = 0;
-            for (int i = 0; i < cards.size(); i++) {
-                if (removed == 3) {
-                    break;
-                }
-                if (cards.get(i).cardType != 2) {
-                    continue;
-                }
-                cards.get(i).setOwnerId(null);
-                cards.remove(i);
-                removed += 1;
-            }
-            this.cardsArmyReward += this.currentCardReward;
-            this.countCardExchange += 1;
-            checkReward();
-            System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
-            return;
-        }
-
-        if (artilleryCards > 2) {
-            rewardedArmy += this.cardsArmyReward;
-            artilleryCards -= 3;
-            int removed = 0;
-            for (int i = 0; i < cards.size(); i++) {
-                if (removed == 3) {
-                    break;
-                }
-                if (cards.get(i).cardType != 3) {
-                    continue;
-                }
-                cards.get(i).setOwnerId(null);
-                cards.remove(i);
-                removed += 1;
-            }
-            this.cardsArmyReward += this.currentCardReward;
-            this.countCardExchange += 1;
-            checkReward();
-            System.out.printf("\nPlayer %d exchanged 3 of a kind", this.getPlayerId());
-            return;
-        }
-
-        for (int i = 0; i < wildCards; i++) {
-            Integer remainingCards = infantryCards + cavalryCards + artilleryCards;
-
-            if (remainingCards > 1) {
-                cards.get(0).setOwnerId(null);
-                cards.get(1).setOwnerId(null);
-                cards.remove(0);
-                cards.remove(1);
-                for (int j = 0; j < cards.size(); j++) {
-                    if (cards.get(j).cardType == 4) {
-                        cards.get(j).setOwnerId(null);
-                        cards.remove(j);
-                        break;
-                    }
-                }
-                this.cardsArmyReward += this.currentCardReward;
-                this.countCardExchange += 1;
-                checkReward();
-                System.out.printf("\nPlayer %d exchanged with one wild card", this.getPlayerId());
-                return;
-            }
-
-            if ((wildCards == 2) && (remainingCards == 1)) {
-                cards.get(0).setOwnerId(null);
-                cards.remove(0);
-                int removed = 0;
-                for (int j = 0; j < cards.size(); j++) {
-                    if (removed > 1) {
-                        break;
-                    }
-                    if (cards.get(j).cardType == 4) {
-                        cards.get(j).setOwnerId(null);
-                        cards.remove(j);
-                        removed++;
-                    }
-                }
-                this.cardsArmyReward += this.currentCardReward;
-                this.countCardExchange += 1;
-                checkReward();
-                System.out.printf("\nPlayer %d exchanged with 2 wild cards", this.getPlayerId());
-                return;
-            }
-        }
     }
 
     void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
