@@ -97,6 +97,7 @@ public class Maps
 	}
 
 	/**
+	 * This method get the numbers of territories
 	 * @return This function returns the number of territories in map.
 	 */
 	public Integer getNumTerritories() 

@@ -27,6 +27,10 @@ public class GenericFunctions
 	public final int EDITORMODEEDIT = 1;
 	public final int EDITORMODECREATE = 2;
 	
+	/**
+	 * This generate string to integer
+	 * @param inVal
+	 */
 	public Integer genStrToInt(String inVal) 
 	{
 		return Integer.valueOf(inVal);
@@ -150,6 +154,10 @@ public class GenericFunctions
 		return (rand.nextInt((max - min) + 1) + min);
 	}
 	
+	/**
+	 * @param astrArray
+	 * @return str
+	 */
 	public String toString(String[] astrArray){
 		String str = "";
 		 for(String value : astrArray) {

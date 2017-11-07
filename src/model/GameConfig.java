@@ -26,6 +26,10 @@ public class GameConfig extends Observable {
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MainWindow mainWindow;
 
+    /**
+     * This method get main window
+     * @return mainWindow
+     */
     public MainWindow getMainWindow() {
         return mainWindow;
     }
@@ -427,6 +431,11 @@ public class GameConfig extends Observable {
         }
     }
     
+    /**
+     * @param attackerDice
+     * @param defendorDice
+     * @param dictContinents
+     */
     public void attackTerritory(Integer attackerDice, Integer defendorDice,
             Map<String, Continent> dictContinents)
     {

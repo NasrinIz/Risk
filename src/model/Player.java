@@ -68,6 +68,7 @@ public class Player {
     }
 
     /**
+     * this method get the player id
      * @return Returns the player's ID
      */
     public Integer getPlayerId() {
@@ -75,6 +76,7 @@ public class Player {
     }
 
     /**
+     * this method get the numbers of cards
      * @return Returns the number of cards that the player owns
      */
     public Integer getNumCard() {
@@ -82,6 +84,7 @@ public class Player {
     }
 
     /**
+     * this method get the name of players
      * @return Returns the player's name
      */
     public String getName() {
@@ -105,6 +108,7 @@ public class Player {
     }
 
     /**
+     * this method get the number of territories
      * @return Returns the number of territories that player owns
      */
     public int numOfTerritories() {

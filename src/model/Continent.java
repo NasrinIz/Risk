@@ -101,7 +101,7 @@ public class Continent
 	}
 	
 	/**
-	 * Sets the army reward for the capture of this continent
+	 * This method Sets the army reward for the capture of this continent
 	 * @param inArmyReward reward of armies
 	 */
 	void setArmyReward(Integer inArmyReward)

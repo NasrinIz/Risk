@@ -28,7 +28,7 @@ public class Card
 	 */
 	public Integer cardType = CARDNONE;
 	/**
-	 * The number of armies rewarded for exchanging cards.
+	 * The numbers of armies rewarded for exchanging cards.
 	 */
 	public Integer cardRewardArmy = 15;
 	
@@ -44,7 +44,7 @@ public class Card
 	}
 	
 	/**
-	 * This method get the owner id
+	 * This method gets the owner id
 	 */
 	public Integer getOwnerId()
 	{
@@ -52,7 +52,7 @@ public class Card
 	}
 
 	/**
-	 * This method set owner id
+	 * This method sets owner id
 	 * @param id The new card owner ID
 	 */
 	public void setOwnerId(Integer id)
