@@ -380,7 +380,7 @@ public class MainController {
             {
                 String values[] = genericFunctionsObj.genCommaSepStrToArray(mainWindow.getAttackView().getDiceValues());
                 mainWindow.getAttackView().resetDiceValues();
-                gameConfig.getCurrentPlayer().attackTerritory(
+                gameConfig.attackTerritory(
                         genericFunctionsObj.genStrToInt(values[0]),
                         genericFunctionsObj.genStrToInt(values[1]),
                         gameConfig.getMapObj().getDictContinents());

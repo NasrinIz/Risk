@@ -420,5 +420,13 @@ public class GameConfig extends Observable {
         	}
         }
     }
+    
+    public void attackTerritory(Integer attackerDice, Integer defendorDice,
+            Map<String, Continent> dictContinents)
+    {
+    	this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
+    	setChanged();
+        notifyObservers(this);
+    }
 
 }
