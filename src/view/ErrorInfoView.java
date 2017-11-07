@@ -27,10 +27,10 @@ public class ErrorInfoView extends JPanel
 	{
 		this.setBackground(Color.RED);
 		this.setLayout(new FlowLayout());
-		this.setBounds(1024, 618, 255, 100);
+		this.setBounds(1024, 635, 255, 100);
 		InfoTextArea = new JTextArea();
 		InfoTextArea.setRows(2);
-		InfoTextArea.setBounds(1024, 618, 200, 50);
+		InfoTextArea.setBounds(1024, 635, 200, 50);
 		this.add(InfoTextArea);
 		
 		TitledBorder border = new TitledBorder("Error Panel");

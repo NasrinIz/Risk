@@ -2,6 +2,7 @@ package src.view;
 
 
 import src.model.GameConfig;
+import src.model.Player;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -21,10 +22,10 @@ public class PlayerDominationView extends JPanel implements Observer {
     public void showInfoPanel() {
         this.setBackground(Color.GREEN);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 368, 255, 50);
+        this.setBounds(1024, 368, 255, 117);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
-        InfoTextArea.setBounds(1024, 368, 200, 50);
+        InfoTextArea.setBounds(1024, 368, 200, 117);
         this.add(InfoTextArea);
 
         TitledBorder border = new TitledBorder("Player Domination View");
@@ -35,16 +36,33 @@ public class PlayerDominationView extends JPanel implements Observer {
     }
 
     /**
-     * @param playerTerritories Number of territories of players
-     * @param totalTerritories  Total numbers of territories
+     * @param percentage Number of territories of players
      */
-    public void showPlayerDominationView(Integer playerTerritories, Integer totalTerritories) {
-        double percentage = Math.floor(((playerTerritories * 100) / totalTerritories));
-        InfoTextArea.setText(percentage + "%");
+    private void showPlayerDominationView(String percentage) {
+
+        InfoTextArea.setText(percentage);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        this.showPlayerDominationView(((GameConfig) o).getCurrentPlayer().numOfTerritories(), ((GameConfig) o).getMapObj().getNumTerritories());
+        String playerName;
+        String dominationValue = "";
+        for (Player player : ((GameConfig) o).getPlayers()) {
+            playerName = player.getName();
+            System.out.println(playerName);
+            Integer percentage = (player.numOfTerritories() * 100) / ((GameConfig) o).getMapObj().getNumTerritories();
+            System.out.println(playerName);
+            Integer star = (percentage * 10) / 100;
+
+            String starValue = "";
+            for (Integer i = 0; i < star; i++) {
+                starValue = "*" + starValue;
+            }
+
+            dominationValue = playerName + ':' + starValue + '\n' + dominationValue;
+        }
+
+        this.showPlayerDominationView(dominationValue);
+
     }
 }
