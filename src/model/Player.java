@@ -225,15 +225,21 @@ public class Player {
         Integer isCaptured;
         Territory srcTerritory = srcAttackTerritory;
         Territory targetTerritory = dstAttackTerritory;
+        if((srcTerritory == null) || (targetTerritory == null))
+        {
+        	System.out.println("Please select both the source and target territories for attack");
+        	return -1;
+        }
         if (this.territories.contains(srcTerritory) != true) 
         {
+        	System.out.println("The territory selected does not belong to the current player");
             return -1;
         }
 
         ArrayList<String> adjacents = srcTerritory.getAdjacentCountries();
         for (int ctr = 0; ctr < adjacents.size(); ctr++) 
         {
-            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true) 
+            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true)
             {
                 adjacencyFlag = 0;
                 break;
@@ -276,13 +282,18 @@ public class Player {
 
         for (String continent : dictContinents.keySet()) 
         {
-            if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) 
-            {
-                System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
-                System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() + 
-                		" additional armies");
-            }
+        	if(continent.equals(srcTerritory.getContinent()))
+        	{
+	            if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) 
+	            {
+	                System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
+	                System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() + 
+	                		" additional armies");
+	            }
+        	}
         }
+        
+        
         // vj push to view
 
         
@@ -348,8 +359,16 @@ public class Player {
             		System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceTwo.toString());
                 	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceThree.toString());
             	}
-            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
-            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
+            	
+            	if(whiteDice == 2)
+            	{
+	            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+	            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
+            	}
+            	else
+            	{
+            		System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+            	}
             	
                 if (max > wDiceOne) 
                 {
@@ -363,17 +382,21 @@ public class Player {
                 			", Defendor Wins");
                     attacker.decreaseArmies();
                 }
-                if (maxTwo > wDiceTwo) 
+                
+                if(whiteDice == 2)
                 {
-                	System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
-                			", Attacker Wins");
-                    defendor.decreaseArmies();
-                } 
-                else 
-                {
-                	System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
-                			", Defendor Wins");
-                    defendor.decreaseArmies();
+	                if (maxTwo > wDiceTwo) 
+	                {
+	                	System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
+	                			", Attacker Wins");
+	                    defendor.decreaseArmies();
+	                } 
+	                else 
+	                {
+	                	System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
+	                			", Defendor Wins");
+	                	attacker.decreaseArmies();
+	                }
                 }
         }
 

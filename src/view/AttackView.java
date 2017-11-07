@@ -71,11 +71,6 @@ public class AttackView extends JPanel {
     public Boolean checkDiceValue() {
     	try
     	{
-	    	if((attackerTurn == false) && ((attackerDice <= 0) || (attackerDice > 3)))
-	    	{
-	    		return false;
-	    	}
-	    	
 	        if (attackerTurn == true) 
 	        {
 	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
@@ -86,7 +81,8 @@ public class AttackView extends JPanel {
 	            }
 	            else
 	            {
-	            	System.out.println("Incorrect dice roll. Attacker can roll from 1 to 3 dice");
+	            	System.out.println("Incorrect dice roll. Attacker can roll two less dice from number of armies on territory, given max dice = 3");
+	            	return false;
 	            }
 	        } 
 	        else 
@@ -105,7 +101,8 @@ public class AttackView extends JPanel {
 	            }
 	            else
 	            {
-	            	System.out.println("Incorrect dice roll. Defender can roll from 1 to 2 dice");
+	            	System.out.println("Incorrect dice roll. Defender can roll 2 or less dice equal to number of armies on territory");
+	            	return false;
 	            }
 	        }
     	}

@@ -296,7 +296,6 @@ public class MainController {
     private class territoryListener implements ActionListener {
 
         String countryName;
-
         territoryListener(String countryName) {
             this.countryName = countryName;
         }
@@ -345,10 +344,10 @@ public class MainController {
                     mainWindow.getInfoView().showTerritoryInfo(info);
                 }
             }
-
-
-
-
+            else if(gamePhase == genericFunctionsObj.GAMEPHASENONE)
+            {
+            	return;
+            }
         }
     }
 

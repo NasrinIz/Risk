@@ -410,6 +410,15 @@ public class GameConfig extends Observable {
 
         setChanged();
         notifyObservers(this);
+        
+        for(int ctr = 0; ctr < players.length; ctr++)
+        {
+        	if(players[ctr].numOfTerritories() == mapObj.getNumTerritories())
+        	{
+        		System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
+        		gamePhase = genericFunctionsObj.GAMEPHASENONE;
+        	}
+        }
     }
 
 }
