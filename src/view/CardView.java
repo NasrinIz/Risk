@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 /**
- * This is the calss that shows card information
+ * This is the class that shows card information
  *
  * @author Team20
  */
@@ -27,10 +27,10 @@ public class CardView extends JPanel implements Observer {
     public void showCardPanel() {
         this.setBackground(Color.CYAN);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 568, 255, 50);
+        this.setBounds(1024, 468, 255, 150);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
-        InfoTextArea.setBounds(1024, 568, 200, 50);
+        InfoTextArea.setBounds(1024, 468, 200, 150);
         this.add(InfoTextArea);
 
         TitledBorder border = new TitledBorder("Card Panel");

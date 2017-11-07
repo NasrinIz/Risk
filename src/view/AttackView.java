@@ -30,7 +30,7 @@ public class AttackView extends JPanel {
     private void showAttackPanel() {
         this.setBackground(Color.DARK_GRAY);
         this.setLayout(new GridLayout());
-        this.setBounds(1024, 418, 255, 150);
+        this.setBounds(1024, 418, 255, 50);
 
 
         TitledBorder border = new TitledBorder("Attack Panel");
