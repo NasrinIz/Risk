@@ -27,10 +27,10 @@ public class CardView extends JPanel implements Observer {
     public void showCardPanel() {
         this.setBackground(Color.CYAN);
         this.setLayout(new FlowLayout());
-        this.setBounds(1024, 468, 255, 150);
+        this.setBounds(1024, 535, 255, 100);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
-        InfoTextArea.setBounds(1024, 468, 200, 150);
+        InfoTextArea.setBounds(1024, 535, 200, 100);
         this.add(InfoTextArea);
 
         TitledBorder border = new TitledBorder("Card Panel");
