@@ -3,6 +3,7 @@ package src.view;
 
 import src.model.GameConfig;
 import src.model.Player;
+import src.model.Territory;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -71,12 +72,13 @@ public class PlayerDominationView extends JPanel implements Observer {
             Map<String, TerritoryView> dictViews = gameConfig.getMainWindow().getDictTerrViews();
             String targetOwner = gameConfig.getMapObj().getDictTerritory().get(target).getOwner().toString();
 
-            if(target !=null && dictViews != null){
-                dictViews.get(target).updateButtonName(targetOwner);
+
+            if (target != null && dictViews != null) {
+                TerritoryView targetValue = dictViews.get(target);
+                if (targetValue != null) {
+                    targetValue.updateButtonName(targetOwner);
+                }
             }
-
         }
-
-
     }
 }

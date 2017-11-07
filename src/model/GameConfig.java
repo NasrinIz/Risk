@@ -19,23 +19,18 @@ public class GameConfig extends Observable {
     private Player players[];
     private Maps mapObj;
     private ArrayList<Card> gameCards = new ArrayList<Card>();
-    Integer currentPlayer = 0;
+    private Integer currentPlayer = 0;
 
 
     private Integer gamePhase = 0;
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MainWindow mainWindow;
 
-    /**
-     * This method get main window
-     * @return mainWindow
-     */
     public MainWindow getMainWindow() {
         return mainWindow;
     }
 
     /**
-
      * This is the constructor to class GameConfig and initializes class variables.
      *
      * @param numPlayers Number of players playing the game
@@ -366,81 +361,58 @@ public class GameConfig extends Observable {
      * This function passes the turn to next player in a round robin manner
      * And, also changes the game phase based on different conditions
      */
-    public void nextPlayerOrPhase() 
-    {
+    public void nextPlayerOrPhase() {
 
         Player tmpPlayers[] = getPlayers();
         int i;
         getCurrentPlayer().setTurnStatus(true);
-        for (i = 0; i < tmpPlayers.length; i++) 
-        {
-            if (!tmpPlayers[i].getTurnStatus()) 
-            {
+        for (i = 0; i < tmpPlayers.length; i++) {
+            if (!tmpPlayers[i].getTurnStatus()) {
                 break;
             }
         }
 
         if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
             Integer gamePhaseFlag = 0; // 0 Change True, -1 Change False
-            for (i = 0; i < tmpPlayers.length; i++) 
-            {
-                if (tmpPlayers[i].getArmies() != 0) 
-                {
+            for (i = 0; i < tmpPlayers.length; i++) {
+                if (tmpPlayers[i].getArmies() != 0) {
                     gamePhaseFlag = -1;
                     break;
                 }
             }
 
-            if (gamePhaseFlag == 0) 
-            {
+            if (gamePhaseFlag == 0) {
                 incrementGamePhase();
                 nextPlayerTurn();
-            } 
-            else 
-            {
+            } else {
                 nextPlayerTurn();
             }
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) 
-        {
-            if (getCurrentPlayer().getArmies() <= 0) 
-            {
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+            if (getCurrentPlayer().getArmies() <= 0) {
                 incrementGamePhase();
             }
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) 
-        {
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
             incrementGamePhase();
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) 
-        {
-        	incrementGamePhase();
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+            incrementGamePhase();
             nextPlayerTurn();
         }
 
         setChanged();
         notifyObservers(this);
-        
-        for(int ctr = 0; ctr < players.length; ctr++)
-        {
-        	if(players[ctr].numOfTerritories() == mapObj.getNumTerritories())
-        	{
-        		System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
-        		gamePhase = genericFunctionsObj.GAMEPHASENONE;
-        	}
+
+        for (int ctr = 0; ctr < players.length; ctr++) {
+            if (players[ctr].numOfTerritories() == mapObj.getNumTerritories()) {
+                System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
+                gamePhase = genericFunctionsObj.GAMEPHASENONE;
+            }
         }
     }
-    
-    /**
-     * @param attackerDice
-     * @param defendorDice
-     * @param dictContinents
-     */
+
     public void attackTerritory(Integer attackerDice, Integer defendorDice,
-            Map<String, Continent> dictContinents)
-    {
-    	this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
-    	setChanged();
+                                Map<String, Continent> dictContinents) {
+        this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
+        setChanged();
         notifyObservers(this);
     }
 

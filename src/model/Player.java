@@ -215,92 +215,80 @@ public class Player {
      * This function is called to initiate the attack from attacker country
      * to defendor country.
      *
-     * @param attackerDice    Number of dices, attacker chooses to roll
-     * @param defendorDice    Number of dices, defendor chooses to roll
-     * @param srcTerritory    Attacker Country
-     * @param targetTerritory Defendor Country
+     * @param attackerDice   Number of dices, attacker chooses to roll
+     * @param defendorDice   Number of dices, defendor chooses to roll
+     * @param dictContinents Attacker Country
      * @return Returns whether the attack was successfull or not
      */
     public Integer attackTerritory(Integer attackerDice, Integer defendorDice,
-                                    Map<String, Continent> dictContinents) 
-    {
+                                   Map<String, Continent> dictContinents) {
         Integer rt = 0;
         Integer adjacencyFlag = -1;
         Integer isCaptured;
         Territory srcTerritory = srcAttackTerritory;
         Territory targetTerritory = dstAttackTerritory;
-        if((srcTerritory == null) || (targetTerritory == null))
-        {
-        	System.out.println("Please select both the source and target territories for attack");
-        	return -1;
+        if ((srcTerritory == null) || (targetTerritory == null)) {
+            System.out.println("Please select both the source and target territories for attack");
+            return -1;
         }
-        if (this.territories.contains(srcTerritory) != true) 
-        {
-        	System.out.println("The territory selected does not belong to the current player");
+        if (!this.territories.contains(srcTerritory)) {
+            System.out.println("The territory selected does not belong to the current player");
             return -1;
         }
 
         ArrayList<String> adjacents = srcTerritory.getAdjacentCountries();
-        for (int ctr = 0; ctr < adjacents.size(); ctr++) 
-        {
-            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true)
-            {
+        for (int ctr = 0; ctr < adjacents.size(); ctr++) {
+            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true) {
                 adjacencyFlag = 0;
                 break;
             }
         }
 
-        if (adjacencyFlag == -1) 
-        {
-        	System.out.println("Attack failed, attacking country is not adjacent to defending country");
+        if (adjacencyFlag == -1) {
+            System.out.println("Attack failed, attacking country is not adjacent to defending country");
             return -1;
         }
 
-        if ((srcTerritory.getArmies() + 1) < attackerDice) 
-        {
-        	System.out.println("Attacker's " + srcTerritory.getArmies().toString() + " armies on " +
-        			srcTerritory.getName() + " not enough to roll " + attackerDice.toString() + " dice");
+        if ((srcTerritory.getArmies() + 1) < attackerDice) {
+            System.out.println("Attacker's " + srcTerritory.getArmies().toString() + " armies on " +
+                    srcTerritory.getName() + " not enough to roll " + attackerDice.toString() + " dice");
             return -1;
         }
-        
-        if ((targetTerritory.getArmies()) < defendorDice) 
-        {
-        	System.out.println("Defender's " + targetTerritory.getArmies().toString() + " armies on " +
-        			targetTerritory.getName() + " not enough to roll " + defendorDice.toString() + " dice");
+
+        if ((targetTerritory.getArmies()) < defendorDice) {
+            System.out.println("Defender's " + targetTerritory.getArmies().toString() + " armies on " +
+                    targetTerritory.getName() + " not enough to roll " + defendorDice.toString() + " dice");
             return -1;
         }
-        
-        System.out.println("Player " + srcTerritory.getOwner().toString() + 
-        		" attacks player " + targetTerritory.getOwner().toString() + "'s Territory");
-        
+
+        System.out.println("Player " + srcTerritory.getOwner().toString() +
+                " attacks player " + targetTerritory.getOwner().toString() + "'s Territory");
+
         isCaptured = rollDiceToAttack(attackerDice, defendorDice, srcTerritory, targetTerritory);
 
         if (isCaptured == 0) // Attacker captured the territory
         {
-        	System.out.println("Player " + srcTerritory.getOwner().toString() + 
-            		" captured player " + targetTerritory.getOwner().toString() + "'s Territory");
+            System.out.println("Player " + srcTerritory.getOwner().toString() +
+                    " captured player " + targetTerritory.getOwner().toString() + "'s Territory");
             targetTerritory.setOwner(id);
             targetTerritory.increaseArmies();
             srcTerritory.decreaseArmies();
         }
 
-        for (String continent : dictContinents.keySet()) 
-        {
-        	if(continent.equals(srcTerritory.getContinent()))
-        	{
-	            if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) 
-	            {
-	                System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
-	                System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() + 
-	                		" additional armies");
-	            }
-        	}
+        for (String continent : dictContinents.keySet()) {
+            if (continent.equals(srcTerritory.getContinent())) {
+                if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) {
+                    System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
+                    System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() +
+                            " additional armies");
+                }
+            }
         }
-        
-        
+
+
         // vj push to view
 
-        
+
         srcAttackTerritory = null;
         dstAttackTerritory = null;
         return rt;
@@ -323,84 +311,67 @@ public class Player {
         Integer wDiceTwo = genFunObj.genRandomNumber(1, 6);
         Integer max = getMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
         Integer maxTwo = getSecondMaxRedDice(rDiceOne, rDiceTwo, rDiceThree);
-        
-        if(wDiceTwo > wDiceOne)
-        {
-        	wDiceOne = wDiceOne + wDiceTwo;
-        	wDiceTwo = wDiceOne - wDiceTwo;
-        	wDiceOne = wDiceOne - wDiceTwo;
+
+        if (wDiceTwo > wDiceOne) {
+            wDiceOne = wDiceOne + wDiceTwo;
+            wDiceTwo = wDiceOne - wDiceTwo;
+            wDiceOne = wDiceOne - wDiceTwo;
         }
-        
+
         System.out.println("Attacker rolls " + redDice.toString() + " dice.");
         System.out.println("Defender rolls " + whiteDice.toString() + " dice.");
         switch (redDice) {
             case 1:
-            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
-            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
-                if (max > wDiceOne) 
-                {
-                	System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
-                			", Attacker Wins");
+                System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
+                System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                if (max > wDiceOne) {
+                    System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
+                            ", Attacker Wins");
                     defendor.decreaseArmies();
-                } 
-                else 
-                {
-                	System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
-                			", Defendor Wins");
+                } else {
+                    System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
+                            ", Defendor Wins");
                     attacker.decreaseArmies();
                 }
                 break;
             case 2:
             case 3:
-            	if(redDice == 2)
-            	{
-	            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
-	            	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + maxTwo.toString());
-	            }
-            	else if(redDice == 3)
-            	{
-            		System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceOne.toString());
-            		System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceTwo.toString());
-                	System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceThree.toString());
-            	}
-            	
-            	if(whiteDice == 2)
-            	{
-	            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
-	            	System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
-            	}
-            	else
-            	{
-            		System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
-            	}
-            	
-                if (max > wDiceOne) 
-                {
-                	System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
-                			", Attacker Wins");
+                if (redDice == 2) {
+                    System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
+                    System.out.println("Player " + attacker.getOwner().toString() + " rolled " + maxTwo.toString());
+                } else if (redDice == 3) {
+                    System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceOne.toString());
+                    System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceTwo.toString());
+                    System.out.println("Player " + attacker.getOwner().toString() + " rolled " + rDiceThree.toString());
+                }
+
+                if (whiteDice == 2) {
+                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
+                } else {
+                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                }
+
+                if (max > wDiceOne) {
+                    System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
+                            ", Attacker Wins");
                     defendor.decreaseArmies();
-                } 
-                else 
-                {
-                	System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
-                			", Defendor Wins");
+                } else {
+                    System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
+                            ", Defendor Wins");
                     attacker.decreaseArmies();
                 }
-                
-                if(whiteDice == 2)
-                {
-	                if (maxTwo > wDiceTwo) 
-	                {
-	                	System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
-	                			", Attacker Wins");
-	                    defendor.decreaseArmies();
-	                } 
-	                else 
-	                {
-	                	System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
-	                			", Defendor Wins");
-	                	attacker.decreaseArmies();
-	                }
+
+                if (whiteDice == 2) {
+                    if (maxTwo > wDiceTwo) {
+                        System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
+                                ", Attacker Wins");
+                        defendor.decreaseArmies();
+                    } else {
+                        System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
+                                ", Defendor Wins");
+                        attacker.decreaseArmies();
+                    }
                 }
         }
 
@@ -467,30 +438,18 @@ public class Player {
     /**
      * This function is used to check, how many armies player gets when exchanging cards
      */
-    private void checkReward() 
-    {
-    	if (this.countCardExchange == 1) 
-        {
+    private void checkReward() {
+        if (this.countCardExchange == 1) {
             this.currentCardReward = 4;
-        }
-    	else if (this.countCardExchange == 2) 
-        {
+        } else if (this.countCardExchange == 2) {
             this.currentCardReward = 6;
-        }
-    	else if (this.countCardExchange == 3) 
-        {
+        } else if (this.countCardExchange == 3) {
             this.currentCardReward = 8;
-        }
-    	else if (this.countCardExchange == 4) 
-        {
+        } else if (this.countCardExchange == 4) {
             this.currentCardReward = 10;
-        }
-    	else if (this.countCardExchange == 5) 
-        {
+        } else if (this.countCardExchange == 5) {
             this.currentCardReward = 12;
-        }
-    	else
-        {
+        } else {
             this.currentCardReward = 15 + (5 * (this.countCardExchange - 6));
         }
     }
@@ -498,64 +457,63 @@ public class Player {
     /**
      * This function is used to exchange cards
      */
-    private void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild)
-    {
-    	boolean exchangeSuccess = false;
-    	int infantryRem = 0;
-    	int cavalryRem = 0;
-    	int artilleryRem = 0;
-    	int wildRem = 0;
-    	
-    	if((infantry == 3) || (cavalry == 3) || (artillery == 3) || (wild == 3) ||
-    			((infantry == 1) && (cavalry == 1) && (artillery == 1)) ||
-    			((infantry == 1) && (cavalry == 1) && (wild == 1)) ||
-    			((infantry == 1) && (wild == 1) && (artillery == 1)) ||
-    			((wild == 1) && (cavalry == 1) && (artillery == 1)) )
-    	{
-    		exchangeSuccess = true;
-    	}
-    	
-    	if(exchangeSuccess == true)
-    	{
-    		for(int ctr = 0; ctr < this.gameCards.size(); ctr++)
-			{
-				if( (infantryRem < infantry) &&
-						(this.gameCards.get(ctr).cardType == 1))
-				{
-					this.gameCards.get(ctr).setOwnerId(null);
-					this.gameCards.remove(ctr);
-					infantryRem++;
-				}
-				
-				if( (cavalryRem < cavalry) &&
-						(this.gameCards.get(ctr).cardType == 2))
-				{
-					this.gameCards.get(ctr).setOwnerId(null);
-					this.gameCards.remove(ctr);
-					cavalryRem++;
-				}
-				
-				if( (artilleryRem < artillery) &&
-						(this.gameCards.get(ctr).cardType == 3))
-				{
-					this.gameCards.get(ctr).setOwnerId(null);
-					this.gameCards.remove(ctr);
-					artilleryRem++;
-				}
-				
-				if( (wildRem < wild) &&
-						(this.gameCards.get(ctr).cardType == 4))
-				{
-					this.gameCards.get(ctr).setOwnerId(null);
-					this.gameCards.remove(ctr);
-					wildRem++;
-				}
-			}
-    		this.countCardExchange += 1;
-    		checkReward();
+    public void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild) {
+
+
+        System.out.println(infantry);
+        System.out.println(cavalry);
+        System.out.println(artillery);
+        System.out.println(wild);
+
+        boolean exchangeSuccess = false;
+        int infantryRem = 0;
+        int cavalryRem = 0;
+        int artilleryRem = 0;
+        int wildRem = 0;
+
+        if ((infantry == 3) || (cavalry == 3) || (artillery == 3) || (wild == 3) ||
+                ((infantry == 1) && (cavalry == 1) && (artillery == 1)) ||
+                ((infantry == 1) && (cavalry == 1) && (wild == 1)) ||
+                ((infantry == 1) && (wild == 1) && (artillery == 1)) ||
+                ((wild == 1) && (cavalry == 1) && (artillery == 1))) {
+            exchangeSuccess = true;
+        }
+
+        if (exchangeSuccess) {
+            for (int ctr = 0; ctr < this.gameCards.size(); ctr++) {
+                if ((infantryRem < infantry) &&
+                        (this.gameCards.get(ctr).cardType == 1)) {
+                    this.gameCards.get(ctr).setOwnerId(null);
+                    this.gameCards.remove(ctr);
+                    infantryRem++;
+                }
+
+                if ((cavalryRem < cavalry) &&
+                        (this.gameCards.get(ctr).cardType == 2)) {
+                    this.gameCards.get(ctr).setOwnerId(null);
+                    this.gameCards.remove(ctr);
+                    cavalryRem++;
+                }
+
+                if ((artilleryRem < artillery) &&
+                        (this.gameCards.get(ctr).cardType == 3)) {
+                    this.gameCards.get(ctr).setOwnerId(null);
+                    this.gameCards.remove(ctr);
+                    artilleryRem++;
+                }
+
+                if ((wildRem < wild) &&
+                        (this.gameCards.get(ctr).cardType == 4)) {
+                    this.gameCards.get(ctr).setOwnerId(null);
+                    this.gameCards.remove(ctr);
+                    wildRem++;
+                }
+            }
+            this.countCardExchange += 1;
+            checkReward();
             this.cardsArmyReward += this.currentCardReward;
             System.out.printf("\nPlayer %d exchanged 3 cards for %d armies", this.getPlayerId(), this.cardsArmyReward);
-    	}
+        }
 
     }
 
