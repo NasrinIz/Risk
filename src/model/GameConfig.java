@@ -26,13 +26,18 @@ public class GameConfig extends Observable {
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MainWindow mainWindow;
 
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
     /**
+
      * This is the constructor to class GameConfig and initializes class variables.
      *
      * @param numPlayers Number of players playing the game
      * @param mapName    Map Name to be loaded for game.
      */
-    public GameConfig(Integer numPlayers, String mapName) {
+    public GameConfig(Integer numPlayers, String mapName, MainWindow mainWindow) {
         super();
         initCards();
         this.numPlayers = numPlayers;
@@ -41,6 +46,7 @@ public class GameConfig extends Observable {
         initMap();
         setNumPlayers();
         gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
+        this.mainWindow = mainWindow;
     }
 
     /**

@@ -24,7 +24,7 @@ public class TestValidMaps {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		gameConfig = new GameConfig(3,"testing_maps//valid_1");
+		gameConfig = new GameConfig(3,"testing_maps//valid_1", null);
 
 		dictContinents = new HashMap<String, Continent>(2, 2);
 		dictTerritory = new HashMap<String, Territory>(2, 2);

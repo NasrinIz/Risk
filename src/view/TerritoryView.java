@@ -1,10 +1,14 @@
 package src.view;
 
+import src.model.GameConfig;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,7 +19,7 @@ import javax.swing.JPanel;
  *
  */
 
-public class TerritoryView extends JPanel 
+public class TerritoryView extends JPanel
 {
 
 	private JButton terrNameBtn;
@@ -28,7 +32,7 @@ public class TerritoryView extends JPanel
 	 * @param terrPos
 	 *            coordinates of the position of the territory
 	 */
-	public TerritoryView(Integer ownerId, Point terrPos, Color color) 
+	public TerritoryView(Integer ownerId, Point terrPos, Color color)
 	{
 		this.setBackground(color);
 		this.setLayout(new FlowLayout());
@@ -42,9 +46,12 @@ public class TerritoryView extends JPanel
 	/**
 	 * @param territoryBtnListener listen for territories
 	 */
-	public void addTerritoryBtnListener(ActionListener territoryBtnListener) 
+	public void addTerritoryBtnListener(ActionListener territoryBtnListener)
 	{
 		terrNameBtn.addActionListener(territoryBtnListener);
 	}
 
+	public void updateButtonName (String playerId){
+        this.terrNameBtn.setText(playerId);
+    }
 }

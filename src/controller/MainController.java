@@ -254,7 +254,7 @@ public class MainController {
             Integer playerNum = starterView.getPlayerNumbers();
             String selectedMap = starterView.getSelectedMap();
 
-            gameConfig = new GameConfig(playerNum, selectedMap);
+            gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
 
             playerDominationView = new PlayerDominationView();
             mainWindow.setPlayerDominationView(playerDominationView);

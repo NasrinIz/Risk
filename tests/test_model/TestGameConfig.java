@@ -36,7 +36,7 @@ public class TestGameConfig {
 
 	@Before
 	public void setUp() throws Exception {
-		objConfig = new GameConfig(numPlayers, mapName);
+		objConfig = new GameConfig(numPlayers, mapName, null);
 		
 	}
 

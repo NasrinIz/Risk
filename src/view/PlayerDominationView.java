@@ -7,6 +7,7 @@ import src.model.Player;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -63,6 +64,19 @@ public class PlayerDominationView extends JPanel implements Observer {
         }
 
         this.showPlayerDominationView(dominationValue);
+        GameConfig gameConfig = ((GameConfig) o);
+
+        if (gameConfig.getCurrentPlayer().dstAttackTerritory != null && gameConfig.getGamePhase() == 4) {
+            String target = gameConfig.getCurrentPlayer().dstAttackTerritory.getName();
+            Map<String, TerritoryView> dictViews = gameConfig.getMainWindow().getDictTerrViews();
+            String targetOwner = gameConfig.getMapObj().getDictTerritory().get(target).getOwner().toString();
+
+            if(target !=null && dictViews != null){
+                dictViews.get(target).updateButtonName(targetOwner);
+            }
+
+        }
+
 
     }
 }
