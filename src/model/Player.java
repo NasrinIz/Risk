@@ -35,6 +35,7 @@ public class Player {
     public Territory srcAttackTerritory;
     public Territory dstAttackTerritory;
 
+    private GameConfig gameConfigObj;
 
     public ArrayList<Card> getPlayerCards()
     {
@@ -65,10 +66,11 @@ public class Player {
      * @param inId    The player's unique ID
      * @param inCards The list of cards that this player owns
      */
-    public Player(String name, Integer inId, ArrayList<Card> inCards) {
+    public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig) {
         this.name = name;
         this.id = inId;
         this.gameCards = inCards;
+        this.gameConfigObj = gameConfig;
     }
 
     /**
@@ -215,6 +217,19 @@ public class Player {
         System.out.printf("\nPlayer %d received %d armies.", this.getPlayerId(), armies);
     }
 
+    public void removeTerritory(String territory)
+    {
+    	for(int ctr = 0; ctr < this.territories.size(); ctr++)
+    	{
+    		Territory tmp = this.territories.get(ctr);
+    		if(tmp.getName().equals(territory))
+    		{
+    			this.territories.remove(ctr);
+    			this.numTerritories --;
+    		}
+    	}
+    }
+    
     /**
      * This function is called to initiate the attack from attacker country
      * to defendor country.
@@ -274,6 +289,8 @@ public class Player {
         {
             System.out.println("Player " + srcTerritory.getOwner().toString() +
                     " captured player " + targetTerritory.getOwner().toString() + "'s Territory");
+            Player players[] = gameConfigObj.getPlayers();
+            players[targetTerritory.getOwner()].removeTerritory(targetTerritory.getName());
             targetTerritory.setOwner(id);
             targetTerritory.increaseArmies();
             srcTerritory.decreaseArmies();

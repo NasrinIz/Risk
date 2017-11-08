@@ -26,7 +26,7 @@ public class GameConfig extends Observable {
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MainWindow mainWindow;
 
-    public String gamePhaseStr = "Phase: StartUP\nAll players will place armies one by one in round robin fashion";
+    public String gamePhaseStr = "Phase: StartUP\nAll players will place \narmies one by one in \nround robin fashion";
     
     public MainWindow getMainWindow() {
         return mainWindow;
@@ -147,7 +147,7 @@ public class GameConfig extends Observable {
                 playerCards.add(gameCards.get(cardId));
             }
 
-            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards);
+            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this);
             // playerObj.setArmies(getInitArmy());
             playerObj.setArmies(30);
             players[i] = playerObj;
@@ -386,7 +386,7 @@ public class GameConfig extends Observable {
             if (gamePhaseFlag == 0) {
                 incrementGamePhase();
                 nextPlayerTurn();
-                gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will re-inforce his armies now";
+                gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
             } 
             else 
             {
@@ -399,14 +399,14 @@ public class GameConfig extends Observable {
             if (getCurrentPlayer().getArmies() <= 0) 
             {
                 incrementGamePhase();
-                gamePhaseStr = "Phase: Fortification\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will fortify his armies now";
+                gamePhaseStr = "Phase: Fortification\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nfortify his armies now";
             }
             
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) 
         {
             incrementGamePhase();
-            gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " can perform attack now";
+            gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " can \nperform attack now";
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) 
         {
@@ -421,7 +421,7 @@ public class GameConfig extends Observable {
         {
         	if(players[ctr].numOfTerritories() == mapObj.getNumTerritories())
         	{
-        		gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " wins the game";
+        		gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
         		System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
         		gamePhase = genericFunctionsObj.GAMEPHASENONE;
         	}
@@ -432,7 +432,7 @@ public class GameConfig extends Observable {
             Map<String, Continent> dictContinents)
     {
     	this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
-    	gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " performs an attack";
+    	gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " \nperforms an attack";
     	setChanged();
         notifyObservers(this);
     }
