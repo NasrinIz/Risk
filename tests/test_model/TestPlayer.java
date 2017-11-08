@@ -121,4 +121,27 @@ public class TestPlayer {
 		int rt = player.attackTerritory(1, 1, mapObj.getDictContinents());
 		assertTrue(rt == 0);
 	}
+	
+	@Test
+	public void testExchange() {
+		GameConfig objConfig = new GameConfig(2, "world", null);;
+		objConfig.callInitcards();
+		Integer playerCards[] = new Integer[2];
+		for(int ctr = 0; ctr < playerCards.length; ctr++)
+		{
+			playerCards[ctr] = 0;
+		}
+		int ctr = 0;
+		for(int i = 0; i < objConfig.getGameCards().size(); i++)
+		{
+			if(objConfig.getGameCards().get(i).getOwnerId() != null)
+			{
+				objConfig.getGameCards().get(i).cardType = ctr + 1;
+				ctr++;
+				playerCards[objConfig.getGameCards().get(i).getOwnerId()]++;
+			}
+		}
+		
+		objConfig.getPlayers()[0].exchangeCards(1, 1, 1, 1);
+	}
 }
