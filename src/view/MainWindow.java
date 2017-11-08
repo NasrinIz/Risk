@@ -70,7 +70,7 @@ public class MainWindow extends JFrame
 	/**
 	 * creates country buttons or territory views
 	 * called by src.controller
-	 * @param objMap passed by src.controller who has a reference to GameConfig->maps
+	 * @param objMap passed by src.controller who has a reference to GameConfig.maps
 	 * 
 	 */
 	public void addCountryButtons(Maps objMap) 

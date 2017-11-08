@@ -43,7 +43,7 @@ public class Card {
     }
 
     /**
-     * This method get the owner id
+     * @return This method get the owner id
      */
     public Integer getOwnerId() {
         return this.ownerId;

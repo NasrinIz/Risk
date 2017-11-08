@@ -140,7 +140,7 @@ public class Maps {
     /**
      * This function is used to set the name of author of map
      *
-     * @param The new map author.
+     * @param mapAuthor The new map author.
      */
     public void setMapAuthor(String mapAuthor) {
         this.mapAuthor = mapAuthor;

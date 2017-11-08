@@ -64,6 +64,7 @@ public class Player {
      * @param name    The name of the player
      * @param inId    The player's unique ID
      * @param inCards The list of cards that this player owns
+     * @param gameConfig The reference to gameconfig object
      */
     public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig) {
         this.name = name;
@@ -469,7 +470,11 @@ public class Player {
     }
 
     /**
-     * This function is used to exchange cards
+     * This function is used to exchange cards.
+     * @param infantry Number of infantry cards.
+     * @param cavalry Number of cavalry cards.
+     * @param artillery Number of artillery cards.
+     * @param wild Number of wild cards.
      */
     public void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild) {
 

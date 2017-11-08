@@ -37,6 +37,7 @@ public class GameConfig extends Observable {
      *
      * @param numPlayers Number of players playing the game
      * @param mapName    Map Name to be loaded for game.
+     * @param mainWindow Reference to main Window
      */
     public GameConfig(Integer numPlayers, String mapName, MainWindow mainWindow) {
         super();

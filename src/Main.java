@@ -13,6 +13,10 @@ import src.view.StarterWindow;
  * @author Team20
  */
 public class Main {
+	/**
+	 * This is the main method, called by operating system to begin execution of program
+	 * @param args Command line arguments
+	 */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() ->
         {
