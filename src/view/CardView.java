@@ -123,7 +123,7 @@ public class CardView extends JPanel implements Observer {
                 if (value.cardType == 3) {
                     cardArtillery++;
                 }
-                if (value.cardType == 3) {
+                if (value.cardType == 4) {
                     cardWild++;
                 }
             }
@@ -131,9 +131,9 @@ public class CardView extends JPanel implements Observer {
 
         this.showCardInfo(
                 cardInfantry.toString() + "I" + "," + "\n" +
-                        cardCavalry.toString() + "C" + "," + "\n" +
-                        cardArtillery.toString() + "A" + "," + "\n" +
-                        cardWild.toString() + "W");
+                cardCavalry.toString() + "C" + "," + "\n" +
+                cardArtillery.toString() + "A" + "," + "\n" +
+                cardWild.toString() + "W");
     }
 
     /**
@@ -150,8 +150,35 @@ public class CardView extends JPanel implements Observer {
      * @return Card Values for all cards
      */
     public String getCardValues() {
-        return infantryInputField.getText() + "," + artilleryInputField.getText() + "," +
-                infantryInputField.getText() + "," + artilleryInputField.getText();
+    	String rt = "";
+        if(!infantryInputField.getText().equals("")){
+            rt += infantryInputField.getText();
+        }
+        else {
+        	rt += Integer.toString(0);
+        }
+        rt += ",";
+        if(!artilleryInputField.getText().equals("")){
+        	rt += artilleryInputField.getText();
+        }
+        else {
+        	rt += Integer.toString(0);
+        }
+        rt += ",";
+        if(!cavalryInputField.getText().equals("")){
+        	rt += cavalryInputField.getText();
+        }
+        else {
+        	rt += Integer.toString(0);
+        }
+        rt += ",";
+        if(!wildInputField.getText().equals("")){
+        	rt += wildInputField.getText();
+        }
+        else {
+        	rt += Integer.toString(0);
+        }
+        return rt;
     }
 
     /**

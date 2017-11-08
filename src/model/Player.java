@@ -502,10 +502,10 @@ public class Player {
                         (this.gameCards.get(ctr).cardType == 1)) {
                     this.gameCards.get(ctr).setOwnerId(null);
                     this.gameCards.remove(ctr);
-                    ctr--;
                     infantryRem++;
                 }
-
+            }
+            for (int ctr = 0; ctr < this.gameCards.size(); ctr++) {
                 if ((cavalryRem < cavalry) &&
                         (this.gameCards.get(ctr).cardType == 2)) {
                     this.gameCards.get(ctr).setOwnerId(null);
@@ -513,7 +513,8 @@ public class Player {
                     ctr--;
                     cavalryRem++;
                 }
-
+            }
+            for (int ctr = 0; ctr < this.gameCards.size(); ctr++) {
                 if ((artilleryRem < artillery) &&
                         (this.gameCards.get(ctr).cardType == 3)) {
                     this.gameCards.get(ctr).setOwnerId(null);
@@ -521,7 +522,8 @@ public class Player {
                     ctr--;
                     artilleryRem++;
                 }
-
+            }
+            for (int ctr = 0; ctr < this.gameCards.size(); ctr++) {
                 if ((wildRem < wild) &&
                         (this.gameCards.get(ctr).cardType == 4)) {
                     this.gameCards.get(ctr).setOwnerId(null);

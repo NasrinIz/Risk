@@ -132,10 +132,11 @@ public class GameConfig extends Observable {
      */
     private void setupPlayers() {
         this.players = new Player[numPlayers];
-        ArrayList<Card> playerCards = new ArrayList<Card>();
+        ArrayList<Card> playerCards;
         Integer cardId = 0;
 
         for (int i = 0; i < numPlayers; i++) {
+        	playerCards = new ArrayList<Card>();
             while (playerCards.size() < 4) {
                 while (true) {
                     cardId = genericFunctionsObj.genRandomNumber(0, 41);
@@ -148,8 +149,7 @@ public class GameConfig extends Observable {
             }
 
             Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this);
-            // playerObj.setArmies(getInitArmy());
-            playerObj.setArmies(30);
+            playerObj.setArmies(getInitArmy());
             players[i] = playerObj;
         }
 
@@ -213,7 +213,7 @@ public class GameConfig extends Observable {
                 }
             }
 
-            Card tmpCard = new Card(0, cardtype);
+            Card tmpCard = new Card(i, cardtype);
             this.gameCards.add(tmpCard);
         }
     }
