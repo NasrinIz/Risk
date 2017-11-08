@@ -10,7 +10,6 @@ import java.util.Objects;
 import src.model.GameConfig;
 import src.model.GenericFunctions;
 import src.model.MapEditor;
-import src.model.Player;
 import src.view.*;
 
 /**
@@ -33,9 +32,6 @@ public class MainController {
      * 0 New game 1 Edit or create
      */
     private Integer applicationMode = 0;
-    private PlayerDominationView playerDominationView;
-    private PlayerInformationView playerInformationView;
-    private CardView cardView;
 
     /**
      * This is the constructor to the controller.
@@ -256,17 +252,17 @@ public class MainController {
 
             gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
 
-            playerDominationView = new PlayerDominationView();
+            PlayerDominationView playerDominationView = new PlayerDominationView();
             mainWindow.setPlayerDominationView(playerDominationView);
             gameConfig.addObserver(playerDominationView);
             mainWindow.getPlayerDominationView().showInfoPanel();
 
-            playerInformationView = new PlayerInformationView();
+            PlayerInformationView playerInformationView = new PlayerInformationView();
             mainWindow.setPlayerInformationView(playerInformationView);
             gameConfig.addObserver(playerInformationView);
             mainWindow.getPlayerInformationView().showInfoPanel();
 
-            cardView = new CardView();
+            CardView cardView = new CardView();
             mainWindow.setCardView(cardView);
             gameConfig.addObserver(cardView);
             mainWindow.getCardView().showCardPanel();
@@ -277,6 +273,8 @@ public class MainController {
             addTerritoryListeners();
 
             mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+
+            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
 
             String error = gameConfig.getMapObj().validateMap();
 
@@ -296,6 +294,7 @@ public class MainController {
     private class territoryListener implements ActionListener {
 
         String countryName;
+
         territoryListener(String countryName) {
             this.countryName = countryName;
         }
@@ -310,18 +309,17 @@ public class MainController {
             if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
                 mainWindow.getAttackView().showAttackInfo();
                 mainWindow.getAttackView().addDiceBtnListener(new attackTerritory());
-                if (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner() == gameConfig.getCurrentPlayer().getPlayerId()) {
+                if (Objects.equals(gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner(), gameConfig.getCurrentPlayer().getPlayerId())) {
                     gameConfig.getCurrentPlayer().srcAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
                 }
 
                 if (gameConfig.getCurrentPlayer().srcAttackTerritory != null) {
-                    if (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner() != gameConfig.getCurrentPlayer().getPlayerId()) {
+                    if (!Objects.equals(gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner(), gameConfig.getCurrentPlayer().getPlayerId())) {
                         gameConfig.getCurrentPlayer().dstAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
                     }
                 }
 
-            }
-            else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
+            } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
                 if (Objects.equals(currentPlayerId, territoryOwner)) {
@@ -343,10 +341,9 @@ public class MainController {
                     String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
                     mainWindow.getInfoView().showTerritoryInfo(info);
                 }
-            }
-            else if(gamePhase == genericFunctionsObj.GAMEPHASENONE)
-            {
-            	return;
+
+            } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
+                return;
             }
         }
     }
@@ -371,13 +368,10 @@ public class MainController {
      *
      * @author Team20
      */
-    private class attackTerritory implements ActionListener 
-    {
+    private class attackTerritory implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e) 
-        {
-            if (mainWindow.getAttackView().checkDiceValue()) 
-            {
+        public void actionPerformed(ActionEvent e) {
+            if (mainWindow.getAttackView().checkDiceValue()) {
                 String values[] = genericFunctionsObj.genCommaSepStrToArray(mainWindow.getAttackView().getDiceValues());
                 mainWindow.getAttackView().resetDiceValues();
                 gameConfig.attackTerritory(
@@ -385,6 +379,31 @@ public class MainController {
                         genericFunctionsObj.genStrToInt(values[1]),
                         gameConfig.getMapObj().getDictContinents());
             }
+        }
+    }
+
+    /**
+     * This is the inner class, to define action listener to the option "Submit Button"
+     *
+     * @author Team20
+     */
+    private class exchangeCard implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+                if (mainWindow.getCardView().checkCardValue()) {
+                    String values[] = genericFunctionsObj.genCommaSepStrToArray(mainWindow.getCardView().getCardValues());
+
+                    gameConfig.getCurrentPlayer().exchangeCards(
+                            genericFunctionsObj.genStrToInt(values[0]),
+                            genericFunctionsObj.genStrToInt(values[1]),
+                            genericFunctionsObj.genStrToInt(values[2]),
+                            genericFunctionsObj.genStrToInt(values[3]));
+                }
+            } else {
+                System.out.println("The game phase is not correct");
+            }
+
         }
     }
 

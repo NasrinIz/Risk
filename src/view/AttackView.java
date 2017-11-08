@@ -7,13 +7,12 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 /**
- * This is the src.view that displays the error messages while loading the map.
+ * This is the class that shows attack view.
  *
  * @author Team20
  */
 public class AttackView extends JPanel {
     private JTextField attackInputField;
-    private JLabel attackLabel;
     private JButton diceNumberButton;
     private Boolean attackerTurn = true;
     private Integer attackerDice = 0;
@@ -25,7 +24,7 @@ public class AttackView extends JPanel {
     }
 
     /**
-     * Show error information
+     * Show attack panel
      */
     private void showAttackPanel() {
         this.setBackground(Color.DARK_GRAY);
@@ -37,7 +36,7 @@ public class AttackView extends JPanel {
         border.setTitleJustification(TitledBorder.CENTER);
         border.setTitlePosition(TitledBorder.TOP);
 
-        attackLabel = new JLabel("Dice #: ");
+        JLabel attackLabel = new JLabel("Dice #: ");
         attackLabel.setBounds(1024, 485, 20, 50);
 
         attackInputField = new JTextField();
@@ -54,15 +53,10 @@ public class AttackView extends JPanel {
     }
 
     /**
-     * Showing attack input
+     * Showing attack information
      */
     public void showAttackInfo() {
-    	/*
-    	Component obj;
-        obj = this.add(attackLabel);
-        obj = this.add(attackInputField);
-        obj = this.add(diceNumberButton);
-        */
+
     }
 
     /**
@@ -71,7 +65,7 @@ public class AttackView extends JPanel {
     public Boolean checkDiceValue() {
     	try
     	{
-	        if (attackerTurn == true) 
+	        if (attackerTurn)
 	        {
 	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
 	            {

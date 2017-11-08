@@ -19,7 +19,7 @@ public class GameConfig extends Observable {
     private Player players[];
     private Maps mapObj;
     private ArrayList<Card> gameCards = new ArrayList<Card>();
-    Integer currentPlayer = 0;
+    private Integer currentPlayer = 0;
 
 
     private Integer gamePhase = 0;
@@ -33,7 +33,6 @@ public class GameConfig extends Observable {
     }
 
     /**
-
      * This is the constructor to class GameConfig and initializes class variables.
      *
      * @param numPlayers Number of players playing the game
@@ -364,33 +363,27 @@ public class GameConfig extends Observable {
      * This function passes the turn to next player in a round robin manner
      * And, also changes the game phase based on different conditions
      */
-    public void nextPlayerOrPhase() 
-    {
+    public void nextPlayerOrPhase() {
 
         Player tmpPlayers[] = getPlayers();
         int i;
         getCurrentPlayer().setTurnStatus(true);
-        for (i = 0; i < tmpPlayers.length; i++) 
-        {
-            if (!tmpPlayers[i].getTurnStatus()) 
-            {
+        for (i = 0; i < tmpPlayers.length; i++) {
+            if (!tmpPlayers[i].getTurnStatus()) {
                 break;
             }
         }
 
         if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
             Integer gamePhaseFlag = 0; // 0 Change True, -1 Change False
-            for (i = 0; i < tmpPlayers.length; i++) 
-            {
-                if (tmpPlayers[i].getArmies() != 0) 
-                {
+            for (i = 0; i < tmpPlayers.length; i++) {
+                if (tmpPlayers[i].getArmies() != 0) {
                     gamePhaseFlag = -1;
                     break;
                 }
             }
 
-            if (gamePhaseFlag == 0) 
-            {
+            if (gamePhaseFlag == 0) {
                 incrementGamePhase();
                 nextPlayerTurn();
                 gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will re-inforce his armies now";
@@ -434,7 +427,7 @@ public class GameConfig extends Observable {
         	}
         }
     }
-    
+
     public void attackTerritory(Integer attackerDice, Integer defendorDice,
             Map<String, Continent> dictContinents)
     {

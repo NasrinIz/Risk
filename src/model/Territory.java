@@ -138,7 +138,7 @@ public class Territory
      * @param inContinent The name of the continent in which territory exists
      * @param inAdjacent The string containing information about adjacent territories
      */
-	public void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent) 
+	private void SetInfo(String inName, String inX, String inY, String inContinent, String inAdjacent)
 	{
 		name = inName;
 		X = genericFunctionsObj.genStrToInt(inX);
@@ -152,7 +152,7 @@ public class Territory
 	 * Sets the current owner of the territory
 	 * @param inId The new owner
 	 */
-	public void setOwner(Integer inId)
+	void setOwner(Integer inId)
 	{
 		ownerPlayerId = inId;
 	}
