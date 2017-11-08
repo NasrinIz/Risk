@@ -546,7 +546,7 @@ public class Player {
 
     }
 
-    void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
+    public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
         if (mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1) {
             mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
             mapObj.getDictTerritory().get(destTerritory).increaseArmies();

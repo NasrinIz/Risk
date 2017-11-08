@@ -1,5 +1,6 @@
 package test_model;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -11,7 +12,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import src.model.Card;
+import src.model.GameConfig;
+import src.model.Maps;
 import src.model.Player;
+import src.model.Territory;
 
 public class TestPlayer {
 
@@ -50,5 +54,71 @@ public class TestPlayer {
 	public void testReinforcementCalc() {
 		objPlayer.calcReinforcementArmies();
 		assertTrue(objPlayer.getArmies() == 14);
+	}
+	
+	
+	@Test
+	public void testFortify() {
+		GameConfig objConfig;
+		objConfig = new GameConfig(2, "world", null);
+		String path = String.format("Resources//Maps//%s.map", "World");
+		objConfig.setNumPlayers(2);
+		Maps mapObj = new Maps(path, 0);
+		objConfig.setMapObj(mapObj);
+		objConfig.getMapObj().readMap();
+		int flag = 0;
+		Territory srcTerr = null;
+		for(String terr : mapObj.getDictTerritory().keySet()) {
+			if(flag == 0) {
+				Territory tmp = mapObj.getDictTerritory().get(terr);
+				tmp.setOwner(0);
+				mapObj.getDictTerritory().get(terr).increaseArmies();
+				srcTerr = mapObj.getDictTerritory().get(terr);
+				flag = 1;
+				break;
+			}
+			else {
+				if(mapObj.getDictTerritory().get(terr).getOwner() == 1) {
+					mapObj.getDictTerritory().get(terr).increaseArmies();
+					break;
+				}
+			}
+		}
+		Territory destTerr = mapObj.getDictTerritory().get(srcTerr.getAdjacentCountries().get(0));
+		
+		Player player = objConfig.getPlayers()[0];
+		destTerr.setOwner(0);
+		player.fortifyArmy(mapObj, srcTerr.getName(), destTerr.getName());
+		assertTrue(destTerr.getArmies() == 2);
+	}
+	
+	@Test
+	public void testAttack() {
+		GameConfig objConfig;
+		objConfig = new GameConfig(2, "world", null);
+		String path = String.format("Resources//Maps//%s.map", "World");
+		objConfig.setNumPlayers(2);
+		Maps mapObj = new Maps(path, 0);
+		objConfig.setMapObj(mapObj);
+		objConfig.getMapObj().readMap();
+		int flag = 0;
+		Player player = objConfig.getPlayers()[0];
+		Territory srcTerr = player.getTerritories().get(0);
+		srcTerr.increaseArmies();
+		srcTerr.increaseArmies();
+		srcTerr.increaseArmies();
+		srcTerr.increaseArmies();
+		
+		Territory destTerr = mapObj.getDictTerritory().get(srcTerr.getAdjacentCountries().get(0));
+		destTerr.setOwner(1);
+		destTerr.increaseArmies();
+		destTerr.increaseArmies();
+		
+		
+		destTerr.setOwner(1);
+		player.srcAttackTerritory = srcTerr;
+		player.dstAttackTerritory = destTerr;
+		int rt = player.attackTerritory(1, 1, mapObj.getDictContinents());
+		assertTrue(rt == 0);
 	}
 }

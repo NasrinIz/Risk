@@ -149,7 +149,7 @@ public class Territory
 	 * Sets the current owner of the territory
 	 * @param inId The new owner
 	 */
-	void setOwner(Integer inId)
+	public void setOwner(Integer inId)
 	{
 		ownerPlayerId = inId;
 	}
