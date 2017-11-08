@@ -300,9 +300,7 @@ public class GameConfig extends Observable {
             //System.out.println(pair.getKey() + " = " + pair.getValue());
         }
 
-        for (int i = 0; i < players.length; i++) {
-            players[i].calcReinforcementArmies();
-        }
+        this.getCurrentPlayer().calcReinforcementArmies();
     }
 
     /**
@@ -384,8 +382,8 @@ public class GameConfig extends Observable {
             }
 
             if (gamePhaseFlag == 0) {
+            	nextPlayerTurn();
                 incrementGamePhase();
-                nextPlayerTurn();
                 gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
             } 
             else 
@@ -410,8 +408,8 @@ public class GameConfig extends Observable {
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) 
         {
+        	nextPlayerTurn();
         	incrementGamePhase();
-            nextPlayerTurn();
         }
 
         setChanged();

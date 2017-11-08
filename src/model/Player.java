@@ -214,7 +214,8 @@ public class Player {
         newArmies += cardsArmyReward;
         armies += newArmies;
 
-        System.out.printf("\nPlayer %d received %d armies.", this.getPlayerId(), armies);
+        System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).", 
+        		this.getPlayerId(), armies, newArmies, continentArmyReward);
     }
 
     public void removeTerritory(String territory)
@@ -305,10 +306,6 @@ public class Player {
                 }
             }
         }
-
-
-        // vj push to view
-
 
         srcAttackTerritory = null;
         return rt;
