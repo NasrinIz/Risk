@@ -143,9 +143,13 @@ public class GenericFunctions {
         return (rand.nextInt((max - min) + 1) + min);
     }
 
-    public String toString(String[] astrArray) {
+    /**
+     * This function gets an string of arrays and returns a string
+     * @return str a string
+     */
+    public String toString(String[] strArray) {
         String str = "";
-        for (String value : astrArray) {
+        for (String value : strArray) {
             str = str + value + "\n";
         }
         return str;
