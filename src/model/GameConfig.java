@@ -214,12 +214,15 @@ public class GameConfig extends Observable {
     }
 
     /**
-     * This function initializes the territories for map.
+     * This function calls init territories for map.
      */
     public void callInitTerritory() {
         initTerritory();
     }
 
+    /**
+     * This function initializes the territories for map.
+     */
     private void initTerritory() {
         Integer perPlayer = mapObj.getDictTerritory().size() / numPlayers;
         Integer remainingTerritoryDist = mapObj.getDictTerritory().size() - perPlayer;
