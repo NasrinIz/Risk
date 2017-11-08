@@ -337,6 +337,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get continents values
+     * @return continent values
      */
     public String getContinentValues() {
         return addContinentField.getText() + "," + continentAwardField.getText();
@@ -352,6 +353,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get country value
+     * @return country list
      */
     public String getCountryValue() {
         return editCountryList.getText();
@@ -359,6 +361,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get continent value
+     * @return continent list
      */
     public String getContinentValue() {
         return editContinentList.getText();
@@ -366,6 +369,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get Map save location
+     * @ return map path field
      */
     public String getMapSaveLocation() {
         return saveMapPathField.getText();
@@ -373,6 +377,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Add country form
+     * @param continentListInMapEditor continent list
      */
     public void showAddCountryForm(String[] continentListInMapEditor) {
 
@@ -419,6 +424,8 @@ public class StarterWindow extends JFrame {
 
     /**
      * Show edit map form
+     * @param countryListInMapEditor continent list
+     * @param continentListInMapEditor continent list
      */
     public void showEditMapForm(String[] countryListInMapEditor, String[] continentListInMapEditor) {
         editCountryLbl = new JLabel("Edit country: ");

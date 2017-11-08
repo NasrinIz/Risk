@@ -145,6 +145,7 @@ public class GenericFunctions {
 
     /**
      * This function gets an string of arrays and returns a string
+     * @param strArray array of strings
      * @return str a string
      */
     public String toString(String[] strArray) {

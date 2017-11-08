@@ -59,6 +59,7 @@ public class MainWindow extends JFrame {
 
     /**
      * Constructor of error info which shows panel
+     * @param cardView card view
      */
     public void setCardView(CardView cardView) {
         this.cardView = cardView;

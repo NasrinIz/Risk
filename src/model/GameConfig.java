@@ -446,6 +446,7 @@ public class GameConfig extends Observable {
      * This methods starts attack, the number of dice for attacker and defender are chosen
      * @param attackerDice number of dice for attacker
      * @param defenderDice number of dice for defender
+     * @param dictContinents dictionary of continents
      */
     public void attackTerritory(Integer attackerDice, Integer defenderDice,
                                 Map<String, Continent> dictContinents) {

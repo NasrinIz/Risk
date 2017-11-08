@@ -28,6 +28,7 @@ public class TerritoryView extends JPanel {
      *
      * @param ownerId number of armies placed on territory
      * @param terrPos coordinates of the position of the territory
+     * @param color color of territory
      */
     public TerritoryView(Integer ownerId, Point terrPos, Color color) {
         this.setBackground(color);
