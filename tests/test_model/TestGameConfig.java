@@ -18,14 +18,6 @@ import src.model.Player;
 public class TestGameConfig {
 
 	private GameConfig objConfig;
-	private Integer numPlayers = null;
-	String mapName = null;
-	
-	TestGameConfig(Integer inNumPlayers, String inMapName)
-	{
-		this.numPlayers = inNumPlayers;
-		this.mapName = inMapName;
-	}
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -37,7 +29,7 @@ public class TestGameConfig {
 
 	@Before
 	public void setUp() throws Exception {
-		objConfig = new GameConfig(numPlayers, mapName, null);
+		objConfig = new GameConfig(2, "world", null);
 		
 	}
 
@@ -48,7 +40,7 @@ public class TestGameConfig {
 	@Test
 	public void testGenerateCards() {
 		objConfig.callInitcards();
-		Integer playerCards[] = new Integer[this.numPlayers];
+		Integer playerCards[] = new Integer[2];
 		for(int ctr = 0; ctr < playerCards.length; ctr++)
 		{
 			playerCards[ctr] = 0;
@@ -76,7 +68,7 @@ public class TestGameConfig {
 		
 		Player tmpPlayers[] = new Player[2];
 		Integer playerTerr[] = new Integer[2];
-		for(int i = 0; i < tmpPlayers.length; i++)
+		for(int i = 0; i < 2; i++)
 		{
 			tmpPlayers[i] = new Player("ho", i, null, null);
 		}
