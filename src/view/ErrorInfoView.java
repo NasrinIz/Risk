@@ -45,7 +45,6 @@ public class ErrorInfoView extends JPanel
 	 */
 	public void showErrorInfo(String error) 
 	{
-		System.out.println(error);
 		InfoTextArea.setText(error);
 	}
 

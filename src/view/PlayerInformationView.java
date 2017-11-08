@@ -45,7 +45,6 @@ public class PlayerInformationView extends JPanel implements Observer{
      */
     public void showPlayerInformationView(String info)
     {
-        System.out.println(info);
         InfoTextArea.setText(info);
     }
     @Override

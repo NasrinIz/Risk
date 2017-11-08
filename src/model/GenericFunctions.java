@@ -146,7 +146,6 @@ public class GenericFunctions {
     public String toString(String[] astrArray) {
         String str = "";
         for (String value : astrArray) {
-            System.out.println(value);
             str = str + value + "\n";
         }
         return str;
