@@ -2,6 +2,7 @@ package test_model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -47,9 +48,21 @@ public class TestGameConfig {
 	@Test
 	public void testGenerateCards() {
 		objConfig.callInitcards();
+		Integer playerCards[] = new Integer[this.numPlayers];
+		for(int ctr = 0; ctr < playerCards.length; ctr++)
+		{
+			playerCards[ctr] = 0;
+		}
 		for(int i = 0; i < objConfig.getGameCards().size(); i++)
 		{
-			System.out.println(objConfig.getGameCards().get(i).getOwnerId());
+			if(objConfig.getGameCards().get(i).getOwnerId() != null)
+			{
+				playerCards[objConfig.getGameCards().get(i).getOwnerId()]++;
+			}
+		}
+		for(int ctr = 0; ctr < playerCards.length; ctr++)
+		{
+			assertTrue(((Integer)playerCards[ctr] == 4));
 		}
 	}
 	
@@ -62,17 +75,21 @@ public class TestGameConfig {
 		objConfig.getMapObj().readMap();
 		
 		Player tmpPlayers[] = new Player[2];
-		
+		Integer playerTerr[] = new Integer[2];
 		for(int i = 0; i < tmpPlayers.length; i++)
 		{
-			tmpPlayers[i] = new Player("ho", i, null);
+			tmpPlayers[i] = new Player("ho", i, null, null);
 		}
 		
 		objConfig.callInitTerritory();
 		
 		for (String territory : objConfig.getMapObj().getDictTerritory().keySet())
 		{
-			System.out.println(objConfig.getMapObj().getDictTerritory().get(territory).getOwner());
+			playerTerr[objConfig.getMapObj().getDictTerritory().get(territory).getOwner()]++;
+		}
+		
+		for(int ctr = 0; ctr < 2; ctr++) {
+			assertTrue(playerTerr[ctr] == 21);
 		}
 	}
 

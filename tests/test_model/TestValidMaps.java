@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import src.model.Continent;
 import src.model.GameConfig;
+import src.model.Maps;
 import src.model.Territory;
 
 public class TestValidMaps {
@@ -21,6 +22,7 @@ public class TestValidMaps {
 	private static Map<String, Continent> dictContinents;
 	private static Map<String, Territory> dictTerritory;
 	private static GameConfig gameConfig;
+	private Maps objMap = null; 
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -91,8 +93,6 @@ public class TestValidMaps {
 		assertEquals(gameConfig.getMapObj().getMapAuthor(), "Samer Ayoub");
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("A").getTerritories().size(), 5);
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("B").getTerritories().size(), 3);
-		// To Do:
-		// override equals in Territory and Continent and use it to assert equality
 	}
 	
 	@Test
@@ -100,11 +100,22 @@ public class TestValidMaps {
 		assertEquals(gameConfig.getMapObj().validateMap(), "true" );
 	}
 	
+	@Test
+	public void testDisconnectedMap() {
+		String path = String.format("Resources//Maps//%s.map", "vj_test");
+		objMap = new Maps(path, 0);
+		objMap.readMap();
+		assertEquals(objMap.validateMap(), "The map is not a connected graph");
+	}
 	
-
-//	@Test
-//	public void test() {
-//		fail("Not yet implemented");
-//	}
+	@Test
+	public void testInconsistentAdjacency() {
+		String path = String.format("Resources//Maps//%s.map", "vj_test_adjacency");
+		objMap = new Maps(path, 0);
+		objMap.readMap();
+		String rt = objMap.validateMap();
+		rt = rt.substring(0, 23);
+		assertEquals(rt.substring(0, 23), "\nPlease check adjacency");
+	}
 
 }

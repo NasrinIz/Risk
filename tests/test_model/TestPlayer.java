@@ -1,5 +1,7 @@
 package test_model;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -28,31 +30,8 @@ public class TestPlayer {
 
 	@Before
 	public void setUp() throws Exception {
-		gameCards = new ArrayList<Card>();
-		for(int i = 0; i < 11; i++)
-		{
-			Card tmpCard = null;
-			if(i < 8)
-			{
-				tmpCard = new Card(i, 1);
-			}
-			else if(i < 11)
-			{
-				tmpCard = new Card(i, 2);
-			}
-			else if(i < 21)
-			{
-				tmpCard = new Card(i, 3);
-			}
-			else if(i < 23)
-			{
-				tmpCard = new Card(i, 4);
-			}
-			gameCards.add(tmpCard);
-		}
-		
-		/* Assuming player captured 10 territories */
-		objPlayer = new Player("HOKA", 0, gameCards);
+		/* Assuming player owns 12 territories */
+		objPlayer = new Player("HOKA", 0, null, null);
 		for(int i = 0; i < 10; i++)
 		{
 			objPlayer.increaseNumTerritories();
@@ -70,5 +49,6 @@ public class TestPlayer {
 	@Test
 	public void testReinforcementCalc() {
 		objPlayer.calcReinforcementArmies();
+		assertTrue(objPlayer.getArmies() == 22);
 	}
 }

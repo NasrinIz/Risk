@@ -42,23 +42,6 @@ public class TestInvalidMaps {
 		// do nothing
 	}
 
-	@Test
-	public void testDisconnectedMap() {
-		String path = String.format("Resources//Maps//%s.map", disconnectedMapName);
-		objMap = new Maps(path, 0);
-		//gameConfig = new GameConfig(3, "testing_maps//invalid_1");
-		objMap.readMap();
-		assertEquals(objMap.validateMap(), "The map is not a connected graph");
-	}
-	
-	@Test
-	public void testInconsistentAdjacency() {
-		String path = String.format("Resources//Maps//%s.map", inconsistentAdjacencyMapName);
-		objMap = new Maps(path, 0);
-		objMap.readMap();
-		String rt = objMap.validateMap();
-		rt = rt.substring(0, 23);
-		assertEquals(rt.substring(0, 23), "\nPlease check adjacency");
-	}
+
 
 }

@@ -168,7 +168,7 @@ public class Player {
      *
      * @param inArmies New number of armies of player.
      */
-    void setArmies(int inArmies) {
+    public void setArmies(int inArmies) {
         armies = inArmies;
     }
 
@@ -177,7 +177,7 @@ public class Player {
      *
      * @return armies Number of armies that player owns
      */
-    int getArmies() {
+    public int getArmies() {
         return armies;
     }
 
