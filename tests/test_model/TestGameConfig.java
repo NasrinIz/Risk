@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import src.model.GameConfig;
 import src.model.Maps;
 import src.model.Player;
+import src.model.Territory;
 
 
 public class TestGameConfig {
@@ -68,6 +71,8 @@ public class TestGameConfig {
 		
 		Player tmpPlayers[] = new Player[2];
 		Integer playerTerr[] = new Integer[2];
+		playerTerr[0] = 0;
+		playerTerr[1] = 0;
 		for(int i = 0; i < 2; i++)
 		{
 			tmpPlayers[i] = new Player("ho", i, null, null);
@@ -75,9 +80,12 @@ public class TestGameConfig {
 		
 		objConfig.callInitTerritory();
 		
-		for (String territory : objConfig.getMapObj().getDictTerritory().keySet())
+		Maps objMap = objConfig.getMapObj();
+		Map<String, Territory> dictTerr = objMap.getDictTerritory();
+		for (String territory : dictTerr.keySet())
 		{
-			playerTerr[objConfig.getMapObj().getDictTerritory().get(territory).getOwner()]++;
+			Integer owner = dictTerr.get(territory).getOwner();
+			playerTerr[owner] = playerTerr[owner] + 1;
 		}
 		
 		for(int ctr = 0; ctr < 2; ctr++) {

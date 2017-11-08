@@ -1,5 +1,7 @@
 package test_model;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,9 +12,9 @@ import src.model.MapEditor;
 
 public class TestMapEditor {
 	private MapEditor mapEditor = null;
-	private String newContinentOne = "ZM, 3";
-	private String newContinentTwo = "YM, 4";
-	private String newContinentThree = "XM, 5";
+	private String newContinentOne = "ZM,3";
+	private String newContinentTwo = "YM,4";
+	private String newContinentThree = "XM,5";
 	
 	private String newCountryOne = "C1,100,100,ZM,A1,B1,D1";
 	private String newCountryTwo = "D1,100,100,YM,C1";
@@ -57,9 +59,9 @@ public class TestMapEditor {
 		mapEditor.newCountry(this.newCountryFour);
 		
 		mapEditor.delCountry(deleteCountryName);
-		
+		mapEditor.delCountry("C1");
 		mapEditor.deleteContinent(deleteContinentName);
 		
-		System.out.println(mapEditor.mapObj.validateMap());
+		assertTrue("The map is not a connected graph".equals(mapEditor.mapObj.validateMap()));
 	}
 }

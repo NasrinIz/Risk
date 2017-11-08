@@ -241,6 +241,9 @@ public class GameConfig extends Observable {
 
             if (perPlayerDistFlag == 0) {
                 nextOwnerPlayer++;
+                if(nextOwnerPlayer == numPlayers) {
+                	nextOwnerPlayer = 0;
+                }
                 (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
                 players[nextOwnerPlayer].occupyTerritory();
             } else {

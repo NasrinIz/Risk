@@ -471,6 +471,13 @@ public class Maps {
         List<Territory> territories = this.getDictContinents().get(tmpContinent).getTerritories();
 
         for (int i = 0; i < territories.size(); i++) {
+        	for(String terr : this.dictTerritory.keySet()) {
+        		for(int ctr = 0; ctr < this.dictTerritory.get(terr).getAdjacentCountries().size(); ctr++) {
+        			if(this.dictTerritory.get(terr).getAdjacentCountries().get(ctr).equals(territories.get(i).getName())) {
+        				this.dictTerritory.get(terr).getAdjacentCountries().remove(ctr);
+        			}
+        		}
+        	}
             this.dictTerritory.remove(territories.get(i).getName());
         }
 

@@ -32,7 +32,7 @@ public class TestPlayer {
 	public void setUp() throws Exception {
 		/* Assuming player owns 12 territories */
 		objPlayer = new Player("HOKA", 0, null, null);
-		for(int i = 0; i < 10; i++)
+		for(int i = 0; i < 12; i++)
 		{
 			objPlayer.increaseNumTerritories();
 		}
@@ -49,6 +49,6 @@ public class TestPlayer {
 	@Test
 	public void testReinforcementCalc() {
 		objPlayer.calcReinforcementArmies();
-		assertTrue(objPlayer.getArmies() == 22);
+		assertTrue(objPlayer.getArmies() == 14);
 	}
 }
