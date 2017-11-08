@@ -1,0 +1,6 @@
+[Continents]
+A=5
+
+[Territories]
+A1,120,120,A,B1
+B1,220,220,A,A1
