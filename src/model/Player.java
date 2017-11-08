@@ -485,6 +485,7 @@ public class Player {
                         (this.gameCards.get(ctr).cardType == 1)) {
                     this.gameCards.get(ctr).setOwnerId(null);
                     this.gameCards.remove(ctr);
+                    ctr--;
                     infantryRem++;
                 }
 
@@ -492,6 +493,7 @@ public class Player {
                         (this.gameCards.get(ctr).cardType == 2)) {
                     this.gameCards.get(ctr).setOwnerId(null);
                     this.gameCards.remove(ctr);
+                    ctr--;
                     cavalryRem++;
                 }
 
@@ -499,6 +501,7 @@ public class Player {
                         (this.gameCards.get(ctr).cardType == 3)) {
                     this.gameCards.get(ctr).setOwnerId(null);
                     this.gameCards.remove(ctr);
+                    ctr--;
                     artilleryRem++;
                 }
 
@@ -506,6 +509,7 @@ public class Player {
                         (this.gameCards.get(ctr).cardType == 4)) {
                     this.gameCards.get(ctr).setOwnerId(null);
                     this.gameCards.remove(ctr);
+                    ctr--;
                     wildRem++;
                 }
             }
