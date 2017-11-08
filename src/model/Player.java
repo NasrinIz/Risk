@@ -295,10 +295,11 @@ public class Player {
             targetTerritory.setOwner(id);
             targetTerritory.increaseArmies();
             srcTerritory.decreaseArmies();
+            this.territories.add(targetTerritory);
         }
 
         for (String continent : dictContinents.keySet()) {
-            if (continent.equals(srcTerritory.getContinent())) {
+            if (continent.equals(targetTerritory.getContinent())) {
                 if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) {
                     System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
                     System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() +

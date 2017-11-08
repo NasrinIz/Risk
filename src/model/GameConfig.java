@@ -331,6 +331,34 @@ public class GameConfig extends Observable {
      * @param destTerritory fortify to destiny
      */
     public void fortifyArmies(String srcTerritory, String destTerritory) {
+    	ArrayList<Territory> tmp = getCurrentPlayer().getTerritories();
+    	int srcFound = 0;
+    	int destFound = 0;
+    	int adjacencyFlag = 0;
+    	
+    	for(int ctr = 0; ctr < tmp.size(); ctr++) {
+    		if(tmp.get(ctr).getName().equals(srcTerritory) == true) {
+    			srcFound = 1;
+    			for(String adjacent : tmp.get(ctr).getAdjacentCountries()) {
+    				if(adjacent.equals(destTerritory)) {
+    					adjacencyFlag = 1;
+    				}
+    			}
+    		}
+    		if(tmp.get(ctr).getName().equals(destTerritory) == true) {
+    			destFound = 1;
+    		}
+    	}
+    	
+    	if((srcFound == 0) || (destFound == 0)) {
+    		return;
+    	}
+    	
+    	if(adjacencyFlag == 0) {
+    		System.out.println("Player can only fortify armies from territory adjacent to target territory");
+    		return;
+    	}
+    	
         getCurrentPlayer().fortifyArmy(mapObj, srcTerritory, destTerritory);
     }
 
@@ -410,10 +438,8 @@ public class GameConfig extends Observable {
         {
         	nextPlayerTurn();
         	incrementGamePhase();
+        	gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
         }
-
-        setChanged();
-        notifyObservers(this);
         
         for(int ctr = 0; ctr < players.length; ctr++)
         {
@@ -424,6 +450,9 @@ public class GameConfig extends Observable {
         		gamePhase = genericFunctionsObj.GAMEPHASENONE;
         	}
         }
+        
+        setChanged();
+        notifyObservers(this);
     }
 
     public void attackTerritory(Integer attackerDice, Integer defendorDice,

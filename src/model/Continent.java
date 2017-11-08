@@ -103,7 +103,7 @@ public class Continent {
      */
     boolean isContinentCaptured(Integer playerId) {
         for (Territory territory : territories) {
-            if (!Objects.equals(territory.getOwner(), playerId)) {
+            if (territory.getOwner() != playerId) {
                 return false;
             }
         }

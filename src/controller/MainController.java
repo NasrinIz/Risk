@@ -327,6 +327,7 @@ public class MainController {
                             || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
                         gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
                         gameConfig.nextPlayerOrPhase();
+                        previousCountryName = null;
                     }
 
                     if ((previousCountryName != null)
