@@ -169,6 +169,7 @@ public class CardView extends JPanel implements Observer {
 
     /**
      * Check card value to see if the sum is less than 3
+     * @return boolean
      */
     public boolean checkCardValue() {
 

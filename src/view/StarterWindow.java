@@ -345,6 +345,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get country values
+     * @return country field and coordination field continent list and adjacent country fields
      */
     public String getCountryValues() {
         return addCountryField.getText() + "," + countryCoordinationField.getText() + ","
@@ -369,7 +370,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get Map save location
-     * @ return map path field
+     * @return map path field
      */
     public String getMapSaveLocation() {
         return saveMapPathField.getText();
