@@ -76,6 +76,13 @@ public class CardView extends JPanel implements Observer {
         InfoTextArea.setText(Info);
     }
 
+
+    /**
+     * The information received from observable is updated in view
+     *
+     * @param o   object of observable which is config class
+     * @param arg argument passed to observer
+     */
     @Override
     public void update(Observable o, Object arg) {
         Integer playerId = ((GameConfig) o).getCurrentPlayer().getPlayerId();
@@ -112,12 +119,14 @@ public class CardView extends JPanel implements Observer {
 
         this.showCardInfo(
                 cardInfantry.toString() + "I" + "," + "\n" +
-                cardCavalry.toString() + "C" + "," + "\n" +
-                cardArtillery.toString() + "A" + "," + "\n" +
-                cardWild.toString() + "W");
+                        cardCavalry.toString() + "C" + "," + "\n" +
+                        cardArtillery.toString() + "A" + "," + "\n" +
+                        cardWild.toString() + "W");
     }
 
     /**
+     * adds action listener for adding cards
+     *
      * @param listenForCardBtn dice btn
      */
     public void addCardBtnListener(ActionListener listenForCardBtn) {
@@ -131,54 +140,50 @@ public class CardView extends JPanel implements Observer {
      * @return Card Values for all cards
      */
     public String getCardValues() {
-    	String rt = "";
-        if(!infantryInputField.getText().equals("")){
+        String rt = "";
+        if (!infantryInputField.getText().equals("")) {
             rt += infantryInputField.getText();
-        }
-        else {
-        	rt += Integer.toString(0);
-        }
-        rt += ",";
-        if(!artilleryInputField.getText().equals("")){
-        	rt += artilleryInputField.getText();
-        }
-        else {
-        	rt += Integer.toString(0);
+        } else {
+            rt += Integer.toString(0);
         }
         rt += ",";
-        if(!cavalryInputField.getText().equals("")){
-        	rt += cavalryInputField.getText();
-        }
-        else {
-        	rt += Integer.toString(0);
+        if (!artilleryInputField.getText().equals("")) {
+            rt += artilleryInputField.getText();
+        } else {
+            rt += Integer.toString(0);
         }
         rt += ",";
-        if(!wildInputField.getText().equals("")){
-        	rt += wildInputField.getText();
+        if (!cavalryInputField.getText().equals("")) {
+            rt += cavalryInputField.getText();
+        } else {
+            rt += Integer.toString(0);
         }
-        else {
-        	rt += Integer.toString(0);
+        rt += ",";
+        if (!wildInputField.getText().equals("")) {
+            rt += wildInputField.getText();
+        } else {
+            rt += Integer.toString(0);
         }
         return rt;
     }
 
     /**
-     *
+     * Check card value to see if the sum is less than 3
      */
     public boolean checkCardValue() {
 
         Integer sum = 0;
         try {
-            if(!infantryInputField.getText().equals("")){
+            if (!infantryInputField.getText().equals("")) {
                 sum = Integer.parseInt(infantryInputField.getText()) + sum;
             }
-            if(!artilleryInputField.getText().equals("")){
+            if (!artilleryInputField.getText().equals("")) {
                 sum = Integer.parseInt(artilleryInputField.getText()) + sum;
             }
-            if(!cavalryInputField.getText().equals("")){
+            if (!cavalryInputField.getText().equals("")) {
                 sum = Integer.parseInt(cavalryInputField.getText()) + sum;
             }
-            if(!wildInputField.getText().equals("")){
+            if (!wildInputField.getText().equals("")) {
                 sum = Integer.parseInt(wildInputField.getText()) + sum;
             }
             return sum == 3;

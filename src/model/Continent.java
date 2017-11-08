@@ -50,6 +50,7 @@ public class Continent {
     }
 
     /**
+     * This method gets the player id
      * @return owner player id
      */
     Integer getOwnerId() {
@@ -57,6 +58,7 @@ public class Continent {
     }
 
     /**
+     * This method gets the player name
      * @return The name of the continent
      */
     public String getName() {
@@ -64,6 +66,7 @@ public class Continent {
     }
 
     /**
+     * This method gets the territories of continent
      * @return Returns the territories inside this continent
      */
     public ArrayList<Territory> getTerritories() {
@@ -80,6 +83,7 @@ public class Continent {
     }
 
     /**
+     * This method gets the reward of armies
      * @return This method returns armyReward for the continent capture
      */
     int getArmyReward() {
@@ -87,6 +91,7 @@ public class Continent {
     }
 
     /**
+     * This method set armies reward
      * Sets the army reward for the capture of this continent
      *
      * @param inArmyReward reward of armies
@@ -111,6 +116,7 @@ public class Continent {
     }
 
     /**
+     * This method writes the continent information
      * @return This function returns the continent information in a string
      */
     public String toString() {
