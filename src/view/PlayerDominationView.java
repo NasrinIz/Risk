@@ -51,9 +51,7 @@ public class PlayerDominationView extends JPanel implements Observer {
         String dominationValue = "";
         for (Player player : ((GameConfig) o).getPlayers()) {
             playerName = player.getName();
-            System.out.println(playerName);
             Integer percentage = (player.numOfTerritories() * 100) / ((GameConfig) o).getMapObj().getNumTerritories();
-            System.out.println(playerName);
             Integer star = (percentage * 10) / 100;
 
             String starValue = "";
