@@ -3,7 +3,6 @@ package src.view;
 
 import src.model.GameConfig;
 import src.model.Player;
-import src.model.Territory;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -19,7 +18,7 @@ public class PlayerDominationView extends JPanel implements Observer {
     private JTextArea InfoTextArea;
 
     /**
-     * Show error information
+     * Shows error information
      */
     public void showInfoPanel() {
         this.setBackground(Color.GREEN);
@@ -38,6 +37,8 @@ public class PlayerDominationView extends JPanel implements Observer {
     }
 
     /**
+     * Shows player domination view
+     *
      * @param percentage Number of territories of players
      */
     private void showPlayerDominationView(String percentage) {
@@ -45,6 +46,12 @@ public class PlayerDominationView extends JPanel implements Observer {
         InfoTextArea.setText(percentage);
     }
 
+    /**
+     * Updates view based on observable information
+     *
+     * @param o   Object of observable passed
+     * @param arg argument passed
+     */
     @Override
     public void update(Observable o, Object arg) {
         String playerName;

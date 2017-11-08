@@ -46,6 +46,9 @@ public class TerritoryView extends JPanel {
         terrNameBtn.addActionListener(territoryBtnListener);
     }
 
+    /**
+     * Update button names based on captured countries
+     */
     void updateButtonName(String playerId) {
         this.terrNameBtn.setText(playerId);
     }

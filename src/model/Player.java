@@ -546,6 +546,12 @@ public class Player {
 
     }
 
+    /**
+     * This function is used to exchange cards.fortify armies.
+     * @param mapObj Map object
+     * @param srcTerritory The territory from which fortify happens
+     * @param destTerritory The territory to which armies are moved
+     */
     public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
         if (mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1) {
             mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();

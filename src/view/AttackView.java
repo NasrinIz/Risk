@@ -18,13 +18,15 @@ public class AttackView extends JPanel {
     private Integer attackerDice = 0;
     private Integer defenderDice = 0;
 
-
+    /**
+     * Attack view constructor which shows the attack panel
+     */
     AttackView() {
         this.showAttackPanel();
     }
 
     /**
-     * Show attack panel
+     * Shows attack panel
      */
     private void showAttackPanel() {
         this.setBackground(Color.DARK_GRAY);
@@ -60,71 +62,57 @@ public class AttackView extends JPanel {
     }
 
     /**
-     *
+     * Check dice value to see f the dice values are correct. Attacker can roll less than the number of armies
      */
     public Boolean checkDiceValue() {
-    	try
-    	{
-	        if (attackerTurn)
-	        {
-	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) 
-	            {
-	                attackerDice = Integer.parseInt(attackInputField.getText());
-	                attackInputField.setText("");
-	                attackerTurn = false;
-	            }
-	            else
-	            {
-	            	System.out.println("Incorrect dice roll. Attacker can roll two less dice from number of armies on territory, given max dice = 3");
-	            	return false;
-	            }
-	        } 
-	        else 
-	        {
-	            if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) 
-	            {
-	                defenderDice = Integer.parseInt(attackInputField.getText());
-	                attackInputField.setText("");
-	                attackerTurn = true;
-	                if((attackerDice != null) && (defenderDice != null) &&
-	                		(attackerDice > 0) && (attackerDice < 4) && 
-	                		(defenderDice > 0) && (defenderDice < 3)) 
-	                {
-	                    return true;
-	                } 
-	            }
-	            else
-	            {
-	            	System.out.println("Incorrect dice roll. Defender can roll 2 or less dice equal to number of armies on territory");
-	            	return false;
-	            }
-	        }
-    	}
-    	catch(NumberFormatException e)
-    	{
-    		//
-    	}
+        try {
+            if (attackerTurn) {
+                if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 4) {
+                    attackerDice = Integer.parseInt(attackInputField.getText());
+                    attackInputField.setText("");
+                    attackerTurn = false;
+                } else {
+                    System.out.println("Incorrect dice roll. Attacker can roll two less dice from number of armies on territory, given max dice = 3");
+                    return false;
+                }
+            } else {
+                if (Integer.parseInt(attackInputField.getText()) > 0 && Integer.parseInt(attackInputField.getText()) < 3) {
+                    defenderDice = Integer.parseInt(attackInputField.getText());
+                    attackInputField.setText("");
+                    attackerTurn = true;
+                    if ((attackerDice != null) && (defenderDice != null) &&
+                            (attackerDice > 0) && (attackerDice < 4) &&
+                            (defenderDice > 0) && (defenderDice < 3)) {
+                        return true;
+                    }
+                } else {
+                    System.out.println("Incorrect dice roll. Defender can roll 2 or less dice equal to number of armies on territory");
+                    return false;
+                }
+            }
+        } catch (NumberFormatException e) {
+            //
+        }
         return false;
     }
 
     /**
      * This function returns the dice values to the controller from view.
+     *
      * @return Dice Values of both attacker and defender as one String
      */
-    public String getDiceValues() 
-    {
+    public String getDiceValues() {
         return attackerDice.toString() + "," + defenderDice.toString();
     }
 
     /**
      * This function is used to reset the dice values to zero
      */
-    public void resetDiceValues() 
-    {
-    	attackerDice = 0;
-    	defenderDice = 0;
+    public void resetDiceValues() {
+        attackerDice = 0;
+        defenderDice = 0;
     }
-    
+
     /**
      * @param listenForDiceBtn dice btn
      */

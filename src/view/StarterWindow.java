@@ -50,6 +50,9 @@ public class StarterWindow extends JFrame {
     private JLabel addCountryToContinentLbl;
     private JTextField continentList;
 
+    /**
+     * Initializes starter window
+     */
     public StarterWindow() {
         menuBar = new JMenuBar();
         menu = new JMenu("File");
@@ -60,6 +63,9 @@ public class StarterWindow extends JFrame {
         this.initContentPane();
     }
 
+    /**
+     * Initializes window
+     */
     private void initWindow() {
         setSize(new Dimension(WIDTH, HEIGHT));
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -71,12 +77,18 @@ public class StarterWindow extends JFrame {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
     }
 
+    /**
+     * Initializes content pane
+     */
     private void initContentPane() {
         BorderLayout borderLayout = new BorderLayout();
         getContentPane().add(menuBar);
         this.setLayout(borderLayout);
     }
 
+    /**
+     * Initializes menu bar
+     */
     private void initMenuBar() {
         setJMenuBar(menuBar);
         menuBar.add(menu);
@@ -84,6 +96,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * Adds action listener for new game
+     *
      * @param listenForMenuItemNewGame Menu item
      */
     public void addMenuItemNewGameActionListener(ActionListener listenForMenuItemNewGame) {
@@ -91,6 +105,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener for radio map
+     *
      * @param listenForLoadMap load map
      */
     public void addRadioLoadMapActionListener(ActionListener listenForLoadMap) {
@@ -98,6 +114,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForSelectMap select map
      */
     public void addRadioSelectMapActionListener(ActionListener listenForSelectMap) {
@@ -105,6 +123,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForCreateMap create map
      */
     public void addRadioCreateMapActionListener(ActionListener listenForCreateMap) {
@@ -112,6 +132,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForSubmitButton submit button
      */
     public void addSubmitButtontActionListener(ActionListener listenForSubmitButton) {
@@ -119,6 +141,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForContinentBtn continent button
      */
     public void finishAddingContinentBtnActionListener(ActionListener listenForContinentBtn) {
@@ -126,6 +150,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForAddContinentBtn add continent button
      */
     public void addContinentBtnActionListener(ActionListener listenForAddContinentBtn) {
@@ -133,6 +159,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForAddCountryBtn add country button
      */
     public void addCountryBtnActionListener(ActionListener listenForAddCountryBtn) {
@@ -140,6 +168,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForRemoveCountryBtn remove country button
      */
     public void removeCountryBtnActionListener(ActionListener listenForRemoveCountryBtn) {
@@ -147,12 +177,18 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForAddContinentBtn add continent button
      */
     public void removeContinentBtnActionListener(ActionListener listenForAddContinentBtn) {
         removeContinentButton.addActionListener(listenForAddContinentBtn);
     }
 
+
+    /**
+     * Shows starter form
+     */
     public void showStarterForm() {
 
         radioLoadMap = new JRadioButton("Load map");
@@ -192,6 +228,10 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+
+    /**
+     * Shows selected map form
+     */
     public void showSelectMapForm() {
         lblMapSelect = new JLabel("Select a map: ");
         lblMapSelect.setBounds(10, 120, 200, 20);
@@ -220,6 +260,10 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+
+    /**
+     * Shows load map form
+     */
     public void showLoadMapForm() {
         lblMapLoad = new JLabel("Load a map: ");
         lblMapLoad.setBounds(10, 120, 200, 20);
@@ -241,6 +285,10 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+
+    /**
+     * Show create map form
+     */
     public void showCreateMapForm() {
 
         addContinentLbl = new JLabel("Add Continent: ");
@@ -287,27 +335,45 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+    /**
+     * Get continents values
+     */
     public String getContinentValues() {
         return addContinentField.getText() + "," + continentAwardField.getText();
     }
 
+    /**
+     * Get country values
+     */
     public String getCountryValues() {
         return addCountryField.getText() + "," + countryCoordinationField.getText() + ","
                 + continentList.getText() + "," + adjacentCountriesField.getText();
     }
 
+    /**
+     * Get country value
+     */
     public String getCountryValue() {
         return editCountryList.getText();
     }
 
+    /**
+     * Get continent value
+     */
     public String getContinentValue() {
         return editContinentList.getText();
     }
 
+    /**
+     * Get Map save location
+     */
     public String getMapSaveLocation() {
         return saveMapPathField.getText();
     }
 
+    /**
+     * Add country form
+     */
     public void showAddCountryForm(String[] continentListInMapEditor) {
 
         addCountryLbl = new JLabel("Country: ");
@@ -351,6 +417,9 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+    /**
+     * Show edit map form
+     */
     public void showEditMapForm(String[] countryListInMapEditor, String[] continentListInMapEditor) {
         editCountryLbl = new JLabel("Edit country: ");
         editCountryLbl.setBounds(10, 400, 100, 20);
@@ -383,6 +452,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * adds action listener
+     *
      * @param listenForEditMapRadioBtn map edit radio
      */
     public void addEditMapRadioBtnListener(ActionListener listenForEditMapRadioBtn) {
@@ -390,6 +461,8 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * get player numbers
+     *
      * @return numPlayers
      */
     public Integer getPlayerNumbers() {
@@ -397,12 +470,17 @@ public class StarterWindow extends JFrame {
     }
 
     /**
+     * get selected map
+     *
      * @return selectedMap
      */
     public String getSelectedMap() {
         return String.valueOf(mapList.getSelectedItem());
     }
 
+    /**
+     * Remove create map form
+     */
     private void removeCreateMapForm() {
         if (addContinentLbl != null && addContinentField != null
                 && addContinentButton != null && finishAddingContinentsBtn != null) {
@@ -418,6 +496,9 @@ public class StarterWindow extends JFrame {
         }
     }
 
+    /**
+     * Remove add country form
+     */
     private void removeAddCountryForm() {
         if (addCountryLbl != null && addCountryField != null
                 && countryCoordinationLbl != null && countryCoordinationField != null
@@ -437,6 +518,9 @@ public class StarterWindow extends JFrame {
         }
     }
 
+    /**
+     * Remove edit map form
+     */
     private void removeEditMapForm() {
         if (editCountryLbl != null && editCountryList != null
                 && editContinentLbl != null && editContinentList != null
@@ -452,6 +536,9 @@ public class StarterWindow extends JFrame {
         }
     }
 
+    /**
+     * Remove select map form
+     */
     private void removeSelectMapForm() {
         if (editMapRadioBtn == null || lblMapSelect == null || mapList == null) {
             return;
@@ -462,6 +549,9 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+    /**
+     * Remove load map form
+     */
     private void removeLoadMapForm() {
         if (lblMapLoad != null && loadMapField != null && editMapRadioBtn != null) {
             this.getContentPane().remove(editMapRadioBtn);

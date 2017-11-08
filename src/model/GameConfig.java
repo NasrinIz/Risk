@@ -27,7 +27,7 @@ public class GameConfig extends Observable {
     private MainWindow mainWindow;
 
     public String gamePhaseStr = "Phase: StartUP\nAll players will place \narmies one by one in \nround robin fashion";
-    
+
     public MainWindow getMainWindow() {
         return mainWindow;
     }
@@ -131,7 +131,7 @@ public class GameConfig extends Observable {
         Integer cardId = 0;
 
         for (int i = 0; i < numPlayers; i++) {
-        	playerCards = new ArrayList<Card>();
+            playerCards = new ArrayList<Card>();
             while (playerCards.size() < 4) {
                 while (true) {
                     cardId = genericFunctionsObj.genRandomNumber(0, 41);
@@ -214,12 +214,15 @@ public class GameConfig extends Observable {
     }
 
     /**
-     * This function initializes the territories for map.
+     * This function calls init territories for map.
      */
     public void callInitTerritory() {
         initTerritory();
     }
 
+    /**
+     * This function initializes the territories for map.
+     */
     private void initTerritory() {
         Integer perPlayer = mapObj.getDictTerritory().size() / numPlayers;
         Integer remainingTerritoryDist = mapObj.getDictTerritory().size() - perPlayer;
@@ -241,8 +244,8 @@ public class GameConfig extends Observable {
 
             if (perPlayerDistFlag == 0) {
                 nextOwnerPlayer++;
-                if(nextOwnerPlayer == numPlayers) {
-                	nextOwnerPlayer = 0;
+                if (nextOwnerPlayer == numPlayers) {
+                    nextOwnerPlayer = 0;
                 }
                 (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
                 players[nextOwnerPlayer].occupyTerritory();
@@ -256,7 +259,7 @@ public class GameConfig extends Observable {
     }
 
     /**
-     * @param inPerPlayer Check if the territory distribution is complete for all players
+     * @param inPerPlayer Checks if the territory distribution is complete for all players
      *                    according to inPerPlayer distribution number.
      */
     private Integer checkForDistCompletion(Integer inPerPlayer) {
@@ -321,40 +324,40 @@ public class GameConfig extends Observable {
     }
 
     /**
-     * user can fortify armies from one territory to the others
+     * User can fortify armies from one territory to the others
      *
      * @param srcTerritory  fortify from source
      * @param destTerritory fortify to destiny
      */
     public void fortifyArmies(String srcTerritory, String destTerritory) {
-    	ArrayList<Territory> tmp = getCurrentPlayer().getTerritories();
-    	int srcFound = 0;
-    	int destFound = 0;
-    	int adjacencyFlag = 0;
-    	
-    	for(int ctr = 0; ctr < tmp.size(); ctr++) {
-    		if(tmp.get(ctr).getName().equals(srcTerritory) == true) {
-    			srcFound = 1;
-    			for(String adjacent : tmp.get(ctr).getAdjacentCountries()) {
-    				if(adjacent.equals(destTerritory)) {
-    					adjacencyFlag = 1;
-    				}
-    			}
-    		}
-    		if(tmp.get(ctr).getName().equals(destTerritory) == true) {
-    			destFound = 1;
-    		}
-    	}
-    	
-    	if((srcFound == 0) || (destFound == 0)) {
-    		return;
-    	}
-    	
-    	if(adjacencyFlag == 0) {
-    		System.out.println("Player can only fortify armies from territory adjacent to target territory");
-    		return;
-    	}
-    	
+        ArrayList<Territory> tmp = getCurrentPlayer().getTerritories();
+        int srcFound = 0;
+        int destFound = 0;
+        int adjacencyFlag = 0;
+
+        for (int ctr = 0; ctr < tmp.size(); ctr++) {
+            if (tmp.get(ctr).getName().equals(srcTerritory) == true) {
+                srcFound = 1;
+                for (String adjacent : tmp.get(ctr).getAdjacentCountries()) {
+                    if (adjacent.equals(destTerritory)) {
+                        adjacencyFlag = 1;
+                    }
+                }
+            }
+            if (tmp.get(ctr).getName().equals(destTerritory) == true) {
+                destFound = 1;
+            }
+        }
+
+        if ((srcFound == 0) || (destFound == 0)) {
+            return;
+        }
+
+        if (adjacencyFlag == 0) {
+            System.out.println("Player can only fortify armies from territory adjacent to target territory");
+            return;
+        }
+
         getCurrentPlayer().fortifyArmy(mapObj, srcTerritory, destTerritory);
     }
 
@@ -405,57 +408,50 @@ public class GameConfig extends Observable {
             }
 
             if (gamePhaseFlag == 0) {
-            	nextPlayerTurn();
+                nextPlayerTurn();
                 incrementGamePhase();
                 gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
-            } 
-            else 
-            {
+            } else {
                 nextPlayerTurn();
             }
-            
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) 
-        {
-            if (getCurrentPlayer().getArmies() <= 0) 
-            {
+
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+            if (getCurrentPlayer().getArmies() <= 0) {
                 incrementGamePhase();
                 gamePhaseStr = "Phase: Fortification\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nfortify his armies now";
             }
-            
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) 
-        {
+
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
             incrementGamePhase();
             gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " can \nperform attack now";
-        } 
-        else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) 
-        {
-        	nextPlayerTurn();
-        	incrementGamePhase();
-        	gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+            nextPlayerTurn();
+            incrementGamePhase();
+            gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will \nre-inforce his armies now";
         }
-        
-        for(int ctr = 0; ctr < players.length; ctr++)
-        {
-        	if(players[ctr].numOfTerritories() == mapObj.getNumTerritories())
-        	{
-        		gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
-        		System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
-        		gamePhase = genericFunctionsObj.GAMEPHASENONE;
-        	}
+
+        for (int ctr = 0; ctr < players.length; ctr++) {
+            if (players[ctr].numOfTerritories() == mapObj.getNumTerritories()) {
+                gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
+                System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
+                gamePhase = genericFunctionsObj.GAMEPHASENONE;
+            }
         }
-        
+
         setChanged();
         notifyObservers(this);
     }
 
-    public void attackTerritory(Integer attackerDice, Integer defendorDice,
-            Map<String, Continent> dictContinents)
-    {
-    	this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
-    	gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " \nperforms an attack";
-    	setChanged();
+    /**
+     * This methods starts attack, the number of dice for attacker and defender are chosen
+     * @param attackerDice number of dice for attacker
+     * @param defenderDice number of dice for defender
+     */
+    public void attackTerritory(Integer attackerDice, Integer defenderDice,
+                                Map<String, Continent> dictContinents) {
+        this.getCurrentPlayer().attackTerritory(attackerDice, defenderDice, dictContinents);
+        gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " \nperforms an attack";
+        setChanged();
         notifyObservers(this);
     }
 

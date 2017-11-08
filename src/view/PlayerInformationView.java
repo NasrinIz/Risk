@@ -39,12 +39,20 @@ public class PlayerInformationView extends JPanel implements Observer {
     }
 
     /**
+     * Shows player information
+     *
      * @param info error to show in panel
      */
     private void showPlayerInformationView(String info) {
         InfoTextArea.setText(info);
     }
 
+    /**
+     * Updates view based on observable information
+     *
+     * @param o   Object of observable passed
+     * @param arg argument passed
+     */
     @Override
     public void update(Observable o, Object arg) {
         this.showPlayerInformationView(((GameConfig) o).gamePhaseStr);
