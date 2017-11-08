@@ -97,7 +97,8 @@ public class CardView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Integer playerId = ((GameConfig) o).getCurrentPlayer().getPlayerId();
-        ArrayList<Card> cards = ((GameConfig) o).getGameCards();
+        //ArrayList<Card> cards = ((GameConfig) o).getGameCards();
+        ArrayList<Card> cards = ((GameConfig) o).getCurrentPlayer().getPlayerCards();
 
         Integer cardNone = 0;
         Integer cardInfantry = 0;

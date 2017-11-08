@@ -36,6 +36,10 @@ public class Player {
     public Territory dstAttackTerritory;
 
 
+    public ArrayList<Card> getPlayerCards()
+    {
+    	return gameCards;
+    }
     /**
      * This function is used to set current player's turn status.
      *
