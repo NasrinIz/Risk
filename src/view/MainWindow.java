@@ -37,7 +37,7 @@ public class MainWindow extends JFrame
 		this.initWindow();
 		this.initContentPane();
 	}
-
+	
     public void setPlayerDominationView(PlayerDominationView playerDominationView) {
         this.playerDominationView = playerDominationView;
     }

@@ -357,7 +357,7 @@ public class MainController {
             Map.Entry<String, TerritoryView> pair = it.next();
             TerritoryView tv = pair.getValue();
             tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
-            it.remove(); // avoids a ConcurrentModificationException
+            //it.remove(); // avoids a ConcurrentModificationException
         }
 
     }

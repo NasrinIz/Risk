@@ -311,7 +311,6 @@ public class Player {
 
 
         srcAttackTerritory = null;
-        dstAttackTerritory = null;
         return rt;
     }
 

@@ -70,7 +70,6 @@ public class PlayerDominationView extends JPanel implements Observer {
             Map<String, TerritoryView> dictViews = gameConfig.getMainWindow().getDictTerrViews();
             String targetOwner = gameConfig.getMapObj().getDictTerritory().get(target).getOwner().toString();
 
-
             if (target != null && dictViews != null) {
                 TerritoryView targetValue = dictViews.get(target);
                 if (targetValue != null) {
