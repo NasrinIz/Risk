@@ -69,7 +69,8 @@ public class PlayerInformationView extends JPanel implements Observer{
                 break;
         }
 
-        this.showPlayerInformationView(playerName + gamePhaseName);
+        //this.showPlayerInformationView(playerName + gamePhaseName);
+        this.showPlayerInformationView(((GameConfig) o).gamePhaseStr);
 
     }
 }

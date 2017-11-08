@@ -26,6 +26,8 @@ public class GameConfig extends Observable {
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MainWindow mainWindow;
 
+    public String gamePhaseStr = "Phase: StartUP\nAll players will place armies one by one in round robin fashion";
+    
     public MainWindow getMainWindow() {
         return mainWindow;
     }
@@ -391,22 +393,27 @@ public class GameConfig extends Observable {
             {
                 incrementGamePhase();
                 nextPlayerTurn();
+                gamePhaseStr = "Phase: Reinforcement\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will re-inforce his armies now";
             } 
             else 
             {
                 nextPlayerTurn();
             }
+            
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) 
         {
             if (getCurrentPlayer().getArmies() <= 0) 
             {
                 incrementGamePhase();
+                gamePhaseStr = "Phase: Fortification\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " will fortify his armies now";
             }
+            
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) 
         {
             incrementGamePhase();
+            gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " can perform attack now";
         } 
         else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) 
         {
@@ -421,6 +428,7 @@ public class GameConfig extends Observable {
         {
         	if(players[ctr].numOfTerritories() == mapObj.getNumTerritories())
         	{
+        		gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " wins the game";
         		System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
         		gamePhase = genericFunctionsObj.GAMEPHASENONE;
         	}
@@ -431,6 +439,7 @@ public class GameConfig extends Observable {
             Map<String, Continent> dictContinents)
     {
     	this.getCurrentPlayer().attackTerritory(attackerDice, defendorDice, dictContinents);
+    	gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " performs an attack";
     	setChanged();
         notifyObservers(this);
     }
