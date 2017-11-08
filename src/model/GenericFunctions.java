@@ -27,7 +27,7 @@ public class GenericFunctions {
     final int EDITORMODEEDIT = 1;
     final int EDITORMODECREATE = 2;
 
-    public Integer genStrToInt(String inVal) {
+    public Integer genStrToInt(String inVal) throws NumberFormatException {
         return Integer.valueOf(inVal);
     }
 

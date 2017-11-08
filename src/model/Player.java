@@ -210,9 +210,8 @@ public class Player {
     public void calcReinforcementArmies() {
         Integer newArmies = numTerritories / 3;
 
-        newArmies += continentArmyReward;
-        newArmies += cardsArmyReward;
-        armies += newArmies;
+        //newArmies += continentArmyReward;
+        armies += newArmies + continentArmyReward;
 
         System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).", 
         		this.getPlayerId(), armies, newArmies, continentArmyReward);
@@ -534,7 +533,11 @@ public class Player {
             this.countCardExchange += 1;
             checkReward();
             this.cardsArmyReward += this.currentCardReward;
+            this.armies += this.cardsArmyReward;
             System.out.printf("\nPlayer %d exchanged 3 cards for %d armies", this.getPlayerId(), this.cardsArmyReward);
+        }
+        else {
+        	System.out.println("The selected cards cannot be exchanged");
         }
 
     }

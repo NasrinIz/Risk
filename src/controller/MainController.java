@@ -318,6 +318,8 @@ public class MainController {
                         gameConfig.getCurrentPlayer().dstAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
                     }
                 }
+                String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
+                mainWindow.getInfoView().showTerritoryInfo(info);
 
             } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)
@@ -394,12 +396,11 @@ public class MainController {
             if (gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
                 if (mainWindow.getCardView().checkCardValue()) {
                     String values[] = genericFunctionsObj.genCommaSepStrToArray(mainWindow.getCardView().getCardValues());
-
-                    gameConfig.getCurrentPlayer().exchangeCards(
-                            genericFunctionsObj.genStrToInt(values[0]),
-                            genericFunctionsObj.genStrToInt(values[1]),
-                            genericFunctionsObj.genStrToInt(values[2]),
-                            genericFunctionsObj.genStrToInt(values[3]));
+                    int I = genericFunctionsObj.genStrToInt(values[0]);
+                    int C = genericFunctionsObj.genStrToInt(values[1]);
+                    int A = genericFunctionsObj.genStrToInt(values[2]);
+                    int W = genericFunctionsObj.genStrToInt(values[3]);
+                    gameConfig.getCurrentPlayer().exchangeCards(I, C, A, W);
                 }
             } else {
                 System.out.println("The game phase is not correct");
