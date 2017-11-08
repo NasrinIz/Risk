@@ -36,7 +36,6 @@ public class CardView extends JPanel implements Observer {
         this.setBounds(1024, 535, 255, 100);
         InfoTextArea = new JTextArea();
         InfoTextArea.setRows(2);
-       // InfoTextArea.setBounds(1024, 535, 200, 150);
         this.add(InfoTextArea);
 
         TitledBorder border = new TitledBorder("Card Panel");
@@ -44,32 +43,15 @@ public class CardView extends JPanel implements Observer {
         border.setTitlePosition(TitledBorder.TOP);
 
         JLabel infantryLabel = new JLabel("I: ");
-       // infantryLabel.setBounds(1024, 535, 10, 50);
-
         infantryInputField = new JTextField();
-       // infantryInputField.setBounds(1024, 545, 50, 50);
-
         JLabel artilleryLabel = new JLabel("A: ");
-     //   artilleryLabel.setBounds(1064, 535, 10, 50);
-
         artilleryInputField = new JTextField();
-     //   artilleryInputField.setBounds(1064, 545, 50, 50);
-
         JLabel cavalryLabel = new JLabel("C: ");
-      //  cavalryLabel.setBounds(1104, 535, 10, 50);
-
         cavalryInputField = new JTextField();
-      //  cavalryInputField.setBounds(1104, 485455, 50, 50);
-
         JLabel wildLabel = new JLabel("W: ");
         wildLabel.setBounds(1144, 535, 10, 50);
-
         wildInputField = new JTextField();
-    //    wildInputField.setBounds(1144, 545, 50, 50);
-
         cardNumberButton = new JButton("S");
-     //   cardNumberButton.setBounds(1024, 585, 200, 50);
-
         this.add(infantryLabel);
         this.add(infantryInputField);
 
@@ -97,7 +79,6 @@ public class CardView extends JPanel implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Integer playerId = ((GameConfig) o).getCurrentPlayer().getPlayerId();
-        //ArrayList<Card> cards = ((GameConfig) o).getGameCards();
         ArrayList<Card> cards = ((GameConfig) o).getCurrentPlayer().getPlayerCards();
 
         Integer cardNone = 0;

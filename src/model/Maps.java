@@ -33,11 +33,9 @@ public class Maps {
     public String mapLocation;
     private String mapName;
     /* Basic Map Properties */
-    /* Remove */
     private String mapImage = ""; // with extension
     private String mapWrap = ""; // yes or no
     private String mapScroll = ""; // horizontal, vertical, none
-	/* */
 
     private String mapAuthor = null; // first and last name
     private String mapWarning = null; // yes or no
@@ -48,8 +46,6 @@ public class Maps {
     public String errorStr = null;
 
     /* Map Continents and Army Bonuses for each */
-    // Map<String, Integer> dictContinents = new HashMap<String,
-    // Integer>(MAP_INIT_SIZE, MAP_CAPACITY_INCREMENT);
     private Map<String, Continent> dictContinents = new HashMap<String, Continent>(MAP_INIT_SIZE,
             MAP_CAPACITY_INCREMENT);
     private Map<String, Territory> dictTerritory = new HashMap<String, Territory>(TERRITORY_INIT_SIZE,
@@ -166,9 +162,6 @@ public class Maps {
         }
 
         if (inVal.contains("image=")) {
-			/* vj, we dont load images */
-            //mapImage = genericFunctionsObj.genStringGetValueAfterEquals(inVal);
-            //if(mapImage != null)
             return rtVal;
         }
 
@@ -438,7 +431,6 @@ public class Maps {
             e.printStackTrace();
             System.out.println(TerritoryVisitFlags);
             System.out.println(territory);
-            //System.out.println(TerritoryVisitFlags.get(territory));
         }
         return TerritoryVisitFlags;
     }
@@ -512,21 +504,6 @@ public class Maps {
         while (ite.hasNext()) {
             Map.Entry pair = (Map.Entry) ite.next();
             if (pair.getKey().equals(tmpTerritory.getName())) {
-				/*
-				List<String> adjacent = this.getDictTerritory().get(pair.getKey()).getAdjacentCountries();
-				for(int i = 0; i < adjacent.size(); i++)
-				{
-					List<String> adjacentOfAdjacent = this.getDictTerritory().get(adjacent.get(i)).getAdjacentCountries();
-					for(int j = 0; j < adjacentOfAdjacent.size(); j++)
-					{
-						if(adjacentOfAdjacent.get(j).equals(tmpTerritory.getName()))
-						{
-							adjacentOfAdjacent.remove(j);
-							break;
-						}
-					}
-				}
-				*/
                 this.getDictTerritory().remove(tmpTerritory.getName());
                 break;
             }
@@ -574,7 +551,6 @@ public class Maps {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             if (out != null) {

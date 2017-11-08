@@ -12,8 +12,6 @@ import java.util.ArrayList;
  */
 public class Territory 
 {
-
-	/***************************/
 	private String continent = null;
 	private String name = null;
 	private Integer X = 0;
@@ -24,7 +22,6 @@ public class Territory
 	private Integer ownerPlayerId = null;
 	GenericFunctions genericFunctionsObj = new GenericFunctions();
 
-//	private Vector<JButton> btnTerritories = new Vector<JButton>(2, 2);
 
 	/**
 	 * This is the constructor to Territory class, and initializes local class variables

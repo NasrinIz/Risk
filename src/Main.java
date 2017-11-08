@@ -19,9 +19,6 @@ public class Main {
             try {
                 StarterWindow frame = new StarterWindow();
                 MainController mainController = new MainController(frame);
-                //GameDriver gameDriver = new GameDriver(mainController);
-                //gameDriver.addPropertyChangeListener(mainController);
-
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();

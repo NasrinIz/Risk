@@ -13,7 +13,6 @@ public class Player {
 
     private String name;
 
-    /* Its empty, dont use */
     private ArrayList<Territory> territories = new ArrayList<Territory>();
     private ArrayList<Card> gameCards;
     private Integer numCards = 0;
@@ -209,8 +208,6 @@ public class Player {
      */
     public void calcReinforcementArmies() {
         Integer newArmies = numTerritories / 3;
-
-        //newArmies += continentArmyReward;
         armies += newArmies + continentArmyReward;
 
         System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).", 

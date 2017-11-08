@@ -129,29 +129,13 @@ public class MainController {
         @SuppressWarnings("null")
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
             applicationMode = 1;
             mapEditor = new MapEditor(1, starterView.getSelectedMap());
-
-            // Integer playerNum = starterView.getPlayerNumbers();
-            // String selectedMap = starterView.getSelectedMap();
-            //
-            // gameConfig = new GameConfig(playerNum, selectedMap);
-            // mapObj = gameConfig.getMapObj();
-            //
-            // String[] territoryList = getTerritoryList(mapObj).toArray(new
-            // String[getTerritoryList(mapObj).size()]);
-            // String[] continentList = getContinentList(mapObj).toArray(new
-            // String[getContinentList(mapObj).size()]);
-
             starterView.showEditMapForm(mapEditor.getCountryListInMapEditor(), mapEditor.getContinentListInMapEditor());
-
             starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
             starterView.addContinentBtnActionListener(new addContinentListener());
             starterView.removeCountryBtnActionListener(new removeCountryListener());
             starterView.removeContinentBtnActionListener(new removeContinentListener());
-            // starterView.addContinentAgainActionListener(new
-            // addContinentAgainListener());
         }
     }
 
@@ -163,16 +147,6 @@ public class MainController {
     private class finishAddContinentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //
-            // Integer playerNum = starterView.getPlayerNumbers();
-            // String selectedMap = starterView.getSelectedMap();
-            //
-            // gameConfig = new GameConfig(playerNum, selectedMap);
-            // mapObj = gameConfig.getMapObj();
-            //
-            // String[] continentList = getContinentList(mapObj).toArray(new
-            // String[getContinentList(mapObj).size()]);
-
             starterView.showAddCountryForm(mapEditor.getContinentListInMapEditor());
             starterView.addCountryBtnActionListener(new addCountryListener());
         }
@@ -360,7 +334,6 @@ public class MainController {
             Map.Entry<String, TerritoryView> pair = it.next();
             TerritoryView tv = pair.getValue();
             tv.addTerritoryBtnListener(new territoryListener(pair.getKey()));
-            //it.remove(); // avoids a ConcurrentModificationException
         }
 
     }

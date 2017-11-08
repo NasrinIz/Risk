@@ -43,7 +43,6 @@ public class GameConfig extends Observable {
         initCards();
         this.numPlayers = numPlayers;
         this.mapObj = new Maps(mapName, 0);
-        //setContinentsTerritoryList();
         initMap();
         setNumPlayers();
         gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
@@ -98,11 +97,6 @@ public class GameConfig extends Observable {
             return -1;
 
         setupPlayers();
-        /*
-        for (String territory : mapObj.getDictTerritory().keySet()) {
-            System.out.println((mapObj.getDictTerritory()).get(territory).getOwner());
-        }
-        */
         return 0;
     }
 
@@ -296,8 +290,6 @@ public class GameConfig extends Observable {
             if (tmpContinent.checkForOwnership() == 0) {
                 players[tmpContinent.getOwnerId()].setContinentArmyReward(tmpContinent.getArmyReward());
             }
-
-            //System.out.println(pair.getKey() + " = " + pair.getValue());
         }
 
         this.getCurrentPlayer().calcReinforcementArmies();
@@ -374,7 +366,6 @@ public class GameConfig extends Observable {
             gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
             System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-            //  calcReinforcementArmy();
             gamePhase = genericFunctionsObj.GAMEPHASEATTACK;
             System.out.println("Fortification Phase ends, Attack Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {

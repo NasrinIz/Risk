@@ -124,13 +124,4 @@ public class Continent {
 
         return info.toString();
     }
-
-//	/**
-//	 * @param ter territory
-//	 */
-//	public void removeTerritory(Territory ter) {
-//
-//		this.territories.remove(ter);
-//	}
-
 }

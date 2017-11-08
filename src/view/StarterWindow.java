@@ -47,7 +47,6 @@ public class StarterWindow extends JFrame {
     private JButton addCountryButton;
     private JButton removeCountryButton;
     private JButton removeContinentButton;
-    // private JButton addContinentAgain;
     private JLabel addCountryToContinentLbl;
     private JTextField continentList;
 
@@ -62,7 +61,6 @@ public class StarterWindow extends JFrame {
     }
 
     private void initWindow() {
-        // Size the frame.
         setSize(new Dimension(WIDTH, HEIGHT));
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
@@ -238,7 +236,6 @@ public class StarterWindow extends JFrame {
         this.removeEditMapForm();
         this.removeAddCountryForm();
 
-        //this.getContentPane().add(editMapRadioBtn);
         this.getContentPane().add(lblMapLoad);
         this.getContentPane().add(loadMapField);
         this.getContentPane().repaint();

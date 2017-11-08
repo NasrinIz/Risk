@@ -183,8 +183,6 @@ public class MapEditor {
             mapTitles[i] = (String) pair.getKey();
             i++;
         }
-        //String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-        //	"USA", "World" };
         return mapTitles;
     }
 
@@ -203,8 +201,6 @@ public class MapEditor {
             mapTitles[i] = (String) pair.getKey();
             i++;
         }
-        //String[] mapTitles = new String[] { "Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-        //"USA", "World" };
         return mapTitles;
     }
 
@@ -212,7 +208,7 @@ public class MapEditor {
      * This function is used to finish map editing and call for validation.
      *
      * @param inPath The path where the edited map is to be saved.
-     * @return rt Indicates whether the validation succeeded or failed.
+     * @return Indicates whether the validation succeeded or failed.
      */
     public int finishAndValidate(String inPath) {
         Integer rt = 0;

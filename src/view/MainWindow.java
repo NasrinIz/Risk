@@ -52,15 +52,12 @@ public class MainWindow extends JFrame
 
     private void initWindow()
 	{
-		// Size the frame.
 	    setSize( new Dimension(WIDTH, HEIGHT) );
 	    setMinimumSize( new Dimension(WIDTH, HEIGHT) );
 	    setMaximumSize( new Dimension(WIDTH, HEIGHT) );    
 		this.setResizable(false);
 		
-//		setSize(getMaximumSize());
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//		setBounds(100, 100, 567, 489);
 		setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 	}
 
