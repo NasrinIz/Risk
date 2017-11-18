@@ -16,6 +16,8 @@ public class StarterWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem menuItemNewGame;
+    private JMenuItem menuItemSaveGame;
+    private JMenuItem menuItemLoadGame;
     private JLabel lblMapSelect;
     private JLabel lblMapLoad;
     private JComboBox<Integer> playerNum;
@@ -57,6 +59,8 @@ public class StarterWindow extends JFrame {
         menuBar = new JMenuBar();
         menu = new JMenu("File");
         menuItemNewGame = new JMenuItem("New Game");
+        menuItemSaveGame = new JMenuItem("Save Game");
+        menuItemLoadGame = new JMenuItem("Load Game");
         setSize(getMaximumSize());
         this.initWindow();
         this.initMenuBar();
@@ -93,6 +97,8 @@ public class StarterWindow extends JFrame {
         setJMenuBar(menuBar);
         menuBar.add(menu);
         menu.add(menuItemNewGame);
+        menu.add(menuItemSaveGame);
+        menu.add(menuItemLoadGame);
     }
 
     /**
@@ -104,6 +110,24 @@ public class StarterWindow extends JFrame {
         menuItemNewGame.addActionListener(listenForMenuItemNewGame);
     }
 
+    /**
+     * Adds action listener for Save game
+     *
+     * @param listenForMenuItemSaveGame Menu item
+     */
+    public void addMenuItemSaveGameActionListener(ActionListener listenForMenuItemSaveGame) {
+    	menuItemSaveGame.addActionListener(listenForMenuItemSaveGame);
+    }
+    
+    /**
+     * Adds action listener for load game
+     *
+     * @param listenForMenuItemLoadGame Menu item
+     */
+    public void addMenuItemLoadGameActionListener(ActionListener listenForMenuItemLoadGame) {
+    	menuItemLoadGame.addActionListener(listenForMenuItemLoadGame);
+    }
+    
     /**
      * adds action listener for radio map
      *

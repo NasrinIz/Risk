@@ -2,6 +2,13 @@ package src.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -41,6 +48,8 @@ public class MainController {
     public MainController(StarterWindow starterView) {
         this.starterView = starterView;
         this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
+        this.starterView.addMenuItemSaveGameActionListener(new SaveGameListener());
+        this.starterView.addMenuItemLoadGameActionListener(new LoadGameListener());
     }
 
     /**
@@ -57,12 +66,113 @@ public class MainController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO Auto-generated method stub
             starterView.showStarterForm();
             starterView.addRadioLoadMapActionListener(new loadMapListener());
             starterView.addRadioSelectMapActionListener(new selectMapListener());
             starterView.addRadioCreateMapActionListener(new createMapListener());
+            // vj save below object   new submitButtonListener()
             starterView.addSubmitButtontActionListener(new submitButtonListener());
+
+        }
+    }
+    
+    /**
+     * This is the inner class, to define action listener to the menu option "Save Game"
+     *
+     * @author Team20
+     */
+    private class SaveGameListener implements ActionListener {
+        /**
+         * This function over-rides the actionPerformed function of ActionListerner class
+         * and registers listeners for starterview
+         *
+         * @param e Action Event received by user interaction
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	try {
+        		String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
+				FileOutputStream f = new FileOutputStream(new File(path));
+				ObjectOutputStream o = new ObjectOutputStream(f);
+	
+				o.writeObject(gameConfig);
+				o.close();
+				f.close();
+	        } 
+	        catch (FileNotFoundException excep) {
+	    		System.out.println("File not found");
+	    	} 
+	        catch (IOException excep) {
+	    		System.out.println("Error initializing stream");
+	    	} 
+	        catch (Exception excep) {
+	        	excep.printStackTrace();
+	        }
+        	System.exit(0);
+	    }
+    }
+    
+    /**
+     * This is the inner class, to define action listener to the menu option "Load Game"
+     *
+     * @author Team20
+     */
+    private class LoadGameListener implements ActionListener {
+        /**
+         * This function over-rides the actionPerformed function of ActionListerner class
+         * and registers listeners for starterview
+         *
+         * @param e Action Event received by user interaction
+         */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        	
+        	try {
+        		String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
+        		FileInputStream fi = new FileInputStream(new File(path));
+    			ObjectInputStream oi = new ObjectInputStream(fi);
+    			GameConfig loadedObj = (GameConfig) oi.readObject();
+
+    			System.out.println(loadedObj.toString());
+
+    			oi.close();
+    			fi.close();
+
+    		} catch (FileNotFoundException excep) {
+    			System.out.println("File not found");
+    		} catch (IOException excep) {
+    			System.out.println("Error initializing stream");
+    		} catch (ClassNotFoundException excep) {
+    			// TODO Auto-generated catch block
+    			excep.printStackTrace();
+    		}
+
+        	//gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+
+            PlayerDominationView playerDominationView = new PlayerDominationView();
+            mainWindow.setPlayerDominationView(playerDominationView);
+            gameConfig.addObserver(playerDominationView);
+            mainWindow.getPlayerDominationView().showInfoPanel();
+
+            PlayerInformationView playerInformationView = new PlayerInformationView();
+            mainWindow.setPlayerInformationView(playerInformationView);
+            gameConfig.addObserver(playerInformationView);
+            mainWindow.getPlayerInformationView().showInfoPanel();
+
+            CardView cardView = new CardView();
+            mainWindow.setCardView(cardView);
+            gameConfig.addObserver(cardView);
+            mainWindow.getCardView().showCardPanel();
+
+            mainWindow.addCountryButtons(gameConfig.getMapObj());
+            mainWindow.setVisible(true);
+            starterView.setVisible(false);
+            addTerritoryListeners();
+
+            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+
+            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
+
 
         }
     }

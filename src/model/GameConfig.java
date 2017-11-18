@@ -2,6 +2,7 @@ package src.model;
 
 import src.view.MainWindow;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Observable;
  * @author Team20
  *         This class is used to instantiate everything, and starts the flow of new game.
  */
-public class GameConfig extends Observable {
+public class GameConfig extends Observable implements Serializable{
     private final Integer BEGINNINGCARDDISTRIBUTION = 4;
     private final Integer MAXCARDS = 44;
 
