@@ -366,6 +366,10 @@ public class Maps {
 
         }
 
+        if(ContinentConnectivity() != "true") {
+        	return "Continent Connection Error";
+        }
+        
         if (mapConnectivity() != "true") {
             return "The map is not a connected graph";
         }
@@ -373,6 +377,77 @@ public class Maps {
         return "true";
     }
 
+    /**
+     * This function checks whether the continent is a connected graph or not.
+     *
+     * @return Any error message, while checking for continent connectivity.
+     */
+    public String ContinentConnectivity() {
+        for(String continent : this.dictContinents.keySet()) {
+        	HashMap<Territory, Integer> TerritoryVisitFlags = new HashMap<Territory, Integer>();
+        	Continent obj = this.dictContinents.get(continent);
+        	ArrayList<Territory> territories = obj.getTerritories();
+        	Territory tmp = null;
+        	for(int ctr = 0; ctr < territories.size(); ctr++) {
+        		Territory tmpTerritoryObj = territories.get(ctr);
+        		if(tmp == null) {
+        			tmp = tmpTerritoryObj;
+        		}
+        		if (tmpTerritoryObj.getName() != null) {
+                    TerritoryVisitFlags.put(tmpTerritoryObj, 0);
+                }
+        	}
+        	
+        	TerritoryVisitFlags = validateContinentConn(TerritoryVisitFlags, tmp, continent);
+        	for(int ctr = 0; ctr < territories.size(); ctr++) {
+        		if (TerritoryVisitFlags.get(territories.get(ctr)) != 1) {
+                    return "All continents are not connected in themselves";
+                }
+            }
+        }
+
+        
+        return "true";
+    }
+
+    /**
+     * The recursive function to travel across each territory in continent.
+     *
+     * @param TerritoryVisitFlags The flag indicating whether the territory was previously visited or not
+     * @param territory           The object of territory being checked.
+     * @return The current territory visited.
+     */
+    private HashMap<Territory, Integer> validateContinentConn(HashMap<Territory, Integer> TerritoryVisitFlags, 
+    		Territory territory, String continentName) {
+        try {
+            if ((TerritoryVisitFlags == null) || (territory == null) || (TerritoryVisitFlags.size() == 0)) {
+                return null;
+            }
+
+            int val = TerritoryVisitFlags.get(territory);
+
+            if (val == 0) {
+                TerritoryVisitFlags.put(territory, 1);
+            }
+
+            for (String adjTerritory : territory.getAdjacentCountries()) {
+            	if(dictTerritory.get(adjTerritory).getContinent().equals(continentName) == true)
+            	{
+	                if (TerritoryVisitFlags.get(dictTerritory.get(adjTerritory)) == 0) {
+	                	TerritoryVisitFlags = validateContinentConn(TerritoryVisitFlags, 
+	                			dictTerritory.get(adjTerritory), continentName);
+	                }
+            	}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(TerritoryVisitFlags);
+            System.out.println(territory);
+        }
+        return TerritoryVisitFlags;
+    }
+    
+    
     /**
      * This function checks whether the map is a connected graph or not.
      *
