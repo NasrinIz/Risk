@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,15 +31,37 @@ public class MainWindow extends JFrame {
     private PlayerDominationView playerDominationView;
     private AttackView attackView;
     private CardView cardView;
+    private JMenuBar menuBar;
+    private JMenu menu;
+    private JMenuItem menuItemSaveGame;
 
     private Map<String, TerritoryView> dictTerrViews = new HashMap<>(2, 2);
 
     public MainWindow() {
         super("Risky Conquest");
+        menuBar = new JMenuBar();
+        menu = new JMenu("File");
+        menuItemSaveGame = new JMenuItem("Save Game");
+        setSize(getMaximumSize());
         this.initWindow();
+        this.initMenuBar();
         this.initContentPane();
     }
 
+    private void initMenuBar() {
+        setJMenuBar(menuBar);
+        menuBar.add(menu);
+        menu.add(menuItemSaveGame);
+    }
+
+    /**
+     * Adds action listener for Save game
+     *
+     * @param listenForMenuItemSaveGame Menu item
+     */
+    public void addMenuItemSaveGameActionListener(ActionListener listenForMenuItemSaveGame) {
+        menuItemSaveGame.addActionListener(listenForMenuItemSaveGame);
+    }
     /**
      * Sets player domination view
      *

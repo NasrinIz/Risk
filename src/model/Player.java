@@ -189,22 +189,6 @@ public class Player {
     }
 
     /**
-     * This function is called to place an army on territories owned by player.
-     *
-     * @param territoryName The territory name, on which army is to be placed.
-     */
-    public void reinforceArmiesOnTerritory(String territoryName) {
-        for (Territory territory : territories) {
-            if (territory.getName().equals(territoryName)) {
-                if (armies > 0) {
-                    territory.increaseArmies();
-                    armies--;
-                }
-            }
-        }
-    }
-
-    /**
      * This function is used to calculate the new armies that player receives when Reinforcement phase begins
      */
     public void calcReinforcementArmies() {
@@ -215,7 +199,7 @@ public class Player {
         		this.getPlayerId(), armies, newArmies, continentArmyReward);
     }
 
-    public void removeTerritory(String territory)
+    private void removeTerritory(String territory)
     {
     	for(int ctr = 0; ctr < this.territories.size(); ctr++)
     	{
@@ -227,87 +211,6 @@ public class Player {
     		}
     	}
     }
-    
-    /**
-     * This function is called to initiate the attack from attacker country
-     * to defendor country.
-     *
-     * @param attackerDice   Number of dices, attacker chooses to roll
-     * @param defendorDice   Number of dices, defendor chooses to roll
-     * @param dictContinents Attacker Country
-     * @return Returns whether the attack was successfull or not
-     */
-    public Integer attackTerritory(Integer attackerDice, Integer defendorDice,
-                                   Map<String, Continent> dictContinents) {
-        Integer rt = 0;
-        Integer adjacencyFlag = -1;
-        Integer isCaptured;
-        Territory srcTerritory = srcAttackTerritory;
-        Territory targetTerritory = dstAttackTerritory;
-        if ((srcTerritory == null) || (targetTerritory == null)) {
-            System.out.println("Please select both the source and target territories for attack");
-            return -1;
-        }
-        if (!this.territories.contains(srcTerritory)) {
-            System.out.println("The territory selected does not belong to the current player");
-            return -1;
-        }
-
-        ArrayList<String> adjacents = srcTerritory.getAdjacentCountries();
-        for (int ctr = 0; ctr < adjacents.size(); ctr++) {
-            if (adjacents.get(ctr).equals(targetTerritory.getName()) == true) {
-                adjacencyFlag = 0;
-                break;
-            }
-        }
-
-        if (adjacencyFlag == -1) {
-            System.out.println("Attack failed, attacking country is not adjacent to defending country");
-            return -1;
-        }
-
-        if ((srcTerritory.getArmies() + 1) < attackerDice) {
-            System.out.println("Attacker's " + srcTerritory.getArmies().toString() + " armies on " +
-                    srcTerritory.getName() + " not enough to roll " + attackerDice.toString() + " dice");
-            return -1;
-        }
-
-        if ((targetTerritory.getArmies()) < defendorDice) {
-            System.out.println("Defender's " + targetTerritory.getArmies().toString() + " armies on " +
-                    targetTerritory.getName() + " not enough to roll " + defendorDice.toString() + " dice");
-            return -1;
-        }
-
-        System.out.println("Player " + srcTerritory.getOwner().toString() +
-                " attacks player " + targetTerritory.getOwner().toString() + "'s Territory");
-
-        isCaptured = rollDiceToAttack(attackerDice, defendorDice, srcTerritory, targetTerritory);
-
-        if (isCaptured == 0) // Attacker captured the territory
-        {
-            System.out.println("Player " + srcTerritory.getOwner().toString() +
-                    " captured player " + targetTerritory.getOwner().toString() + "'s Territory");
-            Player players[] = gameConfigObj.getPlayers();
-            players[targetTerritory.getOwner()].removeTerritory(targetTerritory.getName());
-            targetTerritory.setOwner(id);
-            targetTerritory.increaseArmies();
-            srcTerritory.decreaseArmies();
-            this.territories.add(targetTerritory);
-        }
-
-        for (String continent : dictContinents.keySet()) {
-            if (continent.equals(targetTerritory.getContinent())) {
-                if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner()) == true) {
-                    System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
-                    System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() +
-                            " additional armies");
-                }
-            }
-        }
-
-        srcAttackTerritory = null;
-        return rt;
-    }
 
     /**
      * This function is called to actually roll the dice for attacker and defender
@@ -315,10 +218,10 @@ public class Player {
      * @param redDice   Number of red dice to roll
      * @param whiteDice Number of white dice to roll
      * @param attacker  Attacker Country
-     * @param defendor  Defender Country
+     * @param defender  Defender Country
      * @return Returns whether the country was captured or not
      */
-    private Integer rollDiceToAttack(Integer redDice, Integer whiteDice, Territory attacker, Territory defendor) {
+    private Integer rollDiceToAttack(Integer redDice, Integer whiteDice, Territory attacker, Territory defender) {
         Integer rDiceOne = genFunObj.genRandomNumber(1, 6);
         Integer rDiceTwo = genFunObj.genRandomNumber(1, 6);
         Integer rDiceThree = genFunObj.genRandomNumber(1, 6);
@@ -338,11 +241,11 @@ public class Player {
         switch (redDice) {
             case 1:
                 System.out.println("Player " + attacker.getOwner().toString() + " rolled " + max.toString());
-                System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                System.out.println("Player " + defender.getOwner().toString() + " rolled " + wDiceOne.toString());
                 if (max > wDiceOne) {
                     System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
                             ", Attacker Wins");
-                    defendor.decreaseArmies();
+                    defender.decreaseArmies();
                 } else {
                     System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
                             ", Defendor Wins");
@@ -361,16 +264,16 @@ public class Player {
                 }
 
                 if (whiteDice == 2) {
-                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
-                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceTwo.toString());
+                    System.out.println("Player " + defender.getOwner().toString() + " rolled " + wDiceOne.toString());
+                    System.out.println("Player " + defender.getOwner().toString() + " rolled " + wDiceTwo.toString());
                 } else {
-                    System.out.println("Player " + defendor.getOwner().toString() + " rolled " + wDiceOne.toString());
+                    System.out.println("Player " + defender.getOwner().toString() + " rolled " + wDiceOne.toString());
                 }
 
                 if (max > wDiceOne) {
                     System.out.println("Attacker's " + max.toString() + " against Defender's " + wDiceOne.toString() +
                             ", Attacker Wins");
-                    defendor.decreaseArmies();
+                    defender.decreaseArmies();
                 } else {
                     System.out.println("Defender's " + wDiceOne.toString() + " against Attacker's " + max.toString() +
                             ", Defendor Wins");
@@ -381,7 +284,7 @@ public class Player {
                     if (maxTwo > wDiceTwo) {
                         System.out.println("Attacker's " + maxTwo.toString() + " against Defender's " + wDiceTwo.toString() +
                                 ", Attacker Wins");
-                        defendor.decreaseArmies();
+                        defender.decreaseArmies();
                     } else {
                         System.out.println("Defender's " + wDiceTwo.toString() + " against Attacker's " + maxTwo.toString() +
                                 ", Defendor Wins");
@@ -390,7 +293,7 @@ public class Player {
                 }
         }
 
-        if (defendor.getArmies() == 0) {
+        if (defender.getArmies() == 0) {
             return 0;
         }
 
@@ -477,8 +380,6 @@ public class Player {
      * @param wild Number of wild cards.
      */
     public void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild) {
-
-
         System.out.println(infantry);
         System.out.println(cavalry);
         System.out.println(artillery);
@@ -562,5 +463,102 @@ public class Player {
                     mapObj.getDictTerritory().get(destTerritory).getName(),
                     mapObj.getDictTerritory().get(destTerritory).getArmies());
         }
+    }
+
+
+    /**
+     * This function is called to place an army on territories owned by player.
+     *
+     * @param territoryName The territory name, on which army is to be placed.
+     */
+    public void reinforceArmiesOnTerritory(String territoryName) {
+        for (Territory territory : territories) {
+            if (territory.getName().equals(territoryName)) {
+                if (armies > 0) {
+                    territory.increaseArmies();
+                    armies--;
+                }
+            }
+        }
+    }
+
+
+    /**
+     * This function is called to initiate the attack from attacker country
+     * to defender country.
+     *
+     * @param attackerDice   Number of dices, attacker chooses to roll
+     * @param defenderDice   Number of dices, defender chooses to roll
+     * @param dictContinents Attacker Country
+     */
+    public Integer attackTerritory(Integer attackerDice, Integer defenderDice,
+                            Map<String, Continent> dictContinents) {
+        Integer adjacencyFlag = -1;
+        Integer isCaptured;
+        Territory srcTerritory = srcAttackTerritory;
+        Territory targetTerritory = dstAttackTerritory;
+        if ((srcTerritory == null) || (targetTerritory == null)) {
+            System.out.println("Please select both the source and target territories for attack");
+            return -1;
+        }
+        if (!this.territories.contains(srcTerritory)) {
+            System.out.println("The territory selected does not belong to the current player");
+            return -1;
+        }
+
+        ArrayList<String> adjacentCountries = srcTerritory.getAdjacentCountries();
+        for (String adjacentCountry : adjacentCountries) {
+            if (adjacentCountry.equals(targetTerritory.getName())) {
+                adjacencyFlag = 0;
+                break;
+            }
+        }
+
+        if (adjacencyFlag == -1) {
+            System.out.println("Attack failed, attacking country is not adjacent to defending country");
+            return -1;
+        }
+
+        if ((srcTerritory.getArmies() + 1) < attackerDice) {
+            System.out.println("Attacker's " + srcTerritory.getArmies().toString() + " armies on " +
+                    srcTerritory.getName() + " not enough to roll " + attackerDice.toString() + " dice");
+            return -1;
+        }
+
+        if ((targetTerritory.getArmies()) < defenderDice) {
+            System.out.println("Defender's " + targetTerritory.getArmies().toString() + " armies on " +
+                    targetTerritory.getName() + " not enough to roll " + defenderDice.toString() + " dice");
+            return -1;
+        }
+
+        System.out.println("Player " + srcTerritory.getOwner().toString() +
+                " attacks player " + targetTerritory.getOwner().toString() + "'s Territory");
+
+        isCaptured = rollDiceToAttack(attackerDice, defenderDice, srcTerritory, targetTerritory);
+
+        if (isCaptured == 0) // Attacker captured the territory
+        {
+            System.out.println("Player " + srcTerritory.getOwner().toString() +
+                    " captured player " + targetTerritory.getOwner().toString() + "'s Territory");
+            Player players[] = gameConfigObj.getPlayers();
+            players[targetTerritory.getOwner()].removeTerritory(targetTerritory.getName());
+            targetTerritory.setOwner(id);
+            targetTerritory.increaseArmies();
+            srcTerritory.decreaseArmies();
+            this.territories.add(targetTerritory);
+        }
+
+        for (String continent : dictContinents.keySet()) {
+            if (continent.equals(targetTerritory.getContinent())) {
+                if (dictContinents.get(continent).isContinentCaptured(srcTerritory.getOwner())) {
+                    System.out.println("Player " + srcTerritory.getOwner().toString() + " captured continent " + continent);
+                    System.out.println("Player will be awarded " + dictContinents.get(continent).getArmyReward() +
+                            " additional armies");
+                }
+            }
+        }
+
+        srcAttackTerritory = null;
+        return 0;
     }
 }

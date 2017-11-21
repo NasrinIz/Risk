@@ -50,7 +50,6 @@ public class MainController {
     public MainController(StarterWindow starterView) {
         this.starterView = starterView;
         this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
-        this.starterView.addMenuItemSaveGameActionListener(new SaveGameListener());
         this.starterView.addMenuItemLoadGameActionListener(new LoadGameListener());
     }
 
@@ -77,7 +76,7 @@ public class MainController {
 
         }
     }
-    
+
     /**
      * This is the inner class, to define action listener to the menu option "Save Game"
      *
@@ -92,28 +91,25 @@ public class MainController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-        	try {
-        		String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
-				FileOutputStream f = new FileOutputStream(new File(path));
-				ObjectOutputStream o = new ObjectOutputStream(f);
-	
-				o.writeObject(gameConfig);
-				o.close();
-				f.close();
-	        } 
-	        catch (FileNotFoundException excep) {
-	    		System.out.println("File not found");
-	    	} 
-	        catch (IOException excep) {
-	    		System.out.println("Error initializing stream");
-	    	} 
-	        catch (Exception excep) {
-	        	excep.printStackTrace();
-	        }
-        	System.exit(0);
-	    }
+            try {
+                String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
+                FileOutputStream f = new FileOutputStream(new File(path));
+                ObjectOutputStream o = new ObjectOutputStream(f);
+
+                o.writeObject(gameConfig);
+                o.close();
+                f.close();
+            } catch (FileNotFoundException excep) {
+                System.out.println("File not found");
+            } catch (IOException excep) {
+                System.out.println("Error initializing stream");
+            } catch (Exception excep) {
+                excep.printStackTrace();
+            }
+            System.exit(0);
+        }
     }
-    
+
     /**
      * This is the inner class, to define action listener to the menu option "Load Game"
      *
@@ -128,29 +124,37 @@ public class MainController {
          */
         @Override
         public void actionPerformed(ActionEvent e) {
-        	
-        	try {
-        		String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
-        		FileInputStream fi = new FileInputStream(new File(path));
-    			ObjectInputStream oi = new ObjectInputStream(fi);
-    			GameConfig loadedObj = (GameConfig) oi.readObject();
+            GameConfig loadedObj = null;
+            try {
+                String path = "D:\\APP_Project\\Workspace\\Pushed_Repo\\Risk\\resources\\myObjects.txt";
+                FileInputStream fi = new FileInputStream(new File(path));
+                ObjectInputStream oi = new ObjectInputStream(fi);
+                loadedObj = (GameConfig) oi.readObject();
 
-    			System.out.println(loadedObj.toString());
 
-    			oi.close();
-    			fi.close();
+                System.out.println(loadedObj.toString());
 
-    		} catch (FileNotFoundException excep) {
-    			System.out.println("File not found");
-    		} catch (IOException excep) {
-    			System.out.println("Error initializing stream");
-    		} catch (ClassNotFoundException excep) {
-    			// TODO Auto-generated catch block
-    			excep.printStackTrace();
-    		}
+                oi.close();
+                fi.close();
 
-        	//gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+            } catch (FileNotFoundException excep) {
+                System.out.println("File not found");
+            } catch (IOException excep) {
+                System.out.println("Error initializing stream");
+            } catch (ClassNotFoundException excep) {
+                // TODO Auto-generated catch block
+                excep.printStackTrace();
+            }
 
+            //gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+
+            if(loadedObj == null){
+                System.out.println("Loaded map is null");
+                return;
+            }
+
+            mainWindow = new MainWindow();
+            gameConfig = loadedObj;
             PlayerDominationView playerDominationView = new PlayerDominationView();
             mainWindow.setPlayerDominationView(playerDominationView);
             gameConfig.addObserver(playerDominationView);
@@ -328,6 +332,8 @@ public class MainController {
             mainWindow = new MainWindow();
             // TODO Auto-generated method stub
 
+            mainWindow.addMenuItemSaveGameActionListener(new SaveGameListener());
+
             if (applicationMode == 1) {
                 mapEditor.finishAndValidate(starterView.saveMapPathField.getText());
                 return;
@@ -405,7 +411,7 @@ public class MainController {
                         gameConfig.getCurrentPlayer().dstAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
                     }
                 }
-                
+
                 String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
                 mainWindow.getInfoView().showTerritoryInfo(info);
 
@@ -423,8 +429,8 @@ public class MainController {
                     if ((previousCountryName != null)
                             && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
                         if (!previousCountryName.equals(countryName)) {
-                        	fortificationPossible = true;
-                        	currentCountryName = countryName;
+                            fortificationPossible = true;
+                            currentCountryName = countryName;
                             //gameConfig.fortifyArmies(previousCountryName, countryName);
                         }
                     } else if ((previousCountryName == null) && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
@@ -508,13 +514,13 @@ public class MainController {
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	if(fortificationPossible == true) {
-        		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
-        		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
-        		if(gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-        			gameConfig.nextPlayerOrPhase();
-        		}
-        	}
+            if (fortificationPossible == true) {
+                Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
+                gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
+                if (gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+                    gameConfig.nextPlayerOrPhase();
+                }
+            }
         }
     }
 }

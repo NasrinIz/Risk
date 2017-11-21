@@ -213,7 +213,7 @@ public class Maps {
         try {
             while ((line = mapData.readLine()) != null) {
 
-                if ((line.equalsIgnoreCase("[MAP]") == true)) {
+                if ((line.equalsIgnoreCase("[MAP]"))) {
                     if (continentsProperty == 1) {
                         continentsProperty = 2;
                     }
@@ -224,7 +224,7 @@ public class Maps {
                     continue;
                 }
 
-                if ((line.equalsIgnoreCase("[Continents]") == true)) {
+                if ((line.equalsIgnoreCase("[Continents]"))) {
                     if ((mapProperty != 2) && (mapProperty != 0)) {
                         break;
                     }
@@ -235,7 +235,7 @@ public class Maps {
                     continue;
                 }
 
-                if ((line.equalsIgnoreCase("[Territories]") == true)) {
+                if ((line.equalsIgnoreCase("[Territories]"))) {
                     if ((mapProperty != 2) && (mapProperty != 0)) {
                         break;
                     }

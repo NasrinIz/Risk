@@ -59,7 +59,6 @@ public class StarterWindow extends JFrame {
         menuBar = new JMenuBar();
         menu = new JMenu("File");
         menuItemNewGame = new JMenuItem("New Game");
-        menuItemSaveGame = new JMenuItem("Save Game");
         menuItemLoadGame = new JMenuItem("Load Game");
         setSize(getMaximumSize());
         this.initWindow();
@@ -97,7 +96,6 @@ public class StarterWindow extends JFrame {
         setJMenuBar(menuBar);
         menuBar.add(menu);
         menu.add(menuItemNewGame);
-        menu.add(menuItemSaveGame);
         menu.add(menuItemLoadGame);
     }
 
@@ -108,15 +106,6 @@ public class StarterWindow extends JFrame {
      */
     public void addMenuItemNewGameActionListener(ActionListener listenForMenuItemNewGame) {
         menuItemNewGame.addActionListener(listenForMenuItemNewGame);
-    }
-
-    /**
-     * Adds action listener for Save game
-     *
-     * @param listenForMenuItemSaveGame Menu item
-     */
-    public void addMenuItemSaveGameActionListener(ActionListener listenForMenuItemSaveGame) {
-    	menuItemSaveGame.addActionListener(listenForMenuItemSaveGame);
     }
     
     /**
