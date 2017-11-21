@@ -12,9 +12,9 @@ import java.util.Objects;
  * @author Team20
  */
 public class Player implements Serializable {
-	private static final long serialVersionUID = 4593146570918884228L;
+    private static final long serialVersionUID = 4593146570918884228L;
 
-	private String name;
+    private String name;
 
     private ArrayList<Territory> territories = new ArrayList<Territory>();
     private ArrayList<Card> gameCards;
@@ -39,10 +39,12 @@ public class Player implements Serializable {
 
     private GameConfig gameConfigObj;
 
-    public ArrayList<Card> getPlayerCards()
-    {
-    	return gameCards;
+    public ArrayList<Card> getPlayerCards() {
+        return gameCards;
     }
+
+    public Strategy strategy;
+
     /**
      * This function is used to set current player's turn status.
      *
@@ -64,40 +66,25 @@ public class Player implements Serializable {
     /**
      * This is the constructor to the class Player and is used to initialize the local class variables.
      *
-     * @param name    The name of the player
-     * @param inId    The player's unique ID
-     * @param inCards The list of cards that this player owns
-     * @param gameConfig The reference to gameconfig object
+     * @param name       The name of the player
+     * @param inId       The player's unique ID
+     * @param inCards    The list of cards that this player owns
+     * @param gameConfig The reference to game config object
      */
-    public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig, String type) {
+    public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig, Strategy strategy) {
         this.name = name;
         this.id = inId;
         this.gameCards = inCards;
         this.gameConfigObj = gameConfig;
 
-        if(Objects.equals(type, "aggressive")){
-            Context context = new Context(new Agressive());
-            System.out.println("Aggressive = " + context.executeStrategy(10, 5));
-        }
+        this.strategy = strategy;
 
-        if(Objects.equals(type, "aggressive")){
-            Context context = new Context(new Benevolent());
-            System.out.println("Benevolent " + context.executeStrategy(10, 5));
-        }
 
-        if(Objects.equals(type, "random")){
-            Context context = new Context(new Random());
-            System.out.println("Random = " + context.executeStrategy(10, 5));
-        }
-
-        if(Objects.equals(type, "cheater")){
-            Context context = new Context(new Cheater());
-            System.out.println("Cheater = " + context.executeStrategy(10, 5));
-        }
     }
 
     /**
      * this method get the player id
+     *
      * @return Returns the player's ID
      */
     public Integer getPlayerId() {
@@ -106,6 +93,7 @@ public class Player implements Serializable {
 
     /**
      * this method get the numbers of cards
+     *
      * @return Returns the number of cards that the player owns
      */
     public Integer getNumCard() {
@@ -114,6 +102,7 @@ public class Player implements Serializable {
 
     /**
      * this method get the name of players
+     *
      * @return Returns the player's name
      */
     public String getName() {
@@ -138,6 +127,7 @@ public class Player implements Serializable {
 
     /**
      * this method get the number of territories
+     *
      * @return Returns the number of territories that player owns
      */
     public int numOfTerritories() {
@@ -218,21 +208,18 @@ public class Player implements Serializable {
         Integer newArmies = numTerritories / 3;
         armies += newArmies + continentArmyReward;
 
-        System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).", 
-        		this.getPlayerId(), armies, newArmies, continentArmyReward);
+        System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).",
+                this.getPlayerId(), armies, newArmies, continentArmyReward);
     }
 
-    private void removeTerritory(String territory)
-    {
-    	for(int ctr = 0; ctr < this.territories.size(); ctr++)
-    	{
-    		Territory tmp = this.territories.get(ctr);
-    		if(tmp.getName().equals(territory))
-    		{
-    			this.territories.remove(ctr);
-    			this.numTerritories --;
-    		}
-    	}
+    private void removeTerritory(String territory) {
+        for (int ctr = 0; ctr < this.territories.size(); ctr++) {
+            Territory tmp = this.territories.get(ctr);
+            if (tmp.getName().equals(territory)) {
+                this.territories.remove(ctr);
+                this.numTerritories--;
+            }
+        }
     }
 
     /**
@@ -397,10 +384,11 @@ public class Player implements Serializable {
 
     /**
      * This function is used to exchange cards.
-     * @param infantry Number of infantry cards.
-     * @param cavalry Number of cavalry cards.
+     *
+     * @param infantry  Number of infantry cards.
+     * @param cavalry   Number of cavalry cards.
      * @param artillery Number of artillery cards.
-     * @param wild Number of wild cards.
+     * @param wild      Number of wild cards.
      */
     public void exchangeCards(Integer infantry, Integer cavalry, Integer artillery, Integer wild) {
         System.out.println(infantry);
@@ -463,28 +451,30 @@ public class Player implements Serializable {
             this.cardsArmyReward += this.currentCardReward;
             this.armies += this.cardsArmyReward;
             System.out.printf("\nPlayer %d exchanged 3 cards for %d armies", this.getPlayerId(), this.cardsArmyReward);
-        }
-        else {
-        	System.out.println("The selected cards cannot be exchanged");
+        } else {
+            System.out.println("The selected cards cannot be exchanged");
         }
 
     }
 
     /**
      * This function is used to exchange cards.fortify armies.
-     * @param mapObj Map object
-     * @param srcTerritory The territory from which fortify happens
+     *
+     * @param mapObj        Map object
+     * @param srcTerritory  The territory from which fortify happens
      * @param destTerritory The territory to which armies are moved
      */
     public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
-        if (mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1) {
-            mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
-            mapObj.getDictTerritory().get(destTerritory).increaseArmies();
-            System.out.printf("\n%s : %d left, %s : %d now",
-                    mapObj.getDictTerritory().get(srcTerritory).getName(),
-                    mapObj.getDictTerritory().get(srcTerritory).getArmies(),
-                    mapObj.getDictTerritory().get(destTerritory).getName(),
-                    mapObj.getDictTerritory().get(destTerritory).getArmies());
+        if (Objects.equals(strategy, "human")) {
+            if (mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1) {
+                mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
+                mapObj.getDictTerritory().get(destTerritory).increaseArmies();
+                System.out.printf("\n%s : %d left, %s : %d now",
+                        mapObj.getDictTerritory().get(srcTerritory).getName(),
+                        mapObj.getDictTerritory().get(srcTerritory).getArmies(),
+                        mapObj.getDictTerritory().get(destTerritory).getName(),
+                        mapObj.getDictTerritory().get(destTerritory).getArmies());
+            }
         }
     }
 
@@ -495,11 +485,13 @@ public class Player implements Serializable {
      * @param territoryName The territory name, on which army is to be placed.
      */
     public void reinforceArmiesOnTerritory(String territoryName) {
-        for (Territory territory : territories) {
-            if (territory.getName().equals(territoryName)) {
-                if (armies > 0) {
-                    territory.increaseArmies();
-                    armies--;
+        if (Objects.equals(strategy, "human")) {
+            for (Territory territory : territories) {
+                if (territory.getName().equals(territoryName)) {
+                    if (armies > 0) {
+                        territory.increaseArmies();
+                        armies--;
+                    }
                 }
             }
         }
@@ -515,7 +507,11 @@ public class Player implements Serializable {
      * @param dictContinents Attacker Country
      */
     public Integer attackTerritory(Integer attackerDice, Integer defenderDice,
-                            Map<String, Continent> dictContinents) {
+                                   Map<String, Continent> dictContinents) {
+        if (!Objects.equals(strategy, "human")) {
+            return -1;
+        }
+
         Integer adjacencyFlag = -1;
         Integer isCaptured;
         Territory srcTerritory = srcAttackTerritory;
