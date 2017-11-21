@@ -193,7 +193,7 @@ public class Player {
      *
      * @param territoryName The territory name, on which army is to be placed.
      */
-    public void placeArmiesOnTerritory(String territoryName) {
+    public void reinforceArmiesOnTerritory(String territoryName) {
         for (Territory territory : territories) {
             if (territory.getName().equals(territoryName)) {
                 if (armies > 0) {

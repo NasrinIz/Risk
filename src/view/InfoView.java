@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -18,6 +19,7 @@ import javax.swing.border.TitledBorder;
 public class InfoView extends JPanel {
     private JTextArea InfoTextArea;
     private JButton passTurnBtn;
+    private JTextField txtMoveArmy;
 
     /**
      * Constructor of info view which shows information view
@@ -31,9 +33,12 @@ public class InfoView extends JPanel {
      * It adds Pass Button
      */
     private void addPassButton() {
-        passTurnBtn = new JButton("Pass turn");
+        passTurnBtn = new JButton("Move Army");
+        txtMoveArmy = new JTextField();
         passTurnBtn.setBounds(1024, 1000, 200, 30);
+        txtMoveArmy.setBounds(1244, 1000, 50, 30);
         this.add(passTurnBtn);
+        this.add(txtMoveArmy);
     }
 
     /**
@@ -74,4 +79,17 @@ public class InfoView extends JPanel {
         InfoTextArea.setText(info);
     }
 
+    public Integer getMoveArmies()
+    {
+    	try {
+    		String txtValue = txtMoveArmy.getText();
+    		int rtVal = Integer.parseInt(txtValue);
+    		return rtVal;
+    	}
+    	catch(NumberFormatException e)
+    	{
+    		//System.out.println("Invalid value by user, returning 0");
+    		return 0;
+    	}
+    }
 }

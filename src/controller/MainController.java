@@ -411,7 +411,7 @@ public class MainController {
                 if (Objects.equals(currentPlayerId, territoryOwner)) {
                     if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                             || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
-                        gameConfig.getCurrentPlayer().placeArmiesOnTerritory(countryName);
+                        gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(countryName);
                         gameConfig.nextPlayerOrPhase();
                         previousCountryName = null;
                     }
@@ -501,7 +501,8 @@ public class MainController {
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            gameConfig.nextPlayerOrPhase();
+           mainWindow.getInfoView().getMoveArmies();
+        	//gameConfig.nextPlayerOrPhase();
         }
     }
 }
