@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -8,9 +9,9 @@ import java.util.Objects;
  *         This is class Continent that is used to instantiate the continents of map, including
  *         the list of territories for each continent among other properties.
  */
-public class Continent {
-
-    private String name;
+public class Continent implements Serializable{
+	private static final long serialVersionUID = 7988619107428562290L;
+	private String name;
     private ArrayList<Territory> territories = new ArrayList<>();
     private int armyReward;
     private Integer ownerPlayerId = null;

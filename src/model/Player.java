@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
@@ -10,9 +11,10 @@ import java.util.Objects;
  *
  * @author Team20
  */
-public class Player {
+public class Player implements Serializable {
+	private static final long serialVersionUID = 4593146570918884228L;
 
-    private String name;
+	private String name;
 
     private ArrayList<Territory> territories = new ArrayList<Territory>();
     private ArrayList<Card> gameCards;

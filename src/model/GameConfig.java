@@ -10,7 +10,8 @@ import java.util.*;
  *         This class is used to instantiate everything, and starts the flow of new game.
  */
 public class GameConfig extends Observable implements Serializable{
-    private final Integer BEGINNINGCARDDISTRIBUTION = 4;
+	private static final long serialVersionUID = -6463387911877296159L;
+	private final Integer BEGINNINGCARDDISTRIBUTION = 4;
     private final Integer MAXCARDS = 44;
 
     private Integer numPlayers = null;

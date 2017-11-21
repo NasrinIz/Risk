@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,8 +20,9 @@ import src.view.ErrorInfoView;
  *
  * @author Team20
  */
-public class Maps {
-    /*************************/
+public class Maps implements Serializable{
+	private static final long serialVersionUID = -4600316782346456820L;
+	/*************************/
     private Integer MAP_INIT_SIZE = 2;
     private Integer MAP_CAPACITY_INCREMENT = 2;
 

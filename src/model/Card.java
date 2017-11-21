@@ -1,5 +1,7 @@
 package src.model;
 
+import java.io.Serializable;
+
 /**
  * This class is used to create cards according to the Risk rules.
  * The created cards can then be assigned to players, and they receive additional
@@ -7,9 +9,9 @@ package src.model;
  *
  * @author Team20
  */
-public class Card {
-
-    private final Integer CARDNONE = 0;
+public class Card implements Serializable{
+	private static final long serialVersionUID = -2870226417354007276L;
+	private final Integer CARDNONE = 0;
     private final Integer CARDINFANTORY = 1;
     private final Integer CARDCAVALRY = 2;
     private final Integer CARDARTILLERY = 3;

@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +12,9 @@ import java.util.Map;
  *
  * @author Team20
  */
-public class MapEditor {
-    final int CHOICENONE = 0;
+public class MapEditor implements Serializable{
+	private static final long serialVersionUID = -4666380560255106351L;
+	final int CHOICENONE = 0;
     final int CHOICEADDCONT = 1;
     final int CHOICEDELCONT = 2;
     final int CHOICEADDCOUNT = 3;

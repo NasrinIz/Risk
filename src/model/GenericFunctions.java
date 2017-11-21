@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -15,9 +16,9 @@ import java.util.Vector;
  *
  * @author Team20
  */
-public class GenericFunctions {
-
-    public final int GAMEPHASENONE = 0;
+public class GenericFunctions implements Serializable{
+	private static final long serialVersionUID = 6545711318207209822L;
+	public final int GAMEPHASENONE = 0;
     public final int GAMEPHASESTARTUP = 1;
     public final int GAMEPHASEREINFORCEMENT = 2;
     public final int GAMEPHASEFORTIFICATION = 3;

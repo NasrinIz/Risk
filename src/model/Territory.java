@@ -1,5 +1,6 @@
 package src.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // import javax.swing.JButton;
@@ -10,8 +11,9 @@ import java.util.ArrayList;
  * @author Team20
  *
  */
-public class Territory 
+public class Territory implements Serializable
 {
+	private static final long serialVersionUID = -1071208567452338626L;
 	private String continent = null;
 	private String name = null;
 	private Integer X = 0;
