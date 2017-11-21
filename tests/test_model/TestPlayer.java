@@ -35,7 +35,7 @@ public class TestPlayer {
 	@Before
 	public void setUp() throws Exception {
 		/* Assuming player owns 12 territories */
-		objPlayer = new Player("HOKA", 0, null, null);
+		objPlayer = new Player("HOKA", 0, null, null, "human");
 		for(int i = 0; i < 12; i++)
 		{
 			objPlayer.increaseNumTerritories();

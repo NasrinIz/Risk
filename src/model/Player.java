@@ -2,6 +2,7 @@ package src.model;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class is used to instantiate players, and different attributes.
@@ -66,11 +67,31 @@ public class Player {
      * @param inCards The list of cards that this player owns
      * @param gameConfig The reference to gameconfig object
      */
-    public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig) {
+    public Player(String name, Integer inId, ArrayList<Card> inCards, GameConfig gameConfig, String type) {
         this.name = name;
         this.id = inId;
         this.gameCards = inCards;
         this.gameConfigObj = gameConfig;
+
+        if(Objects.equals(type, "aggressive")){
+            Context context = new Context(new Agressive());
+            System.out.println("Aggressive = " + context.executeStrategy(10, 5));
+        }
+
+        if(Objects.equals(type, "aggressive")){
+            Context context = new Context(new Benevolent());
+            System.out.println("Benevolent " + context.executeStrategy(10, 5));
+        }
+
+        if(Objects.equals(type, "random")){
+            Context context = new Context(new Random());
+            System.out.println("Random = " + context.executeStrategy(10, 5));
+        }
+
+        if(Objects.equals(type, "cheater")){
+            Context context = new Context(new Cheater());
+            System.out.println("Cheater = " + context.executeStrategy(10, 5));
+        }
     }
 
     /**

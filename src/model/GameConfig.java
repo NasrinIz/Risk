@@ -3,10 +3,7 @@ package src.model;
 import src.view.MainWindow;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Observable;
+import java.util.*;
 
 /**
  * @author Team20
@@ -49,6 +46,7 @@ public class GameConfig extends Observable implements Serializable{
         setNumPlayers();
         gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
         this.mainWindow = mainWindow;
+
     }
 
     /**
@@ -144,7 +142,7 @@ public class GameConfig extends Observable implements Serializable{
                 playerCards.add(gameCards.get(cardId));
             }
 
-            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this);
+            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, "human");
             playerObj.setArmies(getInitArmy());
             players[i] = playerObj;
         }
