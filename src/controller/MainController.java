@@ -403,12 +403,15 @@ public class MainController {
                 mainWindow.getAttackView().addDiceBtnListener(new attackTerritory());
                 if (Objects.equals(gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner(), gameConfig.getCurrentPlayer().getPlayerId())) {
                     gameConfig.getCurrentPlayer().srcAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
-                    // vj
+                    previousCountryName = countryName;
+                    fortificationPossible = false;
                 }
 
                 if (gameConfig.getCurrentPlayer().srcAttackTerritory != null) {
                     if (!Objects.equals(gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner(), gameConfig.getCurrentPlayer().getPlayerId())) {
                         gameConfig.getCurrentPlayer().dstAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
+                        currentCountryName = countryName;
+                        fortificationPossible = true;
                     }
                 }
 
@@ -514,13 +517,14 @@ public class MainController {
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (fortificationPossible == true) {
-                Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
-                gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
-                if (gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-                    gameConfig.nextPlayerOrPhase();
-                }
-            }
+        	if(fortificationPossible == true) {
+        		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
+        		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
+        		if(gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+        			gameConfig.nextPlayerOrPhase();
+        		}
+        		fortificationPossible = false;
+        	}
         }
     }
 }
