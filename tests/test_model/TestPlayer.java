@@ -56,7 +56,6 @@ public class TestPlayer {
 		assertTrue(objPlayer.getArmies() == 14);
 	}
 	
-	
 	@Test
 	public void testFortify() {
 		GameConfig objConfig;

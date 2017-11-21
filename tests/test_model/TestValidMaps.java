@@ -117,5 +117,4 @@ public class TestValidMaps {
 		rt = rt.substring(0, 23);
 		assertEquals(rt.substring(0, 23), "\nPlease check adjacency");
 	}
-
 }

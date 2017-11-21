@@ -33,7 +33,6 @@ public class TestGameConfig {
 	@Before
 	public void setUp() throws Exception {
 		objConfig = new GameConfig(2, "world", null);
-		
 	}
 
 	@After

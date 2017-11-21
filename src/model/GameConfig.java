@@ -455,6 +455,32 @@ public class GameConfig extends Observable implements Serializable{
         gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " \nperforms an attack";
         setChanged();
         notifyObservers(this);
+        Boolean attackPossible = false;
+        
+        /* Allow player to move armies */
+        
+        /* Check if player can still attack */
+        for(int ctr = 0; ctr < this.getCurrentPlayer().getTerritories().size(); ctr++) {
+        	Territory tmp = this.getCurrentPlayer().getTerritories().get(ctr);
+        	if(tmp.getArmies() > 1) {
+        		attackPossible = true;
+        		break;
+        	}
+        }
+        
+        if(attackPossible == false) {
+        	nextPlayerOrPhase();
+        }
+    }
+    
+    /**
+     * This function is used to move armies to a territory.
+     * @param numArmies
+     */
+    public void playerMoveArmies(Integer numArmies, String srcTerritory, String destTerritory) {
+    	for(int ctr = 0; ctr < numArmies; ctr++) {
+    		this.fortifyArmies(srcTerritory, destTerritory);
+    	}
     }
 
 }

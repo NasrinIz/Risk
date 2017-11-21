@@ -48,7 +48,6 @@ public class TestMapEditor {
 	public void testAddContinentMap() {
 		mapEditor = new MapEditor(1, "MapEditorTest");
 //		String path = String.format("Resources//Maps//%s.map", mapEditor.map);
-		
 		mapEditor.addContinent(this.newContinentOne);
 		mapEditor.addContinent(this.newContinentTwo);
 		mapEditor.addContinent(this.newContinentThree);

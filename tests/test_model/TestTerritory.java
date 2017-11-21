@@ -43,8 +43,6 @@ public class TestTerritory {
 		for(String t: t1.getAdjacentCountries()) {
 			assertEquals(t, adjTer[i++]);
 		}
-		
-		
 	}
 
 }

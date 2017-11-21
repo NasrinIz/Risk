@@ -35,6 +35,8 @@ public class MainController {
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MapEditor mapEditor;
     private String previousCountryName = null;
+    private String currentCountryName = null;
+    private Boolean fortificationPossible = false;
     /*
      * 0 New game 1 Edit or create
      */
@@ -395,6 +397,7 @@ public class MainController {
                 mainWindow.getAttackView().addDiceBtnListener(new attackTerritory());
                 if (Objects.equals(gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner(), gameConfig.getCurrentPlayer().getPlayerId())) {
                     gameConfig.getCurrentPlayer().srcAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
+                    // vj
                 }
 
                 if (gameConfig.getCurrentPlayer().srcAttackTerritory != null) {
@@ -402,6 +405,7 @@ public class MainController {
                         gameConfig.getCurrentPlayer().dstAttackTerritory = gameConfig.getMapObj().getDictTerritory().get(countryName);
                     }
                 }
+                
                 String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
                 mainWindow.getInfoView().showTerritoryInfo(info);
 
@@ -419,10 +423,13 @@ public class MainController {
                     if ((previousCountryName != null)
                             && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
                         if (!previousCountryName.equals(countryName)) {
-                            gameConfig.fortifyArmies(previousCountryName, countryName);
+                        	fortificationPossible = true;
+                        	currentCountryName = countryName;
+                            //gameConfig.fortifyArmies(previousCountryName, countryName);
                         }
                     } else if ((previousCountryName == null) && (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION)) {
                         previousCountryName = countryName;
+                        fortificationPossible = false;
                     }
 
                     String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
@@ -494,15 +501,20 @@ public class MainController {
 
 
     /**
-     * Passes the turn
+     * Button used to finish fortification.
      *
      * @author Team20
      */
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-           mainWindow.getInfoView().getMoveArmies();
-        	//gameConfig.nextPlayerOrPhase();
+        	if(fortificationPossible == true) {
+        		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
+        		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
+        		if(gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+        			gameConfig.nextPlayerOrPhase();
+        		}
+        	}
         }
     }
 }
