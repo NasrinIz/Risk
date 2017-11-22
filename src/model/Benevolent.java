@@ -18,25 +18,62 @@ public class Benevolent implements Strategy, Serializable {
 
 	@Override
 	public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
-		// TODO Auto-generated method stub
+		int armies = objPlayer.getArmies();
+		while(armies > 0) {
+			int min = 99;
+			for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+				if(playerTerritories.get(ctr).getArmies() < min) {
+					min = playerTerritories.get(ctr).getArmies();
+				}
+			}
+			
+			for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+				if(playerTerritories.get(ctr).getArmies() == min) {
+					playerTerritories.get(ctr).increaseArmies();
+					armies--;
+					objPlayer.setArmies(armies);
+				}
+			}
+		}
 		return 0;
 	}
 
 	@Override
 	public int getTerritoryForReinforcement(Territory territory, Player objPlayer) {
-		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override
 	public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
-		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override
 	public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
-		// TODO Auto-generated method stub
+		int max = 0;
+		Territory temp = null;
+		for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+			if(playerTerritories.get(ctr).getArmies() > max) {
+				max = playerTerritories.get(ctr).getArmies();
+				temp = playerTerritories.get(ctr);
+			}
+		}
+		
+		Territory adja = null;
+		ArrayList<String> adjacent = temp.getAdjacentCountries();
+		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
+			int min = 9999;
+			Territory tmpAdja = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent);
+			if(tmpAdja.getArmies() < min) {
+				min = tmpAdja.getArmies();
+				adja = tmpAdja;
+			}
+		}
+		
+		while(temp.getArmies() > adja.getOwner()) {
+			adja.increaseArmies();
+			adja.decreaseArmies();
+		}
 		return 0;
 	}
 
@@ -49,38 +86,6 @@ public class Benevolent implements Strategy, Serializable {
 
 	@Override
 	public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	@Override
-	public Territory getFortifyTo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Territory getFortifyFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Territory getAttackFrom() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Territory getAttackTo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Territory getReinforceTerritory() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

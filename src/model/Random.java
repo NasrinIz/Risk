@@ -10,49 +10,11 @@ import java.util.Objects;
 public class Random implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
     GenericFunctions genfunObj;
-    
-    private Territory reinforceTerritory;
-    private Territory fortifyFrom;
-    private Territory fortifyTo;
-    private Territory attackFrom;
-    private Territory attackTo;
     private Integer playerType = 3;
     
     @Override
     public Integer getPlayerType() {
     	return playerType;
-    }
-
-    @Override
-    public Territory getFortifyTo() {
-        return fortifyTo;
-    }
-
-    public void setFortifyTo(Territory fortifyTo) {
-        this.fortifyTo = fortifyTo;
-    }
-
-    @Override
-    public Territory getFortifyFrom() {
-        return fortifyFrom;
-    }
-
-    public void setFortifyFrom(Territory fortifyFrom) {
-        this.fortifyFrom = fortifyFrom;
-    }
-
-    @Override
-    public Territory getAttackFrom() {
-        return attackFrom;
-    }
-
-    @Override
-    public Territory getAttackTo() {
-        return attackTo;
-    }
-
-    public void setAttackTo(Territory attackTo) {
-        this.attackTo = attackTo;
     }
 
     @Override
@@ -67,7 +29,7 @@ public class Random implements Strategy, Serializable {
                 armies--;
             }
     	}
-        return -1;
+        return 0;
     }
 
     @Override
@@ -134,18 +96,5 @@ public class Random implements Strategy, Serializable {
     		return 0;
     	}
         return -1;
-    }
-    
-    @Override
-    public Territory getReinforceTerritory() {
-        return reinforceTerritory;
-    }
-
-    public void setReinforceTerritory(Territory reinforceTerritory) {
-        this.reinforceTerritory = reinforceTerritory;
-    }
-
-    public void setAttackFrom(Territory attackFrom) {
-        this.attackFrom = attackFrom;
     }
 }

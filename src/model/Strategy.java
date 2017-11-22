@@ -17,12 +17,4 @@ public interface Strategy {
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer);
     
     public Integer getPlayerType();
-    
-    public Territory getFortifyTo();
-    public Territory getFortifyFrom();
-    
-    public Territory getAttackFrom();
-    public Territory getAttackTo();
-    
-    public Territory getReinforceTerritory();
 }
