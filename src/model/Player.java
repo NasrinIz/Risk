@@ -45,6 +45,14 @@ public class Player implements Serializable {
 
     public Strategy strategy;
 
+    
+    /**
+     * @return Returns the gameConfig object
+     */
+    public GameConfig getGameConfig() {
+    	return gameConfigObj;
+    }
+    
     /**
      * This function is used to set current player's turn status.
      *
@@ -209,7 +217,7 @@ public class Player implements Serializable {
                 this.getPlayerId(), armies, newArmies, continentArmyReward);
     }
 
-    private void removeTerritory(String territory) {
+    public void removeTerritory(String territory) {
         for (int ctr = 0; ctr < this.territories.size(); ctr++) {
             Territory tmp = this.territories.get(ctr);
             if (tmp.getName().equals(territory)) {
@@ -468,12 +476,12 @@ public class Player implements Serializable {
     	case 0: // Human
     		rt = strategy.getTerritoryForFortification(
     				gameConfigObj.getMapObj().getDictTerritory().get(srcTerritory), 
-    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory));
+    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory), this);
     	case 1: // Aggressive
     	case 2: // Benevolent
     	case 3: // Random
     	case 4: // Cheater
-    		rt = strategy.getTerritoryForFortification(mapObj, this.territories);
+    		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
     	}
     	Territory srcObjTerritory = strategy.getFortifyFrom();
     	Territory destObjTerritory = strategy.getFortifyTo();
@@ -498,12 +506,12 @@ public class Player implements Serializable {
     	
     	switch(strategy.getPlayerType()) {
     	case 0: // Human
-    		rt = strategy.getTerritoryForReinforcement(gameConfigObj.getMapObj().getDictTerritory().get(territoryName));
+    		rt = strategy.getTerritoryForReinforcement(gameConfigObj.getMapObj().getDictTerritory().get(territoryName), this);
     	case 1: // Aggressive
     	case 2: // Benevolent
     	case 3: // Random
     	case 4: // Cheater
-    		rt = strategy.getTerritoryForReinforcement(this.territories);
+    		rt = strategy.getTerritoryForReinforcement(this.territories, this);
     	}
     	
     	if(rt != 0) {
@@ -530,25 +538,38 @@ public class Player implements Serializable {
      */
     public Integer attackTerritory(Integer attackerDice, Integer defenderDice,
                                    Map<String, Continent> dictContinents) {
-        if (!Objects.equals(strategy, "human")) {
-            return -1;
-        }
-
-        Integer adjacencyFlag = -1;
-        Integer isCaptured;
+    	Integer rt = 0;
         
-        Integer rt = 0;
     	switch(strategy.getPlayerType()) {
     	case 0: // Human
-    		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory);
+    		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory, this);
     	case 1: // Aggressive
     	case 2: // Benevolent
     	case 3: // Random
     	case 4: // Cheater
-    		rt = strategy.getTerritoryForAttack(gameConfigObj.getMapObj(), this.territories);
+    		rt = strategy.getTerritoryForAttack(gameConfigObj.getMapObj(), this.territories, this);
     	}
         Territory srcTerritory = strategy.getAttackFrom();
         Territory targetTerritory = strategy.getAttackTo();
+        
+        rt = performAttack(attackerDice, defenderDice, dictContinents, srcTerritory, targetTerritory);
+        return rt;
+    }
+    
+    /**
+     * This function actually performs attack
+     * @param attackerDice   Number of dices, attacker chooses to roll
+     * @param defenderDice   Number of dices, defender chooses to roll
+     * @param dictContinents Attacker Country
+     * @param srcTerritory	Territory from which attack takes place
+     * @param targetTerritory	Territory on which attack takes place
+     * @return
+     */
+    public Integer performAttack(Integer attackerDice, Integer defenderDice, Map<String, Continent> dictContinents, 
+    		Territory srcTerritory, Territory targetTerritory) {
+
+        Integer adjacencyFlag = -1;
+        Integer isCaptured;
         
         if ((srcTerritory == null) || (targetTerritory == null)) {
             System.out.println("Please select both the source and target territories for attack");
@@ -612,6 +633,6 @@ public class Player implements Serializable {
         }
 
         srcAttackTerritory = null;
-        return 0;
+        return 0;    	
     }
 }

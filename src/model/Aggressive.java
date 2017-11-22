@@ -58,37 +58,37 @@ public class Aggressive implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
         return 0;
     }
 
     @Override
-    public int getTerritoryForReinforcement(Territory territory) {
+    public int getTerritoryForReinforcement(Territory territory, Player objPlayer) {
         this.setReinforceTerritory(territory);
         return 0;
     }
 
     @Override
-    public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
         setFortifyFrom(srcTerritory);
         setFortifyTo(dstTerritory);
         return 0;
     }
 
     @Override
-    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
         return 0;
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
         setAttackFrom(srcTerritory);
         setAttackTo(dstTerritory);
         return 0;
     }
 
     @Override
-    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
         return 0;
     }
 

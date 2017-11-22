@@ -17,37 +17,37 @@ public class Benevolent implements Strategy, Serializable {
     }
 
 	@Override
-	public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
+	public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getTerritoryForReinforcement(Territory territory) {
+	public int getTerritoryForReinforcement(Territory territory, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory) {
+	public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
+	public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory) {
+	public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
+	public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

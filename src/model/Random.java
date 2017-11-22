@@ -56,27 +56,28 @@ public class Random implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
     	
     	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
     	if((index >= 0) && (index < playerTerritories.size())) {
+    		reinforceTerritory = playerTerritories.get(index);
     		return 0;
     	}
         return -1;
     }
 
     @Override
-    public int getTerritoryForReinforcement(Territory territory) {
+    public int getTerritoryForReinforcement(Territory territory, Player objPlayer) {
     	return -1;
     }
 
     @Override
-    public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
         return -1;
     }
 
     @Override
-    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
     	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
     	if((index >= 0) && (index < playerTerritories.size())) {
     		int ownerOfFirst = playerTerritories.get(index).getOwner();
@@ -94,12 +95,12 @@ public class Random implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
         return -1;
     }
 
     @Override
-    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
+    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
     	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
     	if((index >= 0) && (index < playerTerritories.size())) {
     		int ownerOfFirst = playerTerritories.get(index).getOwner();
@@ -107,8 +108,15 @@ public class Random implements Strategy, Serializable {
     		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
     			int ownerOfSecond = map.getDictTerritory().get(adjacent.get(ctr)).getOwner();
     			if(ownerOfFirst != ownerOfSecond) {
-    				attackFrom = playerTerritories.get(index);
-    				attackTo = map.getDictTerritory().get(adjacent.get(ctr));
+    				Territory attackFrom = playerTerritories.get(index);
+    				Territory attackTo = map.getDictTerritory().get(adjacent.get(ctr));
+    				int attackerDice = genfunObj.genRandomNumber(1, 3);
+    				int defendorDice = genfunObj.genRandomNumber(1, 2);
+    				int numTimesAttack = genfunObj.genRandomNumber(1, 100);
+    				for(int attackTime = 0; attackTime < numTimesAttack; attackTime++) {
+    					objPlayer.performAttack(attackerDice, defendorDice, 
+    							objPlayer.getGameConfig().getMapObj().getDictContinents(), attackFrom, attackTo);
+    				}
     			}
     		}
     		return 0;
