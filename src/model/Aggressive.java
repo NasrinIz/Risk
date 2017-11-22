@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 public class Aggressive implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
+    GenericFunctions genfunObj;
     private Player player;
     private Maps map;
     private Territory reinforceTerritory;

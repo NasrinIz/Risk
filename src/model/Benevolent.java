@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Benevolent implements Strategy, Serializable {
 	private static final long serialVersionUID = 7900114658814948030L;
+	GenericFunctions genfunObj;
     private Integer playerType = 2;
     
     @Override

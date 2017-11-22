@@ -9,6 +9,8 @@ import java.util.Objects;
  */
 public class Random implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
+    GenericFunctions genfunObj;
+    
     private Territory reinforceTerritory;
     private Territory fortifyFrom;
     private Territory fortifyTo;
@@ -55,7 +57,12 @@ public class Random implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
-        return 0;
+    	
+    	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
+    	if((index >= 0) && (index < playerTerritories.size())) {
+    		return 0;
+    	}
+        return -1;
     }
 
     @Override
@@ -70,7 +77,20 @@ public class Random implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
-        return 0;
+    	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
+    	if((index >= 0) && (index < playerTerritories.size())) {
+    		int ownerOfFirst = playerTerritories.get(index).getOwner();
+    		ArrayList<String> adjacent = playerTerritories.get(index).getAdjacentCountries();
+    		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
+    			int ownerOfSecond = map.getDictTerritory().get(adjacent.get(ctr)).getOwner();
+    			if(ownerOfFirst == ownerOfSecond) {
+    				fortifyFrom = playerTerritories.get(index);
+    				fortifyTo = map.getDictTerritory().get(adjacent.get(ctr));
+    			}
+    		}
+    		return 0;
+    	}
+        return -1;
     }
 
     @Override
@@ -80,7 +100,20 @@ public class Random implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
-        return 0;
+    	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
+    	if((index >= 0) && (index < playerTerritories.size())) {
+    		int ownerOfFirst = playerTerritories.get(index).getOwner();
+    		ArrayList<String> adjacent = playerTerritories.get(index).getAdjacentCountries();
+    		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
+    			int ownerOfSecond = map.getDictTerritory().get(adjacent.get(ctr)).getOwner();
+    			if(ownerOfFirst != ownerOfSecond) {
+    				attackFrom = playerTerritories.get(index);
+    				attackTo = map.getDictTerritory().get(adjacent.get(ctr));
+    			}
+    		}
+    		return 0;
+    	}
+        return -1;
     }
     
     @Override
