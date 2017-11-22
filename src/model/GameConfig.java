@@ -455,15 +455,19 @@ public class GameConfig extends Observable implements Serializable{
         setChanged();
         notifyObservers(this);
         Boolean attackPossible = false;
-        
-        /* Allow player to move armies */
-        
+
         /* Check if player can still attack */
         for(int ctr = 0; ctr < this.getCurrentPlayer().getTerritories().size(); ctr++) {
         	Territory tmp = this.getCurrentPlayer().getTerritories().get(ctr);
         	if(tmp.getArmies() > 1) {
-        		attackPossible = true;
-        		break;
+        		ArrayList<String> adjacent = tmp.getAdjacentCountries();
+        		for(int ctr2 = 0; ctr2 < adjacent.size(); ctr2++) {
+        			Territory adja = this.mapObj.getDictTerritory().get(adjacent.get(ctr2));
+        			if(adja.getOwner() != this.getCurrentPlayer().id) {
+        				attackPossible = true;
+                		break;
+        			}
+        		}
         	}
         }
         
