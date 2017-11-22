@@ -1,6 +1,7 @@
 package src.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -8,15 +9,19 @@ import java.util.Objects;
  */
 public class Random implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
-    private Player player;
-    private Maps map;
     private Territory reinforceTerritory;
     private Territory fortifyFrom;
     private Territory fortifyTo;
     private Territory attackFrom;
     private Territory attackTo;
+    private Integer playerType = 3;
+    
+    @Override
+    public Integer getPlayerType() {
+    	return playerType;
+    }
 
-
+    @Override
     public Territory getFortifyTo() {
         return fortifyTo;
     }
@@ -25,6 +30,7 @@ public class Random implements Strategy, Serializable {
         this.fortifyTo = fortifyTo;
     }
 
+    @Override
     public Territory getFortifyFrom() {
         return fortifyFrom;
     }
@@ -33,10 +39,12 @@ public class Random implements Strategy, Serializable {
         this.fortifyFrom = fortifyFrom;
     }
 
+    @Override
     public Territory getAttackFrom() {
         return attackFrom;
     }
 
+    @Override
     public Territory getAttackTo() {
         return attackTo;
     }
@@ -46,40 +54,36 @@ public class Random implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForReinforcement() {
+    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
         return 0;
     }
 
     @Override
     public int getTerritoryForReinforcement(Territory territory) {
-        this.setReinforceTerritory(territory);
-        return 0;
+    	return -1;
     }
 
     @Override
     public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory) {
-        setFortifyFrom(srcTerritory);
-        setFortifyTo(dstTerritory);
-        return 0;
+        return -1;
     }
 
     @Override
-    public int getTerritoryForFortification(Maps map, Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
         return 0;
     }
 
     @Override
     public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory) {
-        setAttackFrom(srcTerritory);
-        setAttackTo(dstTerritory);
-        return 0;
+        return -1;
     }
 
     @Override
-    public int getTerritoryForAttack(Maps map, Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
         return 0;
     }
-
+    
+    @Override
     public Territory getReinforceTerritory() {
         return reinforceTerritory;
     }

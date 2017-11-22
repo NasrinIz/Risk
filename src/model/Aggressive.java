@@ -1,6 +1,7 @@
 package src.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -15,8 +16,15 @@ public class Aggressive implements Strategy, Serializable {
     private Territory fortifyTo;
     private Territory attackFrom;
     private Territory attackTo;
+    private Integer playerType = 1;
+    
+    @Override
+    public Integer getPlayerType() {
+    	return playerType;
+    }
 
 
+    @Override
     public Territory getFortifyTo() {
         return fortifyTo;
     }
@@ -25,6 +33,7 @@ public class Aggressive implements Strategy, Serializable {
         this.fortifyTo = fortifyTo;
     }
 
+    @Override
     public Territory getFortifyFrom() {
         return fortifyFrom;
     }
@@ -33,10 +42,12 @@ public class Aggressive implements Strategy, Serializable {
         this.fortifyFrom = fortifyFrom;
     }
 
+    @Override
     public Territory getAttackFrom() {
         return attackFrom;
     }
 
+    @Override
     public Territory getAttackTo() {
         return attackTo;
     }
@@ -46,7 +57,7 @@ public class Aggressive implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForReinforcement() {
+    public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories) {
         return 0;
     }
 
@@ -64,7 +75,7 @@ public class Aggressive implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForFortification(Maps map, Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories) {
         return 0;
     }
 
@@ -76,10 +87,11 @@ public class Aggressive implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForAttack(Maps map, Territory srcTerritory, Territory dstTerritory) {
+    public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories) {
         return 0;
     }
 
+    @Override
     public Territory getReinforceTerritory() {
         return reinforceTerritory;
     }

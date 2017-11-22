@@ -76,10 +76,7 @@ public class Player implements Serializable {
         this.id = inId;
         this.gameCards = inCards;
         this.gameConfigObj = gameConfig;
-
         this.strategy = strategy;
-
-
     }
 
     /**
@@ -465,16 +462,28 @@ public class Player implements Serializable {
      * @param destTerritory The territory to which armies are moved
      */
     public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
-        if (Objects.equals(strategy, "human")) {
-            if (mapObj.getDictTerritory().get(srcTerritory).getArmies() > 1) {
-                mapObj.getDictTerritory().get(srcTerritory).decreaseArmies();
-                mapObj.getDictTerritory().get(destTerritory).increaseArmies();
-                System.out.printf("\n%s : %d left, %s : %d now",
-                        mapObj.getDictTerritory().get(srcTerritory).getName(),
-                        mapObj.getDictTerritory().get(srcTerritory).getArmies(),
-                        mapObj.getDictTerritory().get(destTerritory).getName(),
-                        mapObj.getDictTerritory().get(destTerritory).getArmies());
-            }
+    	
+    	Integer rt = 0;
+    	switch(strategy.getPlayerType()) {
+    	case 0: // Human
+    		rt = strategy.getTerritoryForFortification(
+    				gameConfigObj.getMapObj().getDictTerritory().get(srcTerritory), 
+    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory));
+    	case 1: // Aggressive
+    	case 2: // Benevolent
+    	case 3: // Random
+    	case 4: // Cheater
+    		rt = strategy.getTerritoryForFortification(mapObj, this.territories);
+    	}
+    	Territory srcObjTerritory = strategy.getFortifyFrom();
+    	Territory destObjTerritory = strategy.getFortifyTo();
+    	
+        if ((srcObjTerritory.getArmies() > 1) && (destObjTerritory.getOwner() == this.id) &&
+        		(srcObjTerritory.getOwner() == this.id)) {
+        	srcObjTerritory.decreaseArmies();
+            destObjTerritory.increaseArmies();
+            System.out.printf("\n%s : %d left, %s : %d now", srcObjTerritory.getName(), srcObjTerritory.getArmies(),
+            		destObjTerritory.getName(), destObjTerritory.getArmies());
         }
     }
 
@@ -485,16 +494,29 @@ public class Player implements Serializable {
      * @param territoryName The territory name, on which army is to be placed.
      */
     public void reinforceArmiesOnTerritory(String territoryName) {
-        if (Objects.equals(strategy, "human")) {
-            for (Territory territory : territories) {
-                if (territory.getName().equals(territoryName)) {
-                    if (armies > 0) {
-                        territory.increaseArmies();
-                        armies--;
-                    }
-                }
-            }
+    	Integer rt = 0;
+    	
+    	switch(strategy.getPlayerType()) {
+    	case 0: // Human
+    		rt = strategy.getTerritoryForReinforcement(gameConfigObj.getMapObj().getDictTerritory().get(territoryName));
+    	case 1: // Aggressive
+    	case 2: // Benevolent
+    	case 3: // Random
+    	case 4: // Cheater
+    		rt = strategy.getTerritoryForReinforcement(this.territories);
+    	}
+    	
+    	if(rt != 0) {
+    		System.out.println("Reinforcement Failed, cause no territory selected by player");
+    		return;
+    	}
+    	
+    	Territory targetTerritory = strategy.getReinforceTerritory(); 
+        if (armies > 0) {
+        	targetTerritory.increaseArmies();
+            armies--;
         }
+        return;
     }
 
 
@@ -514,8 +536,20 @@ public class Player implements Serializable {
 
         Integer adjacencyFlag = -1;
         Integer isCaptured;
-        Territory srcTerritory = srcAttackTerritory;
-        Territory targetTerritory = dstAttackTerritory;
+        
+        Integer rt = 0;
+    	switch(strategy.getPlayerType()) {
+    	case 0: // Human
+    		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory);
+    	case 1: // Aggressive
+    	case 2: // Benevolent
+    	case 3: // Random
+    	case 4: // Cheater
+    		rt = strategy.getTerritoryForAttack(gameConfigObj.getMapObj(), this.territories);
+    	}
+        Territory srcTerritory = strategy.getAttackFrom();
+        Territory targetTerritory = strategy.getAttackTo();
+        
         if ((srcTerritory == null) || (targetTerritory == null)) {
             System.out.println("Please select both the source and target territories for attack");
             return -1;
