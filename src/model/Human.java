@@ -10,9 +10,7 @@ import java.util.Objects;
 public class Human implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
     GenericFunctions genfunObj;
-    
-    private Player player;
-    private Maps map;
+
     private Territory reinforceTerritory;
     private Territory fortifyFrom;
     private Territory fortifyTo;
@@ -59,37 +57,51 @@ public class Human implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
-        return 0;
+        return -1;
     }
 
     @Override
     public int getTerritoryForReinforcement(Territory territory, Player objPlayer) {
-        this.setReinforceTerritory(territory);
+    	if(territory == null) {
+    		System.out.println("No territory selected for reinforcement");
+    		return -1;
+    	}
+    	if(objPlayer.getArmies() > 0) {
+    		objPlayer.setArmies(objPlayer.getArmies() - 1);
+    		territory.increaseArmies();
+    	}
         return 0;
     }
 
     @Override
     public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
-        setFortifyFrom(srcTerritory);
-        setFortifyTo(dstTerritory);
+    	if((srcTerritory.getOwner() == dstTerritory.getOwner()) &&
+    			(srcTerritory.getOwner() == objPlayer.id) &&
+    			(objPlayer.id == dstTerritory.getOwner())) {
+    		srcTerritory.decreaseArmies();
+    		dstTerritory.increaseArmies();
+	        System.out.printf("\n%s : %d left, %s : %d now", srcTerritory.getName(), srcTerritory.getArmies(),
+	        		dstTerritory.getName(), dstTerritory.getArmies());
+    	}
         return 0;
     }
 
     @Override
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
-        return 0;
+        return -1;
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
-        setAttackFrom(srcTerritory);
-        setAttackTo(dstTerritory);
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer,
+    		Integer attackerDice, Integer defenderDice) {
+        objPlayer.performAttack(attackerDice, defenderDice, 
+        		objPlayer.getGameConfig().getMapObj().getDictContinents(), srcTerritory, dstTerritory);
         return 0;
     }
 
     @Override
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
-        return 0;
+        return -1;
     }
 
     @Override

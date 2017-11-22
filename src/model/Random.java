@@ -60,8 +60,12 @@ public class Random implements Strategy, Serializable {
     	
     	int index = genfunObj.genRandomNumber(0, playerTerritories.size());
     	if((index >= 0) && (index < playerTerritories.size())) {
-    		reinforceTerritory = playerTerritories.get(index);
-    		return 0;
+    		Territory reinforceTerritory = playerTerritories.get(index);
+    		int armies = objPlayer.getArmies();
+            while (armies > 0) {
+            	reinforceTerritory.increaseArmies();
+                armies--;
+            }
     	}
         return -1;
     }
@@ -85,8 +89,15 @@ public class Random implements Strategy, Serializable {
     		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
     			int ownerOfSecond = map.getDictTerritory().get(adjacent.get(ctr)).getOwner();
     			if(ownerOfFirst == ownerOfSecond) {
-    				fortifyFrom = playerTerritories.get(index);
-    				fortifyTo = map.getDictTerritory().get(adjacent.get(ctr));
+    				int numMove = genfunObj.genRandomNumber(0, playerTerritories.get(ctr).getArmies());
+    				for(int ctr2 = 0; ctr2 < numMove; ctr2++) {
+    					Territory srcObjTerritory = playerTerritories.get(index);
+    					Territory destObjTerritory = map.getDictTerritory().get(adjacent.get(ctr));
+    					srcObjTerritory.decreaseArmies();
+    		            destObjTerritory.increaseArmies();
+    		            System.out.printf("\n%s : %d left, %s : %d now", srcObjTerritory.getName(), srcObjTerritory.getArmies(),
+    		            		destObjTerritory.getName(), destObjTerritory.getArmies());
+    				}
     			}
     		}
     		return 0;
@@ -95,7 +106,8 @@ public class Random implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer,
+    		Integer attackerDice, Integer defenderDice) {
         return -1;
     }
 

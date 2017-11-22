@@ -99,7 +99,8 @@ public class Cheater implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer,
+    		Integer attackerDice, Integer defenderDice) {
         return -1;
     }
 

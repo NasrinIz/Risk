@@ -41,9 +41,10 @@ public class Benevolent implements Strategy, Serializable {
 	}
 
 	@Override
-	public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
+	public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer,
+			Integer attackerDice, Integer defenderDice) {
 		// TODO Auto-generated method stub
-		return 0;
+		return -1;
 	}
 
 	@Override

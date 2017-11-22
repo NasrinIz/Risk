@@ -483,16 +483,6 @@ public class Player implements Serializable {
     	case 4: // Cheater
     		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
     	}
-    	Territory srcObjTerritory = strategy.getFortifyFrom();
-    	Territory destObjTerritory = strategy.getFortifyTo();
-    	
-        if ((srcObjTerritory.getArmies() > 1) && (destObjTerritory.getOwner() == this.id) &&
-        		(srcObjTerritory.getOwner() == this.id)) {
-        	srcObjTerritory.decreaseArmies();
-            destObjTerritory.increaseArmies();
-            System.out.printf("\n%s : %d left, %s : %d now", srcObjTerritory.getName(), srcObjTerritory.getArmies(),
-            		destObjTerritory.getName(), destObjTerritory.getArmies());
-        }
     }
 
 
@@ -513,17 +503,6 @@ public class Player implements Serializable {
     	case 4: // Cheater
     		rt = strategy.getTerritoryForReinforcement(this.territories, this);
     	}
-    	
-    	if(rt != 0) {
-    		System.out.println("Reinforcement Failed, cause no territory selected by player");
-    		return;
-    	}
-    	
-    	Territory targetTerritory = strategy.getReinforceTerritory(); 
-        if (armies > 0) {
-        	targetTerritory.increaseArmies();
-            armies--;
-        }
         return;
     }
 
@@ -542,17 +521,13 @@ public class Player implements Serializable {
         
     	switch(strategy.getPlayerType()) {
     	case 0: // Human
-    		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory, this);
+    		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory, this, attackerDice, defenderDice);
     	case 1: // Aggressive
     	case 2: // Benevolent
     	case 3: // Random
     	case 4: // Cheater
     		rt = strategy.getTerritoryForAttack(gameConfigObj.getMapObj(), this.territories, this);
     	}
-        Territory srcTerritory = strategy.getAttackFrom();
-        Territory targetTerritory = strategy.getAttackTo();
-        
-        rt = performAttack(attackerDice, defenderDice, dictContinents, srcTerritory, targetTerritory);
         return rt;
     }
     

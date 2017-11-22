@@ -81,10 +81,9 @@ public class Aggressive implements Strategy, Serializable {
     }
 
     @Override
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer) {
-        setAttackFrom(srcTerritory);
-        setAttackTo(dstTerritory);
-        return 0;
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer, 
+    		Integer attackerDice, Integer defenderDice) {
+        return -1;
     }
 
     @Override

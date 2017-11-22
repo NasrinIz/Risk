@@ -12,7 +12,8 @@ public interface Strategy {
     public int getTerritoryForFortification(Territory srcTerritory, Territory dstTerritory, Player objPlayer);
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer);
     
-    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer);
+    public int getTerritoryForAttack(Territory srcTerritory, Territory dstTerritory, Player objPlayer, 
+    		Integer attackerDice, Integer defenderDice);
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer);
     
     public Integer getPlayerType();
