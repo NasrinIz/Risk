@@ -20,7 +20,6 @@ public class Benevolent implements Strategy, Serializable {
 	public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
 		int armies = objPlayer.getArmies();
 		if(armies == 0) {
-    		objPlayer.getGameConfig().nextPlayerTurn();
     		objPlayer.getGameConfig().nextPlayerOrPhase();
     	}
 		while(armies > 0) {

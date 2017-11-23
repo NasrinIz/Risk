@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public class Cheater implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
-    GenericFunctions genfunObj;
+    GenericFunctions genfunObj = new GenericFunctions();
 
     private Integer playerType = 4;
     
@@ -24,8 +24,8 @@ public class Cheater implements Strategy, Serializable {
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
         for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
         	int num = playerTerritories.get(ctr).getArmies();
-        	if(num == 0) {
-        		objPlayer.getGameConfig().nextPlayerTurn();
+        	int num2 = objPlayer.getArmies();
+        	if(num2 == 0) {
         		objPlayer.getGameConfig().nextPlayerOrPhase();
         	}
         	for(int ctr2 = 0; ctr2 < num; ctr++) {
@@ -35,6 +35,7 @@ public class Cheater implements Strategy, Serializable {
         		playerTerritories.get(ctr).increaseArmies();
         		if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
         			objPlayer.getGameConfig().nextPlayerOrPhase();
+        			objPlayer.setArmies(objPlayer.getArmies() - 1);
         		}
         	}
         }

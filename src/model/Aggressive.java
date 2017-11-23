@@ -14,6 +14,7 @@ public class Aggressive implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
+    	System.out.println("REINFORCEMENT PHASE");
     	int max = 0;
     	Territory temp = null;
     	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
@@ -25,7 +26,6 @@ public class Aggressive implements Strategy, Serializable {
     	
     	int num = objPlayer.getArmies();
     	if(num == 0) {
-    		objPlayer.getGameConfig().nextPlayerTurn();
     		objPlayer.getGameConfig().nextPlayerOrPhase();
     	}
     	for(int ctr2 = 0; ctr2 < num; ctr2++) {
@@ -49,6 +49,7 @@ public class Aggressive implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
+    	System.out.println("FORTIFICATION PHASE");
     	int max = 0;
     	Territory temp = null;
     	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
@@ -68,7 +69,7 @@ public class Aggressive implements Strategy, Serializable {
     			for(int ctr2 = 0; ctr2 < adjacent2.size(); ctr2++) {
     				Territory adja2 = map.getDictTerritory().get(adjacent2.get(ctr2));
     				if(adja2.getOwner() != objPlayer.id) {
-    					nextCountry = adja2;
+    					nextCountry = adja;
     					break;
     				}
     			}
@@ -77,8 +78,11 @@ public class Aggressive implements Strategy, Serializable {
     	
     	int num = temp.getArmies();
     	for(int ctr2 = 0; ctr2 < num; ctr2++) {
-    		nextCountry.increaseArmies();
-    		temp.decreaseArmies();
+    		if(nextCountry != null)
+    		{
+	    		nextCountry.increaseArmies();
+	    		temp.decreaseArmies();
+    		}
     	}
         return 0;
     }
@@ -91,6 +95,7 @@ public class Aggressive implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
+    	System.out.println("ATTACK PHASE");
     	int max = 0;
     	Territory temp = null;
     	Integer isCaptured = -1;
@@ -113,18 +118,28 @@ public class Aggressive implements Strategy, Serializable {
     				Integer attackerDice = 0;
     				Integer defenderDice = 0;
     				
-    				if(temp.getArmies() >= 3) {
+    				if(temp.getArmies() >= 4) {
     					attackerDice = 3;
     				}
-    				else {
+    				else if(temp.getArmies() == 3) {
     					attackerDice = 2;
     				}
+    				else if(temp.getArmies() == 2) {
+    					attackerDice = 1;
+    				}
+    				else {
+    					break;
+    				}
+    				
     				
     				if(adja.getArmies() >= 2) {
     					defenderDice = 2;
     				}
-    				else {
+    				else if(adja.getArmies() == 1){
     					defenderDice = 1;
+    				}
+    				else {
+    					break;
     				}
     				
     				objPlayer.performAttack(attackerDice, defenderDice, 

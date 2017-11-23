@@ -456,18 +456,19 @@ public class Player implements Serializable {
     public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory, Integer numArmies) {
     	
     	Integer rt = 0;
-    	for(int ctr = 0; ctr < numArmies; ctr++) {
-	    	switch(strategy.getPlayerType()) {
-	    	case 0: // Human
+    	
+    	switch(strategy.getPlayerType()) {
+    	case 0: // Human
+    		for(int ctr = 0; ctr < numArmies; ctr++) {
 	    		rt = strategy.getTerritoryForFortification(
 	    				gameConfigObj.getMapObj().getDictTerritory().get(srcTerritory), 
 	    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory), this);
-	    	case 1: // Aggressive
-	    	case 2: // Benevolent
-	    	case 3: // Random
-	    	case 4: // Cheater
-	    		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
-	    	}
+    		}
+    	case 1: // Aggressive
+    	case 2: // Benevolent
+    	case 3: // Random
+    	case 4: // Cheater
+    		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
     	}
     	if(this.gameConfigObj.getGamePhase() == genFunObj.GAMEPHASEFORTIFICATION) {
     		this.gameConfigObj.nextPlayerOrPhase();

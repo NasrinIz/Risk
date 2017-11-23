@@ -384,7 +384,7 @@ public class MainController {
         Integer gamePhase = gameConfig.getGamePhase();
         while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
         	try {
-				//Thread.sleep(100);
+				Thread.sleep(200);
 				System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
