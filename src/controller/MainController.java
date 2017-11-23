@@ -383,6 +383,13 @@ public class MainController {
     public void ai_driver() {
         Integer gamePhase = gameConfig.getGamePhase();
         while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
+        	try {
+				//Thread.sleep(100);
+				System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	gamePhase = gameConfig.getGamePhase();
 	        if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
 	            mainWindow.getAttackView().showAttackInfo();

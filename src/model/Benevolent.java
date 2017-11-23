@@ -19,6 +19,10 @@ public class Benevolent implements Strategy, Serializable {
 	@Override
 	public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
 		int armies = objPlayer.getArmies();
+		if(armies == 0) {
+    		objPlayer.getGameConfig().nextPlayerTurn();
+    		objPlayer.getGameConfig().nextPlayerOrPhase();
+    	}
 		while(armies > 0) {
 			int min = 99;
 			for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
@@ -29,9 +33,15 @@ public class Benevolent implements Strategy, Serializable {
 			
 			for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
 				if(playerTerritories.get(ctr).getArmies() == min) {
+					if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
+		    			break;
+		    		}
 					playerTerritories.get(ctr).increaseArmies();
 					armies--;
 					objPlayer.setArmies(armies);
+					if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
+		    			objPlayer.getGameConfig().nextPlayerOrPhase();
+		    		}
 				}
 			}
 		}

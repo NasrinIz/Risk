@@ -21,7 +21,6 @@ public class Player implements Serializable {
     private Integer numCards = 0;
 
     private int armies;
-    private Integer numTerritories = 0;
     Integer id = null;
 
     private boolean isTurnCompleted = false;
@@ -136,22 +135,7 @@ public class Player implements Serializable {
      * @return Returns the number of territories that player owns
      */
     public int numOfTerritories() {
-        return numTerritories;
-    }
-
-    /**
-     * This function increases the number of territories that player owns
-     */
-    public void increaseNumTerritories() {
-        numTerritories++;
-    }
-
-    /**
-     * This function is called after player occupyies a territory to
-     * increase the numbers of territories.
-     */
-    void occupyTerritory() {
-        numTerritories++;
+        return territories.size();
     }
 
     /**
@@ -210,7 +194,7 @@ public class Player implements Serializable {
      * This function is used to calculate the new armies that player receives when Reinforcement phase begins
      */
     public void calcReinforcementArmies() {
-        Integer newArmies = numTerritories / 3;
+        Integer newArmies = this.numOfTerritories() / 3;
         armies += newArmies + continentArmyReward;
 
         System.out.printf("\nPlayer %d received %d armies. (%d from territories, %d from continent).",
@@ -222,7 +206,6 @@ public class Player implements Serializable {
             Territory tmp = this.territories.get(ctr);
             if (tmp.getName().equals(territory)) {
                 this.territories.remove(ctr);
-                this.numTerritories--;
             }
         }
     }
@@ -557,6 +540,7 @@ public class Player implements Serializable {
         }
        
        if(attackPossible == false) {
+    	   System.out.println("Attack not possible. Turn ends automatically");
     	   this.gameConfigObj.nextPlayerOrPhase();
        }
     	

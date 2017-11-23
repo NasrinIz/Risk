@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Random implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
-    GenericFunctions genfunObj;
+    GenericFunctions genfunObj = new GenericFunctions();
     private Integer playerType = 3;
     
     @Override
@@ -24,9 +24,20 @@ public class Random implements Strategy, Serializable {
     	if((index >= 0) && (index < playerTerritories.size())) {
     		Territory reinforceTerritory = playerTerritories.get(index);
     		int armies = objPlayer.getArmies();
+    		if(armies == 0) {
+        		//objPlayer.getGameConfig().nextPlayerTurn();
+        		objPlayer.getGameConfig().nextPlayerOrPhase();
+        	}
             while (armies > 0) {
+            	if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
+        			break;
+        		}
+            	armies--;
             	reinforceTerritory.increaseArmies();
-                armies--;
+                objPlayer.setArmies(objPlayer.getArmies() - 1);
+                if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
+        			objPlayer.getGameConfig().nextPlayerOrPhase();
+        		}
             }
     	}
         return 0;
@@ -84,10 +95,19 @@ public class Random implements Strategy, Serializable {
     			if(ownerOfFirst != ownerOfSecond) {
     				Territory attackFrom = playerTerritories.get(index);
     				Territory attackTo = map.getDictTerritory().get(adjacent.get(ctr));
-    				int attackerDice = genfunObj.genRandomNumber(1, 3);
-    				int defendorDice = genfunObj.genRandomNumber(1, 2);
+    				if(attackFrom.getArmies() <= 1) {
+    					continue;
+    				}
+    				int attackerDice = genfunObj.genRandomNumber(1, attackFrom.getArmies() - 1);
+    				int defendorDice = genfunObj.genRandomNumber(1, attackTo.getArmies());
     				int numTimesAttack = genfunObj.genRandomNumber(1, 100);
     				for(int attackTime = 0; attackTime < numTimesAttack; attackTime++) {
+    					if(attackFrom.getOwner() == attackTo.getOwner()) {
+    						break;
+    					}
+    					if(attackFrom.getArmies() == 1) {
+        					break;
+        				}
     					objPlayer.performAttack(attackerDice, defendorDice, 
     							objPlayer.getGameConfig().getMapObj().getDictContinents(), attackFrom, attackTo);
     				}

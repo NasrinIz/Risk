@@ -144,7 +144,7 @@ public class GameConfig extends Observable implements Serializable{
             }
 
             //Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
-            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Aggressive());
+            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Random());
             playerObj.setArmies(getInitArmy());
             players[i] = playerObj;
         }
@@ -249,11 +249,9 @@ public class GameConfig extends Observable implements Serializable{
                     nextOwnerPlayer = 0;
                 }
                 (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
-                players[nextOwnerPlayer].occupyTerritory();
             } else {
                 if (players[nextOwnerPlayer].numOfTerritories() < perPlayer) {
                     (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
-                    players[nextOwnerPlayer].occupyTerritory();
                 }
             }
         }

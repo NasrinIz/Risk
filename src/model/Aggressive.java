@@ -68,13 +68,14 @@ public class Aggressive implements Strategy, Serializable {
     			for(int ctr2 = 0; ctr2 < adjacent2.size(); ctr2++) {
     				Territory adja2 = map.getDictTerritory().get(adjacent2.get(ctr2));
     				if(adja2.getOwner() != objPlayer.id) {
-    					nextCountry = adja;
+    					nextCountry = adja2;
+    					break;
     				}
     			}
     		}
     	}
     	
-    	int num = nextCountry.getArmies();
+    	int num = temp.getArmies();
     	for(int ctr2 = 0; ctr2 < num; ctr2++) {
     		nextCountry.increaseArmies();
     		temp.decreaseArmies();
@@ -92,6 +93,8 @@ public class Aggressive implements Strategy, Serializable {
     public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
     	int max = 0;
     	Territory temp = null;
+    	Integer isCaptured = -1;
+    	
     	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
     		if(playerTerritories.get(ctr).getArmies() > max) {
     			max = playerTerritories.get(ctr).getArmies();
@@ -102,7 +105,7 @@ public class Aggressive implements Strategy, Serializable {
     	Territory target = null;
     	ArrayList<String> adjacent = temp.getAdjacentCountries();
     	
-    	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+    	for(int ctr = 0; ctr < adjacent.size(); ctr++) {
     		Territory adja = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent.get(ctr));
     		if(adja.getOwner() != temp.getOwner()) {
     			target = adja;

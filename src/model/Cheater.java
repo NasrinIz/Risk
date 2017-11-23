@@ -24,8 +24,18 @@ public class Cheater implements Strategy, Serializable {
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
         for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
         	int num = playerTerritories.get(ctr).getArmies();
+        	if(num == 0) {
+        		objPlayer.getGameConfig().nextPlayerTurn();
+        		objPlayer.getGameConfig().nextPlayerOrPhase();
+        	}
         	for(int ctr2 = 0; ctr2 < num; ctr++) {
+        		if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
+        			break;
+        		}
         		playerTerritories.get(ctr).increaseArmies();
+        		if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
+        			objPlayer.getGameConfig().nextPlayerOrPhase();
+        		}
         	}
         }
         return 0;
