@@ -374,10 +374,36 @@ public class MainController {
                 mainWindow.getErrorInfoView().showErrorInfo(error);
                 mainWindow.removeCountryButtons();
             }
-
+            
+            // vj
+            ai_driver();
         }
     }
 
+    public void ai_driver() {
+        Integer gamePhase = gameConfig.getGamePhase();
+        while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
+        	gamePhase = gameConfig.getGamePhase();
+	        if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+	            mainWindow.getAttackView().showAttackInfo();
+	            gameConfig.attackTerritory(0, 0, gameConfig.getMapObj().getDictContinents());
+	            String info = "";
+	            mainWindow.getInfoView().showTerritoryInfo(info);
+	        } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
+	                || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
+	            gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(null);
+	            String info = "";
+	            mainWindow.getInfoView().showTerritoryInfo(info);
+	        } else if(gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+	            gameConfig.fortifyArmies(null, null, 0);
+	            String info = "";
+	            mainWindow.getInfoView().showTerritoryInfo(info);
+	        } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
+	            return;
+	        }
+        }
+    }
+    
     /**
      * This is the inner class, to define action listener to the territory buttons
      *
@@ -425,7 +451,6 @@ public class MainController {
                     if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                             || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
                         gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(countryName);
-                        gameConfig.nextPlayerOrPhase();
                         previousCountryName = null;
                     }
 
@@ -520,9 +545,6 @@ public class MainController {
         	if(fortificationPossible == true) {
         		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
         		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
-        		if(gameConfig.getGamePhase() == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-        			gameConfig.nextPlayerOrPhase();
-        		}
         		fortificationPossible = false;
         	}
         }

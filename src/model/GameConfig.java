@@ -76,7 +76,7 @@ public class GameConfig extends Observable implements Serializable{
     /**
      * It shows the turn of next player
      */
-    private void nextPlayerTurn() {
+    public void nextPlayerTurn() {
         currentPlayer++;
         if (currentPlayer >= players.length) {
             currentPlayer = 0;
@@ -143,7 +143,8 @@ public class GameConfig extends Observable implements Serializable{
                 playerCards.add(gameCards.get(cardId));
             }
 
-            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
+            //Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
+            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Aggressive());
             playerObj.setArmies(getInitArmy());
             players[i] = playerObj;
         }
@@ -328,37 +329,40 @@ public class GameConfig extends Observable implements Serializable{
      *
      * @param srcTerritory  fortify from source
      * @param destTerritory fortify to destiny
+     * @param numArmies		Number of armies to be moved
      */
-    public void fortifyArmies(String srcTerritory, String destTerritory) {
+    public void fortifyArmies(String srcTerritory, String destTerritory, Integer numArmies) {
         ArrayList<Territory> tmp = getCurrentPlayer().getTerritories();
         int srcFound = 0;
         int destFound = 0;
         int adjacencyFlag = 0;
+        if(getCurrentPlayer().strategy.getPlayerType() == 0)
+        {
+	        for (int ctr = 0; ctr < tmp.size(); ctr++) {
+	            if (tmp.get(ctr).getName().equals(srcTerritory) == true) {
+	                srcFound = 1;
+	                for (String adjacent : tmp.get(ctr).getAdjacentCountries()) {
+	                    if (adjacent.equals(destTerritory)) {
+	                        adjacencyFlag = 1;
+	                    }
+	                }
+	            }
+	            if (tmp.get(ctr).getName().equals(destTerritory) == true) {
+	                destFound = 1;
+	            }
+	        }
+	
+	        if ((srcFound == 0) || (destFound == 0)) {
+	            return;
+	        }
 
-        for (int ctr = 0; ctr < tmp.size(); ctr++) {
-            if (tmp.get(ctr).getName().equals(srcTerritory) == true) {
-                srcFound = 1;
-                for (String adjacent : tmp.get(ctr).getAdjacentCountries()) {
-                    if (adjacent.equals(destTerritory)) {
-                        adjacencyFlag = 1;
-                    }
-                }
-            }
-            if (tmp.get(ctr).getName().equals(destTerritory) == true) {
-                destFound = 1;
-            }
+	        if (adjacencyFlag == 0) {
+	            System.out.println("Player can only fortify armies from territory adjacent to target territory");
+	            return;
+	        }
         }
 
-        if ((srcFound == 0) || (destFound == 0)) {
-            return;
-        }
-
-        if (adjacencyFlag == 0) {
-            System.out.println("Player can only fortify armies from territory adjacent to target territory");
-            return;
-        }
-
-        getCurrentPlayer().fortifyArmy(mapObj, srcTerritory, destTerritory);
+        getCurrentPlayer().fortifyArmy(mapObj, srcTerritory, destTerritory, numArmies);
     }
 
     /**
@@ -454,26 +458,6 @@ public class GameConfig extends Observable implements Serializable{
         gamePhaseStr = "Phase: Attack\nPlayer " + this.getCurrentPlayer().getPlayerId().toString() + " \nperforms an attack";
         setChanged();
         notifyObservers(this);
-        Boolean attackPossible = false;
-
-        /* Check if player can still attack */
-        for(int ctr = 0; ctr < this.getCurrentPlayer().getTerritories().size(); ctr++) {
-        	Territory tmp = this.getCurrentPlayer().getTerritories().get(ctr);
-        	if(tmp.getArmies() > 1) {
-        		ArrayList<String> adjacent = tmp.getAdjacentCountries();
-        		for(int ctr2 = 0; ctr2 < adjacent.size(); ctr2++) {
-        			Territory adja = this.mapObj.getDictTerritory().get(adjacent.get(ctr2));
-        			if(adja.getOwner() != this.getCurrentPlayer().id) {
-        				attackPossible = true;
-                		break;
-        			}
-        		}
-        	}
-        }
-        
-        if(attackPossible == false) {
-        	nextPlayerOrPhase();
-        }
     }
     
     /**
@@ -481,9 +465,7 @@ public class GameConfig extends Observable implements Serializable{
      * @param numArmies
      */
     public void playerMoveArmies(Integer numArmies, String srcTerritory, String destTerritory) {
-    	for(int ctr = 0; ctr < numArmies; ctr++) {
-    		this.fortifyArmies(srcTerritory, destTerritory);
-    	}
+    	this.fortifyArmies(srcTerritory, destTerritory, numArmies);
     }
 
 }

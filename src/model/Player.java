@@ -468,21 +468,27 @@ public class Player implements Serializable {
      * @param mapObj        Map object
      * @param srcTerritory  The territory from which fortify happens
      * @param destTerritory The territory to which armies are moved
+     * @param numArmies		The number of armies to be moved
      */
-    public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory) {
+    public void fortifyArmy(Maps mapObj, String srcTerritory, String destTerritory, Integer numArmies) {
     	
     	Integer rt = 0;
-    	switch(strategy.getPlayerType()) {
-    	case 0: // Human
-    		rt = strategy.getTerritoryForFortification(
-    				gameConfigObj.getMapObj().getDictTerritory().get(srcTerritory), 
-    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory), this);
-    	case 1: // Aggressive
-    	case 2: // Benevolent
-    	case 3: // Random
-    	case 4: // Cheater
-    		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
+    	for(int ctr = 0; ctr < numArmies; ctr++) {
+	    	switch(strategy.getPlayerType()) {
+	    	case 0: // Human
+	    		rt = strategy.getTerritoryForFortification(
+	    				gameConfigObj.getMapObj().getDictTerritory().get(srcTerritory), 
+	    				gameConfigObj.getMapObj().getDictTerritory().get(destTerritory), this);
+	    	case 1: // Aggressive
+	    	case 2: // Benevolent
+	    	case 3: // Random
+	    	case 4: // Cheater
+	    		rt = strategy.getTerritoryForFortification(mapObj, this.territories, this);
+	    	}
     	}
+    	if(this.gameConfigObj.getGamePhase() == genFunObj.GAMEPHASEFORTIFICATION) {
+    		this.gameConfigObj.nextPlayerOrPhase();
+		}
     }
 
 
@@ -502,6 +508,9 @@ public class Player implements Serializable {
     	case 3: // Random
     	case 4: // Cheater
     		rt = strategy.getTerritoryForReinforcement(this.territories, this);
+    	}
+    	if(this.gameConfigObj.getGamePhase() == genFunObj.GAMEPHASEREINFORCEMENT) {
+    		this.gameConfigObj.nextPlayerOrPhase();
     	}
         return;
     }
@@ -528,6 +537,29 @@ public class Player implements Serializable {
     	case 4: // Cheater
     		rt = strategy.getTerritoryForAttack(gameConfigObj.getMapObj(), this.territories, this);
     	}
+    	
+        Boolean attackPossible = false;
+
+        /* Check if player can still attack */
+       
+        for(int ctr = 0; ctr < this.gameConfigObj.getCurrentPlayer().getTerritories().size(); ctr++) {
+       	Territory tmp = this.gameConfigObj.getCurrentPlayer().getTerritories().get(ctr);
+	       	if(tmp.getArmies() > 1) {
+	       		ArrayList<String> adjacent = tmp.getAdjacentCountries();
+	       		for(int ctr2 = 0; ctr2 < adjacent.size(); ctr2++) {
+	       			Territory adja = this.gameConfigObj.getMapObj().getDictTerritory().get(adjacent.get(ctr2));
+	       			if(adja.getOwner() != this.gameConfigObj.getCurrentPlayer().id) {
+	       				attackPossible = true;
+	               		break;
+	       			}
+	       		}
+	       	}
+        }
+       
+       if(attackPossible == false) {
+    	   this.gameConfigObj.nextPlayerOrPhase();
+       }
+    	
         return rt;
     }
     

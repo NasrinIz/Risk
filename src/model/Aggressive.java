@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Aggressive implements Strategy, Serializable {
     private static final long serialVersionUID = -5417659417247726299L;
-    GenericFunctions genfunObj;
+    GenericFunctions genfunObj = new GenericFunctions();
     private Integer playerType = 1;
 
     @Override
@@ -24,8 +24,18 @@ public class Aggressive implements Strategy, Serializable {
     	}
     	
     	int num = objPlayer.getArmies();
+    	if(num == 0) {
+    		objPlayer.getGameConfig().nextPlayerTurn();
+    		objPlayer.getGameConfig().nextPlayerOrPhase();
+    	}
     	for(int ctr2 = 0; ctr2 < num; ctr2++) {
+    		if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
+    			break;
+    		}
     		temp.increaseArmies();
+    		if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
+    			objPlayer.getGameConfig().nextPlayerOrPhase();
+    		}
     		objPlayer.setArmies(objPlayer.getArmies() - 1);
     	}
     	
