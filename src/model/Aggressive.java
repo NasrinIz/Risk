@@ -50,6 +50,7 @@ public class Aggressive implements Strategy, Serializable {
     @Override
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
     	System.out.println("FORTIFICATION PHASE");
+    	/*
     	int max = 0;
     	Territory temp = null;
     	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
@@ -84,6 +85,7 @@ public class Aggressive implements Strategy, Serializable {
 	    		temp.decreaseArmies();
     		}
     	}
+    	*/
         return 0;
     }
 

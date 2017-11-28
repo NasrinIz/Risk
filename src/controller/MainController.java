@@ -40,7 +40,10 @@ public class MainController {
     private Boolean fortificationPossible = false;
     private Integer numMaps = 1;
     private Integer numGames = 1;
+    private Integer drawTurns = 30;
     private ArrayList<String> playerTypes;
+    public int turnNumber = 0;
+    public Boolean aiMode = false;
     /*
      * 0 New game 1 Edit or create
      */
@@ -348,54 +351,105 @@ public class MainController {
             
             if(numGames == 1) {
             	gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+            	PlayerDominationView playerDominationView = new PlayerDominationView();
+	            mainWindow.setPlayerDominationView(playerDominationView);
+	            gameConfig.addObserver(playerDominationView);
+	            mainWindow.getPlayerDominationView().showInfoPanel();
+	
+	            PlayerInformationView playerInformationView = new PlayerInformationView();
+	            mainWindow.setPlayerInformationView(playerInformationView);
+	            gameConfig.addObserver(playerInformationView);
+	            mainWindow.getPlayerInformationView().showInfoPanel();
+	
+	            CardView cardView = new CardView();
+	            mainWindow.setCardView(cardView);
+	            gameConfig.addObserver(cardView);
+	            mainWindow.getCardView().showCardPanel();
+	
+	            mainWindow.addCountryButtons(gameConfig.getMapObj());
+	            mainWindow.setVisible(true);
+	            starterView.setVisible(false);
+	            addTerritoryListeners();
+	
+	            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+	
+	            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
+	
+	            String error = gameConfig.getMapObj().validateMap();
+	
+	            if (!error.equals("true")) {
+	                mainWindow.getErrorInfoView().showErrorInfo(error);
+	                mainWindow.removeCountryButtons();
+	            }
+	            
+	            // vj
+	            System.out.println(ai_driver(0, 0));
             }
             else {
 	            for(int ctr = 0; ctr < numMaps; ctr++) {
 	            	for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
 	            		gameConfig = new GameConfig(playerTypes, selectedMap, mainWindow);
-	            	}
+			            PlayerDominationView playerDominationView = new PlayerDominationView();
+			            mainWindow.setPlayerDominationView(playerDominationView);
+			            gameConfig.addObserver(playerDominationView);
+			            mainWindow.getPlayerDominationView().showInfoPanel();
+			
+			            PlayerInformationView playerInformationView = new PlayerInformationView();
+			            mainWindow.setPlayerInformationView(playerInformationView);
+			            gameConfig.addObserver(playerInformationView);
+			            mainWindow.getPlayerInformationView().showInfoPanel();
+			
+			            CardView cardView = new CardView();
+			            mainWindow.setCardView(cardView);
+			            gameConfig.addObserver(cardView);
+			            mainWindow.getCardView().showCardPanel();
+			
+			            mainWindow.addCountryButtons(gameConfig.getMapObj());
+			            mainWindow.setVisible(true);
+			            starterView.setVisible(false);
+			            addTerritoryListeners();
+			
+			            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+			
+			            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
+			
+			            String error = gameConfig.getMapObj().validateMap();
+			
+			            if (!error.equals("true")) {
+			                mainWindow.getErrorInfoView().showErrorInfo(error);
+			                mainWindow.removeCountryButtons();
+			            }
+			            
+			            // vj
+			            System.out.println(ai_driver(ctr, ctr2));
+			        }
 	            }
             }
-
-            PlayerDominationView playerDominationView = new PlayerDominationView();
-            mainWindow.setPlayerDominationView(playerDominationView);
-            gameConfig.addObserver(playerDominationView);
-            mainWindow.getPlayerDominationView().showInfoPanel();
-
-            PlayerInformationView playerInformationView = new PlayerInformationView();
-            mainWindow.setPlayerInformationView(playerInformationView);
-            gameConfig.addObserver(playerInformationView);
-            mainWindow.getPlayerInformationView().showInfoPanel();
-
-            CardView cardView = new CardView();
-            mainWindow.setCardView(cardView);
-            gameConfig.addObserver(cardView);
-            mainWindow.getCardView().showCardPanel();
-
-            mainWindow.addCountryButtons(gameConfig.getMapObj());
-            mainWindow.setVisible(true);
-            starterView.setVisible(false);
-            addTerritoryListeners();
-
-            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
-
-            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
-
-            String error = gameConfig.getMapObj().validateMap();
-
-            if (!error.equals("true")) {
-                mainWindow.getErrorInfoView().showErrorInfo(error);
-                mainWindow.removeCountryButtons();
-            }
-            
-            // vj
-            ai_driver();
         }
     }
 
-    public void ai_driver() {
+    public String ai_driver(Integer numMap, Integer numGame) {
+    	Integer ctr = 0;
         Integer gamePhase = gameConfig.getGamePhase();
+        aiMode = true;
         while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
+        	if(ctr < drawTurns) {
+        		if(gameConfig.gamePhaseChanged == true) {
+        			System.out.println("********************************************");
+        			System.out.println("TURN NUMBER = " + ctr);
+        			System.out.println("********************************************");
+        			ctr++;
+        			this.turnNumber = ctr;
+        			gameConfig.gamePhaseChanged = false;
+        		}
+        	}
+        	else if(ctr < (drawTurns - 1)) {
+        		gameConfig.maxTurnsReached = true;
+        	}
+        	else {
+        		return "draw";
+        	}
+        	gamePhase = gameConfig.getGamePhase();
         	try {
 				Thread.sleep(50);
 				System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
@@ -419,9 +473,10 @@ public class MainController {
 	            String info = "";
 	            mainWindow.getInfoView().showTerritoryInfo(info);
 	        } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
-	            return;
+	            return "We have a winner";
 	        }
         }
+        return "We have a winner";
     }
     
     /**

@@ -31,6 +31,9 @@ public class Benevolent implements Strategy, Serializable {
 			}
 			
 			for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+				if(armies <= 0) {
+					objPlayer.getGameConfig().nextPlayerOrPhase();
+				}
 				if(playerTerritories.get(ctr).getArmies() == min) {
 					if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
 		    			break;
@@ -38,8 +41,10 @@ public class Benevolent implements Strategy, Serializable {
 					playerTerritories.get(ctr).increaseArmies();
 					armies--;
 					objPlayer.setArmies(armies);
+					
 					if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
 		    			objPlayer.getGameConfig().nextPlayerOrPhase();
+		    			return 0;
 		    		}
 				}
 			}
@@ -72,16 +77,16 @@ public class Benevolent implements Strategy, Serializable {
 		ArrayList<String> adjacent = temp.getAdjacentCountries();
 		for(int ctr = 0; ctr < adjacent.size(); ctr++) {
 			int min = 9999;
-			Territory tmpAdja = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent);
+			Territory tmpAdja = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent.get(ctr));
 			if(tmpAdja.getArmies() < min) {
 				min = tmpAdja.getArmies();
 				adja = tmpAdja;
 			}
 		}
 		
-		while(temp.getArmies() > adja.getOwner()) {
+		while(temp.getArmies() > adja.getArmies()) {
 			adja.increaseArmies();
-			adja.decreaseArmies();
+			temp.decreaseArmies();
 		}
 		return 0;
 	}
@@ -95,6 +100,7 @@ public class Benevolent implements Strategy, Serializable {
 
 	@Override
 	public int getTerritoryForAttack(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
+		objPlayer.getGameConfig().nextPlayerOrPhase();
 		return 0;
 	}
 }

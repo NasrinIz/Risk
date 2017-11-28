@@ -50,7 +50,7 @@ public class Territory implements Serializable
 	public void increaseArmies()
 	{
 		stationedArmies++;
-		//System.out.println("Player " + this.getOwner().toString() + " gets one army on " + this.name);
+		System.out.println("Player " + this.getOwner().toString() + " gets one army on " + this.name);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class Territory implements Serializable
 	public void decreaseArmies()
 	{
 		stationedArmies--;
-		//System.out.println("Player " + this.getOwner().toString() + " lost one army on " + this.name);
+		System.out.println("Player " + this.getOwner().toString() + " lost one army on " + this.name);
 	}
 	
 	/**
