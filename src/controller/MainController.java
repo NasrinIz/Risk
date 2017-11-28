@@ -75,7 +75,7 @@ public class MainController {
             starterView.addRadioLoadMapActionListener(new loadMapListener());
             starterView.addRadioSelectMapActionListener(new selectMapListener());
             starterView.addRadioCreateMapActionListener(new createMapListener());
-            // vj save below object   new submitButtonListener()
+            starterView.addRadioTournamentActionListener(new tournamentListener());
             starterView.addSubmitButtontActionListener(new submitButtonListener());
 
         }
@@ -223,6 +223,20 @@ public class MainController {
     }
 
     /**
+     * This is the inner class, to define action listener to the option "Select Map"
+     *
+     * @author Team20
+     */
+    private class tournamentListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+            applicationMode = 0;
+            starterView.showTournamentForm();
+        }
+    }
+
+    /**
      * This is the inner class, to define action listener to the option "Create Map"
      *
      * @author Team20
@@ -251,7 +265,7 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             applicationMode = 1;
             mapEditor = new MapEditor(1, starterView.getSelectedMap());
-            starterView.showEditMapForm(mapEditor.getCountryListInMapEditor(), mapEditor.getContinentListInMapEditor());
+            starterView.showEditMapForm();
             starterView.finishAddingContinentBtnActionListener(new finishAddContinentListener());
             starterView.addContinentBtnActionListener(new addContinentListener());
             starterView.removeCountryBtnActionListener(new removeCountryListener());
@@ -267,7 +281,7 @@ public class MainController {
     private class finishAddContinentListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            starterView.showAddCountryForm(mapEditor.getContinentListInMapEditor());
+            starterView.showAddCountryForm();
             starterView.addCountryBtnActionListener(new addCountryListener());
         }
     }
@@ -345,14 +359,17 @@ public class MainController {
 
             Integer playerNum = starterView.getPlayerNumbers();
             String selectedMap = starterView.getSelectedMap();
-            
+            String playerTypes = starterView.getTypeOfPlayers();
+
+            ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
+
             if(numGames == 1) {
             	gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
             }
             else {
 	            for(int ctr = 0; ctr < numMaps; ctr++) {
 	            	for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
-	            		gameConfig = new GameConfig(playerTypes, selectedMap, mainWindow);
+	            		gameConfig = new GameConfig(strategies, playerTypes, selectedMap, mainWindow);
 	            	}
 	            }
             }

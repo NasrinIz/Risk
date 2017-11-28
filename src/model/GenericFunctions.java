@@ -52,7 +52,7 @@ public class GenericFunctions implements Serializable{
      * @param inVal The string to be separated.
      * @return tmpVec the arraylist containing separated strings.
      */
-    ArrayList<String> genCommaSepStrToArrayList(String inVal) {
+    public ArrayList<String> genCommaSepStrToArrayList(String inVal) {
         String[] tmp = inVal.split(",");
         ArrayList<String> tmpVec = new ArrayList<String>();
         tmpVec.addAll(Arrays.asList(tmp));

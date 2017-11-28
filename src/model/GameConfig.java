@@ -49,7 +49,7 @@ public class GameConfig extends Observable implements Serializable{
         this.mainWindow = mainWindow;
     }
     
-    public GameConfig(ArrayList<String> playerTypes, String mapName, MainWindow mainWindow) {
+    public GameConfig(ArrayList<String> playerTypes, String types, String mapName, MainWindow mainWindow) {
     	super();
     	initCards();
     	this.numPlayers = playerTypes.size();
