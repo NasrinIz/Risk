@@ -21,9 +21,11 @@ public class StarterWindow extends JFrame {
     private JLabel lblMapSelect;
     private JLabel lblMapLoad;
     private JComboBox<Integer> playerNum;
+    private JTextField playerTypeField;
     private JRadioButton radioLoadMap;
     private JRadioButton radioSelectMap;
     private JRadioButton radioCreateMap;
+    private JRadioButton radioTournament;
     private JComboBox<String> mapList;
     private JTextField loadMapField;
     private JButton submitButton;
@@ -51,6 +53,15 @@ public class StarterWindow extends JFrame {
     private JButton removeContinentButton;
     private JLabel addCountryToContinentLbl;
     private JTextField continentList;
+
+    private JLabel tournamentMapsLabel;
+    private JTextField tournamentMapsField;
+    private JLabel tournamentPlayersTypesLabel;
+    private JTextField tournamentPlayerTypeField;
+    private JLabel tournamentGameNumbersLabel;
+    private JTextField tournamentGameNumbersField;
+    private JLabel tournamentTurnsLabel;
+    private JTextField tournamentTurnsField;
 
     /**
      * Initializes starter window
@@ -107,16 +118,25 @@ public class StarterWindow extends JFrame {
     public void addMenuItemNewGameActionListener(ActionListener listenForMenuItemNewGame) {
         menuItemNewGame.addActionListener(listenForMenuItemNewGame);
     }
-    
+
     /**
      * Adds action listener for load game
      *
      * @param listenForMenuItemLoadGame Menu item
      */
     public void addMenuItemLoadGameActionListener(ActionListener listenForMenuItemLoadGame) {
-    	menuItemLoadGame.addActionListener(listenForMenuItemLoadGame);
+        menuItemLoadGame.addActionListener(listenForMenuItemLoadGame);
     }
-    
+
+    /**
+     * Listen for Tournament
+     *
+     * @param listenForTournament Tournament
+     */
+    public void addRadioTournamentActionListener(ActionListener listenForTournament) {
+        radioTournament.addActionListener(listenForTournament);
+    }
+
     /**
      * adds action listener for radio map
      *
@@ -204,14 +224,17 @@ public class StarterWindow extends JFrame {
      */
     public void showStarterForm() {
 
+        radioTournament = new JRadioButton("Tournament");
+        radioTournament.setBounds(10, 80, 200, 30);
+
         radioLoadMap = new JRadioButton("Load map");
-        radioLoadMap.setBounds(10, 80, 200, 30);
+        radioLoadMap.setBounds(220, 80, 200, 30);
 
         radioSelectMap = new JRadioButton("Select map");
-        radioSelectMap.setBounds(220, 80, 200, 30);
+        radioSelectMap.setBounds(420, 80, 200, 30);
 
         radioCreateMap = new JRadioButton("Create map");
-        radioCreateMap.setBounds(430, 80, 200, 30);
+        radioCreateMap.setBounds(640, 80, 200, 30);
 
         JLabel lblNumPlayers = new JLabel("Number of Human Players: ");
         lblNumPlayers.setBounds(10, 40, 200, 20);
@@ -220,6 +243,12 @@ public class StarterWindow extends JFrame {
 
         playerNum = new JComboBox<>(playerNumbers);
         playerNum.setBounds(220, 40, 200, 20);
+
+        JLabel playersTypes = new JLabel("Players Types: ");
+        playersTypes.setBounds(430, 40, 200, 20);
+
+        JTextField playerTypeField = new JTextField();
+        playerTypeField.setBounds(640, 40, 200, 30);
 
         submitButton = new JButton("Start New Game");
         submitButton.setBounds(590, 500, 260, 30);
@@ -233,6 +262,9 @@ public class StarterWindow extends JFrame {
 
         this.getContentPane().add(lblNumPlayers);
         this.getContentPane().add(playerNum);
+        this.getContentPane().add(playersTypes);
+        this.getContentPane().add(playerTypeField);
+        this.getContentPane().add(radioTournament);
         this.getContentPane().add(radioLoadMap);
         this.getContentPane().add(radioSelectMap);
         this.getContentPane().add(radioCreateMap);
@@ -241,6 +273,50 @@ public class StarterWindow extends JFrame {
         this.getContentPane().repaint();
     }
 
+    /**
+     * Shows tournament form
+     */
+    public void showTournamentForm() {
+        tournamentMapsLabel = new JLabel("Tournament Maps: ");
+        tournamentMapsLabel.setBounds(10, 120, 200, 20);
+
+        tournamentMapsField = new JTextField();
+        tournamentMapsField.setBounds(220, 120, 200, 20);
+
+        tournamentPlayersTypesLabel = new JLabel("Tournament Players Types: ");
+        tournamentPlayersTypesLabel.setBounds(10, 150, 200, 20);
+
+        tournamentPlayerTypeField = new JTextField();
+        tournamentPlayerTypeField.setBounds(220, 150, 200, 20);
+
+        tournamentGameNumbersLabel = new JLabel("Tournament Game Numbers: ");
+        tournamentGameNumbersLabel.setBounds(10, 180, 200, 20);
+
+        tournamentGameNumbersField = new JTextField();
+        tournamentGameNumbersField.setBounds(220, 180, 200, 20);
+
+        tournamentTurnsLabel = new JLabel("Tournament turns: ");
+        tournamentTurnsLabel.setBounds(10, 210, 200, 20);
+
+        tournamentTurnsField = new JTextField();
+        tournamentTurnsField.setBounds(220, 210, 200, 20);
+
+        this.removeEditMapForm();
+        this.removeLoadMapForm();
+        this.removeCreateMapForm();
+        this.removeAddCountryForm();
+        this.removeSelectMapForm();
+
+        this.getContentPane().add(tournamentMapsLabel);
+        this.getContentPane().add(tournamentMapsField);
+        this.getContentPane().add(tournamentPlayersTypesLabel);
+        this.getContentPane().add(tournamentPlayerTypeField);
+        this.getContentPane().add(tournamentGameNumbersLabel);
+        this.getContentPane().add(tournamentGameNumbersField);
+        this.getContentPane().add(tournamentTurnsLabel);
+        this.getContentPane().add(tournamentTurnsField);
+        this.getContentPane().repaint();
+    }
 
     /**
      * Shows selected map form
@@ -266,6 +342,7 @@ public class StarterWindow extends JFrame {
         this.removeLoadMapForm();
         this.removeCreateMapForm();
         this.removeAddCountryForm();
+        this.removeTournamentForm();
 
         this.getContentPane().add(editMapRadioBtn);
         this.getContentPane().add(lblMapSelect);
@@ -292,6 +369,7 @@ public class StarterWindow extends JFrame {
         this.removeCreateMapForm();
         this.removeEditMapForm();
         this.removeAddCountryForm();
+        this.removeTournamentForm();
 
         this.getContentPane().add(lblMapLoad);
         this.getContentPane().add(loadMapField);
@@ -336,6 +414,7 @@ public class StarterWindow extends JFrame {
         this.removeSelectMapForm();
         this.removeLoadMapForm();
         this.removeAddCountryForm();
+        this.removeTournamentForm();
 
         this.getContentPane().add(addContinentLbl);
         this.getContentPane().add(addContinentField);
@@ -350,6 +429,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get continents values
+     *
      * @return continent values
      */
     public String getContinentValues() {
@@ -358,6 +438,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get country values
+     *
      * @return country field and coordination field continent list and adjacent country fields
      */
     public String getCountryValues() {
@@ -367,6 +448,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get country value
+     *
      * @return country list
      */
     public String getCountryValue() {
@@ -375,6 +457,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get continent value
+     *
      * @return continent list
      */
     public String getContinentValue() {
@@ -383,6 +466,7 @@ public class StarterWindow extends JFrame {
 
     /**
      * Get Map save location
+     *
      * @return map path field
      */
     public String getMapSaveLocation() {
@@ -391,9 +475,8 @@ public class StarterWindow extends JFrame {
 
     /**
      * Add country form
-     * @param continentListInMapEditor continent list
      */
-    public void showAddCountryForm(String[] continentListInMapEditor) {
+    public void showAddCountryForm() {
 
         addCountryLbl = new JLabel("Country: ");
         addCountryLbl.setBounds(10, 150, 200, 20);
@@ -438,10 +521,8 @@ public class StarterWindow extends JFrame {
 
     /**
      * Show edit map form
-     * @param countryListInMapEditor continent list
-     * @param continentListInMapEditor continent list
      */
-    public void showEditMapForm(String[] countryListInMapEditor, String[] continentListInMapEditor) {
+    public void showEditMapForm() {
         editCountryLbl = new JLabel("Edit country: ");
         editCountryLbl.setBounds(10, 400, 100, 20);
 
@@ -488,6 +569,18 @@ public class StarterWindow extends JFrame {
      */
     public Integer getPlayerNumbers() {
         return (Integer) playerNum.getSelectedItem();
+    }
+
+    /**
+     * get player numbers
+     *
+     * @return numPlayers
+     */
+    public String getTypeOfPlayers() {
+        if(tournamentPlayerTypeField != null){
+            return tournamentPlayerTypeField.getText();
+        }
+       return "";
     }
 
     /**
@@ -578,6 +671,25 @@ public class StarterWindow extends JFrame {
             this.getContentPane().remove(editMapRadioBtn);
             this.getContentPane().remove(lblMapLoad);
             this.getContentPane().remove(loadMapField);
+            this.getContentPane().repaint();
+        }
+    }
+
+    /**
+     * Remove Tournament form
+     */
+    private void removeTournamentForm() {
+        if (tournamentMapsLabel != null && tournamentMapsField != null && tournamentPlayersTypesLabel != null &&
+                tournamentPlayerTypeField != null && tournamentGameNumbersLabel != null && tournamentGameNumbersField != null &&
+                tournamentTurnsLabel != null && tournamentTurnsField != null) {
+            this.getContentPane().remove(tournamentMapsLabel);
+            this.getContentPane().remove(tournamentMapsField);
+            this.getContentPane().remove(tournamentPlayersTypesLabel);
+            this.getContentPane().remove(tournamentPlayerTypeField);
+            this.getContentPane().remove(tournamentGameNumbersLabel);
+            this.getContentPane().remove(tournamentGameNumbersField);
+            this.getContentPane().remove(tournamentTurnsLabel);
+            this.getContentPane().remove(tournamentTurnsField);
             this.getContentPane().repaint();
         }
     }
