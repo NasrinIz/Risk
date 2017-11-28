@@ -21,6 +21,7 @@ public class StarterWindow extends JFrame {
     private JLabel lblMapSelect;
     private JLabel lblMapLoad;
     private JComboBox<Integer> playerNum;
+    private JLabel playerTypeLabel;
     private JTextField playerTypeField;
     private JRadioButton radioLoadMap;
     private JRadioButton radioSelectMap;
@@ -56,8 +57,6 @@ public class StarterWindow extends JFrame {
 
     private JLabel tournamentMapsLabel;
     private JTextField tournamentMapsField;
-    private JLabel tournamentPlayersTypesLabel;
-    private JTextField tournamentPlayerTypeField;
     private JLabel tournamentGameNumbersLabel;
     private JTextField tournamentGameNumbersField;
     private JLabel tournamentTurnsLabel;
@@ -244,10 +243,10 @@ public class StarterWindow extends JFrame {
         playerNum = new JComboBox<>(playerNumbers);
         playerNum.setBounds(220, 40, 200, 20);
 
-        JLabel playersTypes = new JLabel("Players Types: ");
-        playersTypes.setBounds(430, 40, 200, 20);
+        playerTypeLabel = new JLabel("Players Types: ");
+        playerTypeLabel.setBounds(430, 40, 200, 20);
 
-        JTextField playerTypeField = new JTextField();
+        playerTypeField = new JTextField();
         playerTypeField.setBounds(640, 40, 200, 30);
 
         submitButton = new JButton("Start New Game");
@@ -262,7 +261,7 @@ public class StarterWindow extends JFrame {
 
         this.getContentPane().add(lblNumPlayers);
         this.getContentPane().add(playerNum);
-        this.getContentPane().add(playersTypes);
+        this.getContentPane().add(playerTypeLabel);
         this.getContentPane().add(playerTypeField);
         this.getContentPane().add(radioTournament);
         this.getContentPane().add(radioLoadMap);
@@ -282,12 +281,6 @@ public class StarterWindow extends JFrame {
 
         tournamentMapsField = new JTextField();
         tournamentMapsField.setBounds(220, 120, 200, 20);
-
-        tournamentPlayersTypesLabel = new JLabel("Tournament Players Types: ");
-        tournamentPlayersTypesLabel.setBounds(10, 150, 200, 20);
-
-        tournamentPlayerTypeField = new JTextField();
-        tournamentPlayerTypeField.setBounds(220, 150, 200, 20);
 
         tournamentGameNumbersLabel = new JLabel("Tournament Game Numbers: ");
         tournamentGameNumbersLabel.setBounds(10, 180, 200, 20);
@@ -309,8 +302,6 @@ public class StarterWindow extends JFrame {
 
         this.getContentPane().add(tournamentMapsLabel);
         this.getContentPane().add(tournamentMapsField);
-        this.getContentPane().add(tournamentPlayersTypesLabel);
-        this.getContentPane().add(tournamentPlayerTypeField);
         this.getContentPane().add(tournamentGameNumbersLabel);
         this.getContentPane().add(tournamentGameNumbersField);
         this.getContentPane().add(tournamentTurnsLabel);
@@ -577,8 +568,44 @@ public class StarterWindow extends JFrame {
      * @return numPlayers
      */
     public String getTypeOfPlayers() {
-        if(tournamentPlayerTypeField != null){
-            return tournamentPlayerTypeField.getText();
+        if(playerTypeField != null){
+            return playerTypeField.getText();
+        }
+       return "";
+    }
+
+    /**
+     * Get Maps
+     *
+     * @return maps
+     */
+    public String getMaps() {
+        if(tournamentMapsField!= null){
+            return tournamentMapsField.getText();
+        }
+       return "";
+    }
+
+    /**
+     * Get turns
+     *
+     * @return maps
+     */
+    public String getTurns() {
+        if(tournamentTurnsField!= null){
+            return tournamentTurnsField.getText();
+        }
+       return "";
+    }
+
+    /**
+     * Get games
+     *
+     * @return maps
+     */
+    public String getGames() {
+        if(tournamentGameNumbersField!= null){
+            return tournamentGameNumbersField.getText();
         }
        return "";
     }
@@ -589,7 +616,10 @@ public class StarterWindow extends JFrame {
      * @return selectedMap
      */
     public String getSelectedMap() {
-        return String.valueOf(mapList.getSelectedItem());
+        if(mapList!= null){
+            return String.valueOf(mapList.getSelectedItem());
+        }
+        return "";
     }
 
     /**
@@ -679,13 +709,10 @@ public class StarterWindow extends JFrame {
      * Remove Tournament form
      */
     private void removeTournamentForm() {
-        if (tournamentMapsLabel != null && tournamentMapsField != null && tournamentPlayersTypesLabel != null &&
-                tournamentPlayerTypeField != null && tournamentGameNumbersLabel != null && tournamentGameNumbersField != null &&
+        if (tournamentMapsLabel != null && tournamentMapsField != null && tournamentGameNumbersLabel != null && tournamentGameNumbersField != null &&
                 tournamentTurnsLabel != null && tournamentTurnsField != null) {
             this.getContentPane().remove(tournamentMapsLabel);
             this.getContentPane().remove(tournamentMapsField);
-            this.getContentPane().remove(tournamentPlayersTypesLabel);
-            this.getContentPane().remove(tournamentPlayerTypeField);
             this.getContentPane().remove(tournamentGameNumbersLabel);
             this.getContentPane().remove(tournamentGameNumbersField);
             this.getContentPane().remove(tournamentTurnsLabel);

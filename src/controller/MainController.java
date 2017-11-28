@@ -39,6 +39,19 @@ public class MainController {
     private String currentCountryName = null;
     private Boolean fortificationPossible = false;
     private Integer numMaps = 1;
+
+    public void setNumMaps(Integer numMaps) {
+        this.numMaps = numMaps;
+    }
+
+    public void setNumGames(Integer numGames) {
+        this.numGames = numGames;
+    }
+
+    public void setDrawTurns(Integer drawTurns) {
+        this.drawTurns = drawTurns;
+    }
+
     private Integer numGames = 1;
     private Integer drawTurns = 30;
     private ArrayList<String> playerTypes;
@@ -59,6 +72,7 @@ public class MainController {
         this.starterView.addMenuItemNewGameActionListener(new NewGameListener());
         this.starterView.addMenuItemLoadGameActionListener(new LoadGameListener());
     }
+
 
     /**
      * This is the inner class, to define action listener to the menu option "New Game"
@@ -155,7 +169,7 @@ public class MainController {
 
             //gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
 
-            if(loadedObj == null){
+            if (loadedObj == null) {
                 System.out.println("Loaded map is null");
                 return;
             }
@@ -363,141 +377,165 @@ public class MainController {
             Integer playerNum = starterView.getPlayerNumbers();
             String selectedMap = starterView.getSelectedMap();
             String playerTypes = starterView.getTypeOfPlayers();
+            String maps = starterView.getMaps();
+            String turns = starterView.getTurns();
+            String games = starterView.getGames();
 
+
+            String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
             ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
 
-            System.out.println(strategies);
 
-            if(numGames == 1) {
-            	gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
-            	PlayerDominationView playerDominationView = new PlayerDominationView();
-	            mainWindow.setPlayerDominationView(playerDominationView);
-	            gameConfig.addObserver(playerDominationView);
-	            mainWindow.getPlayerDominationView().showInfoPanel();
-	
-	            PlayerInformationView playerInformationView = new PlayerInformationView();
-	            mainWindow.setPlayerInformationView(playerInformationView);
-	            gameConfig.addObserver(playerInformationView);
-	            mainWindow.getPlayerInformationView().showInfoPanel();
-	
-	            CardView cardView = new CardView();
-	            mainWindow.setCardView(cardView);
-	            gameConfig.addObserver(cardView);
-	            mainWindow.getCardView().showCardPanel();
-	
-	            mainWindow.addCountryButtons(gameConfig.getMapObj());
-	            mainWindow.setVisible(true);
-	            starterView.setVisible(false);
-	            addTerritoryListeners();
-	
-	            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
-	
-	            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
-	
-	            String error = gameConfig.getMapObj().validateMap();
-	
-	            if (!error.equals("true")) {
-	                mainWindow.getErrorInfoView().showErrorInfo(error);
-	                mainWindow.removeCountryButtons();
-	            }
-	            
-	            // vj
-	            System.out.println(ai_driver(0, 0));
+
+            setNumMaps(mapArray.length);
+            if(!Objects.equals(turns, "") && turns != null){
+                setDrawTurns(Integer.parseInt(turns));
             }
-            else {
-	            for(int ctr = 0; ctr < numMaps; ctr++) {
-	            	for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
-	            		gameConfig = new GameConfig(playerTypes, selectedMap, mainWindow);
-			            PlayerDominationView playerDominationView = new PlayerDominationView();
-			            mainWindow.setPlayerDominationView(playerDominationView);
-			            gameConfig.addObserver(playerDominationView);
-			            mainWindow.getPlayerDominationView().showInfoPanel();
-			
-			            PlayerInformationView playerInformationView = new PlayerInformationView();
-			            mainWindow.setPlayerInformationView(playerInformationView);
-			            gameConfig.addObserver(playerInformationView);
-			            mainWindow.getPlayerInformationView().showInfoPanel();
-			
-			            CardView cardView = new CardView();
-			            mainWindow.setCardView(cardView);
-			            gameConfig.addObserver(cardView);
-			            mainWindow.getCardView().showCardPanel();
-			
-			            mainWindow.addCountryButtons(gameConfig.getMapObj());
-			            mainWindow.setVisible(true);
-			            starterView.setVisible(false);
-			            addTerritoryListeners();
-			
-			            mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
-			
-			            mainWindow.getCardView().addCardBtnListener(new exchangeCard());
-			
-			            String error = gameConfig.getMapObj().validateMap();
-			
-			            if (!error.equals("true")) {
-			                mainWindow.getErrorInfoView().showErrorInfo(error);
-			                mainWindow.removeCountryButtons();
-			            }
-			            
-			            // vj
-			            System.out.println(ai_driver(ctr, ctr2));
-			        }
-	            }
+
+            if(!Objects.equals(games, "") && games != null){
+                setNumGames(Integer.parseInt(games));
+            }
+
+            System.out.println("SALAM SALAM");
+            System.out.println(playerTypes);
+            System.out.println(strategies);
+            System.out.println(maps);
+            System.out.println(turns);
+            System.out.println(games);
+
+            System.out.println(numMaps);
+            System.out.println(numGames);
+            System.out.println(turns);
+
+
+
+            if (numGames == 1) {
+                gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+                PlayerDominationView playerDominationView = new PlayerDominationView();
+                mainWindow.setPlayerDominationView(playerDominationView);
+                gameConfig.addObserver(playerDominationView);
+                mainWindow.getPlayerDominationView().showInfoPanel();
+
+                PlayerInformationView playerInformationView = new PlayerInformationView();
+                mainWindow.setPlayerInformationView(playerInformationView);
+                gameConfig.addObserver(playerInformationView);
+                mainWindow.getPlayerInformationView().showInfoPanel();
+
+                CardView cardView = new CardView();
+                mainWindow.setCardView(cardView);
+                gameConfig.addObserver(cardView);
+                mainWindow.getCardView().showCardPanel();
+
+                mainWindow.addCountryButtons(gameConfig.getMapObj());
+                mainWindow.setVisible(true);
+                starterView.setVisible(false);
+                addTerritoryListeners();
+
+                mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+
+                mainWindow.getCardView().addCardBtnListener(new exchangeCard());
+
+                String error = gameConfig.getMapObj().validateMap();
+
+                if (!error.equals("true")) {
+                    mainWindow.getErrorInfoView().showErrorInfo(error);
+                    mainWindow.removeCountryButtons();
+                }
+
+                // vj
+                System.out.println(ai_driver(0, 0));
+            } else {
+                for (int ctr = 0; ctr < numMaps; ctr++) {
+                    for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
+                        gameConfig = new GameConfig(strategies, playerTypes, selectedMap, mainWindow);
+                        PlayerDominationView playerDominationView = new PlayerDominationView();
+                        mainWindow.setPlayerDominationView(playerDominationView);
+                        gameConfig.addObserver(playerDominationView);
+                        mainWindow.getPlayerDominationView().showInfoPanel();
+
+                        PlayerInformationView playerInformationView = new PlayerInformationView();
+                        mainWindow.setPlayerInformationView(playerInformationView);
+                        gameConfig.addObserver(playerInformationView);
+                        mainWindow.getPlayerInformationView().showInfoPanel();
+
+                        CardView cardView = new CardView();
+                        mainWindow.setCardView(cardView);
+                        gameConfig.addObserver(cardView);
+                        mainWindow.getCardView().showCardPanel();
+
+                        mainWindow.addCountryButtons(gameConfig.getMapObj());
+                        mainWindow.setVisible(true);
+                        starterView.setVisible(false);
+                        addTerritoryListeners();
+
+                        mainWindow.getInfoView().passBtnActionListener(new passTurnBtn());
+
+                        mainWindow.getCardView().addCardBtnListener(new exchangeCard());
+
+                        String error = gameConfig.getMapObj().validateMap();
+
+                        if (!error.equals("true")) {
+                            mainWindow.getErrorInfoView().showErrorInfo(error);
+                            mainWindow.removeCountryButtons();
+                        }
+
+                        // vj
+                        System.out.println(ai_driver(ctr, ctr2));
+                    }
+                }
             }
         }
     }
 
     public String ai_driver(Integer numMap, Integer numGame) {
-    	Integer ctr = 0;
+        Integer ctr = 0;
         Integer gamePhase = gameConfig.getGamePhase();
         aiMode = true;
-        while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
-        	if(ctr < drawTurns) {
-        		if(gameConfig.gamePhaseChanged == true) {
-        			System.out.println("********************************************");
-        			System.out.println("TURN NUMBER = " + ctr);
-        			System.out.println("********************************************");
-        			ctr++;
-        			this.turnNumber = ctr;
-        			gameConfig.gamePhaseChanged = false;
-        		}
-        	}
-        	else if(ctr < (drawTurns - 1)) {
-        		gameConfig.maxTurnsReached = true;
-        	}
-        	else {
-        		return "draw";
-        	}
-        	gamePhase = gameConfig.getGamePhase();
-        	try {
-				Thread.sleep(50);
-				System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	gamePhase = gameConfig.getGamePhase();
-	        if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
-	            mainWindow.getAttackView().showAttackInfo();
-	            gameConfig.attackTerritory(0, 0, gameConfig.getMapObj().getDictContinents());
-	            String info = "";
-	            mainWindow.getInfoView().showTerritoryInfo(info);
-	        } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
-	                || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
-	            gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(null);
-	            String info = "";
-	            mainWindow.getInfoView().showTerritoryInfo(info);
-	        } else if(gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
-	            gameConfig.fortifyArmies(null, null, 0);
-	            String info = "";
-	            mainWindow.getInfoView().showTerritoryInfo(info);
-	        } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
-	            return "We have a winner";
-	        }
+        while (gamePhase != genericFunctionsObj.GAMEPHASENONE) {
+            if (ctr < drawTurns) {
+                if (gameConfig.gamePhaseChanged == true) {
+                    System.out.println("********************************************");
+                    System.out.println("TURN NUMBER = " + ctr);
+                    System.out.println("********************************************");
+                    ctr++;
+                    this.turnNumber = ctr;
+                    gameConfig.gamePhaseChanged = false;
+                }
+            } else if (ctr < (drawTurns - 1)) {
+                gameConfig.maxTurnsReached = true;
+            } else {
+                return "draw";
+            }
+            gamePhase = gameConfig.getGamePhase();
+            try {
+                Thread.sleep(50);
+                System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            gamePhase = gameConfig.getGamePhase();
+            if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+                mainWindow.getAttackView().showAttackInfo();
+                gameConfig.attackTerritory(0, 0, gameConfig.getMapObj().getDictContinents());
+                String info = "";
+                mainWindow.getInfoView().showTerritoryInfo(info);
+            } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
+                    || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
+                gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(null);
+                String info = "";
+                mainWindow.getInfoView().showTerritoryInfo(info);
+            } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
+                gameConfig.fortifyArmies(null, null, 0);
+                String info = "";
+                mainWindow.getInfoView().showTerritoryInfo(info);
+            } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
+                return "We have a winner";
+            }
         }
         return "We have a winner";
     }
-    
+
     /**
      * This is the inner class, to define action listener to the territory buttons
      *
@@ -636,11 +674,11 @@ public class MainController {
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	if(fortificationPossible) {
-        		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
-        		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
-        		fortificationPossible = false;
-        	}
+            if (fortificationPossible) {
+                Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
+                gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
+                fortificationPossible = false;
+            }
         }
     }
 }
