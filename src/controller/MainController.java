@@ -363,6 +363,8 @@ public class MainController {
 
             ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
 
+            System.out.println(strategies);
+
             if(numGames == 1) {
             	gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
             }
@@ -410,7 +412,7 @@ public class MainController {
         }
     }
 
-    public void ai_driver() {
+    private void ai_driver() {
         Integer gamePhase = gameConfig.getGamePhase();
         while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
         	try {
@@ -579,7 +581,7 @@ public class MainController {
     private class passTurnBtn implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-        	if(fortificationPossible == true) {
+        	if(fortificationPossible) {
         		Integer moveArmies = mainWindow.getInfoView().getMoveArmies();
         		gameConfig.playerMoveArmies(moveArmies, previousCountryName, currentCountryName);
         		fortificationPossible = false;

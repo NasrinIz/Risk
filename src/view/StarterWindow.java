@@ -577,7 +577,10 @@ public class StarterWindow extends JFrame {
      * @return numPlayers
      */
     public String getTypeOfPlayers() {
-        return tournamentPlayerTypeField.getText();
+        if(tournamentPlayerTypeField != null){
+            return tournamentPlayerTypeField.getText();
+        }
+       return "";
     }
 
     /**
