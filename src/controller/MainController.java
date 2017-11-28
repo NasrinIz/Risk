@@ -40,17 +40,6 @@ public class MainController {
     private Boolean fortificationPossible = false;
     private Integer numMaps = 1;
 
-    public void setNumMaps(Integer numMaps) {
-        this.numMaps = numMaps;
-    }
-
-    public void setNumGames(Integer numGames) {
-        this.numGames = numGames;
-    }
-
-    public void setDrawTurns(Integer drawTurns) {
-        this.drawTurns = drawTurns;
-    }
 
     private Integer numGames = 1;
     private Integer drawTurns = 30;
@@ -61,6 +50,24 @@ public class MainController {
      * 0 New game 1 Edit or create
      */
     private Integer applicationMode = 0;
+
+
+
+    public void setCurrentCountryName(String currentCountryName) {
+        this.currentCountryName = currentCountryName;
+    }
+
+    private void setNumMaps(Integer numMaps) {
+        this.numMaps = numMaps;
+    }
+
+    private void setNumGames(Integer numGames) {
+        this.numGames = numGames;
+    }
+
+    private void setDrawTurns(Integer drawTurns) {
+        this.drawTurns = drawTurns;
+    }
 
     /**
      * This is the constructor to the controller.
@@ -363,9 +370,17 @@ public class MainController {
     private class submitButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-
             mainWindow = new MainWindow();
             // TODO Auto-generated method stub
+
+            PlayerDominationView playerDominationView = new PlayerDominationView();
+            mainWindow.setPlayerDominationView(playerDominationView);
+
+            PlayerInformationView playerInformationView = new PlayerInformationView();
+            mainWindow.setPlayerInformationView(playerInformationView);
+
+            CardView cardView = new CardView();
+            mainWindow.setCardView(cardView);
 
             mainWindow.addMenuItemSaveGameActionListener(new SaveGameListener());
 
@@ -396,33 +411,16 @@ public class MainController {
                 setNumGames(Integer.parseInt(games));
             }
 
-            System.out.println("SALAM SALAM");
-            System.out.println(playerTypes);
-            System.out.println(strategies);
-            System.out.println(maps);
-            System.out.println(turns);
-            System.out.println(games);
-
-            System.out.println(numMaps);
-            System.out.println(numGames);
-            System.out.println(turns);
-
-
-
             if (numGames == 1) {
                 gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
-                PlayerDominationView playerDominationView = new PlayerDominationView();
-                mainWindow.setPlayerDominationView(playerDominationView);
+
                 gameConfig.addObserver(playerDominationView);
                 mainWindow.getPlayerDominationView().showInfoPanel();
 
-                PlayerInformationView playerInformationView = new PlayerInformationView();
-                mainWindow.setPlayerInformationView(playerInformationView);
+
                 gameConfig.addObserver(playerInformationView);
                 mainWindow.getPlayerInformationView().showInfoPanel();
 
-                CardView cardView = new CardView();
-                mainWindow.setCardView(cardView);
                 gameConfig.addObserver(cardView);
                 mainWindow.getCardView().showCardPanel();
 
@@ -448,18 +446,13 @@ public class MainController {
                 for (int ctr = 0; ctr < numMaps; ctr++) {
                     for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
                         gameConfig = new GameConfig(strategies, playerTypes, selectedMap, mainWindow);
-                        PlayerDominationView playerDominationView = new PlayerDominationView();
-                        mainWindow.setPlayerDominationView(playerDominationView);
+
                         gameConfig.addObserver(playerDominationView);
                         mainWindow.getPlayerDominationView().showInfoPanel();
 
-                        PlayerInformationView playerInformationView = new PlayerInformationView();
-                        mainWindow.setPlayerInformationView(playerInformationView);
                         gameConfig.addObserver(playerInformationView);
                         mainWindow.getPlayerInformationView().showInfoPanel();
 
-                        CardView cardView = new CardView();
-                        mainWindow.setCardView(cardView);
                         gameConfig.addObserver(cardView);
                         mainWindow.getCardView().showCardPanel();
 
@@ -488,12 +481,18 @@ public class MainController {
     }
 
     public String ai_driver(Integer numMap, Integer numGame) {
+        PlayerDominationView playerDominationView = new PlayerDominationView();
+        mainWindow.setPlayerDominationView(playerDominationView);
+
+        PlayerInformationView playerInformationView = new PlayerInformationView();
+        mainWindow.setPlayerInformationView(playerInformationView);
+
         Integer ctr = 0;
         Integer gamePhase = gameConfig.getGamePhase();
         aiMode = true;
         while (gamePhase != genericFunctionsObj.GAMEPHASENONE) {
             if (ctr < drawTurns) {
-                if (gameConfig.gamePhaseChanged == true) {
+                if (gameConfig.gamePhaseChanged) {
                     System.out.println("********************************************");
                     System.out.println("TURN NUMBER = " + ctr);
                     System.out.println("********************************************");
@@ -518,17 +517,32 @@ public class MainController {
             if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
                 mainWindow.getAttackView().showAttackInfo();
                 gameConfig.attackTerritory(0, 0, gameConfig.getMapObj().getDictContinents());
-                String info = "";
-                mainWindow.getInfoView().showTerritoryInfo(info);
+
+                gameConfig.addObserver(playerDominationView);
+                mainWindow.getPlayerDominationView().showInfoPanel();
+
+                gameConfig.addObserver(playerInformationView);
+                mainWindow.getPlayerInformationView().showInfoPanel();
+
             } else if ((gamePhase == genericFunctionsObj.GAMEPHASESTARTUP)
                     || (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT)) {
                 gameConfig.getCurrentPlayer().reinforceArmiesOnTerritory(null);
-                String info = "";
-                mainWindow.getInfoView().showTerritoryInfo(info);
+
+                gameConfig.addObserver(playerDominationView);
+                mainWindow.getPlayerDominationView().showInfoPanel();
+
+                gameConfig.addObserver(playerInformationView);
+                mainWindow.getPlayerInformationView().showInfoPanel();
+
             } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
                 gameConfig.fortifyArmies(null, null, 0);
-                String info = "";
-                mainWindow.getInfoView().showTerritoryInfo(info);
+
+                gameConfig.addObserver(playerDominationView);
+                mainWindow.getPlayerDominationView().showInfoPanel();
+
+                gameConfig.addObserver(playerInformationView);
+                mainWindow.getPlayerInformationView().showInfoPanel();
+
             } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
                 return "We have a winner";
             }
