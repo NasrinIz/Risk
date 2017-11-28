@@ -283,16 +283,16 @@ public class StarterWindow extends JFrame {
         tournamentMapsField.setBounds(220, 120, 200, 20);
 
         tournamentGameNumbersLabel = new JLabel("Tournament Game Numbers: ");
-        tournamentGameNumbersLabel.setBounds(10, 180, 200, 20);
+        tournamentGameNumbersLabel.setBounds(10, 150, 200, 20);
 
         tournamentGameNumbersField = new JTextField();
-        tournamentGameNumbersField.setBounds(220, 180, 200, 20);
+        tournamentGameNumbersField.setBounds(220, 150, 200, 20);
 
         tournamentTurnsLabel = new JLabel("Tournament turns: ");
-        tournamentTurnsLabel.setBounds(10, 210, 200, 20);
+        tournamentTurnsLabel.setBounds(10, 180, 200, 20);
 
         tournamentTurnsField = new JTextField();
-        tournamentTurnsField.setBounds(220, 210, 200, 20);
+        tournamentTurnsField.setBounds(220, 180, 200, 20);
 
         this.removeEditMapForm();
         this.removeLoadMapForm();
