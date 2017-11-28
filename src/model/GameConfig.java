@@ -51,7 +51,7 @@ public class GameConfig extends Observable implements Serializable{
         this.mainWindow = mainWindow;
     }
     
-    public GameConfig(ArrayList<String> playerTypes, String types, String mapName, MainWindow mainWindow) {
+    public GameConfig(ArrayList<String> playerTypes, String mapName, MainWindow mainWindow) {
     	super();
     	initCards();
     	this.numPlayers = playerTypes.size();
@@ -428,23 +428,23 @@ public class GameConfig extends Observable implements Serializable{
      * This functions increment the gamePhase according to previous phase.
      */
     private void incrementGamePhase() {
-        if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {
-            gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-            System.out.println("Startup Phase ends, Reinforcement Phase Begins");
-            calcReinforcementArmy();
+        if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {        	
+        		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
+        		System.out.println("Startup Phase ends, Reinforcement Phase Begins");
+        		calcReinforcementArmy();
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
-            gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
-            System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
+        	if(maxTurnsReached == false) {	
+        		gamePhaseChanged = true;
+	            gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
+	            System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
+        	}
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
             gamePhase = genericFunctionsObj.GAMEPHASEATTACK;
             System.out.println("Fortification Phase ends, Attack Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
-        	if(maxTurnsReached == false) {	
-        		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-            	gamePhaseChanged = true;
-	            System.out.println("Attack Phase ends, Reinforcement Phase Begins");
-	            calcReinforcementArmy();
-            }
+    		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
+            System.out.println("Attack Phase ends, Reinforcement Phase Begins");
+            calcReinforcementArmy();
         }
     }
 

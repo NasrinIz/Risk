@@ -40,8 +40,9 @@ public class MainController {
     private Boolean fortificationPossible = false;
     private Integer numMaps = 1;
     private Integer numGames = 1;
-    private Integer drawTurns = 30;
+    private Integer drawTurns = 2;
     private ArrayList<String> playerTypes;
+    
     public int turnNumber = 0;
     public Boolean aiMode = false;
     /*
@@ -407,7 +408,7 @@ public class MainController {
             else {
 	            for(int ctr = 0; ctr < numMaps; ctr++) {
 	            	for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
-	            		gameConfig = new GameConfig(playerTypes, selectedMap, mainWindow);
+	            		gameConfig = new GameConfig(strategies, selectedMap, mainWindow);
 			            PlayerDominationView playerDominationView = new PlayerDominationView();
 			            mainWindow.setPlayerDominationView(playerDominationView);
 			            gameConfig.addObserver(playerDominationView);
@@ -462,11 +463,12 @@ public class MainController {
         			gameConfig.gamePhaseChanged = false;
         		}
         	}
-        	else if(ctr < (drawTurns - 1)) {
+        	else if(ctr == drawTurns) {
         		gameConfig.maxTurnsReached = true;
         	}
         	else {
-        		return "draw";
+        		if(gamePhase == genericFunctionsObj.GAMEPHASEATTACK)
+        			return "draw";
         	}
         	gamePhase = gameConfig.getGamePhase();
         	try {
@@ -517,7 +519,11 @@ public class MainController {
             Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
             Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
             Integer gamePhase = gameConfig.getGamePhase();
-
+            if(aiMode == true) {
+            	String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
+                mainWindow.getInfoView().showTerritoryInfo(info);
+                return;
+            }
             if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
                 mainWindow.getAttackView().showAttackInfo();
                 mainWindow.getAttackView().addDiceBtnListener(new attackTerritory());
