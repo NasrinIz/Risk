@@ -400,8 +400,6 @@ public class MainController {
             String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
             ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
 
-
-
             setNumMaps(mapArray.length);
             if(!Objects.equals(turns, "") && turns != null){
                 setDrawTurns(Integer.parseInt(turns));
