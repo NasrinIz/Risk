@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -37,6 +38,9 @@ public class MainController {
     private String previousCountryName = null;
     private String currentCountryName = null;
     private Boolean fortificationPossible = false;
+    private Integer numMaps = 1;
+    private Integer numGames = 1;
+    private ArrayList<String> playerTypes;
     /*
      * 0 New game 1 Edit or create
      */
@@ -341,8 +345,17 @@ public class MainController {
 
             Integer playerNum = starterView.getPlayerNumbers();
             String selectedMap = starterView.getSelectedMap();
-
-            gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+            
+            if(numGames == 1) {
+            	gameConfig = new GameConfig(playerNum, selectedMap, mainWindow);
+            }
+            else {
+	            for(int ctr = 0; ctr < numMaps; ctr++) {
+	            	for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
+	            		gameConfig = new GameConfig(playerTypes, selectedMap, mainWindow);
+	            	}
+	            }
+            }
 
             PlayerDominationView playerDominationView = new PlayerDominationView();
             mainWindow.setPlayerDominationView(playerDominationView);
@@ -384,7 +397,7 @@ public class MainController {
         Integer gamePhase = gameConfig.getGamePhase();
         while(gamePhase != genericFunctionsObj.GAMEPHASENONE) {
         	try {
-				Thread.sleep(200);
+				Thread.sleep(50);
 				System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

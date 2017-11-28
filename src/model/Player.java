@@ -525,7 +525,13 @@ public class Player implements Serializable {
         Boolean attackPossible = false;
 
         /* Check if player can still attack */
-       
+        
+        if(rt == -1) {
+        	System.out.println("Attack not possible. Turn ends automatically");
+     	   this.gameConfigObj.nextPlayerOrPhase();
+     	   return rt;
+        }
+        
         for(int ctr = 0; ctr < this.gameConfigObj.getCurrentPlayer().getTerritories().size(); ctr++) {
        	Territory tmp = this.gameConfigObj.getCurrentPlayer().getTerritories().get(ctr);
 	       	if(tmp.getArmies() > 1) {

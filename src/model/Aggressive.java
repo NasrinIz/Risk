@@ -98,7 +98,7 @@ public class Aggressive implements Strategy, Serializable {
     	System.out.println("ATTACK PHASE");
     	int max = 0;
     	Territory temp = null;
-    	Integer isCaptured = -1;
+    	Integer ableToAttack = -1;
     	
     	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
     		if(playerTerritories.get(ctr).getArmies() > max) {
@@ -144,11 +144,12 @@ public class Aggressive implements Strategy, Serializable {
     				
     				objPlayer.performAttack(attackerDice, defenderDice, 
     						objPlayer.getGameConfig().getMapObj().getDictContinents(), temp, target);
+    				ableToAttack = 0;
     			}
     		}
     	}
     	
-        return 0;
+        return ableToAttack;
     }
 
 	@Override
