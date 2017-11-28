@@ -444,7 +444,7 @@ public class MainController {
             } else {
                 for (int ctr = 0; ctr < numMaps; ctr++) {
                     for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
-                        gameConfig = new GameConfig(strategies, playerTypes, selectedMap, mainWindow);
+                        gameConfig = new GameConfig(strategies, selectedMap, mainWindow);
 
                         gameConfig.addObserver(playerDominationView);
                         mainWindow.getPlayerDominationView().showInfoPanel();
