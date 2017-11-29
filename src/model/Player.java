@@ -546,7 +546,7 @@ public class Player implements Serializable {
 	       	}
         }
        
-       if(attackPossible == false) {
+       if(!attackPossible) {
     	   System.out.println("Attack not possible. Turn ends automatically");
     	   this.gameConfigObj.nextPlayerOrPhase();
        }
@@ -561,7 +561,7 @@ public class Player implements Serializable {
      * @param dictContinents Attacker Country
      * @param srcTerritory	Territory from which attack takes place
      * @param targetTerritory	Territory on which attack takes place
-     * @return
+     * @return Shows if attack failed or not
      */
     public Integer performAttack(Integer attackerDice, Integer defenderDice, Map<String, Continent> dictContinents, 
     		Territory srcTerritory, Territory targetTerritory) {

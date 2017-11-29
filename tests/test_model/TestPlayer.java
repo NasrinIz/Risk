@@ -55,7 +55,9 @@ public class TestPlayer {
 		objPlayer.calcReinforcementArmies();
 		assertTrue(objPlayer.getArmies() == 14);
 	}
-	
+    /**
+     * Checks if fortify src and destination and armies are correct
+     */
 	@Test
 	public void testFortify() {
 		GameConfig objConfig;
@@ -90,7 +92,10 @@ public class TestPlayer {
 		player.fortifyArmy(mapObj, srcTerr.getName(), destTerr.getName());
 		assertTrue(destTerr.getArmies() == 2);
 	}
-	
+
+	/**
+	 * Checks if attack is done correctly
+	 */
 	@Test
 	public void testAttack() {
 		GameConfig objConfig;
@@ -120,7 +125,10 @@ public class TestPlayer {
 		int rt = player.attackTerritory(1, 1, mapObj.getDictContinents());
 		assertTrue(rt == 0);
 	}
-	
+
+    /**
+     * Checks if cards are exchanged correctly
+     */
 	@Test
 	public void testExchange() {
 		GameConfig objConfig = new GameConfig(2, "world", null);;

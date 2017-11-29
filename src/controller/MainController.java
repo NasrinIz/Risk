@@ -589,7 +589,7 @@ public class MainController {
         		}
                 return "We have a winner";
             }
-            
+
             if (ctr < drawTurns) {
                 if (gameConfig.gamePhaseChanged) {
                     System.out.println("********************************************");

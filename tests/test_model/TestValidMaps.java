@@ -22,7 +22,7 @@ public class TestValidMaps {
 	private static Map<String, Continent> dictContinents;
 	private static Map<String, Territory> dictTerritory;
 	private static GameConfig gameConfig;
-	private Maps objMap = null; 
+	private Maps objMap = null;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -81,9 +81,11 @@ public class TestValidMaps {
 	public void tearDown() throws Exception {
 	}
 
+    /**
+     * Checks the map
+     */
 	@Test
 	public void readMap() {
-		
 		assertNotNull(dictContinents);
 		assertNotNull(dictTerritory);
 		assertEquals(gameConfig.getMapObj().getDictContinents().keySet(), dictContinents.keySet());
@@ -94,12 +96,18 @@ public class TestValidMaps {
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("A").getTerritories().size(), 5);
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("B").getTerritories().size(), 3);
 	}
-	
+
+    /**
+     * Checks if the map is valid
+     */
 	@Test
 	public void validateMap() {
 		assertEquals(gameConfig.getMapObj().validateMap(), "true" );
 	}
-	
+
+    /**
+     * Checks if the map is connected
+     */
 	@Test
 	public void testDisconnectedMap() {
 		String path = String.format("Resources//Maps//%s.map", "vj_test_Disconnected");
@@ -107,7 +115,10 @@ public class TestValidMaps {
 		objMap.readMap();
 		assertEquals(objMap.validateMap(), "The map is not a connected graph");
 	}
-	
+
+    /**
+     * Checks if the continents are connected
+     */
 	@Test
 	public void testInconsistentAdjacency() {
 		String path = String.format("Resources//Maps//%s.map", "UnconnectedContinent");
