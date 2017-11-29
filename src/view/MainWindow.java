@@ -212,7 +212,7 @@ public class MainWindow extends JFrame {
     }
 
     /**
-     * creates country buttons or territory views
+     * Creates country buttons or territory views
      * called by src.controller
      */
     public void removeCountryButtons() {

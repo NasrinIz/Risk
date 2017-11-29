@@ -16,12 +16,10 @@ public class StarterWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem menuItemNewGame;
-    private JMenuItem menuItemSaveGame;
     private JMenuItem menuItemLoadGame;
     private JLabel lblMapSelect;
     private JLabel lblMapLoad;
     private JComboBox<Integer> playerNum;
-    private JLabel playerTypeLabel;
     private JTextField playerTypeField;
     private JRadioButton radioLoadMap;
     private JRadioButton radioSelectMap;
@@ -243,7 +241,7 @@ public class StarterWindow extends JFrame {
         playerNum = new JComboBox<>(playerNumbers);
         playerNum.setBounds(220, 40, 200, 20);
 
-        playerTypeLabel = new JLabel("Players Types: ");
+        JLabel playerTypeLabel = new JLabel("Players Types: ");
         playerTypeLabel.setBounds(430, 40, 200, 20);
 
         playerTypeField = new JTextField();

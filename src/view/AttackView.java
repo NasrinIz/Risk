@@ -63,7 +63,7 @@ public class AttackView extends JPanel {
 
     /**
      * Check dice value to see f the dice values are correct. Attacker can roll less than the number of armies
-     * @return boolen whether to roll the dice or not
+     * @return boolean whether to roll the dice or not
      */
     public Boolean checkDiceValue() {
         try {
