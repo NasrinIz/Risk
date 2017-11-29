@@ -19,7 +19,6 @@ import java.util.Objects;
 import src.model.GameConfig;
 import src.model.GenericFunctions;
 import src.model.MapEditor;
-import src.model.Territory;
 import src.view.*;
 
 /**
@@ -53,7 +52,7 @@ public class MainController {
      * 0 New game 1 Edit or create
      */
     private Integer applicationMode = 0;
-    public HashMap<String, ArrayList<HashMap<String,String>>> winners = 
+    public HashMap<String, ArrayList<HashMap<String,String>>> winners =
     		new HashMap<String, ArrayList<HashMap<String,String>>>();
     String currentMapPlayed;
     String currentGameNumber;
@@ -400,7 +399,7 @@ public class MainController {
             String maps = starterView.getMaps();
             String turns = starterView.getTurns();
             String games = starterView.getGames();
-            if((turns != null) && (turns != ""))
+            if((turns != null) && (!Objects.equals(turns, "")))
             {
             	//drawTurns = Integer.parseInt(turns);
             	drawTurns = 5;
@@ -421,7 +420,7 @@ public class MainController {
             strategies.add("Random");
 
             numMaps = mapArray.length;
-            
+
             setNumMaps(mapArray.length);
             if(!Objects.equals(turns, "") && turns != null){
                 setDrawTurns(Integer.parseInt(turns));
@@ -462,18 +461,18 @@ public class MainController {
                 	gameConfig.gameResult(ai_driver(0, 0));
                 }
             } else {
-            	
+
             	for(int ctr = 0; ctr < numMaps; ctr++) {
             		ArrayList<HashMap<String, String>> tmpL = new ArrayList<HashMap<String, String>>();
             		winners.put(mapArray[ctr], tmpL);
-            		
+
             		for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
             			HashMap<String,String> tmp = new HashMap<String, String>();
                         tmp.put("Game: " + Integer.toString(ctr2 + 1), "");
                         winners.get(mapArray[ctr]).add(tmp);
             		}
             	}
-            	
+
                 for (int ctr = 0; ctr < numMaps; ctr++) {
                     for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
                         gameConfig = new GameConfig(strategies, mapArray[ctr], mainWindow);
@@ -508,7 +507,7 @@ public class MainController {
                         gameConfig.gameResult(ai_driver(ctr, ctr2));
                     }
                 }
-                
+
                 System.out.println();
                 System.out.println();
                 System.out.println("RESULTS: ");
@@ -526,13 +525,19 @@ public class MainController {
                 		String value = entry.getValue();
                 		System.out.println(key + ":   And the winner is as always " + value);
                 	}
-                	System.out.println("***************************************");	
+                	System.out.println("***************************************");
                 }
                 System.out.println("");
             }
         }
     }
-    
+
+    /**
+     * Driver for different kinds of players
+     * @param numMap Number of maps
+     * @param numGame number os games
+     * @return
+     */
     public String ai_driver(Integer numMap, Integer numGame) {
         PlayerDominationView playerDominationView = new PlayerDominationView();
         mainWindow.setPlayerDominationView(playerDominationView);
@@ -606,7 +611,7 @@ public class MainController {
             }
             if (ctr == drawTurns) {
             	gameConfig.maxTurnsReached = true;
-            	if(gameConfig.maxTurnsReached == true) {
+            	if(gameConfig.maxTurnsReached) {
             		ArrayList<HashMap<String, String>> gameList = this.winners.get(currentMapPlayed);
             		for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
             			HashMap<String, String> tmpG = gameList.get(ctr5);
@@ -640,7 +645,7 @@ public class MainController {
             Integer currentPlayerId = gameConfig.getCurrentPlayer().getPlayerId();
             Integer territoryOwner = (gameConfig.getMapObj().getDictTerritory().get(countryName).getOwner());
             Integer gamePhase = gameConfig.getGamePhase();
-            if(aiMode == true) {
+            if(aiMode) {
             	String info = (gameConfig.getMapObj().getDictTerritory().get(countryName)).toString();
                 mainWindow.getInfoView().showTerritoryInfo(info);
                 return;
