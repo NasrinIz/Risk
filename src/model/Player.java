@@ -515,6 +515,7 @@ public class Player implements Serializable {
     	switch(strategy.getPlayerType()) {
     	case 0: // Human
     		rt = strategy.getTerritoryForAttack(srcAttackTerritory, dstAttackTerritory, this, attackerDice, defenderDice);
+    		break;
     	case 1: // Aggressive
     	case 2: // Benevolent
     	case 3: // Random

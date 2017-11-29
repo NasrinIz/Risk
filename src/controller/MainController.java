@@ -449,7 +449,7 @@ public class MainController {
                     mainWindow.getErrorInfoView().showErrorInfo(error);
                     mainWindow.removeCountryButtons();
                 }else {
-                	gameConfig.gameResult(ai_driver(0, 0));
+                	//gameConfig.gameResult(ai_driver(0, 0));
                 }
             } else {
 
