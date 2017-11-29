@@ -66,10 +66,16 @@ public class Random implements Strategy, Serializable {
     				for(int ctr2 = 0; ctr2 < numMove; ctr2++) {
     					Territory srcObjTerritory = playerTerritories.get(index);
     					Territory destObjTerritory = map.getDictTerritory().get(adjacent.get(ctr));
-    					srcObjTerritory.decreaseArmies();
-    		            destObjTerritory.increaseArmies();
-    		            System.out.printf("\n%s : %d left, %s : %d now", srcObjTerritory.getName(), srcObjTerritory.getArmies(),
-    		            		destObjTerritory.getName(), destObjTerritory.getArmies());
+    					if(srcObjTerritory.getArmies() > 1) {
+	    					srcObjTerritory.decreaseArmies();
+	    		            destObjTerritory.increaseArmies();
+	    		            System.out.printf("\n%s : %d left, %s : %d now", srcObjTerritory.getName(), srcObjTerritory.getArmies(),
+	    		            		destObjTerritory.getName(), destObjTerritory.getArmies());
+    					}
+    					else {
+    						System.out.println("Randomly chosen country has only 1 amy. Cannot Fortify");
+    						return 0;
+    					}
     				}
     			}
     		}

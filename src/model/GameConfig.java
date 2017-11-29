@@ -174,7 +174,7 @@ public class GameConfig extends Observable implements Serializable{
 	            }
 	            if(playerTypes == null) {
 	            //	Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
-		            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Aggressive());
+		            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
 		            playerObj.setArmies(getInitArmy());
 		            players[i] = playerObj;
 	            }
@@ -530,4 +530,20 @@ public class GameConfig extends Observable implements Serializable{
     	this.fortifyArmies(srcTerritory, destTerritory, numArmies);
     }
 
+    
+    /**
+     * This function is used to display the game result
+     * @param result
+     */
+    public void gameResult(String result) {
+    	System.out.println("----------------------------------------------------------");
+    	System.out.println(result);
+    	System.out.println("----------------------------------------------------------");
+    	System.out.println("Territory End Status: ");
+    	for( String territory : this.getMapObj().getDictTerritory().keySet()) {
+    		Territory tmp = this.getMapObj().getDictTerritory().get(territory);
+    		System.out.println("Territory: " + tmp.getName() + " owned by " + 
+    		tmp.getOwner() + " has " + tmp.getArmies() + " armies.");
+    	}
+    }
 }

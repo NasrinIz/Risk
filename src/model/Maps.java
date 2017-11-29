@@ -214,7 +214,7 @@ public class Maps implements Serializable{
 
         try {
             while ((line = mapData.readLine()) != null) {
-
+            	line = line.toLowerCase();
                 if ((line.equalsIgnoreCase("[MAP]"))) {
                     if (continentsProperty == 1) {
                         continentsProperty = 2;
@@ -346,6 +346,7 @@ public class Maps implements Serializable{
                 return "\nThe territory %s is in continent %s. This continent either does not exist or isnt defined properly" + territory + tmpTerritoryObj.getContinent();
             }
 
+            /*
             ArrayList<String> adjacent = tmpTerritoryObj.getAdjacentCountries();
             for (int i = 0; i < adjacent.size(); i++) {
                 Integer matchFlag = 0;
@@ -365,6 +366,7 @@ public class Maps implements Serializable{
                     return "\nPlease mention adjacent territories for %s" + adjacentCountry;
                 }
             }
+            */
 
         }
 

@@ -18,6 +18,7 @@ import java.util.Objects;
 import src.model.GameConfig;
 import src.model.GenericFunctions;
 import src.model.MapEditor;
+import src.model.Territory;
 import src.view.*;
 
 /**
@@ -440,10 +441,9 @@ public class MainController {
                 if (!error.equals("true")) {
                     mainWindow.getErrorInfoView().showErrorInfo(error);
                     mainWindow.removeCountryButtons();
+                }else {
+                	gameConfig.gameResult(ai_driver(0, 0));
                 }
-
-                // vj
-                System.out.println(ai_driver(0, 0));
             } else {
                 for (int ctr = 0; ctr < numMaps; ctr++) {
                     for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
@@ -475,13 +475,13 @@ public class MainController {
                         }
 
                         // vj
-                        System.out.println(ai_driver(ctr, ctr2));
+                        gameConfig.gameResult(ai_driver(ctr, ctr2));
                     }
                 }
             }
         }
     }
-
+    
     public String ai_driver(Integer numMap, Integer numGame) {
         PlayerDominationView playerDominationView = new PlayerDominationView();
         mainWindow.setPlayerDominationView(playerDominationView);
