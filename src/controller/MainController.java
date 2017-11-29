@@ -458,7 +458,8 @@ public class MainController {
                     mainWindow.getErrorInfoView().showErrorInfo(error);
                     mainWindow.removeCountryButtons();
                 }else {
-                	gameConfig.gameResult(ai_driver(0, 0));
+                	ai_driver.start();
+                	//gameConfig.gameResult(ai_driver());
                 }
             } else {
 
@@ -504,7 +505,8 @@ public class MainController {
                         }
 
                         // vj
-                        gameConfig.gameResult(ai_driver(ctr, ctr2));
+                        //gameConfig.gameResult(ai_driver(ctr, ctr2));
+                        ai_driver.start();
                     }
                 }
 
@@ -538,7 +540,9 @@ public class MainController {
      * @param numGame number os games
      * @return
      */
-    public String ai_driver(Integer numMap, Integer numGame) {
+    Thread ai_driver = new Thread() {
+    //public String ai_driver() {
+    	public void run() {
         PlayerDominationView playerDominationView = new PlayerDominationView();
         mainWindow.setPlayerDominationView(playerDominationView);
 
@@ -589,14 +593,15 @@ public class MainController {
                 mainWindow.getPlayerInformationView().showInfoPanel();
 
             } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
-            	ArrayList<HashMap<String, String>> gameList = this.winners.get(currentMapPlayed);
+            	ArrayList<HashMap<String, String>> gameList = winners.get(currentMapPlayed);
         		for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
         			HashMap<String, String> tmpG = gameList.get(ctr5);
         			if(tmpG.containsKey(currentGameNumber)) {
         				tmpG.put(currentGameNumber, gameConfig.gameWinner);
         			}
         		}
-                return "We have a winner";
+                //return "We have a winner";
+                return;
             }
             
             if (ctr < drawTurns) {
@@ -605,26 +610,29 @@ public class MainController {
                     System.out.println("TURN NUMBER = " + ctr);
                     System.out.println("********************************************");
                     ctr++;
-                    this.turnNumber = ctr;
+                    turnNumber = ctr;
                     gameConfig.gamePhaseChanged = false;
                 }
             }
             if (ctr == drawTurns) {
             	gameConfig.maxTurnsReached = true;
             	if(gameConfig.maxTurnsReached) {
-            		ArrayList<HashMap<String, String>> gameList = this.winners.get(currentMapPlayed);
+            		ArrayList<HashMap<String, String>> gameList = winners.get(currentMapPlayed);
             		for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
             			HashMap<String, String> tmpG = gameList.get(ctr5);
             			if(tmpG.containsKey(currentGameNumber)) {
             				tmpG.put(currentGameNumber, "DRAW");
             			}
             		}
-            		return "Game Draw";
+            		//return "Game Draw";
+            		return;
             	}
             }
         }
-        return "We have a winner";
-    }
+        //return "We have a winner";
+        return;
+    	}
+    };
 
     /**
      * This is the inner class, to define action listener to the territory buttons
