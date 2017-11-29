@@ -42,7 +42,7 @@ public class MainController {
 
 
     private Integer numGames = 1;
-    private Integer drawTurns = 2;
+    private Integer drawTurns = 1;
     private ArrayList<String> playerTypes;
     
     public int turnNumber = 0;
@@ -396,7 +396,10 @@ public class MainController {
             String maps = starterView.getMaps();
             String turns = starterView.getTurns();
             String games = starterView.getGames();
-
+            if((turns != null) && (turns != ""))
+            {
+            	drawTurns = Integer.parseInt(turns);
+            }
 
             String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
             ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
