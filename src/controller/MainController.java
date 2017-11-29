@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -52,8 +53,10 @@ public class MainController {
      * 0 New game 1 Edit or create
      */
     private Integer applicationMode = 0;
-
-
+    public HashMap<String, ArrayList<HashMap<String,String>>> winners = 
+    		new HashMap<String, ArrayList<HashMap<String,String>>>();
+    String currentMapPlayed;
+    String currentGameNumber;
 
     public void setCurrentCountryName(String currentCountryName) {
         this.currentCountryName = currentCountryName;
@@ -399,12 +402,26 @@ public class MainController {
             String games = starterView.getGames();
             if((turns != null) && (turns != ""))
             {
-            	drawTurns = Integer.parseInt(turns);
+            	//drawTurns = Integer.parseInt(turns);
+            	drawTurns = 5;
+            }
+            if((games != null) && (games != ""))
+            {
+            	//numGames = Integer.parseInt(games);
+            	numGames = 3;
             }
 
-            String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
-            ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
+            //String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
+            String mapArray[] = {"World", "Atlantis"};
+            //ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
+            ArrayList<String> strategies = new ArrayList<String>();
+            strategies.add("Aggressive");
+            strategies.add("Benevolent");
+            strategies.add("Cheater");
+            strategies.add("Random");
 
+            numMaps = mapArray.length;
+            
             setNumMaps(mapArray.length);
             if(!Objects.equals(turns, "") && turns != null){
                 setDrawTurns(Integer.parseInt(turns));
@@ -445,10 +462,23 @@ public class MainController {
                 	gameConfig.gameResult(ai_driver(0, 0));
                 }
             } else {
+            	
+            	for(int ctr = 0; ctr < numMaps; ctr++) {
+            		ArrayList<HashMap<String, String>> tmpL = new ArrayList<HashMap<String, String>>();
+            		winners.put(mapArray[ctr], tmpL);
+            		
+            		for(int ctr2 = 0; ctr2 < numGames; ctr2++) {
+            			HashMap<String,String> tmp = new HashMap<String, String>();
+                        tmp.put("Game: " + Integer.toString(ctr2 + 1), "");
+                        winners.get(mapArray[ctr]).add(tmp);
+            		}
+            	}
+            	
                 for (int ctr = 0; ctr < numMaps; ctr++) {
                     for (int ctr2 = 0; ctr2 < numGames; ctr2++) {
-                        gameConfig = new GameConfig(strategies, selectedMap, mainWindow);
-
+                        gameConfig = new GameConfig(strategies, mapArray[ctr], mainWindow);
+                        currentMapPlayed = mapArray[ctr];
+                        currentGameNumber = "Game: " + Integer.toString(ctr2 + 1);
                         gameConfig.addObserver(playerDominationView);
                         mainWindow.getPlayerDominationView().showInfoPanel();
 
@@ -478,6 +508,27 @@ public class MainController {
                         gameConfig.gameResult(ai_driver(ctr, ctr2));
                     }
                 }
+                
+                System.out.println();
+                System.out.println();
+                System.out.println("RESULTS: ");
+                System.out.println();
+                System.out.println();
+                System.out.println("***************************************");
+                for(String mapL : winners.keySet()) {
+                	System.out.println(mapL);
+                	System.out.println();
+                	ArrayList<HashMap<String, String>> gameList = winners.get(mapL);
+                	for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
+                		HashMap<String, String> gameInfo = gameList.get(ctr5);
+                		Map.Entry<String,String> entry = gameInfo.entrySet().iterator().next();
+                		String key = entry.getKey();
+                		String value = entry.getValue();
+                		System.out.println(key + ":   And the winner is as always " + value);
+                	}
+                	System.out.println("***************************************");	
+                }
+                System.out.println("");
             }
         }
     }
@@ -497,7 +548,7 @@ public class MainController {
             gamePhase = gameConfig.getGamePhase();
             try {
                 Thread.sleep(50);
-                System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
+                //System.out.println(gameConfig.getCurrentPlayer().getPlayerId() + "_" + gameConfig.getCurrentPlayer().numOfTerritories());
             } catch (Exception e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -533,6 +584,13 @@ public class MainController {
                 mainWindow.getPlayerInformationView().showInfoPanel();
 
             } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
+            	ArrayList<HashMap<String, String>> gameList = this.winners.get(currentMapPlayed);
+        		for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
+        			HashMap<String, String> tmpG = gameList.get(ctr5);
+        			if(tmpG.containsKey(currentGameNumber)) {
+        				tmpG.put(currentGameNumber, gameConfig.gameWinner);
+        			}
+        		}
                 return "We have a winner";
             }
             
@@ -549,6 +607,13 @@ public class MainController {
             if (ctr == drawTurns) {
             	gameConfig.maxTurnsReached = true;
             	if(gameConfig.maxTurnsReached == true) {
+            		ArrayList<HashMap<String, String>> gameList = this.winners.get(currentMapPlayed);
+            		for(int ctr5 = 0; ctr5 < gameList.size(); ctr5++) {
+            			HashMap<String, String> tmpG = gameList.get(ctr5);
+            			if(tmpG.containsKey(currentGameNumber)) {
+            				tmpG.put(currentGameNumber, "DRAW");
+            			}
+            		}
             		return "Game Draw";
             	}
             }

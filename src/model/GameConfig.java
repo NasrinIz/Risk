@@ -27,6 +27,9 @@ public class GameConfig extends Observable implements Serializable{
 
     public String gamePhaseStr = "Phase: StartUP\nAll players will place \narmies one by one in \nround robin fashion";
     public Boolean gamePhaseChanged = false;
+    public String gameWinner;
+    
+    
     public MainWindow getMainWindow() {
         return mainWindow;
     }
@@ -158,57 +161,55 @@ public class GameConfig extends Observable implements Serializable{
         ArrayList<Card> playerCards;
         Integer cardId = 0;
 
-        
-        
-	        for (int i = 0; i < numPlayers; i++) {
-	            playerCards = new ArrayList<Card>();
-	            while (playerCards.size() < 4) {
-	                while (true) {
-	                    cardId = genericFunctionsObj.genRandomNumber(0, 41);
-	                    if (gameCards.get(cardId).getOwnerId() == null) {
-	                        break;
-	                    }
-	                }
-	                gameCards.get(cardId).setOwnerId(i);
-	                playerCards.add(gameCards.get(cardId));
-	            }
-	            if(playerTypes == null) {
-	            //	Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
-		            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
-		            playerObj.setArmies(getInitArmy());
+        for (int i = 0; i < numPlayers; i++) {
+            playerCards = new ArrayList<Card>();
+            while (playerCards.size() < 4) {
+                while (true) {
+                    cardId = genericFunctionsObj.genRandomNumber(0, 41);
+                    if (gameCards.get(cardId).getOwnerId() == null) {
+                        break;
+                    }
+                }
+                gameCards.get(cardId).setOwnerId(i);
+                playerCards.add(gameCards.get(cardId));
+            }
+            if(playerTypes == null) {
+            //	Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
+	            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
+	            playerObj.setArmies(getInitArmy());
+	            players[i] = playerObj;
+            }
+            else {
+            	if(playerTypes.get(i) == null) {
+            		return;
+            	}
+            	else if(playerTypes.get(i).equals("Human")) {
+            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
+            		playerObj.setArmies(getInitArmy());
 		            players[i] = playerObj;
-	            }
-	            else {
-	            	if(playerTypes.get(i) == null) {
-	            		return;
-	            	}
-	            	else if(playerTypes.get(i).equals("Human")) {
-	            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
-	            		playerObj.setArmies(getInitArmy());
-			            players[i] = playerObj;
-	            	}
-	            	else if(playerTypes.get(i).equals("Aggressive")) {
-	            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Aggressive());
-	            		playerObj.setArmies(getInitArmy());
-			            players[i] = playerObj;
-	            	}
-	            	else if(playerTypes.get(i).equals("Benevolent")) {
-	            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Benevolent());
-	            		playerObj.setArmies(getInitArmy());
-			            players[i] = playerObj;
-	            	}
-	            	else if(playerTypes.get(i).equals("Cheater")) {
-	            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
-	            		playerObj.setArmies(getInitArmy());
-			            players[i] = playerObj;
-	            	}
-	            	else if(playerTypes.get(i).equals("Random")) {
-	            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Random());
-	            		playerObj.setArmies(getInitArmy());
-			            players[i] = playerObj;
-	            	}
-	            }
-	       }
+            	}
+            	else if(playerTypes.get(i).equals("Aggressive")) {
+            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Aggressive());
+            		playerObj.setArmies(getInitArmy());
+		            players[i] = playerObj;
+            	}
+            	else if(playerTypes.get(i).equals("Benevolent")) {
+            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Benevolent());
+            		playerObj.setArmies(getInitArmy());
+		            players[i] = playerObj;
+            	}
+            	else if(playerTypes.get(i).equals("Cheater")) {
+            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
+            		playerObj.setArmies(getInitArmy());
+		            players[i] = playerObj;
+            	}
+            	else if(playerTypes.get(i).equals("Random")) {
+            		Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Random());
+            		playerObj.setArmies(getInitArmy());
+		            players[i] = playerObj;
+            	}
+            }
+       }
 
         initTerritory();
 
@@ -501,6 +502,21 @@ public class GameConfig extends Observable implements Serializable{
                 gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
                 System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
                 gamePhase = genericFunctionsObj.GAMEPHASENONE;
+                if(players[ctr].strategy.getPlayerType() == 0) {
+                	this.gameWinner = "Human";
+                }
+                else if(players[ctr].strategy.getPlayerType() == 1) {
+                	this.gameWinner = "Aggressive";
+                }
+                else if(players[ctr].strategy.getPlayerType() == 2) {
+                	this.gameWinner = "Benevolent";
+                }
+                else if(players[ctr].strategy.getPlayerType() == 3) {
+                	this.gameWinner = "Random";
+                }
+                else if(players[ctr].strategy.getPlayerType() == 4) {
+                	this.gameWinner = "Cheater";
+                }
             }
         }
 
@@ -537,7 +553,7 @@ public class GameConfig extends Observable implements Serializable{
      */
     public void gameResult(String result) {
     	System.out.println("----------------------------------------------------------");
-    	System.out.println(result);
+    	System.out.println("GAME RESULT: " + result);
     	System.out.println("----------------------------------------------------------");
     	System.out.println("Territory End Status: ");
     	for( String territory : this.getMapObj().getDictTerritory().keySet()) {
