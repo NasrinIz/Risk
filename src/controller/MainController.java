@@ -401,24 +401,15 @@ public class MainController {
             String games = starterView.getGames();
             if((turns != null) && (!Objects.equals(turns, "")))
             {
-            	//drawTurns = Integer.parseInt(turns);
-            	drawTurns = 5;
+            	drawTurns = Integer.parseInt(turns);
             }
             if((games != null) && (games != ""))
             {
-            	//numGames = Integer.parseInt(games);
-            	numGames = 3;
+            	numGames = Integer.parseInt(games);
             }
 
-            //String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
-            String mapArray[] = {"World", "Atlantis"};
-            //ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
-            ArrayList<String> strategies = new ArrayList<String>();
-            strategies.add("Aggressive");
-            strategies.add("Benevolent");
-            strategies.add("Cheater");
-            strategies.add("Random");
-
+            String mapArray[] = genericFunctionsObj.genCommaSepStrToArray(maps);
+            ArrayList<String> strategies = genericFunctionsObj.genCommaSepStrToArrayList(playerTypes);
             numMaps = mapArray.length;
 
             setNumMaps(mapArray.length);

@@ -180,8 +180,7 @@ public class GameConfig extends Observable implements Serializable{
                 playerCards.add(gameCards.get(cardId));
             }
             if(playerTypes == null) {
-            //	Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
-	            Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Cheater());
+            	Player playerObj = new Player("Player" + Integer.toString(i), i, playerCards, this, new Human());
 	            playerObj.setArmies(getInitArmy());
 	            players[i] = playerObj;
             }
