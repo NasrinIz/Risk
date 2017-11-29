@@ -29,7 +29,7 @@ public class TestTerritory {
 	}
 
 	/**
-	 * tests the constructor with String field
+	 * Tests the constructor with String field
 	 */
 	@Test
 	public void testConstructor() {

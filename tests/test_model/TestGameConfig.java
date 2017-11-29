@@ -39,6 +39,9 @@ public class TestGameConfig {
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * Checks if cards are generated correctly
+	 */
 	@Test
 	public void testGenerateCards() {
 		objConfig.callInitcards();
@@ -59,7 +62,10 @@ public class TestGameConfig {
 			assertTrue(((Integer)playerCards[ctr] == 4));
 		}
 	}
-	
+
+	/**
+	 * Checks if the territories are assigned correctly
+	 */
 	@Test
 	public void randomTerritoryAssignment() {
 		String path = String.format("Resources//Maps//%s.map", "World");

@@ -43,7 +43,9 @@ public class TestMapEditor {
 	public void tearDown() throws Exception {
 		// do nothing
 	}
-
+	/**
+	 * Checks if the map is connected
+	 */
 	@Test
 	public void testAddContinentMap() {
 		mapEditor = new MapEditor(1, "MapEditorTest");
