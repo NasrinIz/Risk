@@ -16,12 +16,10 @@ public class StarterWindow extends JFrame {
     private JMenuBar menuBar;
     private JMenu menu;
     private JMenuItem menuItemNewGame;
-    private JMenuItem menuItemSaveGame;
     private JMenuItem menuItemLoadGame;
     private JLabel lblMapSelect;
     private JLabel lblMapLoad;
     private JComboBox<Integer> playerNum;
-    private JLabel playerTypeLabel;
     private JTextField playerTypeField;
     private JRadioButton radioLoadMap;
     private JRadioButton radioSelectMap;
@@ -243,7 +241,7 @@ public class StarterWindow extends JFrame {
         playerNum = new JComboBox<>(playerNumbers);
         playerNum.setBounds(220, 40, 200, 20);
 
-        playerTypeLabel = new JLabel("Players Types: ");
+        JLabel playerTypeLabel = new JLabel("Players Types: ");
         playerTypeLabel.setBounds(430, 40, 200, 20);
 
         playerTypeField = new JTextField();
@@ -317,7 +315,7 @@ public class StarterWindow extends JFrame {
         lblMapSelect.setBounds(10, 120, 200, 20);
 
         String[] mapTitles = new String[]{"Atlantis", "DiMul", "Europe", "Old Yorkshire", "Polygons", "Twin Volcano",
-                "USA", "World", "valid_1", "vj_test", "3D Cliff", "UnconnectedContinent"};
+                "USA", "World", "valid_1", "3D Cliff", "UnconnectedContinent"};
 
         mapList = new JComboBox<>(mapTitles);
         mapList.setBounds(220, 120, 200, 20);

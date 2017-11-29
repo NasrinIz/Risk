@@ -21,7 +21,7 @@ public class Territory implements Serializable {
     private ArrayList<String> adjacentCountries = new ArrayList<String>();
 
     private Integer ownerPlayerId = null;
-    GenericFunctions genericFunctionsObj = new GenericFunctions();
+    private GenericFunctions genericFunctionsObj = new GenericFunctions();
 
 
     /**

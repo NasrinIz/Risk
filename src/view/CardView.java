@@ -24,8 +24,6 @@ public class CardView extends JPanel implements Observer {
     private JTextField cavalryInputField;
     private JTextField wildInputField;
     private JButton cardNumberButton;
-    private JLabel infoArea;
-
 
     /**
      * Show card panel

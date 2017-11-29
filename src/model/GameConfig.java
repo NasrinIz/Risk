@@ -53,7 +53,13 @@ public class GameConfig extends Observable implements Serializable{
         gamePhase = genericFunctionsObj.GAMEPHASESTARTUP;
         this.mainWindow = mainWindow;
     }
-    
+
+    /**
+     * The second constructor of Game Config for tournament
+     * @param numPlayers Number of players playing the game
+     * @param mapName    Map Name to be loaded for game.
+     * @param mainWindow Reference to main Window
+     */
     public GameConfig(ArrayList<String> playerTypes, String mapName, MainWindow mainWindow) {
     	super();
     	initCards();
@@ -430,7 +436,7 @@ public class GameConfig extends Observable implements Serializable{
      */
     private void incrementGamePhase() {
         if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {   
-        	if(maxTurnsReached == true) {
+        	if(maxTurnsReached) {
         		return;
         	}
     		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
@@ -540,7 +546,7 @@ public class GameConfig extends Observable implements Serializable{
     
     /**
      * This function is used to move armies to a territory.
-     * @param numArmies
+     * @param numArmies number of armies
      */
     public void playerMoveArmies(Integer numArmies, String srcTerritory, String destTerritory) {
     	this.fortifyArmies(srcTerritory, destTerritory, numArmies);
@@ -549,7 +555,7 @@ public class GameConfig extends Observable implements Serializable{
     
     /**
      * This function is used to display the game result
-     * @param result
+     * @param result game result
      */
     public void gameResult(String result) {
     	System.out.println("----------------------------------------------------------");
