@@ -489,21 +489,8 @@ public class MainController {
         Integer ctr = 0;
         Integer gamePhase = gameConfig.getGamePhase();
         aiMode = true;
+        drawTurns = drawTurns * 2;
         while (gamePhase != genericFunctionsObj.GAMEPHASENONE) {
-            if (ctr < drawTurns) {
-                if (gameConfig.gamePhaseChanged) {
-                    System.out.println("********************************************");
-                    System.out.println("TURN NUMBER = " + ctr);
-                    System.out.println("********************************************");
-                    ctr++;
-                    this.turnNumber = ctr;
-                    gameConfig.gamePhaseChanged = false;
-                }
-            } else if (ctr < (drawTurns - 1)) {
-                gameConfig.maxTurnsReached = true;
-            } else {
-                return "draw";
-            }
             gamePhase = gameConfig.getGamePhase();
             try {
                 Thread.sleep(50);
@@ -544,6 +531,23 @@ public class MainController {
 
             } else if (gamePhase == genericFunctionsObj.GAMEPHASENONE) {
                 return "We have a winner";
+            }
+            
+            if (ctr < drawTurns) {
+                if (gameConfig.gamePhaseChanged) {
+                    System.out.println("********************************************");
+                    System.out.println("TURN NUMBER = " + ctr);
+                    System.out.println("********************************************");
+                    ctr++;
+                    this.turnNumber = ctr;
+                    gameConfig.gamePhaseChanged = false;
+                }
+            }
+            if (ctr == drawTurns) {
+            	gameConfig.maxTurnsReached = true;
+            	if(gameConfig.maxTurnsReached == true) {
+            		return "Game Draw";
+            	}
             }
         }
         return "We have a winner";

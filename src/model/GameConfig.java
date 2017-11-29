@@ -358,7 +358,7 @@ public class GameConfig extends Observable implements Serializable{
                 players[tmpContinent.getOwnerId()].setContinentArmyReward(tmpContinent.getArmyReward());
             }
         }
-
+        
         this.getCurrentPlayer().calcReinforcementArmies();
     }
 
@@ -428,20 +428,21 @@ public class GameConfig extends Observable implements Serializable{
      * This functions increment the gamePhase according to previous phase.
      */
     private void incrementGamePhase() {
-        if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {        	
-        		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
-        		System.out.println("Startup Phase ends, Reinforcement Phase Begins");
-        		calcReinforcementArmy();
-        } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
-        	if(maxTurnsReached == false) {	
-        		gamePhaseChanged = true;
-	            gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
-	            System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
+        if (gamePhase == genericFunctionsObj.GAMEPHASESTARTUP) {   
+        	if(maxTurnsReached == true) {
+        		return;
         	}
+    		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
+    		System.out.println("Startup Phase ends, Reinforcement Phase Begins");
+    		calcReinforcementArmy();
+        } else if (gamePhase == genericFunctionsObj.GAMEPHASEREINFORCEMENT) {
+            gamePhase = genericFunctionsObj.GAMEPHASEFORTIFICATION;
+            System.out.println("Reinforcement Phase ends, Fortification Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEFORTIFICATION) {
             gamePhase = genericFunctionsObj.GAMEPHASEATTACK;
             System.out.println("Fortification Phase ends, Attack Phase Begins");
         } else if (gamePhase == genericFunctionsObj.GAMEPHASEATTACK) {
+        	gamePhaseChanged = true;
     		gamePhase = genericFunctionsObj.GAMEPHASEREINFORCEMENT;
             System.out.println("Attack Phase ends, Reinforcement Phase Begins");
             calcReinforcementArmy();
