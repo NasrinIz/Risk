@@ -102,7 +102,7 @@ public class TestValidMaps {
 	
 	@Test
 	public void testDisconnectedMap() {
-		String path = String.format("Resources//Maps//%s.map", "vj_test");
+		String path = String.format("Resources//Maps//%s.map", "vj_test_Disconnected");
 		objMap = new Maps(path, 0);
 		objMap.readMap();
 		assertEquals(objMap.validateMap(), "The map is not a connected graph");
@@ -110,11 +110,10 @@ public class TestValidMaps {
 	
 	@Test
 	public void testInconsistentAdjacency() {
-		String path = String.format("Resources//Maps//%s.map", "vj_test_adjacency");
+		String path = String.format("Resources//Maps//%s.map", "UnconnectedContinent");
 		objMap = new Maps(path, 0);
 		objMap.readMap();
 		String rt = objMap.validateMap();
-		rt = rt.substring(0, 23);
-		assertEquals(rt.substring(0, 23), "\nPlease check adjacency");
+		assertEquals(rt, "\nAll continents are not connected in themselves");
 	}
 }
