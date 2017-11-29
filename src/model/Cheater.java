@@ -22,23 +22,27 @@ public class Cheater implements Strategy, Serializable {
 
     @Override
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer) {
-        for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
-        	int num = playerTerritories.get(ctr).getArmies();
-        	int num2 = objPlayer.getArmies();
-        	if(num2 == 0) {
-        		objPlayer.getGameConfig().nextPlayerOrPhase();
-        	}
-        	for(int ctr2 = 0; ctr2 < num; ctr++) {
-        		if(objPlayer.getGameConfig().getCurrentPlayer().id != objPlayer.id) {
-        			break;
-        		}
-        		playerTerritories.get(ctr).increaseArmies();
-        		if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
-        			objPlayer.getGameConfig().nextPlayerOrPhase();
-        			objPlayer.setArmies(objPlayer.getArmies() - 1);
-        		}
-        	}
-        }
+    	if(objPlayer.getGameConfig().getGamePhase() == genfunObj.GAMEPHASESTARTUP) {
+    		if(objPlayer.getArmies() > 0) {
+				objPlayer.setArmies(objPlayer.getArmies() - 1);
+				System.out.println("Armies " + objPlayer.getArmies());
+				int tmp = genfunObj.genRandomNumber(0, playerTerritories.size() - 1);
+				playerTerritories.get(tmp).increaseArmies();
+    		}
+    		else {
+    			objPlayer.getGameConfig().nextPlayerOrPhase();
+    		}
+		}
+    	else
+    	{
+	        for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
+	        	int num = playerTerritories.get(ctr).getArmies();
+	        	playerTerritories.get(ctr).setArmies(num * 2);
+	        	System.out.println("Cheater Doubled Armies");
+	        }
+	        objPlayer.setArmies(0);
+	        objPlayer.getGameConfig().nextPlayerOrPhase();
+    	}
         return 0;
     }
 
@@ -58,12 +62,13 @@ public class Cheater implements Strategy, Serializable {
         	int num = playerTerritories.get(ctr).getArmies();
         	ArrayList<String> adjacent = playerTerritories.get(ctr).getAdjacentCountries();
         	
-        	for(int ctr2 = 0; ctr2 < adjacent.size(); ctr++) {
+        	for(int ctr2 = 0; ctr2 < adjacent.size(); ctr2++) {
         		Territory temp = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent.get(ctr2));
         		if(temp.getOwner() != objPlayer.id) {
-        			for(int ctr3 = 0; ctr3 < num; ctr3++) {
-        				playerTerritories.get(ctr).increaseArmies();
-        			}
+        			playerTerritories.get(ctr).setArmies(playerTerritories.get(ctr).getArmies() * 2);
+        			System.out.println("Cheater cheated to place double armies on "
+        					+ "territories with neighbours belonging to other players.");
+        			break;
         		}
         	}
         }
@@ -82,7 +87,7 @@ public class Cheater implements Strategy, Serializable {
         for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
         	Territory srcTerritory = playerTerritories.get(ctr);
         	ArrayList<String> adjacent = playerTerritories.get(ctr).getAdjacentCountries();
-        	for(int ctr2 = 0; ctr2 < adjacent.size(); ctr++) {
+        	for(int ctr2 = 0; ctr2 < adjacent.size(); ctr2++) {
         		Territory temp = objPlayer.getGameConfig().getMapObj().getDictTerritory().get(adjacent.get(ctr2));
         		if(temp.getOwner() != objPlayer.id) {
         	        System.out.println("Player " + srcTerritory.getOwner().toString() +
@@ -106,6 +111,8 @@ public class Cheater implements Strategy, Serializable {
         		}
         	}
         }
+        
+        objPlayer.getGameConfig().nextPlayerOrPhase();
         return 0;
     }
 }

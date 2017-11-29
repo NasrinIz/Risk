@@ -67,6 +67,14 @@ public class Territory implements Serializable {
     }
 
     /**
+     * Sets the number of armies on territory
+     * @param armies new armies
+     */
+    public void setArmies(int armies) {
+    	stationedArmies = armies;
+    }
+    
+    /**
      * The overloaded constructor that receives territory information in string,
      * and calls function to parse the string and save information in data memebers.
      *
