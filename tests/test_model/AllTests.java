@@ -6,7 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ TestGameConfig.class, TestMapEditor.class, 
-				TestPlayer.class, TestTerritory.class, TestValidMaps.class})
+				TestPlayer.class, TestTerritory.class, TestValidMaps.class,
+				TestAggressive.class, TestBenevolent.class, TestCheater.class, TestRandom.class})
 
 
 public class AllTests {

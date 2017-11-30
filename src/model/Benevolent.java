@@ -111,9 +111,11 @@ public class Benevolent implements Strategy, Serializable {
             }
         }
 
-        while (temp.getArmies() > adja.getArmies()) {
-            adja.increaseArmies();
-            temp.decreaseArmies();
+        if((temp != null) && (adja != null)) {
+	        while (temp.getArmies() > adja.getArmies()) {
+	            adja.increaseArmies();
+	            temp.decreaseArmies();
+	        }
         }
         return 0;
     }

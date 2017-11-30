@@ -107,6 +107,9 @@ public class Aggressive implements Strategy, Serializable {
         }
 
         Territory target = null;
+        if(temp == null) {
+        	return ableToAttack;
+        }
         ArrayList<String> adjacent = temp.getAdjacentCountries();
 
         for (int ctr = 0; ctr < adjacent.size(); ctr++) {

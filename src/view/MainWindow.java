@@ -27,9 +27,9 @@ public class MainWindow extends JFrame {
     private JScrollPane mapPane;
     private InfoView infoView;
     private ErrorInfoView errorInfoView;
-    private PlayerInformationView playerInformationView;
-    private PlayerDominationView playerDominationView;
-    private AttackView attackView;
+    public PlayerInformationView playerInformationView;
+    public PlayerDominationView playerDominationView;
+    public AttackView attackView;
     private CardView cardView;
     private JMenuBar menuBar;
     private JMenu menu;

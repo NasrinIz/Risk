@@ -31,9 +31,9 @@ import src.view.*;
  */
 public class MainController {
 
-    private StarterWindow starterView;
-    private MainWindow mainWindow;
-    private GameConfig gameConfig;
+	public StarterWindow starterView;
+    public MainWindow mainWindow;
+    public GameConfig gameConfig;
     private GenericFunctions genericFunctionsObj = new GenericFunctions();
     private MapEditor mapEditor;
     private String previousCountryName = null;
@@ -42,9 +42,9 @@ public class MainController {
     private Integer numMaps = 1;
 
 
-    private Integer numGames = 1;
-    private Integer drawTurns = 1;
-    private ArrayList<String> playerTypes;
+    public Integer numGames = 1;
+    public Integer drawTurns = 1;
+    public ArrayList<String> playerTypes;
     
     public int turnNumber = 0;
     public Boolean aiMode = false;
@@ -54,8 +54,8 @@ public class MainController {
     private Integer applicationMode = 0;
     public HashMap<String, ArrayList<HashMap<String,String>>> winners =
     		new HashMap<String, ArrayList<HashMap<String,String>>>();
-    String currentMapPlayed;
-    String currentGameNumber;
+    public String currentMapPlayed;
+    public String currentGameNumber;
 
     public void setCurrentCountryName(String currentCountryName) {
         this.currentCountryName = currentCountryName;
@@ -402,6 +402,7 @@ public class MainController {
             if((turns != null) && (!Objects.equals(turns, "")))
             {
             	drawTurns = Integer.parseInt(turns);
+            	drawTurns = drawTurns * 2;
             }
             if((games != null) && (games != ""))
             {
@@ -415,6 +416,7 @@ public class MainController {
             setNumMaps(mapArray.length);
             if(!Objects.equals(turns, "") && turns != null){
                 setDrawTurns(Integer.parseInt(turns));
+                drawTurns = drawTurns * strategies.size();
             }
 
             if(!Objects.equals(games, "") && games != null){
@@ -493,9 +495,9 @@ public class MainController {
                             mainWindow.getErrorInfoView().showErrorInfo(error);
                             mainWindow.removeCountryButtons();
                         }
-
-                        // vj
-                        gameConfig.gameResult(ai_driver(ctr, ctr2));
+                        else {
+                        	gameConfig.gameResult(ai_driver(ctr, ctr2));
+                        }
                     }
                 }
 
@@ -539,7 +541,7 @@ public class MainController {
         Integer ctr = 0;
         Integer gamePhase = gameConfig.getGamePhase();
         aiMode = true;
-        drawTurns = drawTurns * 2;
+        
         while (gamePhase != genericFunctionsObj.GAMEPHASENONE) {
             gamePhase = gameConfig.getGamePhase();
             try {

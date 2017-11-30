@@ -505,7 +505,8 @@ public class GameConfig extends Observable implements Serializable{
         }
 
         for (int ctr = 0; ctr < players.length; ctr++) {
-            if (players[ctr].numOfTerritories() == mapObj.getNumTerritories()) {
+        	System.out.println("HIHIHI " + players[ctr].numOfTerritories() + ":" + mapObj.getNumTerritories() + "HIHIHI");
+            if (players[ctr].numOfTerritories() >= mapObj.getNumTerritories()) {
                 gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
                 System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
                 gamePhase = genericFunctionsObj.GAMEPHASENONE;

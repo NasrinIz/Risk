@@ -21,7 +21,7 @@ public class AttackView extends JPanel {
     /**
      * Attack view constructor which shows the attack panel
      */
-    AttackView() {
+    public AttackView() {
         this.showAttackPanel();
     }
 

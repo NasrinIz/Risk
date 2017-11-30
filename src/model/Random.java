@@ -88,7 +88,11 @@ public class Random implements Strategy, Serializable {
             for (int ctr = 0; ctr < adjacent.size(); ctr++) {
                 int ownerOfSecond = map.getDictTerritory().get(adjacent.get(ctr)).getOwner();
                 if (ownerOfFirst == ownerOfSecond) {
-                    int numMove = genfunObj.genRandomNumber(0, playerTerritories.get(ctr).getArmies());
+                	int numMove = 0;
+                	if(ctr < (playerTerritories.size() - 1)) {
+                		numMove = genfunObj.genRandomNumber(0, playerTerritories.get(ctr).getArmies());
+                	}
+                	
                     for (int ctr2 = 0; ctr2 < numMove; ctr2++) {
                         Territory srcObjTerritory = playerTerritories.get(index);
                         Territory destObjTerritory = map.getDictTerritory().get(adjacent.get(ctr));
