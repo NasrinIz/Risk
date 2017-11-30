@@ -28,6 +28,12 @@ public class GenericFunctions implements Serializable{
     final int EDITORMODEEDIT = 1;
     final int EDITORMODECREATE = 2;
 
+    /**
+     * This function gets the integer value from the passed string
+     * @param inVal The string value containing integer
+     * @return The integer value
+     * @throws NumberFormatException
+     */
     public Integer genStrToInt(String inVal) throws NumberFormatException {
         return Integer.valueOf(inVal);
     }
@@ -76,7 +82,7 @@ public class GenericFunctions implements Serializable{
      * @param inVal The input string containing an operand and an assignment operator.
      * @return tmp[1] The output string after assignment operator.
      */
-    String genStringGetValueAfterEquals(String inVal) {
+    public String genStringGetValueAfterEquals(String inVal) {
         String[] tmp = inVal.split("=");
         if (tmp.length < 2) {
             return null;
@@ -91,7 +97,7 @@ public class GenericFunctions implements Serializable{
      * @param inVal The input string.
      * @return tmp The resultant separated strings.
      */
-    String[] genStringGetSplitArrayEquals(String inVal) {
+    public String[] genStringGetSplitArrayEquals(String inVal) {
         String[] tmp = inVal.split("=");
         return tmp;
     }
@@ -104,7 +110,7 @@ public class GenericFunctions implements Serializable{
      * @param n      The number of occurence
      * @return pos The returned position.
      */
-    int genOrdinalIndexOf(String str, String substr, int n) {
+    public int genOrdinalIndexOf(String str, String substr, int n) {
         int pos = str.indexOf(substr);
         while (--n > 0 && pos != -1)
             pos = str.indexOf(substr, pos + 1);
@@ -139,7 +145,7 @@ public class GenericFunctions implements Serializable{
      * @param max The maximum number limit
      * @return The returned random number.
      */
-    Integer genRandomNumber(Integer min, Integer max) {
+    public Integer genRandomNumber(Integer min, Integer max) {
         Random rand = new Random();
         return (rand.nextInt((max - min) + 1) + min);
     }
