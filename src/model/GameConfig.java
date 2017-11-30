@@ -217,11 +217,11 @@ public class GameConfig extends Observable implements Serializable{
        }
 
         initTerritory();
-
+        /*
         for (String territory : mapObj.getDictTerritory().keySet()) {
             players[mapObj.getDictTerritory().get(territory).getOwner()].setTerritories(mapObj.getDictTerritory().get(territory));
         }
-
+	*/
         for (int i = 0; i < numPlayers; i++) {
             players[i].setArmies(players[i].getArmies() - players[i].numOfTerritories());
         }
@@ -505,7 +505,7 @@ public class GameConfig extends Observable implements Serializable{
         }
 
         for (int ctr = 0; ctr < players.length; ctr++) {
-        	System.out.println("HIHIHI " + players[ctr].numOfTerritories() + ":" + mapObj.getNumTerritories() + "HIHIHI");
+        	//System.out.println("HIHIHI " + players[ctr].numOfTerritories() + ":" + mapObj.getNumTerritories() + "HIHIHI");
             if (players[ctr].numOfTerritories() >= mapObj.getNumTerritories()) {
                 gamePhaseStr = "Phase: None\nPlayer " + Integer.toString(ctr) + " \nwins the game";
                 System.out.println("Player " + Integer.toString(ctr) + " wins the game.");
