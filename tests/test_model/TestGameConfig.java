@@ -68,12 +68,13 @@ public class TestGameConfig {
 	 */
 	@Test
 	public void randomTerritoryAssignment() {
+		/*
 		String path = String.format("Resources//Maps//%s.map", "World");
 		objConfig.setNumPlayers(2);
 		Maps mapObj = new Maps(path, 0);
 		objConfig.setMapObj(mapObj);
 		objConfig.getMapObj().readMap();
-		
+		*/
 		Player tmpPlayers[] = new Player[2];
 		Integer playerTerr[] = new Integer[2];
 		playerTerr[0] = 0;
@@ -89,6 +90,8 @@ public class TestGameConfig {
 		Map<String, Territory> dictTerr = objMap.getDictTerritory();
 		for (String territory : dictTerr.keySet())
 		{
+			System.out.println(dictTerr.get(territory).getName());
+			System.out.println(dictTerr.get(territory).getOwner());
 			Integer owner = dictTerr.get(territory).getOwner();
 			playerTerr[owner] = playerTerr[owner] + 1;
 		}

@@ -312,13 +312,15 @@ public class GameConfig extends Observable implements Serializable{
 
             if (perPlayerDistFlag == 0) {
                 nextOwnerPlayer++;
-                if (nextOwnerPlayer == numPlayers) {
+                if (nextOwnerPlayer >= numPlayers) {
                     nextOwnerPlayer = 0;
                 }
                 (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
+                players[nextOwnerPlayer].setTerritories((mapObj.getDictTerritory()).get(territory));
             } else {
                 if (players[nextOwnerPlayer].numOfTerritories() < perPlayer) {
                     (mapObj.getDictTerritory()).get(territory).setOwner(nextOwnerPlayer);
+                    players[nextOwnerPlayer].setTerritories((mapObj.getDictTerritory()).get(territory));
                 }
             }
         }

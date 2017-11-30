@@ -215,6 +215,7 @@ public class Maps implements Serializable{
         try {
             while ((line = mapData.readLine()) != null) {
             	line = line.toLowerCase();
+            	line = line.replaceAll("\\s",""); 
                 if ((line.equalsIgnoreCase("[MAP]"))) {
                     if (continentsProperty == 1) {
                         continentsProperty = 2;
