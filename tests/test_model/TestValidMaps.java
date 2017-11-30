@@ -37,9 +37,7 @@ public class TestValidMaps {
 				"A4,120,180,a,A1,A3,A5,B3\r\n" + 
 				"A5,150,240,a,A3,A4";
 		contStrA = contStrA.toLowerCase();
-		
 		String[] terrA = contStrA.split("\\n");
-
 		ArrayList<Territory> contA_terr = new ArrayList<Territory>();
 
 		for (int i = 0; i < terrA.length; i++) {
