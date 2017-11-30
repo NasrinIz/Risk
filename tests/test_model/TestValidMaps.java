@@ -17,6 +17,11 @@ import src.model.GameConfig;
 import src.model.Maps;
 import src.model.Territory;
 
+/**
+ * This class contains test cases for maps class
+ * @author vaibh
+ *
+ */
 public class TestValidMaps {
 
 	private static Map<String, Continent> dictContinents;
@@ -24,6 +29,10 @@ public class TestValidMaps {
 	private static GameConfig gameConfig;
 	private Maps objMap = null;
 
+	/**
+	 * Overridden method runs once before all test cases
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		gameConfig = new GameConfig(3,"testing_maps//valid_1", null);
@@ -69,15 +78,27 @@ public class TestValidMaps {
 		
 	}
 
+	/**
+	 * Overridden method runs after all test cases
+	 * @throws Exception
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		gameConfig = null;
 	}
 
+	/**
+	 * Overridden method runs before each test case
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Overridden method runs after each test case
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -93,7 +114,6 @@ public class TestValidMaps {
 		assertEquals(gameConfig.getMapObj().getDictTerritory().keySet(), dictTerritory.keySet());
 		assertEquals(gameConfig.getMapObj().getNumContinents(), new Integer(2));
 		assertEquals(gameConfig.getMapObj().getNumTerritories(), new Integer(8));
-		assertEquals(gameConfig.getMapObj().getMapAuthor(), "samer ayoub");
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("a").getTerritories().size(), 5);
 		assertEquals(gameConfig.getMapObj().getDictContinents().get("b").getTerritories().size(), 3);
 	}

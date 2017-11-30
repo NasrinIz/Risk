@@ -9,7 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import src.model.MapEditor;
 
-
+/**
+ * This class contains test cases for map editor
+ * @author vaibh
+ *
+ */
 public class TestMapEditor {
 	private MapEditor mapEditor = null;
 	private String newContinentOne = "ZM,3";
@@ -24,21 +28,36 @@ public class TestMapEditor {
 	private String deleteCountryName = "F1";
 	private String deleteContinentName = "YM";
 	
+	/**
+	 * Overridden method runs once before all test cases
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		// do nothing
 	}
 
+	/**
+	 * Overridden method runs at the end of all test cases.
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		// do nothing
 	}
 
+	/**
+	 * Overridden method runs once before each test case.
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		mapEditor = null;
 	}
 
+	/**
+	 * Overridden method runs at end of each test case
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 		// do nothing

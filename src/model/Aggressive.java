@@ -70,42 +70,6 @@ public class Aggressive implements Strategy, Serializable {
      */
     @Override
     public int getTerritoryForFortification(Maps map, ArrayList<Territory> playerTerritories, Player objPlayer) {
-        /*
-        int max = 0;
-    	Territory temp = null;
-    	for(int ctr = 0; ctr < playerTerritories.size(); ctr++) {
-    		if(playerTerritories.get(ctr).getArmies() > max) {
-    			max = playerTerritories.get(ctr).getArmies();
-    			temp = playerTerritories.get(ctr);
-    		}
-    	}
-    	
-    	Territory nextCountry = null;
-    	
-    	ArrayList<String> adjacent = temp.getAdjacentCountries();
-    	for(int ctr = 0; ctr < adjacent.size(); ctr++) {
-    		Territory adja = map.getDictTerritory().get(adjacent.get(ctr));
-    		if(adja.getOwner() == objPlayer.id) {
-    			ArrayList<String> adjacent2 = adja.getAdjacentCountries();
-    			for(int ctr2 = 0; ctr2 < adjacent2.size(); ctr2++) {
-    				Territory adja2 = map.getDictTerritory().get(adjacent2.get(ctr2));
-    				if(adja2.getOwner() != objPlayer.id) {
-    					nextCountry = adja;
-    					break;
-    				}
-    			}
-    		}
-    	}
-    	
-    	int num = temp.getArmies();
-    	for(int ctr2 = 0; ctr2 < num; ctr2++) {
-    		if(nextCountry != null)
-    		{
-	    		nextCountry.increaseArmies();
-	    		temp.decreaseArmies();
-    		}
-    	}
-    	*/
         return 0;
     }
 

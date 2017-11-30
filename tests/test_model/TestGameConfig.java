@@ -17,24 +17,44 @@ import src.model.Maps;
 import src.model.Player;
 import src.model.Territory;
 
-
+/**
+ * This class contains test cases for GameConfig Class.
+ * @author vaibh
+ *
+ */
 public class TestGameConfig {
 
 	private GameConfig objConfig;
 	
+	/**
+	 * Over-ridden method for initial setup ran once before all test cases
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
+	/**
+	 * Overridden method for tear down after all test cases ends.
+	 * @throws Exception
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	/**
+	 * Overridden method to be ran for each test case
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 		objConfig = new GameConfig(2, "world", null);
 	}
 
+	/**
+	 * Overridden method runs after each test case.
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 	}
@@ -68,13 +88,6 @@ public class TestGameConfig {
 	 */
 	@Test
 	public void randomTerritoryAssignment() {
-		/*
-		String path = String.format("Resources//Maps//%s.map", "World");
-		objConfig.setNumPlayers(2);
-		Maps mapObj = new Maps(path, 0);
-		objConfig.setMapObj(mapObj);
-		objConfig.getMapObj().readMap();
-		*/
 		Player tmpPlayers[] = new Player[2];
 		Integer playerTerr[] = new Integer[2];
 		playerTerr[0] = 0;

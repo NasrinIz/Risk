@@ -10,20 +10,41 @@ import org.junit.Test;
 
 import src.model.Territory;
 
+/**
+ * This class contains test cases for territory class
+ * @author vaibh
+ *
+ */
 public class TestTerritory {
 
+	/**
+	 * Overridden method runs once for all test cases
+	 * @throws Exception
+	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
 
+	/**
+	 * Overridden method runs after all test cases
+	 * @throws Exception
+	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
+	/**
+	 * Overridden method runs before each test case
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception {
 	}
 
+	/**
+	 * Overridden method runs after end of each test case
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 	}
