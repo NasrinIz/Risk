@@ -1,0 +1,7 @@
+
+[Continents]
+A = 200
+
+[Territories]
+b,20,20,A,a
+a,20,20,A,b
