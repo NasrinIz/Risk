@@ -3,7 +3,7 @@ package src.model;
 import java.util.ArrayList;
 
 /**
- * Created by nasrinizadivahedi on 2017-11-21.
+ * Strategy class to implement different strategies
  */
 public interface Strategy {
     public int getTerritoryForReinforcement(ArrayList<Territory> playerTerritories, Player objPlayer);
