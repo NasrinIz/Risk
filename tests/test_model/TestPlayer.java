@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import src.model.Card;
 import src.model.GameConfig;
+import src.model.Human;
 import src.model.Maps;
 import src.model.Player;
 import src.model.Territory;
@@ -35,10 +36,11 @@ public class TestPlayer {
 	@Before
 	public void setUp() throws Exception {
 		/* Assuming player owns 12 territories */
-		objPlayer = new Player("HOKA", 0, null, null, "human");
+		objPlayer = new Player("HOKA", 0, null, null, new Human());
 		for(int i = 0; i < 12; i++)
 		{
-			objPlayer.increaseNumTerritories();
+			Territory tmp = new Territory("asd");
+			objPlayer.setTerritories(tmp);
 		}
 		
 		/* Assuming player owns a continents with reward value of 10*/
@@ -89,7 +91,7 @@ public class TestPlayer {
 		
 		Player player = objConfig.getPlayers()[0];
 		destTerr.setOwner(0);
-		player.fortifyArmy(mapObj, srcTerr.getName(), destTerr.getName());
+		player.fortifyArmy(mapObj, srcTerr.getName(), destTerr.getName(), 5);
 		assertTrue(destTerr.getArmies() == 2);
 	}
 

@@ -31,11 +31,12 @@ public class TestValidMaps {
 		dictContinents = new HashMap<String, Continent>(2, 2);
 		dictTerritory = new HashMap<String, Territory>(2, 2);
 
-		String contStrA = "A1,120,120,A,A2,A4,B3\r\n" + 
-				"A2,180,120,A,A1,A3,B1\r\n" + 
-				"A3,180,180,A,A2,A4,A5,B2\r\n" + 
-				"A4,120,180,A,A1,A3,A5,B3\r\n" + 
-				"A5,150,240,A,A3,A4";
+		String contStrA = "a1,120,120,A,A2,A4,B3\r\n" + 
+				"A2,180,120,a,A1,A3,B1\r\n" + 
+				"A3,180,180,a,A2,A4,A5,B2\r\n" + 
+				"A4,120,180,a,A1,A3,A5,B3\r\n" + 
+				"A5,150,240,a,A3,A4";
+		contStrA = contStrA.toLowerCase();
 		
 		String[] terrA = contStrA.split("\\n");
 
@@ -50,6 +51,8 @@ public class TestValidMaps {
 		String contStrB = "B1,300,120,B,A2,B2,B3\r\n" + 
 				"B2,300,180,B,A3,B1,B3\r\n" + 
 				"B3,360,150,B,B1,B2,A1,A4";
+		contStrB = contStrB.toLowerCase();
+		
 		String[] terrB = contStrB.split("\\n");
 
 		ArrayList<Territory> contB_terr = new ArrayList<Territory>();
@@ -60,8 +63,8 @@ public class TestValidMaps {
 			dictTerritory.put(newTer.getName(), newTer);
 		}
 		
-		Continent contA = new Continent("A", 5);
-		Continent contB = new Continent("B", 3);
+		Continent contA = new Continent("a", 5);
+		Continent contB = new Continent("b", 3);
 
 		dictContinents.put(contA.getName(), contA);
 		dictContinents.put(contB.getName(), contB);
@@ -92,9 +95,9 @@ public class TestValidMaps {
 		assertEquals(gameConfig.getMapObj().getDictTerritory().keySet(), dictTerritory.keySet());
 		assertEquals(gameConfig.getMapObj().getNumContinents(), new Integer(2));
 		assertEquals(gameConfig.getMapObj().getNumTerritories(), new Integer(8));
-		assertEquals(gameConfig.getMapObj().getMapAuthor(), "Samer Ayoub");
-		assertEquals(gameConfig.getMapObj().getDictContinents().get("A").getTerritories().size(), 5);
-		assertEquals(gameConfig.getMapObj().getDictContinents().get("B").getTerritories().size(), 3);
+		assertEquals(gameConfig.getMapObj().getMapAuthor(), "samer ayoub");
+		assertEquals(gameConfig.getMapObj().getDictContinents().get("a").getTerritories().size(), 5);
+		assertEquals(gameConfig.getMapObj().getDictContinents().get("b").getTerritories().size(), 3);
 	}
 
     /**
@@ -113,7 +116,7 @@ public class TestValidMaps {
 		String path = String.format("Resources//Maps//%s.map", "vj_test_Disconnected");
 		objMap = new Maps(path, 0);
 		objMap.readMap();
-		assertEquals(objMap.validateMap(), "The map is not a connected graph");
+		assertEquals(objMap.validateMap(), "Continent Connection Error");
 	}
 
     /**
@@ -125,6 +128,6 @@ public class TestValidMaps {
 		objMap = new Maps(path, 0);
 		objMap.readMap();
 		String rt = objMap.validateMap();
-		assertEquals(rt, "\nAll continents are not connected in themselves");
+		assertEquals(rt, "Continent Connection Error");
 	}
 }

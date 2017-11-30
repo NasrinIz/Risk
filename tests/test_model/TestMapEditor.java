@@ -63,6 +63,6 @@ public class TestMapEditor {
 		mapEditor.delCountry("C1");
 		mapEditor.deleteContinent(deleteContinentName);
 		
-		assertTrue("The map is not a connected graph".equals(mapEditor.mapObj.validateMap()));
+		assertTrue("Continent Connection Error".equals(mapEditor.mapObj.validateMap()));
 	}
 }

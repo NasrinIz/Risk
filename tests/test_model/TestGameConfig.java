@@ -80,7 +80,7 @@ public class TestGameConfig {
 		playerTerr[1] = 0;
 		for(int i = 0; i < 2; i++)
 		{
-			tmpPlayers[i] = new Player("ho", i, null, null, "human");
+			tmpPlayers[i] = new Player("ho", i, null, null, null);
 		}
 		
 		objConfig.callInitTerritory();
